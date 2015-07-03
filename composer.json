@@ -1,6 +1,6 @@
 {
 	"name": "gcsystem/framework",
-	"description": "GCsystem Framework.",
+	"description": "GCsystem Framework",
 	"keywords": ["framework", "gcsystem"],
 	"license": "MIT",
 	"type": "project",
