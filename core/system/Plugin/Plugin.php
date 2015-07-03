@@ -10,21 +10,16 @@
 
 	namespace System\Plugin;
 
-	use System\General\error;
-
 	class Plugin {
-		use error;
 
 		/**
 		 * Constructor
 		 * @access public
-		 * @param $db \system\Pdo\Pdo
 		 * @since 3.0
 		 * @package System\Plugin
 		*/
 
-		public function __construct($db){
-
+		public function __construct(){
 		}
 
 		/**

@@ -62,7 +62,7 @@
 		 * @var string
 		*/
 
-		protected $_join = '';
+		protected $_join = Builder::JOIN_INNER;
 
 		/**
 		 * @var integer
@@ -111,7 +111,7 @@
 					break;
 
 					case 'join' :
-						$this->_join = Builder::JOIN_INNER;
+						$this->_join = $data;
 					break;
 				}
 			}
@@ -211,6 +211,38 @@
 				$this->_belong = $belong;
 			else
 				return $this->_belong;
+		}
+
+		/**
+		 * join
+		 * @access public
+		 * @param $join string
+		 * @return mixed integer
+		 * @since 3.0
+		 * @package System\Orm\Entity
+		*/
+
+		public function join($join = '') {
+			if($join != '')
+				$this->_join = $join;
+			else
+				return $this->_join;
+		}
+
+		/**
+		 * value
+		 * @access public
+		 * @param $value string
+		 * @return string
+		 * @since 3.0
+		 * @package System\Orm\Entity
+		 */
+
+		public function value($value = '') {
+			if($value != '')
+				$this->_value = $value;
+			else
+				return $this->_value;
 		}
 
 		/**

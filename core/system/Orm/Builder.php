@@ -580,7 +580,7 @@
 					$field  = $value->foreign->field();
 					$referenceEntity = $value->foreign->referenceEntity();
 					$referenceField  = $value->foreign->referenceField();
-					$this->join(self::JOIN_LEFT, $referenceEntity, $entity.'.'.$field.' = '.$referenceEntity.'.'.$referenceField);
+					$this->join($value->foreign->join(), $referenceEntity, $entity.'.'.$field.' = '.$referenceEntity.'.'.$referenceField);
 				}
 				else if($value->foreign != null && in_array($value->foreign->type(), array(ForeignKey::MANY_TO_MANY))){
 					//We add here two join (relation table and table linked)
@@ -595,8 +595,8 @@
 					sort($table, SORT_STRING);
 					$table = ucfirst($table[0].$table[1]);
 
-					$this->join(self::JOIN_LEFT, $table, $table.'.'.$this->_entity->name().'_'.$currentField.' = '.$this->_entity->name().'.'.$currentField);
-					$this->join(self::JOIN_LEFT, $value->foreign->referenceEntity(), $table.'.'.$referenceEntity.'_'.$referenceField.' = '.$referenceEntity.'.'.$referenceField);
+					$this->join($value->foreign->join(), $table, $table.'.'.$this->_entity->name().'_'.$currentField.' = '.$this->_entity->name().'.'.$currentField);
+					$this->join($value->foreign->join(), $value->foreign->referenceEntity(), $table.'.'.$referenceEntity.'_'.$referenceField.' = '.$referenceEntity.'.'.$referenceField);
 				}
 			}
 		}
