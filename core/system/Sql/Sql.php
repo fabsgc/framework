@@ -329,7 +329,6 @@
 					}
 				}
 				catch (\PDOException $e) {
-					var_dump($query->debugQuery());
 					throw new MissingSqlException($e->getMessage().' / '.$e->getCode());
 				}
 			}

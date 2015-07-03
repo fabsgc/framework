@@ -32,19 +32,19 @@
 		 * @var \System\Controller\Controller
 		*/
 
-		protected $_controller         ;
+		protected $_controller;
 
 		/**
 		 * @var \System\Router\Route
 		*/
 
-		protected $_route      =  false;
+		protected $_route = false;
 
 		/**
 		 * @var array
 		*/
 
-		protected $_db         =   null;
+		protected $_db = null;
 
 		/**
 		 * constructor
@@ -223,6 +223,8 @@
 		protected function _controller(){
 			if($this->_setControllerFile($this->request->src, $this->request->controller) == true){
 				$className = "\\".$this->request->src."\\".ucfirst($this->request->controller);
+
+				/** @var \System\Controller\Controller $class */
 				$class = new $className();
 
 				if(SECURITY == false || ($this->request->logged == '*' && $this->request->access == '*') || $class->setFirewall() == true){

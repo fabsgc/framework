@@ -141,6 +141,8 @@
 			$this->_parseDefine();
 			/* ## LIBRARY ## */
 			$this->_parseLibrary();
+			/* ## TEMPLATE EXTEND ## */
+			$this->_parseTemplate();
 
 			/* ############## SRC ############## */
 			$xml = simplexml_load_file(APP_CONFIG_SRC);
@@ -346,6 +348,30 @@
 			}
 			else{
 				throw new MissingConfigException('can\'t open file "'.APP_CONFIG_SPAM.'"');
+			}
+		}
+
+		/**
+		 * parse template extend file
+		 * @access protected
+		 * @return void
+		 * @since 3.0
+		 * @throws \System\Exception\MissingConfigException if template config file doesn't exist
+		 * @package System\Config
+		 */
+
+		protected function _parseTemplate(){
+			if(!isset($this->config['template-extend'])){
+				$this->config['template-extend'] = array();
+			}
+
+			if($xml = simplexml_load_file(APP_CONFIG_TEMPLATE)){
+				$values =  $xml->xpath('//extend');
+
+				/** @var $value \SimpleXMLElement */
+				foreach ($values as $value) {
+					array_push($this->config['template-extend'], array($value['class']->__toString(), $value['method']->__toString()));
+				}
 			}
 		}
 

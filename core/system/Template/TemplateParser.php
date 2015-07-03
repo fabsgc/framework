@@ -23,37 +23,49 @@
 		 * @var \System\Template\Template
 		*/
 
-		protected $_template         ;
+		protected $_template;
 
 		/**
 		 * @var string
 		*/
 
-		protected $_content          ;
+		protected $_content;
 
 		/**
 		 * @var string
 		*/
 
-		protected $_space     = '\s*';
+		protected $_space = '\s*';
 
 		/**
 		 * @var string
 		*/
 
-		protected $_spaceR    = '\s+';
+		protected $_spaceR = '\s+';
 
 		/**
 		 * @var string
 		*/
 
-		protected $_name      = 'gc:';
+		protected $_name = 'gc:';
 
 		/**
 		 * @var integer
 		*/
 
-		protected $_includeI  =     0;
+		protected $_includeI = 0;
+
+		/**
+		 * @var \System\Template\Template
+		*/
+
+		protected $_parent = 0;
+
+		/**
+		 * @var string[]
+		*/
+
+		protected $_sections = array();
 
 		/**
 		 * list of template language markup elements
@@ -71,7 +83,9 @@
 			'template'     => array('template', 'name', 'vars'),                     // template (class)
 			'call'         => array('call', 'block', 'template'),                    // call block or template
 			'assetManager' => array('asset', 'type', 'files', 'cache'),              // css/js manger
-			'minify'   	   => array('minify')                                        // minify part of code
+			'minify'   	   => array('minify'),                                       // minify part of code
+			'extends'  	   => array('extends', 'file', 'cache', 'child'),            // add a parent
+			'section'  	   => array('section', 'yield', 'name')                      // you can make sections in your template
 		);
 
 		/**
@@ -119,6 +133,11 @@
 			$this->_parseCall();
 			$this->_parseMinify();
 			$this->_parseDebugEnd();
+			$this->_parseExtends();
+
+			if($this->_parent != null)
+				$this->_parseExtendsMain();
+
 			return $this->_content;
 		}
 
@@ -194,6 +213,10 @@
 			foreach(Template::$_extends as $extend){
 				$this->_content = $extend[0]::$extend[1]($this->_content);
 			}
+
+			foreach(self::Config()->config['template-extend'] as $extend){
+				$this->_content = $extend[0]::$extend[1]($this->_content);
+			}
 		}
 
 		/**
@@ -233,7 +256,7 @@
 					if(isset($m[4])) //precised time cache
 						$t = self::Template($m[1], 'tplInclude_'.$this->_template->getName().'_'.$m[4].'_'.self::Request()->lang.'_'.$this->_includeI.'_', $m[4]);
 					else
-						$t = self::Template($m[1], 'tplInclude_'.$this->_template->getName().'_'.self::Request()->lang.'_'.$this->_includeI.'_', '0');
+						$t = self::Template($m[1], 'tplInclude_'.$this->_template->getName().'_'.self::Request()->lang.'_'.$this->_includeI.'_', 0);
 
 					$t->assign($this->_template->vars);
 					$t->show(Template::TPL_COMPILE_TO_INCLUDE, Template::TPL_COMPILE_INCLUDE);
@@ -244,7 +267,7 @@
 					$this->_includeI++;
 				}
 				else{
-					$this->addError('Template '.$file.' can\'t be included', __FILE__, __LINE__, ERROR_FATAL);
+					$this->addError('Template "'.$file.'" can\'t be included', __FILE__, __LINE__, ERROR_FATAL);
 				}
 			}
 
@@ -282,7 +305,63 @@
 		}
 
 		/**
-		 * parse gravatar {{gravatar:email:size}}
+		 * parse extends :
+		 * 		<gc:include file="" cache="" />
+		 * @access protected
+		 * @return void
+		 * @since 3.0
+		 * @package System\Template
+		*/
+
+		protected function _parseExtends(){
+			$this->_content = preg_replace_callback(
+				'`<'.$this->_name.preg_quote($this->markup['extends'][0]).$this->_spaceR.preg_quote($this->markup['extends'][1]).$this->_space.'='.$this->_space.'"([\.A-Za-z0-9_\-\$/]+)"'.$this->_space.'(('.preg_quote($this->markup['extends'][2]).$this->_space.'='.$this->_space.'"([0-9]*)"'.$this->_space.')*)'.$this->_space.'/>`isU',
+				array('System\Template\templateParser','_parseExtendsCallback'), $this->_content);
+		}
+
+		/**
+		 * parse extends callback
+		 * @access protected
+		 * @param $m
+		 * @return void
+		 * @since 3.0
+		 * @package System\Template
+		*/
+
+		protected function _parseExtendsCallback($m){
+			$file = $this->resolve(RESOLVE_TEMPLATE, $m[1]).EXT_TEMPLATE;
+
+			if($this->_template->getFile() != $file){
+				if(file_exists($file)){
+					if(isset($m[4])) //precised time cache
+						$this->_parent = self::Template($m[1], 'tplExtends_'.$this->_template->getName().'_'.$m[4].'_'.self::Request()->lang, $m[4]);
+					else
+						$this->_parent = self::Template($m[1], 'tplExtends_'.$this->_template->getName().'_'.self::Request()->lang, 0);
+
+					$this->_parent->assign($this->_template->vars);
+				}
+				else{
+					$this->addError('The template can\'t be extended by "'.$file.'"', __FILE__, __LINE__, ERROR_FATAL);
+				}
+			}
+		}
+
+		/**
+		 * if there is a parent template, we parse it
+		 * @access protected
+		 * @param $m
+		 * @return void
+		 * @since 3.0
+		 * @package System\Template
+		 */
+
+		protected function _parseExtendsMain(){
+			$content = $this->_parent->show();
+			$this->_content = preg_replace('`<'.$this->_name.preg_quote($this->markup['extends'][3]).$this->_space.'/>`isU', $this->_content, $content);
+		}
+
+		/**
+		 * parse path (img)
 		 * @access protected
 		 * @return void
 		 * @since 3.0
