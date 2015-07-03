@@ -14,6 +14,11 @@
 	require_once(CLASS_GENERAL);
 
 	class Autoload{
+
+		/**
+		 * Autoloading for classes
+		 * @param $class string
+		*/
 		public static function load($class){
 			$class = preg_replace('#'.preg_quote('\\').'#isU', '/', $class);
 
@@ -29,6 +34,21 @@
 			
 			if(file_exists(APP_RESOURCE_PATH.lcfirst(str_replace('Orm/', '', $class)).EXT_ENTITY.'.php')){
 				include_once(APP_RESOURCE_PATH.lcfirst(str_replace('Orm/', '', $class)).EXT_ENTITY.'.php');
+				return;
+			}
+
+			if(file_exists(SRC_PATH.$class.EXT_CONTROLLER.'.php')){
+				include_once(SRC_PATH.$class.EXT_CONTROLLER.'.php');
+				return;
+			}
+
+			if(file_exists(SRC_PATH.preg_replace('#(.*)\/(.*)#isU', '$1/'.SRC_CONTROLLER_PATH.'$2', $class).EXT_CONTROLLER.'.php')){
+				include_once(SRC_PATH.preg_replace('#(.*)\/(.*)#isU', '$1/'.SRC_CONTROLLER_PATH.'$2', $class).EXT_CONTROLLER.'.php');
+				return;
+			}
+
+			if(file_exists(SRC_PATH.preg_replace('#(.*)\/(.*)#isU', '$1/'.SRC_MODEL_PATH.'$2', $class).EXT_MODEL.'.php')){
+				include_once(SRC_PATH.preg_replace('#(.*)\/(.*)#isU', '$1/'.SRC_MODEL_PATH.'$2', $class).EXT_MODEL.'.php');
 				return;
 			}
 

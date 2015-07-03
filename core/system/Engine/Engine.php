@@ -223,7 +223,6 @@
 		protected function _controller(){
 			if($this->_setControllerFile($this->request->src, $this->request->controller) == true){
 				$className = "\\".$this->request->src."\\".ucfirst($this->request->controller);
-
 				/** @var \System\Controller\Controller $class */
 				$class = new $className();
 
