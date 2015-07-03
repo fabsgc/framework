@@ -77,7 +77,7 @@
 							case 'mysql':
 								try{
 									self::$sql = new Pdo('mysql:host='.$db['hostname'].';dbname='.$db['database'], $db['username'], $db['password'], $options);
-									//self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+									self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 									self::$sql->exec('SET NAMES '.strtoupper($db['charset']));
 								}
 								catch (\PDOException $e){

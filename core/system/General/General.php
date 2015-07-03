@@ -20,6 +20,7 @@
 		 * @access public
 		 * @param $type string : type of the config
 		 * @param $data string : ".gcs.lang" ".gcs/template/" "template"
+		 * @throws MissingLangException
 		 * @return mixed
 		 * @since 3.0
 		 * @package system
@@ -28,6 +29,7 @@
 		protected function resolve($type, $data){
 			$request = self::Request();
 			$config  = self::Config();
+
 
 			if($type == RESOLVE_ROUTE || $type == RESOLVE_LANG){
 				if(preg_match('#^((\.)([a-zA-Z0-9_-]+)(\.)(.+))#', $data, $matches)){
@@ -54,6 +56,15 @@
 					}
 				}
 
+				if($src == 'vendor'){
+					return VENDOR_PATH.$data;
+				}
+				else{
+					if(!isset($config->config[$type][$src])){
+						throw new MissingLangException('The section "'.$type.'"/".$src." does not exist in configuration');
+					}
+				}
+
 				return $config->config[$type][$src].$data;
 			}
 		}
@@ -72,6 +83,7 @@
 
 		protected function path($type, $data = '', $php = false){
 			if($php == true){
+
 				return $this->resolve($type, $data);
 			}
 			else{

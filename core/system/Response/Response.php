@@ -11,12 +11,13 @@
 	namespace System\Response;
 
 	use System\General\error;
+	use System\General\facades;
 	use System\General\langs;
 	use System\General\singleton;
 	use System\Template\Template;
 
 	class Response{
-		use error, langs, singleton;
+		use error, langs, singleton, facades;
 
 		/**
 		 * Array of http errors
@@ -194,22 +195,19 @@
 		/**
 		 * execute all the headers
 		 * @access public
-		 * @param &$profiler \System\Profiler\Profiler
-		 * @param &$config \System\Config\Config
-		 * @param &$request \System\Request\Request
 		 * @return string
 		 * @since 3.0
 		 * @package System\Response
 		*/
 
-		public function run(&$profiler, &$config, &$request){
+		public function run(){
 			header('Content-Type: '.$this->_contentType);
 			
 			if($this->_status != 200)
 				http_response_code($this->_status);
 
 			if(array_key_exists($this->_status, $this->_statusErrorPage)){
-				$tpl = new template($profiler, $config, $request, $this, $this->lang, $this->_statusErrorPage[$this->_status][1], $this->_status, '0', $this->lang);
+				$tpl = self::Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0', $this->lang);
 
 				$tpl->assign(array(
 					'code' => $this->_status,

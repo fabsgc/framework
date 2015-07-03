@@ -10,6 +10,8 @@
 
 	namespace System\Orm\Entity;
 
+	use System\Orm\Builder;
+
 	class ForeignKey {
 
 		const ONE_TO_ONE   = 0;
@@ -24,14 +26,14 @@
 		 * @var string
 		*/
 
-		protected  $_entity = '';
+		protected $_entity = '';
 
 		/**
 		 * the field in current table
 		 * @var string
 		*/
 
-		protected  $_field = '';
+		protected $_field = '';
 
 		/**
 		 * the reference table, because sometimes, the field which has the relation
@@ -39,13 +41,28 @@
 		 * @var string
 		 */
 
-		protected  $_referenceEntity = '';
+		protected $_referenceEntity = '';
 
 		/**
 		 * @var string
 		*/
 
-		protected  $_referenceField = '';
+		protected $_referenceField = '';
+
+		/**
+		 * If you use scaffolding, you can show the
+		 * value of a field from the referenced table
+		 * @var string
+		*/
+
+		protected $_value = '';
+
+		/**
+		 * You can choose the type of Join used
+		 * @var string
+		*/
+
+		protected $_join = '';
 
 		/**
 		 * @var integer
@@ -63,20 +80,41 @@
 		/**
 		 * Constructor
 		 * @access public
-		 * @param $type integer
-		 * @param $current string[]
-		 * @param $reference string[]
-		 * @param $belong integer
+		 * @param $datas array
 		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
-		public function __construct($type, $current, $reference = array(), $belong = self::AGGREGATION) {
-			$this->_type   =       $type;
-			$this->_entity = $current[0];
-			$this->_field  = $current[1];
-			$this->_referenceEntity = $reference[0];
-			$this->_referenceField  = $reference[1];
+		public function __construct($datas = array()) {
+			foreach($datas as $key => $data){
+				switch($key){
+					case 'type' :
+						$this->_type = $data;
+					break;
+
+					case 'belong' :
+						$this->_belong = $data;
+					break;
+
+					case 'current' :
+						$this->_entity = $data[0];
+						$this->_field  = $data[1];
+					break;
+
+					case 'reference' :
+						$this->_referenceEntity = $data[0];
+						$this->_referenceField  = $data[1];
+					break;
+
+					case 'value' :
+						$this->_value = $data;
+					break;
+
+					case 'join' :
+						$this->_join = Builder::JOIN_INNER;
+					break;
+				}
+			}
 		}
 
 		/**

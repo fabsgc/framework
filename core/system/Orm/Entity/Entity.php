@@ -322,12 +322,14 @@
 		*/
 
 		public function insert() {
-			self::Database()->db()->beginTransaction();
-
 			$sql = self::Sql();
 			$queryFields = '';
 			$queryValues = '';
 			$manyToMany  = null;
+			$transaction = self::Database()->db()->inTransaction();
+
+			if(!$transaction)
+				self::Database()->db()->beginTransaction();
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
 			$fieldsInsertOneToMany = array();
@@ -338,6 +340,8 @@
 			$fieldsInsertManyToMany = array();
 			/** @var $fieldsUpdateOneToMany \System\Orm\Entity\Entity[] */
 			$fieldsUpdateManyToMany = array();
+
+
 
 			/** @var $field \System\Orm\Entity\Field */
 			foreach($this->_fields as $field){
@@ -558,26 +562,27 @@
 				$referencedEntity = new $class();
 
 				$sql = self::Sql();
-				$sql->query('delete-many', 'DELETE FROM '.$table.' WHERE '.$this->name().'_'.$manyToMany->foreign->referenceField().' = '.$this->_fields[$this->_primary]);
-				$sql->fetch('delete-many');
+				$sql->query('orm-delete-many', 'DELETE FROM '.$table.' WHERE '.$this->name().'_'.$manyToMany->foreign->referenceField().' = '.$this->_fields[$this->_primary]);
+				$sql->fetch('orm-delete-many');
 
 				/** @var $fields \System\Orm\Entity\Entity */
 				foreach($fieldsInsertManyToMany as $fields){
 					$fields->set($manyToMany->foreign->field(), $this);
 					$fields->insert();
 
-					$sql->query('insert-many', 'INSERT INTO '.$table.'('.$this->name().'_'.$manyToMany->foreign->referenceField().', '.$referencedEntity->name().'_'.$manyToMany->foreign->field().') VALUES (\''.$this->_fields[$this->_primary].'\', \''.$fields->get($manyToMany->foreign->field()).'\')');
-					$sql->fetch('insert-many');
+					$sql->query('orm-insert-many', 'INSERT INTO '.$table.'('.$this->name().'_'.$manyToMany->foreign->referenceField().', '.$referencedEntity->name().'_'.$manyToMany->foreign->field().') VALUES (\''.$this->_fields[$this->_primary].'\', \''.$fields->get($manyToMany->foreign->field()).'\')');
+					$sql->fetch('orm-insert-many');
 				}
 
 				/** @var $fields \System\Orm\Entity\Entity */
 				foreach($fieldsUpdateManyToMany as $fields){
-					$sql->query('update-many', 'INSERT INTO '.$table.'('.$this->name().'_'.$manyToMany->foreign->referenceField().', '.$referencedEntity->name().'_'.$manyToMany->foreign->field().') VALUES (\''.$this->_fields[$this->_primary].'\', \''.$fields->get($manyToMany->foreign->field()).'\')');
-					$sql->fetch('udpate-many');
+					$sql->query('orm-update-many', 'INSERT INTO '.$table.'('.$this->name().'_'.$manyToMany->foreign->referenceField().', '.$referencedEntity->name().'_'.$manyToMany->foreign->field().') VALUES (\''.$this->_fields[$this->_primary].'\', \''.$fields->get($manyToMany->foreign->field()).'\')');
+					$sql->fetch('orm-udpate-many');
 				}
 			}
 
-			self::Database()->db()->commit();
+			if(!$transaction)
+				self::Database()->db()->commit();
 		}
 
 		/**
@@ -590,8 +595,6 @@
 		*/
 
 		public function update() {
-			self::Database()->db()->beginTransaction();
-
 			if($this->get($this->primary()) == null){
 				throw new MissingEntityException('The primary key of the entity "'.get_class($this).'" is null, you can\'t update it');
 			}
@@ -599,6 +602,10 @@
 			$sql = self::Sql();
 			$queryFields = '';
 			$manyToMany  = null;
+			$transaction = self::Database()->db()->inTransaction();
+
+			if(!$transaction)
+				self::Database()->db()->beginTransaction();
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
 			$fieldsInsertOneToMany = array();
@@ -821,26 +828,27 @@
 				$referencedEntity = new $class();
 
 				$sql = self::Sql();
-				$sql->query('delete-many', 'DELETE FROM '.$table.' WHERE '.$this->name().'_'.$manyToMany->foreign->referenceField().' = '.$this->_fields[$this->_primary]);
-				$sql->fetch('delete-many');
+				$sql->query('orm-delete-many', 'DELETE FROM '.$table.' WHERE '.$this->name().'_'.$manyToMany->foreign->referenceField().' = '.$this->_fields[$this->_primary]);
+				$sql->fetch('orm-delete-many');
 
 				/** @var $fields \System\Orm\Entity\Entity */
 				foreach($fieldsInsertManyToMany as $fields){
 					$fields->set($manyToMany->foreign->field(), $this);
 					$fields->insert();
 
-					$sql->query('insert-many', 'INSERT INTO '.$table.'('.$this->name().'_'.$manyToMany->foreign->referenceField().', '.$referencedEntity->name().'_'.$manyToMany->foreign->field().') VALUES (\''.$this->_fields[$this->_primary].'\', \''.$fields->get($manyToMany->foreign->field()).'\')');
-					$sql->fetch('insert-many');
+					$sql->query('orm-insert-many', 'INSERT INTO '.$table.'('.$this->name().'_'.$manyToMany->foreign->referenceField().', '.$referencedEntity->name().'_'.$manyToMany->foreign->field().') VALUES (\''.$this->_fields[$this->_primary].'\', \''.$fields->get($manyToMany->foreign->field()).'\')');
+					$sql->fetch('orm-insert-many');
 				}
 
 				/** @var $fields \System\Orm\Entity\Entity */
 				foreach($fieldsUpdateManyToMany as $fields){
-					$sql->query('update-many', 'INSERT INTO '.$table.'('.$this->name().'_'.$manyToMany->foreign->referenceField().', '.$referencedEntity->name().'_'.$manyToMany->foreign->field().') VALUES (\''.$this->_fields[$this->_primary].'\', \''.$fields->get($manyToMany->foreign->field()).'\')');
-					$sql->fetch('udpate-many');
+					$sql->query('orm-update-many', 'INSERT INTO '.$table.'('.$this->name().'_'.$manyToMany->foreign->referenceField().', '.$referencedEntity->name().'_'.$manyToMany->foreign->field().') VALUES (\''.$this->_fields[$this->_primary].'\', \''.$fields->get($manyToMany->foreign->field()).'\')');
+					$sql->fetch('orm-udpate-many');
 				}
 			}
 
-			self::Database()->db()->commit();
+			if(!$transaction)
+				self::Database()->db()->commit();
 		}
 
 		/**
@@ -853,9 +861,11 @@
 		*/
 
 		public function delete() {
-			self::Database()->db()->beginTransaction();
-
 			$sql = self::Sql();
+			$transaction = self::Database()->db()->inTransaction();
+
+			if(!$transaction)
+				self::Database()->db()->beginTransaction();
 
 			foreach($this->_fields as $field){
 				if($field->primary == false){
@@ -933,8 +943,8 @@
 										$table = ucfirst($table[0].$table[1]);
 
 										$sql = self::Sql();
-										$sql->query('delete-many', 'DELETE FROM '.$table.' WHERE '.$this->name().'_'.$field->foreign->referenceField().' = '.$this->_fields[$this->_primary]);
-										$sql->fetch('delete-many');
+										$sql->query('orm-delete-many', 'DELETE FROM '.$table.' WHERE '.$this->name().'_'.$field->foreign->referenceField().' = '.$this->_fields[$this->_primary]);
+										$sql->fetch('orm-delete-many');
 
 										/** @var $entity \System\Orm\Entity\Entity */
 										foreach($field->value as $entity){
@@ -964,7 +974,8 @@
 			$sql->query('delete_'.$this->_name.'_'.$this->_token, $query);
 			$sql->fetch('delete_'.$this->_name.'_'.$this->_token, Sql::PARAM_FETCHDELETE);
 
-			self::Database()->db()->commit();
+			if(!$transaction)
+				self::Database()->db()->commit();
 		}
 
 

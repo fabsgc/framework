@@ -375,11 +375,17 @@
 				if(count($data) == 1){
 					switch($fieldUnique){
 						case true :
-							$field .= '				->foreign(ForeignKey::ONE_TO_ONE, [\''.ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'\', \''.$data[0]['REFERENCED_COLUMN_NAME'].'\'])'."\n";
+							$field .= '				->foreign(['."\n";
+							$field .= '					\'type\' => ForeignKey::ONE_TO_ONE,'."\n";
+							$field .= '					\'reference\' => [\''.ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'\', \''.$data[0]['REFERENCED_COLUMN_NAME'].'\''."\n";
+							$field .= '				])'."\n";
 						break;
 
 						case false :
-							$field .= '				->foreign(ForeignKey::MANY_TO_ONE, [\''.ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'\', \''.$data[0]['REFERENCED_COLUMN_NAME'].'\'])'."\n";
+							$field .= '				->foreign(['."\n";
+							$field .= '					\'type\' => ForeignKey::MANY_TO_ONE,'."\n";
+							$field .= '					\'reference\' => [\''.ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'\', \''.$data[0]['REFERENCED_COLUMN_NAME'].'\''."\n";
+							$field .= '				])'."\n";
 						break;
 					}
 				}

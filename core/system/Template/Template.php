@@ -120,7 +120,6 @@
 
 		public function __construct ($file = '', $name = 'template', $cache = 0, $stream = self::TPL_FILE){
 			$this->_createlang();
-
 			$this->_file = $this->resolve(RESOLVE_TEMPLATE, $file).EXT_TEMPLATE;
 			$this->_name      = $name;
 			$this->_timeCache = $cache;

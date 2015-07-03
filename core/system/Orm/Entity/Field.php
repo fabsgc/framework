@@ -10,6 +10,9 @@
 
 	namespace System\Orm\Entity;
 
+	use System\Exception\MissingEntityException;
+	use System\Orm\Builder;
+
 	class Field {
 
 		const INCREMENT  =  0;
@@ -170,21 +173,39 @@
 		/**
 		 * Set foreigns key
 		 * @access public
-		 * @param $type string
-		 * @param $reference string[]
-		 * @param $current string[]
+		 * @param $datas array
+		 * @throws MissingEntityException
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		*/
 
-		public function foreign($type, $reference, $current = array()){
-			if(count($current) == 0){
-				$this->foreign = new ForeignKey($type, array($this->entity, $this->name), $reference);
+		public function foreign($datas = array()){
+			if(!array_key_exists('type', $datas)){
+				throw new MissingEntityException('The parameter "type" is missing for the foreign key');
 			}
-			else{
-				$this->foreign = new ForeignKey($type, $current, $reference);
+
+			if(!array_key_exists('reference', $datas)){
+				throw new MissingEntityException('The parameter "reference" is missing for the foreign key');
 			}
+
+			if(!array_key_exists('belong', $datas)){
+				$datas['belong'] = ForeignKey::AGGREGATION;
+			}
+
+			if(!array_key_exists('current', $datas)){
+				$datas['current'] = array($this->entity, $this->name);
+			}
+
+			if(!array_key_exists('value', $datas)){
+				$datas['value'] = '';
+			}
+
+			if(!array_key_exists('join', $datas)){
+				$datas['join'] = Builder::JOIN_INNER;
+			}
+
+			$this->foreign = new ForeignKey($datas);
 
 			return $this;
 		}
