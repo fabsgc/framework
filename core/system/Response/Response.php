@@ -14,7 +14,6 @@
 	use System\General\facades;
 	use System\General\langs;
 	use System\General\singleton;
-	use System\Template\Template;
 
 	class Response{
 		use error, langs, singleton, facades;
@@ -113,10 +112,9 @@
 		 * @package System\Response
 		*/
 
-		private function __construct ($lang = LANG){
+		private function __construct (){
 			$this->_status = http_response_code();
 			$this->_contentType = 'text/html; charset='.CHARSET;
-			$this->lang = $lang;
 		}
 
 		/**
@@ -126,9 +124,9 @@
 		 * @package System\Request
 		*/
 
-		public static function getInstance($lang = LANG){
+		public static function getInstance(){
 			if (is_null(self::$_instance))
-				self::$_instance = new Response($lang);
+				self::$_instance = new Response();
 
 			return self::$_instance;
 		}
@@ -207,7 +205,7 @@
 				http_response_code($this->_status);
 
 			if(array_key_exists($this->_status, $this->_statusErrorPage)){
-				$tpl = self::Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0', $this->lang);
+				$tpl = self::Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0', self::Request()->lang);
 
 				$tpl->assign(array(
 					'code' => $this->_status,

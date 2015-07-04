@@ -1,52 +1,38 @@
 <?php
 	/*\
 	 | ------------------------------------------------------
-	 | @file : Request.php
+	 | @file : Data.php
 	 | @author : fab@c++
-	 | @description : contain data and informations from http request and engine
+	 | @description : contain data from headers
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Request;
 
-	use System\General\error;
-	use System\General\singleton;
 	use System\Exception\AttributeNotAllowedException;
+	use System\General\singleton;
 
 	/**
-	 * @property string name
-	 * @property string controller
-	 * @property string src
-	 * @property string action
-	 * @property string cache
-	 * @property string logged
-	 * @property string access
 	 * @property string method
-	 * @property string lang
-	 * @property \System\Request\Auth auth
-	 * @property \System\Request\Data data
-	*/
-	class Request{
-		use error, singleton;
+	 * @property array get
+	 * @property array post
+	 * @property array put
+	 */
+	class Data{
+		use singleton;
 
-		/** 
+		/**
 		 * parameters of each action
 		 * @var array
 		*/
-			
+
 		public $param = array(
-			'name'       =>   '',
-			'src'        =>   '',
-			'controller' =>   '',
-			'action'     =>   '',
-			'cache'      =>    0,
-			'logged'     =>  '*',
-			'access'     =>  '*',
-			'method'     =>  '*',
-			'lang'       => LANG,
-			'auth'       =>   '',
-			'data'       => null
+			'method'  => '',
+			'get'     => [],
+			'post'    => [],
+			'cookie'  => [],
+			'session' => []
 		);
 
 		/**
@@ -57,7 +43,6 @@
 		*/
 
 		private function __construct (){
-			$this->param['data'] = Data::getInstance();
 		}
 
 		/**
@@ -69,7 +54,7 @@
 
 		public static function getInstance(){
 			if (is_null(self::$_instance))
-				self::$_instance = new Request();
+				self::$_instance = new Data();
 
 			return self::$_instance;
 		}

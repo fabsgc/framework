@@ -296,7 +296,7 @@
 		}
 
 		/**
-		 * @return mixed
+		 * @return string
 		 * @since 3.0
 		 * @package System\Router
 		*/

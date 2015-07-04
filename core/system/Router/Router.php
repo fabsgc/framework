@@ -10,10 +10,10 @@
 
 	namespace System\Router;
 
-	use System\General\error;
+	use System\General\facades;
 
 	class Router{
-		use error;
+		use facades;
 
 		/**
 		 * contain all the routes
@@ -52,7 +52,7 @@
 			$routeRight = null;
 
 			foreach ($this->routes as $route){
-				if (($varsValues = $route->match($url2)) != false && ($route->method() == '*' || $route->method() == strtoupper($_SERVER['REQUEST_METHOD']))){
+				if (($varsValues = $route->match($url2)) != false && ($route->method() == '*' || in_array(self::Request()->data->method, explode(',', $route->method())) || $route->method() == self::Request()->data->method)){
 					$routeRight = $route;
 					// if she has vars
 					if ($route->hasVars()){

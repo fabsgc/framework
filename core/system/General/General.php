@@ -10,6 +10,7 @@
 
 	namespace System\General;
 
+	use System\Exception\MissingConfigException;
 	use System\Lang\Lang;
 
 	trait resolve{
@@ -20,7 +21,7 @@
 		 * @access public
 		 * @param $type string : type of the config
 		 * @param $data string : ".gcs.lang" ".gcs/template/" "template"
-		 * @throws MissingLangException
+		 * @throws MissingConfigException
 		 * @return mixed
 		 * @since 3.0
 		 * @package system
@@ -61,7 +62,7 @@
 				}
 				else{
 					if(!isset($config->config[$type][$src])){
-						throw new MissingLangException('The section "'.$type.'"/".$src." does not exist in configuration');
+						throw new MissingConfigException('The section "'.$type.'"/".$src." does not exist in configuration');
 					}
 				}
 
@@ -104,7 +105,10 @@
 	 * @method \System\Library\Library Library
 	 * @method \System\Database\Database Database
 	 * @method \System\Collection\Collection Collection
-	 * @method \System\Controller\Injector Injector
+	 * @method \System\Form\Validation\Validation FormValidation
+	 * @method \System\Controller\Injector\Injector Injector
+	 * @method \System\Controller\Injector\Form FormInjector
+	 * @method \System\Controller\Injector\Orm OrmInjector
 	 * @method \System\Security\Firewall Firewall
 	 * @method \System\Template\Template Template
 	 * @method \System\Terminal\Terminal Terminal
@@ -113,6 +117,7 @@
 	 * @method \System\Template\TemplateParser TemplateParser
 	 * @method \System\Config\Config Config
 	 * @method \System\Request\Request Request
+	 * @method \System\Request\Data RequestData
 	 * @method \System\Response\Response Response
 	 * @method \System\Profiler\Profiler Profiler
 	 */
