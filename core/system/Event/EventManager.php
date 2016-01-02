@@ -3,7 +3,7 @@
 	 | ------------------------------------------------------
 	 | @file : EventManager.php
 	 | @author : fab@c++
-	 | @description : class permettant l'utilisation du design pattern observer
+	 | @description : class which use pattern design Observer
 	 | @version : 2.4 bêta
 	 | ------------------------------------------------------
 	\*/
@@ -20,13 +20,13 @@
 		 * @var \System\Event\Event[]
 		*/
 
-		protected $_listeners = array();
+		protected $_listeners = [];
 
 		/**
 		 * @var \System\Event\Event[]
 		*/
 
-		protected $_events = array();
+		protected $_events = [];
 
 		/**
 		 * @var \System\Controller\Controller
@@ -40,7 +40,7 @@
 		/**
 		 * constructor
 		 * @access public
-		 * @param &$parent \System\Controller\Controller
+		 * @param $parent mixed
 		 * @since 3.0
 		 * @package System\Event
 		*/
@@ -118,7 +118,7 @@
 		*/
 
 		public function getResult($name = '') {
-			$result = array();
+			$result = [];
 
 			if($name != ''){
 				if(isset($this->_events[$name])){

@@ -24,13 +24,13 @@
 		 * @var array
 		*/
 
-		protected $_configFirewall = array();
+		protected $_configFirewall = [];
 
 		/**
 		 * @var array
 		*/
 
-		protected $_csrf = array();
+		protected $_csrf = [];
 
 		/**
 		 * @var boolean

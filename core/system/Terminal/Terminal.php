@@ -23,7 +23,7 @@
 		 * @var array
 		*/
 
-		protected $_argv = array();
+		protected $_argv = [];
 
 		/**
 		 * init terminal
@@ -63,7 +63,7 @@
 							$data .= $argv[$i].' ';
 
 							if(preg_match('#\]#', $argv[$i])){
-								$data = str_replace(array('[', ']'), array('', ''), $data);
+								$data = str_replace(array('[', ']'), ['', ''], $data);
 								array_push($this->_argv, trim($data));
 								break;
 							}
@@ -114,25 +114,27 @@
 		 * @access public
 		 * @param $dir string : path
 		 * @param $removeDir : remove subdirectories too
+		 * @param $except : files you don't want to delete
 		 * @return void
 		 * @since 3.0
 		 * @package System\Terminal
 		*/
 
-		public static function rrmdir($dir, $removeDir = false) {
+		public static function rrmdir($dir, $removeDir = false, $except = []) {
 			if (is_dir($dir)) {
 				$objects = scandir($dir);
 					foreach ($objects as $object) {
 						if ($object != "." && $object != "..") {
 							if (filetype($dir."/".$object) == "dir"){
-								Terminal::rrmdir($dir."/".$object, $removeDir);
+								Terminal::rrmdir($dir."/".$object, $removeDir, $except);
 
 								if($removeDir == true){
 									rmdir($dir."/".$object.'/');
 								}
 							}
 							else{
-								unlink ($dir."/".$object);
+								if(!in_array($object, $except))
+									unlink ($dir."/".$object);
 							}
 						}
 					}

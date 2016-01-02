@@ -77,14 +77,14 @@
 		 * @var integer[]
 		*/
 
-		public $precision = array();
+		public $precision = [];
 
 		/**
 		 * if the field is INT,FLOAT etc.
 		 * @var string[]
 		*/
 
-		public $enum = array();
+		public $enum = [];
 
 		/**
 		 * the field can be null ?
@@ -94,7 +94,7 @@
 		public $beNull = true;
 
 		/**
-		 * @var mixed string, \System\Orm\Entity\Field, \System\Orm\Entity\Field[] \System\Orm\Entity\Type
+		 * @var mixed string|\System\Orm\Entity\Field|\System\Orm\Entity\Field[]|\System\Orm\Entity\Type
 		*/
 
 		public $value = null;
@@ -180,7 +180,7 @@
 		 * @package System\Orm\Entity
 		*/
 
-		public function foreign($datas = array()){
+		public function foreign($datas = []){
 			if(!array_key_exists('type', $datas)){
 				throw new MissingEntityException('The parameter "type" is missing for the foreign key');
 			}
@@ -194,7 +194,7 @@
 			}
 
 			if(!array_key_exists('current', $datas)){
-				$datas['current'] = array($this->entity, $this->name);
+				$datas['current'] = [$this->entity, $this->name];
 			}
 
 			if(!array_key_exists('value', $datas)){
@@ -247,7 +247,7 @@
 		 * @package System\Orm\Entity
 		*/
 
-		public function enum($enum = array()){
+		public function enum($enum = []){
 			$this->enum = $enum;
 			return $this;
 		}

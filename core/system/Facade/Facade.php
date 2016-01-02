@@ -19,33 +19,34 @@
 		 * @var array
 		*/
 
-		private static $_alias = array(
-			'Sql'            =>                                            '\System\Sql\Sql',
-			'Spam'           =>                                      '\System\Security\Spam',
-			'Cron'           =>                                          '\System\Cron\Cron',
-			'Cache'          =>                                        '\System\Cache\Cache',
-			'Define'         =>                                      '\System\Define\Define',
-			'Helper'         =>                                '\System\Facade\FacadeHelper',
-			'Entity'         =>                                '\System\Facade\FacadeEntity',
-			'Library'        =>                                    '\System\Library\Library',
-			'Firewall'       =>                                  '\System\Security\Firewall',
-			'Template'       =>                                  '\System\Template\Template',
-			'Terminal'       =>                                  '\System\Terminal\Terminal',
-			'AssetManager'   =>                          '\System\AssetManager\AssetManager',
-			'EntityMultiple' =>                                '\System\Orm\Entity\Multiple',
-			'TemplateParser' =>                            '\System\Template\TemplateParser',
-			'FormValidation' =>                         '\System\Form\Validation\Validation',
-			'Lang'           =>                    array('\System\Lang\Lang', 'getInstance'),
-			'Config'         =>                array('\System\Config\Config', 'getInstance'),
-			'Request'        =>              array('\System\Request\Request', 'getInstance'),
-			'Database'       =>            array('\System\Database\Database', 'getInstance'),
-			'Response'       =>            array('\System\Response\Response', 'getInstance'),
-			'Profiler'       =>            array('\System\Profiler\Profiler', 'getInstance'),
-			'RequestData'    =>                 array('\System\Request\Data', 'getInstance'),
-			'FormInjector'   =>     array('\System\Controller\Injector\Form', 'getInstance'),
-			'OrmInjector'    =>      array('\System\Controller\Injector\Orm', 'getInstance'),
-			'Injector'       => array('\System\Controller\Injector\Injector', 'getInstance')
-		);
+		private static $_alias = [
+			'Sql'            =>                                       '\System\Sql\Sql',
+			'Spam'           =>                                 '\System\Security\Spam',
+			'Cron'           =>                                     '\System\Cron\Cron',
+			'Cache'          =>                                   '\System\Cache\Cache',
+			'Define'         =>                                 '\System\Define\Define',
+			'Helper'         =>                           '\System\Facade\FacadeHelper',
+			'Entity'         =>                           '\System\Facade\FacadeEntity',
+			'Library'        =>                               '\System\Library\Library',
+			'Firewall'       =>                             '\System\Security\Firewall',
+			'Template'       =>                             '\System\Template\Template',
+			'Terminal'       =>                             '\System\Terminal\Terminal',
+			'AssetManager'   =>                     '\System\AssetManager\AssetManager',
+			'OrmValidation'  =>                     '\System\Orm\Validation\Validation',
+			'EntityMultiple' =>                           '\System\Orm\Entity\Multiple',
+			'TemplateParser' =>                       '\System\Template\TemplateParser',
+			'FormValidation' =>                    '\System\Form\Validation\Validation',
+			'Lang'           =>                    ['\System\Lang\Lang', 'getInstance'],
+			'Config'         =>                ['\System\Config\Config', 'getInstance'],
+			'Request'        =>              ['\System\Request\Request', 'getInstance'],
+			'Database'       =>            ['\System\Database\Database', 'getInstance'],
+			'Response'       =>            ['\System\Response\Response', 'getInstance'],
+			'Profiler'       =>            ['\System\Profiler\Profiler', 'getInstance'],
+			'RequestData'    =>                 ['\System\Request\Data', 'getInstance'],
+			'FormInjector'   =>     ['\System\Controller\Injector\Form', 'getInstance'],
+			'OrmInjector'    =>      ['\System\Controller\Injector\Orm', 'getInstance'],
+			'Injector'       => ['\System\Controller\Injector\Injector', 'getInstance']
+		];
 
 		/**
 		 * load a system or helper class. This static method use ReflectionClass to instantiate the class with alias $name

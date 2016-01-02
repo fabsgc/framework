@@ -3,14 +3,13 @@
 	 | ------------------------------------------------------
 	 | @file : FacadeEntity.php
 	 | @author : fab@c++
-	 | @description : easier way to instanciate entities
+	 | @description : easier way to instantiate entities
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
 	
 	namespace System\Facade;
 
-	use System\Database\Database;
 	use System\General\error;
 	use System\General\langs;
 	use System\General\facades;
@@ -46,7 +45,7 @@
 
 				$class = '\Orm\Entity\\'.$name;
 
-				$params = array();
+				$params = [];
 
 				foreach ($arguments as $value) {
 					array_push($params, $value);

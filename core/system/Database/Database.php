@@ -23,7 +23,7 @@
 		 * @var \System\Pdo\Pdo
 		*/
 
-		protected static $sql;
+		protected $db;
 
 		/**
 		 * constructor
@@ -40,11 +40,13 @@
 		/**
 		 * singleton
 		 * @access public
+		 * @param $db []
+		 * @return \System\Database\Database
 		 * @since 3.0
 		 * @package System\Request
 		*/
 
-		public static function getInstance($db = array()){
+		public static function getInstance($db = []){
 			if (is_null(self::$_instance)){;
 				if(DATABASE == true)
 					self::$_instance = new Database($db[0]);
@@ -58,27 +60,27 @@
 		/**
 		 * create the database connection
 		 * @access public
-		 * @param $db array
+		 * @param $db []
 		 * @throws MissingDatabaseException
 		 * @return mixed
 		 * @since 3.0
 		 * @package System\Database
 		*/
 
-		protected function connect($db){
+		protected function connect($db = []){
 			if(DATABASE == true){
 				switch ($db['driver']){
 					case 'pdo' :
 						$options = [
-							Pdo::ATTR_STATEMENT_CLASS => array('\System\Pdo\PdoStatement', array())
+							Pdo::ATTR_STATEMENT_CLASS => ['\System\Pdo\PdoStatement', []]
 						];
 
 						switch ($db['type']){
 							case 'mysql':
 								try{
-									self::$sql = new Pdo('mysql:host='.$db['hostname'].';dbname='.$db['database'], $db['username'], $db['password'], $options);
-									self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									self::$sql->exec('SET NAMES '.strtoupper($db['charset']));
+									$this->db = new Pdo('mysql:host='.$db['hostname'].';dbname='.$db['database'], $db['username'], $db['password'], $options);
+									//self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+									$this->db->exec('SET NAMES '.strtoupper($db['charset']));
 								}
 								catch (\PDOException $e){
 									throw new MissingDatabaseException($e->getMessage().' / '.$e->getCode());
@@ -87,9 +89,9 @@
 
 							case 'pgsql':
 								try{
-									self::$sql = new Pdo('mysql:host='.$db['hostname'].';dbname='.$db['database'], $db['username'], $db['password'], $options);
-									self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									self::$sql->exec('SET NAMES '.strtoupper($db['charset']));
+									$this->db = new Pdo('mysql:host='.$db['hostname'].';dbname='.$db['database'], $db['username'], $db['password'], $options);
+									//self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+									$this->db->exec('SET NAMES '.strtoupper($db['charset']));
 								}
 								catch (\PDOException $e){
 									throw new MissingDatabaseException($e->getMessage().' / '.$e->getCode());
@@ -107,7 +109,7 @@
 					break;
 				}
 
-				return self::$sql;
+				return $this->db;
 			}
 			else{
 				return null;
@@ -115,6 +117,6 @@
 		}
 
 		public function db(){
-			return self::$sql;
+			return $this->db;
 		}
 	}

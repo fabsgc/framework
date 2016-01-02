@@ -20,7 +20,7 @@
 		 * @var \System\Router\Route[]
 		*/
 
-		protected $routes = array();
+		protected $routes = [];
 
 		/**
 		 * add route to the instance
@@ -57,7 +57,7 @@
 					// if she has vars
 					if ($route->hasVars()){
 						$varsNames = $route->varsNames();
-						$listVars = array();
+						$listVars = [];
 
 						//key : name of the var, value = value
 						foreach ($varsValues as $key => $match){

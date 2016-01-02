@@ -23,20 +23,20 @@
 		 * @var array
 		*/
 
-		protected $_param = array(
+		protected $_param = [
 			'logged' => false,
 			'role' => ''
-		);
+		];
 
 		/**
 		 * path to logged and role
 		 * @var array
 		 */
 
-		public $_path = array(
+		public $_path = [
 			'logged' => '',
 			'role' => ''
-		);
+		];
 
 		/**
 		 * current module
@@ -187,7 +187,7 @@
 		 * @package System\Request
 		*/
 
-		protected function _getSession($array = array()){
+		protected function _getSession($array = []){
 			if(isset($_SESSION[''.$array[0].''])){
 				$to = $_SESSION[''.$array[0].''];
 				array_splice($array, 0, 1);
@@ -224,7 +224,7 @@
 
 			foreach ($array as $keys) {
 				if($i != count($array) - 1){
-					$exec = $data.'[\''.$keys.'\'] = array();';
+					$exec = $data.'[\''.$keys.'\'] = [];';
 					$data .= '[\''.$keys.'\']';
 				}
 				else{

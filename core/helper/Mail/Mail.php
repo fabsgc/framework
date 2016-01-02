@@ -17,26 +17,26 @@
 	class Mail extends Helper{
 		use facades;
 
-		protected $_sender        = array('mail', 'mail@mail.com'); //name and e-mail of the sender
-		protected $_reply         = array('mail', 'mail@mail.com'); //e-mail where you can reply
-		protected $_receiver      = array('mail@mail.com')        ; //receivers
-		protected $_message       = array()                       ; //message
-		protected $_attachment    = array()                       ; //attachments
-		protected $_priority      = '3'                           ; //priority
-		protected $_cc            = array()                       ; //carbon copy
-		protected $_bcc           = array()                       ; //carbon copy
-		protected $_reception     = array()                       ; //reception mail
-		protected $_formatHtml    = true                          ;
-		protected $_charset       = CHARSET                       ; //charset to use
-		protected $_hasAttachment = false                         ; //message has attachment ?
-		protected $_backline      = "\r\n"                        ; //backline
-		protected $_boundary                                      ;
-		protected $_boundaryAlt                                   ;
-		protected $_fileTransfert = 'multipart/alternative'       ; //content-type
+		protected $_sender        = ['mail', 'mail@mail.com']; //name and e-mail of the sender
+		protected $_reply         = ['mail', 'mail@mail.com']; //e-mail where you can reply
+		protected $_receiver      = ['mail@mail.com']        ; //receivers
+		protected $_message       = []                       ; //message
+		protected $_attachment    = []                       ; //attachments
+		protected $_priority      = '3'                      ; //priority
+		protected $_cc            = []                       ; //carbon copy
+		protected $_bcc           = []                       ; //carbon copy
+		protected $_reception     = []                       ; //reception mail
+		protected $_formatHtml    = true                     ;
+		protected $_charset       = CHARSET                  ; //charset to use
+		protected $_hasAttachment = false                    ; //message has attachment ?
+		protected $_backline      = "\r\n"                   ; //backline
+		protected $_boundary                                 ;
+		protected $_boundaryAlt                              ;
+		protected $_fileTransfert = 'multipart/alternative'  ; //content-type
 
-		const FORMAT_HTML         = true                          ;
-		const FORMAT_TEXT         = false                         ;
-		const ATTACHMENT          = 'attachment'                  ;
+		const FORMAT_HTML         = true                     ;
+		const FORMAT_TEXT         = false                    ;
+		const ATTACHMENT          = 'attachment'             ;
 	
 		/**
 		 * Initialization of the helper
@@ -46,7 +46,7 @@
 		 * @package Helper\Mail
 		*/
 
-		public function __construct($data = array()){
+		public function __construct($data = []){
 			parent::__construct();
 
 			foreach($data as $key => $value){
@@ -156,7 +156,7 @@
 		 * @package Helper\Mail
 		*/
 		
-		public function addTemplate($template, $vars = array()){
+		public function addTemplate($template, $vars = []){
 			$tpl = self::Template($template, 'template-mail', 0);
 				
 			foreach ($vars as $key => $var){
@@ -191,7 +191,7 @@
 				if(isset($this->_attachment[$name]))
 					$name = $name.uniqid();
 			
-				$this->_attachment[$name] = array(chunk_split(base64_encode($data)), $mime);
+				$this->_attachment[$name] = [chunk_split(base64_encode($data), $mime)];
 			}			
 		}
 

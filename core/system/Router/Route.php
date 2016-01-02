@@ -55,7 +55,7 @@
 		 * @var array
 		*/
 
-		protected $vars = array();
+		protected $vars = [];
 
 		/**
 		 * @var string
@@ -98,7 +98,7 @@
 		 * @package System\Router
 		*/
 
-		public function __construct($url, $controller, $action, $name, $cache, $varsNames = array(), $src, $logged, $access, $method){
+		public function __construct($url, $controller, $action, $name, $cache, $varsNames = [], $src, $logged, $access, $method){
 			$this->setUrl($url);
 			$this->setController($controller);
 			$this->setAction($action);

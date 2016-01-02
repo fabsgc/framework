@@ -49,7 +49,7 @@
 			$this->entity   =   $entity;
 			$this->helper   =   $helper;
 
-			$this->event = new eventManager($this);
+			$this->event = new EventManager($this);
 		}
 
 		/**

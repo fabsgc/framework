@@ -3,20 +3,27 @@
 	 | ------------------------------------------------------
 	 | @file : Validation.php
 	 | @author : fab@c++
-	 | @description : request validation
+	 | @description : entity validation
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
 
-	namespace System\Form\Validation;
+	namespace System\Orm\Validation;
 
-	use System\Form\Validation\Element\Checkbox;
-	use System\Form\Validation\Element\File;
-	use System\Form\Validation\Element\Radio;
-	use System\Form\Validation\Element\Select;
-	use System\Form\Validation\Element\Text;
+	use System\Orm\Validation\Element\Checkbox;
+	use System\Orm\Validation\Element\File;
+	use System\Orm\Validation\Element\Radio;
+	use System\Orm\Validation\Element\Select;
+	use System\Orm\Validation\Element\Text;
 
 	class Validation{
+
+		/**
+		 * entity name
+		 * @var $_entity \System\Orm\Entity\Entity
+		*/
+
+		protected $_entity;
 
 		/**
 		 * @var array
@@ -25,7 +32,7 @@
 		protected $_errors = [];
 
 		/**
-		 * @var  \System\Form\Validation\Element\Element[]
+		 * @var \System\Orm\Validation\Element\Element[]
 		*/
 
 		protected $_elements = [];
@@ -33,11 +40,13 @@
 		/**
 		 * constructor
 		 * @access public
+		 * @param $entity \System\Orm\Entity\Entity
 		 * @since 3.0
 		 * @package System\Form\Validation
 		*/
 
-		public function __construct (){
+		public function __construct ($entity){
+			$this->_entity = $entity;
 		}
 
 		/**
@@ -51,7 +60,7 @@
 		public function check(){
 			$this->_errors = [];
 
-			/** @var $element \System\Form\Validation\Element\Element */
+			/** @var $element \System\Orm\Validation\Element\Element */
 			foreach($this->_elements as $element){
 				$element->check();
 
@@ -66,7 +75,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Form\Validation
+		 * @package System\Orm\Validation
 		*/
 
 		public function valid(){
@@ -93,15 +102,15 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Form\Validation\Element\Text
+		 * @return \System\Orm\Validation\Element\Text
 		 * @since 3.0
 		 * @package System\Form\Validation
 		*/
 
 		public function text($field, $label){
-			$text = new Text($field, $label);
-			array_push($this->_elements, $text);
-			return $text;
+			$element = new Text($this->_entity, $field, $label);
+			array_push($this->_elements, $element);
+			return $element;
 		}
 
 		/**
@@ -112,10 +121,10 @@
 		 * @return \System\Form\Validation\Element\Checkbox
 		 * @since 3.0
 		 * @package System\Form\Validation
-		*/
+		 */
 
 		public function checkbox($field, $label){
-			$checkbox = new Checkbox($field, $label);
+			$checkbox = new Checkbox($this->_entity, $field, $label);
 			array_push($this->_elements, $checkbox);
 			return $checkbox;
 		}
@@ -131,7 +140,7 @@
 		*/
 
 		public function radio($field, $label){
-			$radio = new Radio($field, $label);
+			$radio = new Radio($this->_entity, $field, $label);
 			array_push($this->_elements, $radio);
 			return $radio;
 		}
@@ -147,7 +156,7 @@
 		*/
 
 		public function select($field, $label){
-			$select = new Select($field, $label);
+			$select = new Select($this->_entity, $field, $label);
 			array_push($this->_elements, $select);
 			return $select;
 		}
@@ -157,14 +166,13 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Form\Validation\Element\File
+		 * @return \System\Orm\Validation\Element\File
 		 * @since 3.0
 		 * @package System\Form\Validation
 		*/
 
 		public function file($field, $label){
-			/** @var \System\Form\Validation\Element\File $file */
-			$file = new File($field, $label);
+			$file = new File($this->_entity, $field, $label);
 			array_push($this->_elements, $file);
 			return $file;
 		}

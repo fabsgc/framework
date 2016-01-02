@@ -24,31 +24,31 @@
 		 * @var string[]
 		*/
 
-		protected $_ip         = array()    ;
+		protected $_ip = [];
 
 		/**
 		 * @var boolean
 		*/
 
-		protected $_xmlValid   = true       ;
+		protected $_xmlValid = true;
 
 		/**
 		 * @var string
 		*/
 
-		protected $_xmlContent = ''         ;
+		protected $_xmlContent = '';
 
 		/**
 		 * @var boolean
 		*/
 
-		protected $_exception  = false      ;
+		protected $_exception  = false;
 
 		/**
 		 * @var string
 		*/
 
-		protected $_ipClient   = '127.0.0.1';
+		protected $_ipClient = '127.0.0.1';
 
 		const USE_NOT_TPL    = 0;
 		const USE_TPL        = 1;
@@ -94,12 +94,12 @@
 		public function check(){
 			if($this->_exception == false && $this->_xmlValid == true){
 				if(isset($this->_ip['ip']) && $this->_ip['ip'] == $this->_ipClient){
-					if($this->_ip['time'] + $this->config->config['spam']['app']['query']['duration'] < time()){
+					if(intval($this->_ip['time']) + intval($this->config->config['spam']['app']['query']['duration']) < time()){
 						$this->_updateIp(time(), 1);
 						return true;
 					}
 					elseif($this->_ip['number'] < $this->config->config['spam']['app']['query']['number']){
-						$this->_updateIp($this->_ip['time'], $this->_ip['number']+1);
+						$this->_updateIp($this->_ip['time'], intval($this->_ip['number'])+1);
 						return true;
 					}
 					else{

@@ -12,12 +12,12 @@
 
 	class TerminalClear extends TerminalCommand{
 		public function log(){
-			Terminal::rrmdir(APP_LOG_PATH);
+			Terminal::rrmdir(APP_LOG_PATH, false, ['.gitignore']);
 			echo ' - log files were successfully deleted';
 		}
 
 		public function cache(){
-			Terminal::rrmdir(APP_CACHE_PATH);
+			Terminal::rrmdir(APP_CACHE_PATH, false, ['.gitignore']);
 			echo ' - cache files were successfully deleted';
 		}
 	}

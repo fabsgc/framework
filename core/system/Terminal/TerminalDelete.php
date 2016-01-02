@@ -54,7 +54,7 @@
 
 		public function controller(){
 			$src = '';
-			$controllers = array();
+			$controllers = [];
 
 			//choose the module name
 			while(1==1){

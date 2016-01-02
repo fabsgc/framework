@@ -10,24 +10,23 @@
 
 	namespace System\Collection;
 
-	use System\Exception\Exception;
-
 	class Collection implements \IteratorAggregate {
 
 		/**
 		 * @var array[]
 		*/
 
-		private $_datas = array();
+		private $_datas = [];
 
 		/**
 		 * Constructor
 		 * @access public
+		 * @param $data array
 		 * @since 3.0
 		 * @package System\Orm
 		*/
 
-		public function __construct($data = array()) {
+		public function __construct($data = []) {
 			$this->_datas = $data;
 		}
 
@@ -97,16 +96,75 @@
 			}
 
 			if(is_array($data)){
-				array_push($this->_datas, $data);
+				$this->_datas = array_merge($this->_datas, $data);
 			}
 			else{
 				if(get_class($data) != 'System\Collection\Collection'){
 					array_push($this->_datas, $data);
 				}
 				else{
-					array_push($this->_datas, $data);
+					array_merge($this->_datas, $data->data());
 				}
 			}
+		}
+
+		/**
+		 * Delete one element from the collection
+		 * @access public
+		 * @param $key mixed
+		 * @return void
+		 * @since 3.0
+		 * @package System\Collecion
+		*/
+
+		public function delete($key){
+			unset($this->_datas[$key]);
+			$this->_datas = array_values($this->_datas);
+		}
+
+		/**
+		 * Delete between 2 keys
+		 * @access public
+		 * @param $key int
+		 * @param $length int
+		 * @return void
+		 * @since 3.0
+		 * @package System\Collecion
+		*/
+
+		public function deleteRange($key, $length){
+			$badKeys = [];
+
+			for($i = $key; $i < $key + $length; $i++){
+				array_push($badKeys, $i);
+			}
+
+			$this->_datas = array_diff_key($this->_datas, array_flip($badKeys));
+			$this->_datas = array_values($this->_datas);
+		}
+
+		/**
+		 * Get between 2 keys
+		 * @access public
+		 * @param $key int
+		 * @param $length int
+		 * @return array
+		 * @since 3.0
+		 * @package System\Collecion
+		 */
+
+		public function getRange($key, $length){
+			$badKeys = [];
+
+			for($i = 0; $i < $key; $i++){
+				array_push($badKeys, $i);
+			}
+
+			for($i = $key + $length; $i < count($this->_datas); $i++){
+				array_push($badKeys, $i);
+			}
+
+			return array_diff_key($this->_datas, array_flip($badKeys));
 		}
 
 		/**

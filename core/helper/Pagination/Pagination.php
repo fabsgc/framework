@@ -30,14 +30,14 @@
 		protected $_paginationLastAfter   = true   ;
 		protected $_paginationTotalPage   = false  ;
 		
-		protected $_paginationList        = array();
-		protected $_paginationFirst       = array();
-		protected $_paginationLast        = array();
-		protected $_paginationBefore      = array();
-		protected $_paginationAfter       = array();
+		protected $_paginationList        = [];
+		protected $_paginationFirst       = [];
+		protected $_paginationLast        = [];
+		protected $_paginationBefore      = [];
+		protected $_paginationAfter       = [];
 		protected $_paginationCut         = false  ; //Permit to specify how many links you want on both side of the current link
 		
-		protected $_data                  = array();
+		protected $_data                  = [];
 	
 		/**
 		 * Initialization of the helper
@@ -254,13 +254,13 @@
 		 * get the data to be displayed from all data
 		 * @access public
 		 * @return array
-		 * @param $data : array() all des données
+		 * @param $data : array of data
 		 * @return array
 		 * @since 3.0
 		 * @package helper\Pagination
 		*/
 
-		public function getData($data = array()){
+		public function getData($data = []){
 			for($i = ((($this->_byPage * $this->_currentPage) - $this->_byPage)); $i<= (($this->_byPage * $this->_currentPage)-1);$i++){
 				if(isset($data[$i])){
 					array_push($this->_data, $data[$i]);

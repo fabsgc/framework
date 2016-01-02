@@ -25,7 +25,7 @@
 		 * @var array
 		*/
 
-		public $config = array();
+		public $config = [];
 
 		/** 
 		 * cache instance
@@ -42,16 +42,16 @@
 		 * @var array
 		*/
 
-		protected $_routeAttribute = array(
-			array('name' => 'name', 'separator' => '.', 'concatenate' => true),
-			array('name' => 'url', 'separator' => '', 'concatenate' => true),
-			array('name' => 'action', 'separator' => '.', 'concatenate' => true),
-			array('name' => 'vars', 'separator' => ',', 'concatenate' => true),
-			array('name' => 'cache', 'separator' => '', 'concatenate' => false),
-			array('name' => 'logged', 'separator' => '', 'concatenate' => false),
-			array('name' => 'access', 'separator' => '', 'concatenate' => false),
-			array('name' => 'method', 'separator' => '', 'concatenate' => false)
-		);
+		protected $_routeAttribute = [
+			['name' => 'name', 'separator' => '.', 'concatenate' => true],
+			['name' => 'url', 'separator' => '', 'concatenate' => true],
+			['name' => 'action', 'separator' => '.', 'concatenate' => true],
+			['name' => 'vars', 'separator' => ',', 'concatenate' => true],
+			['name' => 'cache', 'separator' => '', 'concatenate' => false],
+			['name' => 'logged', 'separator' => '', 'concatenate' => false],
+			['name' => 'access', 'separator' => '', 'concatenate' => false],
+			['name' => 'method', 'separator' => '', 'concatenate' => false]
+		];
 
 		/** 
 		 * permit to parse easily parents node for lang files.
@@ -106,7 +106,7 @@
 		/**
 		 * put config in array
 		 * @access protected
-		 * @throws exception
+		 * @throws Exception
 		 * @return void
 		 * @since 3.0
 		 * @package System\Config
@@ -232,6 +232,7 @@
 							$data[$attributeType] = '';
 					}
 
+					/** @var array $data */
 					$data = $this->_parseParent($value, $data, $this->_routeAttribute);
 
 					if(empty($data['logged']) || $data['logged'] == '')
@@ -271,7 +272,7 @@
 				$file = SRC_PATH.$src.'/'.SRC_RESOURCE_LANG_PATH.$lang.EXT_LANG;
 			}
 
-			$this->config['lang'][''.$src.''][''.$lang.''] = array();
+			$this->config['lang'][''.$src.''][''.$lang.''] = [];
 
 			if(file_exists($file)){
 				if($xml = simplexml_load_file($file)){
@@ -329,15 +330,15 @@
 					$this->config['spam']['app']['error']['template'] = $value['template']->__toString();
 				}
 
-				$this->config['spam']['app']['exception'] = array();
+				$this->config['spam']['app']['exception'] = [];
 
 				foreach ($exception as $value) {
 					array_push($this->config['spam']['app']['exception'], $value['name']->__toString());
 				}
 
 				foreach ($errorVariable as $value) {
-					$data = array();
-					$this->config['spam']['app']['error']['variable'] = array();
+					$data = [];
+					$this->config['spam']['app']['error']['variable'] = [];
 
 					$data['type'] = $value['type']->__toString();
 					$data['name'] = $value['name']->__toString();
@@ -362,7 +363,7 @@
 
 		protected function _parseTemplate(){
 			if(!isset($this->config['template-extend'])){
-				$this->config['template-extend'] = array();
+				$this->config['template-extend'] = [];
 			}
 
 			if($xml = simplexml_load_file(APP_CONFIG_TEMPLATE)){
@@ -370,7 +371,7 @@
 
 				/** @var $value \SimpleXMLElement */
 				foreach ($values as $value) {
-					array_push($this->config['template-extend'], array($value['class']->__toString(), $value['method']->__toString()));
+					array_push($this->config['template-extend'], [$value['class']->__toString(), $value['method']->__toString()]);
 				}
 			}
 		}
@@ -400,9 +401,9 @@
 					$csrfVariable =  $xml->xpath('//csrf/variable');
 					$logged =  $xml->xpath('//logged');
 
-					$this->config['firewall'][''.$src.'']['roles'] = array();
-					$this->config['firewall'][''.$src.'']['forbidden']['variable'] = array();
-					$this->config['firewall'][''.$src.'']['csrf']['variable'] = array();
+					$this->config['firewall'][''.$src.'']['roles'] = [];
+					$this->config['firewall'][''.$src.'']['forbidden']['variable'] = [];
+					$this->config['firewall'][''.$src.'']['csrf']['variable'] = [];
 
 					foreach ($roles as $value) {
 						$this->config['firewall'][''.$src.'']['roles']['name'] = $value['name']->__toString();
@@ -433,7 +434,7 @@
 					}
 
 					foreach ($forbiddenVariable as $value) {
-						$data = array();
+						$data = [];
 
 						$data['type'] = $value['type']->__toString();
 						$data['name'] = $value['name']->__toString();
@@ -443,7 +444,7 @@
 					}
 
 					foreach ($csrfVariable as $value) {
-						$data = array();
+						$data = [];
 
 						$data['type'] = $value['type']->__toString();
 						$data['name'] = $value['name']->__toString();
@@ -524,7 +525,7 @@
 				$file = SRC_PATH.$src.'/'.SRC_CONFIG_DEFINE;
 			}
 
-			$this->config['define'][''.$src.''] = array();
+			$this->config['define'][''.$src.''] = [];
 
 			if(file_exists($file)){
 				if($xml = simplexml_load_file($file)){
@@ -562,14 +563,14 @@
 				$file = SRC_PATH.$src.'/'.SRC_CONFIG_LIBRARY;
 			}
 
-			$this->config['library'][''.$src.''] = array();
+			$this->config['library'][''.$src.''] = [];
 
 			if(file_exists($file)){
 				if($xml = simplexml_load_file($file)){
 					$values =  $xml->xpath('//library');
 
 					foreach ($values as $value) {
-						$library = array();
+						$library = [];
 						$library['name'] = $value['name']->__toString();
 						$library['access'] = $value['access']->__toString();
 						$library['enabled'] = $value['enabled']->__toString();

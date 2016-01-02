@@ -11,6 +11,7 @@
 	namespace System\General;
 
 	use System\Exception\MissingConfigException;
+	use System\Orm\Entity\Multiple;
 	use System\Lang\Lang;
 
 	trait resolve{
@@ -41,7 +42,7 @@
 					$src = $request->src;
 				}
 
-				return array($config->config[$type][$src], $data);
+				return [$config->config[$type][$src], $data];
 			}
 			else{
 				if(preg_match('#^((\.)([^(\/)]+)([(\/)]*)(.*))#', $data, $matches)){
@@ -113,6 +114,7 @@
 	 * @method \System\Template\Template Template
 	 * @method \System\Terminal\Terminal Terminal
 	 * @method \System\AssetManager\AssetManager AssetManager
+	 * @method \System\Orm\Validation\Validation OrmValidation
 	 * @method \System\Orm\Entity\Multiple EntityMultiple
 	 * @method \System\Template\TemplateParser TemplateParser
 	 * @method \System\Config\Config Config
@@ -132,10 +134,10 @@
 		 * @package system
 		*/
 
-		public function __call($name, $arguments = array()){
+		public function __call($name, $arguments = []){
 			$trace = debug_backtrace(0);
 
-			$params = array();
+			$params = [];
 
 			foreach ($arguments as $value) {
 				array_push($params, $value);
@@ -231,20 +233,20 @@
 		 * @since 2.4
 		*/
 
-		final public function ormToEntity($data = array(), $entity = ''){
-			$entities = array();
+		final public function ormToEntity($data = [], $entity = ''){
+			$entities = [];
 
 			foreach($data as $value){
 				if($entity != ''){
 					$entityName = '\entity\\'.$entity;
-					$entityObject = new $entityName($this->db);
+					$entityObject = new $entityName(self::Database()->db);
 
 					foreach($value as $key => $value2){
 						$entityObject->$key = $value2;
 					}
 				}
 				else{
-					$entityObject = self::EntityMultiple($data);
+					$entityObject = new Multiple($data);
 				}
 
 				array_push($entities, $entityObject);
@@ -310,7 +312,7 @@
 		 * @since 3.0
 		 */
 
-		final public function useLang($lang, $vars = array(), $template = Lang::USE_NOT_TPL){
+		final public function useLang($lang, $vars = [], $template = Lang::USE_NOT_TPL){
 			return $this->langInstance->lang($lang, $vars, $template);
 		}
 
@@ -328,7 +330,7 @@
 
 	trait url{
 
-		private $_routeAttribute = array();
+		private $_routeAttribute = [];
 
 		/**
 		 * get an url
@@ -341,7 +343,7 @@
 		 * @since 3.0
 		*/
 
-		public function getUrl($name, $var = array(), $absolute = false){
+		public function getUrl($name, $var = [], $absolute = false){
 			$routes = $this->resolve(RESOLVE_ROUTE, $name);
 
 			if(isset($routes[0][''.$routes[1].''])){
@@ -372,10 +374,18 @@
 
 				$result = preg_replace('#\\\.#U', '.', $result);
 
-				if($absolute == false)
-					return FOLDER.$result;
-				else
-					return 'http://'.$_SERVER['HTTP_HOST'].FOLDER.$result;
+				if(FOLDER != ''){
+					if($absolute == false)
+						return '/'.substr(FOLDER, 0, strlen(FOLDER)-1).$result;
+					else
+						return 'http://'.$_SERVER['HTTP_HOST'].FOLDER.$result;
+				}
+				else{
+					if($absolute == false)
+						return $result;
+					else
+						return 'http://'.$_SERVER['HTTP_HOST'].$result;
+				}
 			}
 		}
 	}
@@ -383,7 +393,7 @@
 	trait singleton{
 		/**
 		 * singleton instance
-		 * @var array Response
+		 * @var object
 		*/
 
 		public static $_instance = null;

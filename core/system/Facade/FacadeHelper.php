@@ -23,11 +23,11 @@
 		 * @var array
 		*/
 
-		private $_alias = array(
-			'Pagination' => '\helper\Pagination\Pagination',
-			'Mail'       =>             '\helper\Mail\Mail',
-			'Alert'      =>            '\helper\Alert\Alert'
-		);
+		private $_alias = [
+			'Pagination' => '\Helper\Pagination\Pagination',
+			'Mail'       =>             '\Helper\Mail\Mail',
+			'Alert'      =>            '\Helper\Alert\Alert'
+		];
 
 		/**
 		 * Constructor
@@ -52,7 +52,7 @@
 
 		public function __call($name, $arguments){
 			if(array_key_exists($name, $this->_alias)){
-				$params = array();
+				$params = [];
 
 				for($i = 0;$i < count($arguments);$i++){
 					$params[$i+5] = $arguments[$i];

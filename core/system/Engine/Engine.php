@@ -165,14 +165,25 @@
 
 			$this->request->data->post   =                                 $_POST;
 			$this->request->data->get    =                                  $_GET;
+			$this->request->data->file   =                                $_FILES;
 			$this->request->data->method = strtolower($_SERVER['REQUEST_METHOD']);
 
-			if(isset($_POST['request-post']))
+			if(isset($_GET['request-get']) && $_SERVER['REQUEST_METHOD'] == 'get') {
+				$this->request->data->form = true;
+				$this->request->data->method = 'get';
+			}
+			else if(isset($_POST['request-post'])) {
+				$this->request->data->form = true;
 				$this->request->data->method = 'post';
-			else if(isset($_POST['request-put']))
+			}
+			else if(isset($_POST['request-put'])) {
+				$this->request->data->form = true;
 				$this->request->data->method = 'put';
-			else if(isset($_POST['request-delete']))
+			}
+			else if(isset($_POST['request-delete'])) {
+				$this->request->data->form = true;
 				$this->request->data->method = 'delete';
+			}
 
 			if($matchedRoute = $router->getRoute(preg_replace('`\?'.preg_quote($_SERVER['QUERY_STRING']).'`isU', '', $_SERVER['REQUEST_URI']), $this->config)){
 				$_GET = array_merge($_GET, $matchedRoute->vars());
@@ -539,7 +550,7 @@
 
 		private function _setEvent($src = null){
 			if(empty($GLOBALS['eventListeners'])){
-				$GLOBALS['eventListeners'] = array();
+				$GLOBALS['eventListeners'] = [];
 			}
 
 			if($src != null){
@@ -644,8 +655,8 @@
 		*/
 
 		private function _minifyHtml($buffer) {
-			$search = array('/\>[^\S ]+/s', '/[^\S ]+\</s', '/\>(\s)+/s', '/(\s)+\</s');
-			$replace = array('> ', ' <', '> ', ' <');
+			$search = ['/\>[^\S ]+/s', '/[^\S ]+\</s', '/\>(\s)+/s', '/(\s)+\</s'];
+			$replace = ['> ', ' <', '> ', ' <'];
 			$buffer = preg_replace($search, $replace, $buffer);
 
 			return $buffer;

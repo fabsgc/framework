@@ -12,11 +12,12 @@
 
 	use System\Orm\Entity\ForeignKey;
 	use System\Sql\Sql;
+	use System\Template\Template;
 
 	class TerminalCreate extends TerminalCommand{
 		public function module(){
 			$src = '';
-			$controllers = array();
+			$controllers = [];
 
 			//choose the module name
 			while(1==1){
@@ -55,12 +56,12 @@
 			}
 
 			//load all template to fill the new files
-			$tpl['cron'] = self::Template('.app/system/module/cron', 'terminalCreateCron');
-			$tpl['define'] = self::Template('.app/system/module/define', 'terminalCreateDefine');
-			$tpl['lang'] = self::Template('.app/system/module/lang', 'terminalCreateLang');
-			$tpl['library'] = self::Template('.app/system/module/library', 'terminalCreateLibrary');
-			$tpl['route'] = self::Template('.app/system/module/route', 'terminalCreateRoute');
-			$tpl['firewall'] = self::Template('.app/system/module/firewall', 'terminalCreateFirewall');
+			$tpl['cron'] = new Template('.app/system/module/cron', 'terminalCreateCron');
+			$tpl['define'] = new Template('.app/system/module/define', 'terminalCreateDefine');
+			$tpl['lang'] = new Template('.app/system/module/lang', 'terminalCreateLang');
+			$tpl['library'] = new Template('.app/system/module/library', 'terminalCreateLibrary');
+			$tpl['route'] = new Template('.app/system/module/route', 'terminalCreateRoute');
+			$tpl['firewall'] = new Template('.app/system/module/firewall', 'terminalCreateFirewall');
 			$tpl['firewall']->assign('src', $src);
 
 			//creation of directories and files
@@ -81,17 +82,19 @@
 			mkdir(DOCUMENT_ROOT.WEB_PATH.$src.'/'.WEB_IMAGE_PATH);
 			mkdir(DOCUMENT_ROOT.WEB_PATH.$src.'/'.WEB_JS_PATH);
 
+			$gitignore = "# Ignore everything in this directory\n*\n# Except this file\n!.gitignore";
+
 			file_put_contents(DOCUMENT_ROOT.WEB_PATH.$src.'/'.WEB_CSS_PATH.'/index.html', '');
 			file_put_contents(DOCUMENT_ROOT.WEB_PATH.$src.'/'.WEB_FILE_PATH.'/index.html', '');
 			file_put_contents(DOCUMENT_ROOT.WEB_PATH.$src.'/'.WEB_IMAGE_PATH.'/index.html', '');
 			file_put_contents(DOCUMENT_ROOT.WEB_PATH.$src.'/'.WEB_JS_PATH.'/index.html', '');
 
-			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/.htaccess', 'Deny from all');
-			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_EVENT_PATH.'.htaccess', 'Deny from all');
-			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_LIBRARY_PATH.'.htaccess', 'Deny from all');
-			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_LIBRARY_PATH.'.htaccess', 'Deny from all');
-			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_REQUEST_PATH.'.htaccess', 'Deny from all');
-			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_TEMPLATE_PATH.'.htaccess', 'Deny from all');
+			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/.gitignore', $gitignore);
+			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_EVENT_PATH.'.gitignore', $gitignore);
+			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_LIBRARY_PATH.'.gitignore', $gitignore);
+			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_LIBRARY_PATH.'.gitignore', $gitignore);
+			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_REQUEST_PATH.'.gitignore', $gitignore);
+			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_TEMPLATE_PATH.'.gitignore', $gitignore);
 
 			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_CONFIG_PATH.'cron.xml', $tpl['cron']->show());
 			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_CONFIG_PATH.'define.xml', $tpl['define']->show());
@@ -106,13 +109,13 @@
 			$routeGroup = '';
 
 			foreach ($controllers as $value) {
-				$tpl['routeGroup'] = self::Template('.app/system/module/routeGroup', 'terminalCreateRouteGroup'.$value);
+				$tpl['routeGroup'] = new Template('.app/system/module/routeGroup', 'terminalCreateRouteGroup'.$value);
 				$tpl['routeGroup']->assign(array('src' => $src, 'controller' => $value));
 				$routeGroup .= $tpl['routeGroup']->show();
 
-				$tpl['controller'] = self::Template('.app/system/module/controller', 'terminalCreateController'.$value);
+				$tpl['controller'] = new Template('.app/system/module/controller', 'terminalCreateController'.$value);
 				$tpl['controller']->assign(array('src' => $src, 'controller' => ucfirst($value)));
-				$tpl['model'] = self::Template('.app/system/module/model', 'terminalCreateModel'.$value);
+				$tpl['model'] = new Template('.app/system/module/model', 'terminalCreateModel'.$value);
 				$tpl['model']->assign(array('src' => $src, 'model' => ucfirst($value)));
 
 				file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_CONTROLLER_PATH.ucfirst($value).EXT_CONTROLLER.'.php', $tpl['controller']->show());
@@ -147,7 +150,7 @@
 
 		public function controller(){
 			$src = '';
-			$controllers = array();
+			$controllers = [];
 
 			//choose the module name
 			while(1==1){
@@ -440,11 +443,11 @@
 								$referencedEntity = new $class();
 
 								/** We generate the linking table name */
-								$current   = ucfirst($entity->name()).ucfirst($field->foreign->field());
-								$reference = ucfirst($referencedEntity->name()).ucfirst($field->foreign->referenceField());
-								$tableNames = array($current, $reference);
+								$current   = ucfirst($entity->name()).($field->foreign->field());
+								$reference = ucfirst($referencedEntity->name()).($field->foreign->referenceField());
+								$tableNames = [$current, $reference];
 								sort($tableNames, SORT_STRING);
-								$tableName = $tableNames[0].$tableNames[1];
+								$tableName = $tableNames[0].strtolower($tableNames[1]);
 
 								$t = self::Template('.app/system/module/orm/manytomany', 'gcsEntity_'.$table, '0');
 								$t->assign(array(

@@ -11,8 +11,11 @@
 	namespace System\Orm\Entity;
 
 	use System\Exception\MissingEntityException;
+	use System\Orm\Entity\Type\File;
+	use System\Orm\Validation\Validation;
 	use System\General\facades;
 	use System\Orm\Builder;
+	use System\Request\Data;
 	use System\Sql\Sql;
 
 	abstract class Entity {
@@ -28,7 +31,7 @@
 		 * @var \System\Orm\Entity\Field[]
 		*/
 
-		protected $_fields = array();
+		protected $_fields = [];
 
 		/**
 		 * @var string
@@ -44,6 +47,34 @@
 		protected $_token = '';
 
 		/**
+		 * We put errors inside
+		 * @var \System\Orm\Validation\Validation
+		*/
+
+		protected $validation = null;
+
+		/**
+		 * post, put, get data
+		 * @var $_data []
+		*/
+
+		protected $_data;
+
+		/**
+		 * name of the form
+		 * @var string
+		*/
+
+		protected $form = '';
+
+		/**
+		 * the form is already sent and checked
+		 * @var bool
+		*/
+
+		protected $sent = false;
+
+		/**
 		 * Constructor
 		 * @access public
 		 * @throws MissingEntityException
@@ -55,10 +86,31 @@
 		final public function __construct() {
 			$this->tableDefinition();
 			$this->_getPrimary();
-			$this->_token = rand(0,100);
+			$this->_token = rand(0,10000);
+			$this->validation = new Validation($this);
 
 			if($this->_primary == '')
 				throw new MissingEntityException('The entity '.$this->_name.' does not have any primary key');
+
+			$requestData = Data::getInstance();
+
+			switch($requestData->method){
+				case 'get' :
+					$this->_data = $requestData->get;
+				break;
+
+				case 'post' :
+					$this->_data = $requestData->post;
+				break;
+
+				case 'put' :
+					$this->_data = $requestData->post;
+				break;
+
+				case 'delete' :
+					$this->_data = $requestData->post;
+				break;
+			}
 
 			return $this;
 		}
@@ -72,6 +124,31 @@
 		*/
 
 		public function tableDefinition(){
+		}
+
+		/**
+		 * Set form name
+		 * @access public
+		 * @param $form string
+		 * @return void
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function form($form = ''){
+			$this->form = $form;
+		}
+
+		/**
+		 * Get form name
+		 * @access public
+		 * @return string
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function getForm(){
+			return $this->form;
 		}
 
 		/**
@@ -174,8 +251,9 @@
 
 		public function set($key, $value) {
 			if(array_key_exists($key, $this->_fields)){
-				if(gettype($this->_fields[''.$key.'']) == 'object')
+				if(gettype($this->_fields[''.$key.'']) == 'object'){
 					$this->_fields[''.$key.'']->value = $value;
+				}
 				else
 					$this->_fields[''.$key.''] = $value;
 			}
@@ -287,9 +365,9 @@
 		 * @return \System\Orm\Builder
 		 * @since 3.0
 		 * @package System\Orm\Entity
-		 */
+		*/
 
-		public function raw($query){
+		public static function raw($query){
 			/** @var \System\Orm\Entity\Entity $obj */
 			$obj = new static();
 			$builder = new Builder($obj);
@@ -305,11 +383,26 @@
 		 * @package System\Orm\Entity
 		*/
 
-		public function distinct($distinct){
+		public static function distinct($distinct){
 			/** @var \System\Orm\Entity\Entity $obj */
 			$obj = new static();
 			$builder = new Builder($obj);
 			return $builder->findDistinct($distinct);
+		}
+
+		/**
+		 * count number of line
+		 * @access public
+		 * @return \System\Orm\Builder
+		 * @since 3.0
+		 * @package System\Orm\Entity
+		*/
+
+		public static function count(){
+			/** @var \System\Orm\Entity\Entity $obj */
+			$obj = new static();
+			$builder = new Builder($obj);
+			return $builder->findCount();
 		}
 
 		/**
@@ -332,16 +425,14 @@
 				self::Database()->db()->beginTransaction();
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
-			$fieldsInsertOneToMany = array();
+			$fieldsInsertOneToMany = [];
 			/** @var $fieldsUpdateOneToMany \System\Orm\Entity\Entity[] */
-			$fieldsUpdateOneToMany = array();
+			$fieldsUpdateOneToMany = [];
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
-			$fieldsInsertManyToMany = array();
+			$fieldsInsertManyToMany = [];
 			/** @var $fieldsUpdateOneToMany \System\Orm\Entity\Entity[] */
-			$fieldsUpdateManyToMany = array();
-
-
+			$fieldsUpdateManyToMany = [];
 
 			/** @var $field \System\Orm\Entity\Field */
 			foreach($this->_fields as $field){
@@ -470,23 +561,20 @@
 						}
 
 						if(gettype($field->value) != 'object'){
-							if(in_array($field->type, array(Field::INCREMENT, Field::INT, Field::FLOAT))){
-								$sql->vars($field->name, array($field->value, sql::PARAM_INT));
+							if(in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])){
+								$sql->vars($field->name, [$field->value, sql::PARAM_INT]);
 							}
-							if(in_array($field->type, array(Field::FLOAT))){
-								$sql->vars($field->name, array($field->value, sql::PARAM_LOB));
+							else if(in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])){
+								$sql->vars($field->name, [$field->value, sql::PARAM_STR]);
 							}
-							else if(in_array($field->type, array(Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP))){
-								$sql->vars($field->name, array($field->value, sql::PARAM_STR));
-							}
-							else if(in_array($field->type, array(Field::BOOL))){
-								$sql->vars($field->name, array($field->value, sql::PARAM_BOOL));
+							else if(in_array($field->type, [Field::BOOL])){
+								$sql->vars($field->name, [$field->value, sql::PARAM_BOOL]);
 							}
 							else{
 								$sql->vars($field->name, $field->value);
 							}
 						}
-						else if(in_array($field->type, array(Field::FILE))){
+						else if(in_array($field->type, [Field::FILE])){
 							$sql->vars($field->name, $field->value->value());
 							$field->value->save();
 						}
@@ -498,8 +586,8 @@
 			}
 
 			/** Execution of the query */
-			$queryFields = preg_replace('#, $#isU', '', $queryFields);
-			$queryValues = preg_replace('#, $#isU', '', $queryValues);
+			$queryFields = trim($queryFields, ',');
+			$queryValues = trim($queryValues, ',');
 
 			$query = 'INSERT INTO '.$this->_name.'('.$queryFields.') VALUES('.$queryValues.')';
 
@@ -553,7 +641,7 @@
 
 				$current   = strtolower($currentEntity.$currentField);
 				$reference = strtolower($referenceEntity.$referenceField);
-				$table = array($current, $reference);
+				$table = [$current, $reference];
 				sort($table, SORT_STRING);
 				$table = ucfirst($table[0].$table[1]);
 
@@ -608,14 +696,14 @@
 				self::Database()->db()->beginTransaction();
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
-			$fieldsInsertOneToMany = array();
+			$fieldsInsertOneToMany = [];
 			/** @var $fieldsUpdateOneToMany \System\Orm\Entity\Entity[] */
-			$fieldsUpdateOneToMany = array();
+			$fieldsUpdateOneToMany = [];
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
-			$fieldsInsertManyToMany = array();
+			$fieldsInsertManyToMany = [];
 			/** @var $fieldsUpdateOneToMany \System\Orm\Entity\Entity[] */
-			$fieldsUpdateManyToMany = array();
+			$fieldsUpdateManyToMany = [];
 
 			/** @var $field \System\Orm\Entity\Field */
 			foreach($this->_fields as $field){
@@ -742,23 +830,20 @@
 						}
 
 						if(gettype($field->value) != 'object'){
-							if(in_array($field->type, array(Field::INCREMENT, Field::INT, Field::FLOAT))){
-								$sql->vars($field->name, array($field->value, sql::PARAM_INT));
+							if(in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])){
+								$sql->vars($field->name, [$field->value, sql::PARAM_INT]);
 							}
-							if(in_array($field->type, array(Field::FLOAT))){
-								$sql->vars($field->name, array($field->value, sql::PARAM_LOB));
+							else if(in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])){
+								$sql->vars($field->name, [$field->value, sql::PARAM_STR]);
 							}
-							else if(in_array($field->type, array(Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP))){
-								$sql->vars($field->name, array($field->value, sql::PARAM_STR));
-							}
-							else if(in_array($field->type, array(Field::BOOL))){
-								$sql->vars($field->name, array($field->value, sql::PARAM_BOOL));
+							else if(in_array($field->type, [Field::BOOL])){
+								$sql->vars($field->name, [$field->value, sql::PARAM_BOOL]);
 							}
 							else{
 								$sql->vars($field->name, $field->value);
 							}
 						}
-						else if(in_array($field->type, array(Field::FILE))){
+						else if(in_array($field->type, [Field::FILE])){
 							$sql->vars($field->name, $field->value->value());
 							$field->value->save();
 						}
@@ -768,7 +853,7 @@
 				}
 			}
 
-			$queryFields = preg_replace('#, $#isU', '', $queryFields);
+			$queryFields = trim($queryFields, ',');
 
 			$query = 'UPDATE '.$this->_name.' SET '.$queryFields.' WHERE '.$this->_fields[$this->_primary]->name.' = '.$this->_fields[$this->_primary]->value;
 
@@ -819,7 +904,7 @@
 
 				$current   = strtolower($currentEntity.$currentField);
 				$reference = strtolower($referenceEntity.$referenceField);
-				$table = array($current, $reference);
+				$table = [$current, $reference];
 				sort($table, SORT_STRING);
 				$table = ucfirst($table[0].$table[1]);
 
@@ -938,7 +1023,7 @@
 
 										$current   = strtolower($currentEntity.$currentField);
 										$reference = strtolower($referenceEntity.$referenceField);
-										$table = array($current, $reference);
+										$table = [$current, $reference];
 										sort($table, SORT_STRING);
 										$table = ucfirst($table[0].$table[1]);
 
@@ -978,6 +1063,243 @@
 				self::Database()->db()->commit();
 		}
 
+		/**
+		 * We can check the validity of a GET or POST request thanks to this method that you can override
+		 * @access public
+		 * @return void
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function beforeInsert(){
+		}
+
+		/**
+		 * We can check the validity of a PUT request thanks to this method that you can override
+		 * @access public
+		 * @return void
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function beforeUpdate(){
+		}
+
+		/**
+		 * We can check the validity of a DELETE request thanks to this method that you can override
+		 * @access public
+		 * @return void
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function beforeDelete(){
+		}
+
+		/**
+		 * Check
+		 * @access public
+		 * @return void
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function check(){
+			$this->validation->check();
+			$this->sent = true;
+		}
+
+		/**
+		 * Is the entity valid ?
+		 * @access public
+		 * @return boolean
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function valid(){
+			return $this->validation->valid();
+		}
+
+		/**
+		 * Is the form sent ?
+		 * @access public
+		 * @return boolean
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function sent(){
+			return $this->sent;
+		}
+
+		/**
+		 * get errors list
+		 * @access public
+		 * @return string[]
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function errors(){
+			return $this->validation->errors();
+		}
+
+		/**
+		 * Before validation, we must inserting all the data
+		 * @access public
+		 * @param $prefix string : If we want to hydrate a sub Entity (from a relation), we need to know the name of the parent
+		 * @return void
+		 * @since 3.0
+		 * @package System\Request
+		*/
+
+		public function hydrate($prefix = ''){
+			$table = strtolower($this->_name);
+
+			/** First, we check if the primary key is specified or not */
+
+			if(isset($this->_data[$table.'_'.$this->primary()])){
+				$entityName = '\Orm\Entity\\'.lcfirst($table);
+				$field = lcfirst($table).'.'.$this->primary();
+
+				/** @var \System\Orm\Entity\Entity $entityName */
+				$data = $entityName::find()
+					->where($field. ' = :id')
+					->vars(array('id' => $this->_data[$table.'_'.$this->primary()]))
+					->fetch()
+					->first();
+
+				if($data != null){
+					$this->_fields = $data->fields();
+				}
+			}
+
+			foreach($this->_fields as $field){
+				if($field->foreign != null){
+					$in = '';
+					$inVars = [];
+					$entityName = '\Orm\Entity\\'.$field->foreign->referenceEntity();
+					$fieldName = $prefix.lcfirst($field->foreign->entity()).'_'.lcfirst($field->foreign->referenceEntity());
+					$fieldFormName = lcfirst($field->foreign->referenceEntity()).'.'.lcfirst($field->foreign->referenceField());
+					$entityJoin = new $entityName();
+
+					switch($field->foreign->type()){
+						case ForeignKey::ONE_TO_ONE :
+							//If the primary key exists, we get it in the database
+							if(isset($this->_data[$fieldName])) {
+								$builder = new Builder($entityJoin);
+								$field->value = $builder->find()
+									->where($fieldFormName . ' = :id')
+									->vars(array('id' => $this->_data[$fieldName]))
+									->fetch()
+									->first();
+							}
+							else{ //if it doesn't exist, we try to get data from the form
+								$entity = $field->foreign->referenceEntity();
+
+								/** @var $entity \System\Orm\Entity\Entity */
+								$entity = new $entity();
+								$entity->hydrate($field->foreign->entity().'_');
+								$field->value = $entity;
+							}
+						break;
+
+						case ForeignKey::MANY_TO_ONE :
+							//If the primary key exists, we get it in the database
+							if(isset($this->_data[$fieldName])) {
+								$builder = new Builder($entityJoin);
+								$field->value = $builder->find()
+									->where($fieldFormName . ' = :id')
+									->vars(array('id' => $this->_data[$fieldName]))
+									->fetch()
+									->first();
+							}
+							else{ //if it doesn't exist, we try to get data from the form
+								$entity = 'Orm\Entity\\'.$field->foreign->referenceEntity();
+
+								/** @var $entity \System\Orm\Entity\Entity */
+								$entity = new $entity();
+								$entity->hydrate($field->foreign->entity().'_');
+								$field->value = $entity;
+							}
+						break;
+
+						case ForeignKey::ONE_TO_MANY :
+							if(isset($this->_data[$fieldName])){
+								foreach($this->_data[$fieldName] as $key => $manyJoin){
+									$in .= ' :join'.$key.',';
+									$inVars['join'.$key] = $manyJoin;
+								}
+
+								$in = trim($in, ',');
+
+								$builder = new Builder($entityJoin);
+								$field->value = $field->value = $builder->find()
+									->where($fieldFormName.' IN('.$in.')')
+									->vars($inVars)
+									->fetch();
+							}
+						break;
+
+						case ForeignKey::MANY_TO_MANY :
+							if(isset($this->_data[$fieldName])){
+								foreach($this->_data[$fieldName] as $key => $manyJoin){
+									$in .= ' :join'.$key.',';
+									$inVars['join'.$key] = $manyJoin;
+								}
+
+								$in = trim($in, ',');
+
+								$builder = new Builder($entityJoin);
+								$field->value = $field->value = $builder->find()
+									->where($fieldFormName.' IN('.$in.')')
+									->vars($inVars)
+									->fetch();
+							}
+						break;
+					}
+				}
+				else if(in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])){
+					if(isset($this->_data[$prefix.$table.'_'.$field->name]))
+						$field->value = $this->_data[$prefix.$table.'_'.$field->name];
+					else
+						$field->value = null;
+				}
+				else if(in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])){
+					if(isset($this->_data[$prefix.$table.'_'.$field->name]))
+						$field->value = $this->_data[$prefix.$table.'_'.$field->name];
+					else
+						$field->value = null;
+				}
+				else if(in_array($field->type, [Field::BOOL])){
+					if(isset($this->_data[$prefix.$table.'_'.$field->name]))
+						$field->value = true;
+					else
+						$field->value = false;
+				}
+				else if(in_array($field->type, [Field::FILE])){
+					$data = Data::getInstance()->file;
+
+					if(isset($data[$prefix.$table.'_'.$field->name])){
+						if(isset($data[$prefix.$table.'_'.$field->name]) && $data[$prefix.$table.'_'.$field->name]['error'] != 4){
+							$tmp = $data[$prefix.$table.'_'.$field->name];
+							$file = new File($tmp['name'], file_get_contents($tmp['tmp_name']), $tmp['type']);
+							$field->value = $file;
+						}
+						else{
+							$field->value = null;
+						}
+					}
+					else{
+						$field->value = null;
+					}
+				}
+				else{
+					$field->value = null;
+				}
+			}
+		}
 
 		/**
 		 * Destructor

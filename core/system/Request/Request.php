@@ -35,7 +35,7 @@
 		 * @var array
 		*/
 			
-		public $param = array(
+		public $param = [
 			'name'       =>   '',
 			'src'        =>   '',
 			'controller' =>   '',
@@ -47,7 +47,7 @@
 			'lang'       => LANG,
 			'auth'       =>   '',
 			'data'       => null
-		);
+		];
 
 		/**
 		 * constructor

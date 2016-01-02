@@ -12,6 +12,7 @@
 
 	use System\General\facades;
 	use System\General\singleton;
+	use System\Request\Request;
 
 	class Orm{
 		use facades, singleton;
@@ -24,7 +25,6 @@
 		*/
 
 		private function __construct(){
-
 		}
 
 		/**
@@ -51,7 +51,37 @@
 		*/
 
 		public static function get($object){
-			return null;
+			$class = $object->name;
+
+			/** @var \System\Orm\Entity\Entity $class */
+			$class = new $class();
+			$class->hydrate();
+
+			$request = Request::getInstance();
+
+			if(($class->getForm() == '' && $request->data->form == true) || isset($request->data->post[$class->getForm()])){
+				switch($request->data->method){
+					case 'get' :
+						$class->beforeInsert();
+					break;
+
+					case 'post' :
+						$class->beforeInsert();
+					break;
+
+					case 'put' :
+						$class->beforeUpdate();
+					break;
+
+					case 'delete' :
+						$class->beforeDelete();
+					break;
+				}
+
+				$class->check();
+			}
+
+			return $class;
 		}
 
 		/**

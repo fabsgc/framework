@@ -28,13 +28,13 @@
 		 * @var array
 		*/
 
-		protected $_var = array();
+		protected $_var = [];
 
 		/**
 		 * @var string[]
 		*/
 
-		protected $_query = array();
+		protected $_query = [];
 
 		/**
 		 * @var \System\Pdo\Pdo
@@ -47,14 +47,14 @@
 		 * @var array
 		*/
 
-		protected $_time = array();
+		protected $_time = [];
 
 		/**
 		 * results
 		 * @var array
 		*/
 
-		protected $_data = array();
+		protected $_data = [];
 
 		/**
 		 * name for cache files
@@ -158,7 +158,7 @@
 
 			else if(func_num_args() == 3){
 				$args = func_get_args();
-				$this->_var[$args[0]] = array($args[1], $args[2]);
+				$this->_var[$args[0]] = [$args[1], $args[2]];
 			}
 		}
 
@@ -248,6 +248,7 @@
 				$fetch == self::PARAM_FETCHUPDATE || $fetch == self::PARAM_FETCHDELETE){
 
 				try {
+					/** @var \System\Pdo\PdoStatement $query */
 					$query = $this->_db->prepare(''.$this->_query[''.$name.''].'');
 					$this->profiler->addTime($this->_nameQuery.$name);
 					$this->profiler->addSql($this->_nameQuery.$name, Profiler::SQL_START);
@@ -354,7 +355,7 @@
 		*/
 
 		public function data($entity = ''){
-			$entities = array();
+			$entities = [];
 
 			foreach($this->_data as $line){
 				if($entity != ''){
@@ -364,11 +365,19 @@
 					foreach($line as $key => $field){
 						$value = null;
 
+						$key = str_replace('count_one_'.$entity.'_', '', $key);
+						$key = str_replace('count_many_'.$entity.'_', '', $key);
 						$key = str_replace($entity.'_', '', $key);
 
 						if(gettype($key) == "string" && $entityObject->getField($key) != null){
-							if(in_array($entityObject->getField($key)->type, array(Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL))){
+							if(in_array($entityObject->getField($key)->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])){
 								if($entityObject->getField($key)->foreign == null){
+									$value = $field;
+								}
+								else if($entityObject->getField($key)->foreign->type() == ForeignKey::ONE_TO_MANY){
+									$value = $field;
+								}
+								else if($entityObject->getField($key)->foreign->type() == ForeignKey::MANY_TO_MANY){
 									$value = $field;
 								}
 								else{
@@ -422,7 +431,7 @@
 				$key = str_replace($entity->name().'_', '', $key);
 
 				if(gettype($key) == "string" && $entity->getField($key) != null){
-					if(in_array($entity->getField($key)->type, array(Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL))){
+					if(in_array($entity->getField($key)->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])){
 						$value = $field;
 					}
 					else{

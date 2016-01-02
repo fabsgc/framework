@@ -18,7 +18,9 @@
 	 * @property array get
 	 * @property array post
 	 * @property array put
-	 */
+	 * @property array file
+	 * @property bool  form
+	*/
 	class Data{
 		use singleton;
 
@@ -27,13 +29,15 @@
 		 * @var array
 		*/
 
-		public $param = array(
-			'method'  => '',
-			'get'     => [],
-			'post'    => [],
-			'cookie'  => [],
-			'session' => []
-		);
+		public $param = [
+			'form'    => false,
+			'method'  =>    '',
+			'get'     =>    [],
+			'post'    =>    [],
+			'cookie'  =>    [],
+			'file'    =>    [],
+			'session' =>    []
+		];
 
 		/**
 		 * constructor
@@ -48,6 +52,7 @@
 		/**
 		 * singleton
 		 * @access public
+		 * @return \System\Request\Data
 		 * @since 3.0
 		 * @package System\Request
 		*/

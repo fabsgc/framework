@@ -85,7 +85,7 @@
 		 * @package System\Orm\Entity
 		 */
 
-		public function __construct($datas = array()) {
+		public function __construct($datas = []) {
 			foreach($datas as $key => $data){
 				switch($key){
 					case 'type' :
@@ -121,7 +121,7 @@
 		 * set or get entity
 		 * @access public
 		 * @param $entity string
-		 * @return mixed void,string
+		 * @return mixed
 		 * @since 3.0
 		 * @package System\Orm\Entity
 		*/
@@ -129,6 +129,7 @@
 		public function entity($entity = '') {
 			if($entity != '')
 				$this->_entity = $entity;
+
 			else
 				return $this->_entity;
 		}
@@ -137,7 +138,7 @@
 		 * set or get field
 		 * @access public
 		 * @param $field string
-		 * @return mixed void,string
+		 * @return mixed
 		 * @since 3.0
 		 * @package System\Orm\Entity
 		*/

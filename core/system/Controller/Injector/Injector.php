@@ -21,7 +21,7 @@
 		 * @var array
 		*/
 
-		private $_alias = array(
+		private $_alias = [
 			'System\Sql\Sql'                    =>            'Sql',
 			'System\Security\Spam'              =>           'Spam',
 			'System\Cron\Cron'                  =>           'Cron',
@@ -45,7 +45,7 @@
 			'System\Database\Database'          =>       'Database',
 			'System\Response\Response'          =>       'Response',
 			'System\Profiler\Profiler'          =>       'Profiler',
-		);
+		];
 
 		/**
 		 * Constructor
@@ -82,7 +82,7 @@
 		*/
 
 		public function getArgsMethod(&$class, $method){
-			$params = array();
+			$params = [];
 
 			$method = new \ReflectionMethod($class, $method);
 			$parameters = $method->getParameters();

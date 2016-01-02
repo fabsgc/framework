@@ -55,28 +55,31 @@
 			/** @var \System\Request\Form $class */
 			$class = $object->name;
 			$class = new $class();
+			$class->init();
 
 			$request = Request::getInstance();
 
-			switch($request->data->method){
-				case 'get' :
-					$class->get();
-				break;
+			if(($class->getForm() == '' && $request->data->form == true) || isset($request->data->post[$class->getForm()])){
+				switch($request->data->method){
+					case 'get' :
+						$class->get();
+					break;
 
-				case 'post' :
-					$class->post();
-				break;
+					case 'post' :
+						$class->post();
+					break;
 
-				case 'put' :
-					$class->put();
-				break;
+					case 'put' :
+						$class->put();
+					break;
 
-				case 'delete' :
-					$class->delete();
-				break;
+					case 'delete' :
+						$class->delete();
+					break;
+				}
+
+				$class->check();
 			}
-
-			$class->check();
 
 			return $class;
 		}

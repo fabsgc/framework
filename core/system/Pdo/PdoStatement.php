@@ -17,7 +17,7 @@
 		 * @var array
 		*/
 
-		protected $_debugBindValues = array();
+		protected $_debugBindValues = [];
 
 		/**
 		 * constructor
@@ -86,7 +86,7 @@
 			}
 			else{
 				if(count($this->_debugBindValues) > 0){
-					return preg_replace_callback('/:([0-9a-z_]+)/i', array($this, '_debugReplaceBindValue'), $q);
+					return preg_replace_callback('/:([0-9a-z_]+)/i', [$this, '_debugReplaceBindValue'], $q);
 				}
 				else{
 					return $q;

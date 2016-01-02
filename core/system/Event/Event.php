@@ -16,15 +16,15 @@
 	class Event {
 		use error, facades;
 
-		public $parent     =    null; //reference to the object which start the event
-		public $data       =    null; //data you can pass from the controller to the event
+		public $parent     = null; //reference to the object which start the event
+		public $data       = null; //data you can pass from the controller to the event
 
-		protected $_name            ; //name of the event which is started
-		protected $_status =    true; //status of the event : stopped or running
-		protected $_result = array(); //data returned by the event after each call
+		protected $_name         ; //name of the event which is started
+		protected $_status = true; //status of the event : stopped or running
+		protected $_result =   []; //data returned by the event after each call
 
-		const START = true;
-		const STOP = false;
+		const START =  true;
+		const STOP  = false;
 		
 		/**
 		 * Constructor
@@ -48,7 +48,7 @@
 		 * @package System\Event
 		 */
 		public function implementedEvents(){
-			return array();
+			return [];
 		}
 
 		/**
@@ -139,7 +139,7 @@
 		*/
 
 		public function setResult($result = '', $index, $class, $function){
-			$this->_result[$index] = array('class' => $class, 'function' => $function, 'return' => $result);
+			$this->_result[$index] = ['class' => $class, 'function' => $function, 'return' => $result];
 		}
 
 		/**

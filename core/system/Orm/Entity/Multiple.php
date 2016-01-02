@@ -74,7 +74,7 @@
 		 * @package system
 		*/
 
-		public function data($data = array()){
+		public function data($data = []){
 			if(count($data) == 0){
 				return $this->_data;
 			}

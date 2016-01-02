@@ -57,7 +57,7 @@
 		 * @package System\Lang
 		*/
 		
-		public function lang($name, $vars = array(), $template = self::USE_NOT_TPL){
+		public function lang($name, $vars = [], $template = self::USE_NOT_TPL){
 			$request = self::Request();
 			$config = $this->resolve(RESOLVE_LANG, $name);
 			$name = $config[1];
@@ -85,8 +85,8 @@
 				}
 			}
 			else{
-				$this->addError('lang '.$name.'/'.$request->lang.' not found', __FILE__, __LINE__, ERROR_WARNING);
-				return 'lang not found ('.$name.','.$request->lang.')';
+				$this->addError('sentence '.$name.'/'.$request->lang.' not found', __FILE__, __LINE__, ERROR_WARNING);
+				return 'sentence not found ('.$name.','.$request->lang.')';
 			}
 		}
 

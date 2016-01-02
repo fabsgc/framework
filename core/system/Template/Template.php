@@ -61,7 +61,7 @@
 		 * @var array
 		*/
 
-		public $vars = array();
+		public $vars = [];
 
 		/**
 		 * time cache
@@ -96,7 +96,7 @@
 		 * @var array
 		*/
 
-		public static $_extends = array();
+		public static $_extends = [];
 
 		const TPL_FILE               = 0; //we can load a .tpl as template
 		const TPL_STRING             = 1; //we can load a string as template
@@ -188,7 +188,7 @@
 				$trace = debug_backtrace();
 
 				if (isset($trace[1])) {
-					array_push(self::$_extends, array('\\'.$trace[1]['class'], $method));
+					array_push(self::$_extends, ['\\'.$trace[1]['class'], $method]);
 				}
 				else{
 					throw new MissingTemplateException('Can\'t reach the method "'.$method.'"');
