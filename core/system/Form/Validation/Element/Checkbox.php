@@ -10,10 +10,7 @@
 
 	namespace System\Form\Validation\Element;
 
-	use System\General\facades;
-
 	class Checkbox extends Element{
-		use facades;
 
 		const CONSTRAINT_EQUAL = 0;
 

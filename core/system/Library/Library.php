@@ -10,24 +10,25 @@
 	
 	namespace System\Library;
 
+	use System\Config\Config;
 	use System\General\error;
-	use System\General\langs;
-	use System\General\facades;
+	use System\Request\Request;
 	use System\Exception\MissingLibraryException;
 
 	class Library{
-		use error, langs, facades;
+		use error;
 
 		/**
 		 * constructor
 		 * @access public
+		 * @param $src string
 		 * @since 3.0
 		 * @throws \System\Exception\MissingLibraryException
 		 * @package System\Library
 		*/
 
 		public function __construct ($src){
-			$config = self::Config();
+			$config = Config::getInstance();
 
 			foreach($config->config['library'][''.$src.''] as $value){
 				if($value['enabled'] == 'true'){
@@ -61,7 +62,7 @@
 		*/
 
 		protected function _checkInclude($include){
-			$request = self::Request();
+			$request = Request::getInstance();
 			
 			if($include == '*'){
 				return true;

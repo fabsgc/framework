@@ -10,15 +10,17 @@
 	
 	namespace System\Security;
 
+	use System\Config\Config;
 	use System\General\di;
 	use System\General\error;
 	use System\General\langs;
-	use System\General\facades;
 	use System\General\resolve;
 	use System\Exception\MissingConfigException;
+	use System\Request\Request;
+	use System\Template\Template;
 
-    class Spam{
-		use error, facades, langs, resolve, di;
+	class Spam{
+		use error, langs, resolve, di;
 
 		/**
 		 * @var string[]
@@ -62,9 +64,8 @@
 		 */
 		
 		public function __construct(){
-			$this->request = self::Request();
-			$this->config = self::Config();
-			$this->_createlang();
+			$this->request = Request::getInstance();
+			$this->config = Config::getInstance();
 
 			$this->_ipClient = $this->request->env('REMOTE_ADDR');
 
@@ -103,7 +104,7 @@
 						return true;
 					}
 					else{
-						$t = self::Template($this->config->config['spam']['app']['error']['template'], 'GCspam', 0);
+						$t = new Template($this->config->config['spam']['app']['error']['template'], 'GCspam', 0);
 						
 						foreach($this->config->config['spam']['app']['error']['variable'] as $value){
 							if($value['type'] == 'var'){

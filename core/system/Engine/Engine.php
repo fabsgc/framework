@@ -10,12 +10,17 @@
 	
 	namespace System\Engine;
 
+	use System\Cache\Cache;
 	use System\Controller\Injector\Injector;
+	use System\Cron\Cron;
+	use System\Database\Database;
+	use System\Define\Define;
 	use System\General\di;
 	use System\General\error;
 	use System\General\langs;
 	use System\General\facades;
 	use System\General\resolve;
+	use System\Library\Library;
 	use System\Request\Request;
 	use System\Request\Auth;
 	use System\Response\Response;
@@ -25,9 +30,11 @@
 	use System\Exception\Exception;
 	use System\Router\Router;
 	use System\Router\Route;
+	use System\Template\Template;
+	use System\Terminal\Terminal;
 
 	class Engine{
-		use error, langs, facades, resolve, di;
+		use error, langs, resolve, di;
 
 		/**
 		 * @var \System\Controller\Controller
@@ -65,7 +72,6 @@
 			$this->response = Response::getInstance();
 			$this->profiler = Profiler::getInstance();
 			$this->config   = Config::getInstance();
-			                  Injector::getInstance();
 		}
 
 		/**
@@ -137,7 +143,7 @@
 		*/
 		public function console($db){
 			$this->_setDatabase($db);
-			self::Terminal();
+			new Terminal();
 		}
 
 		/**
@@ -253,7 +259,7 @@
 				if(SECURITY == false || ($this->request->logged == '*' && $this->request->access == '*') || $class->setFirewall() == true){
 					if(SPAM == false || $class->setSpam() == true){
 						if($this->request->cache > 0){
-							$cache = $this->Cache('page_'.preg_replace('#\/#isU', '-slash-', $this->request->env('REQUEST_URI')), $this->request->cache);
+							$cache = new Cache('page_'.preg_replace('#\/#isU', '-slash-', $this->request->env('REQUEST_URI')), $this->request->cache);
 
 							if($cache->isDie() == true){
 								$class->model();
@@ -307,7 +313,7 @@
 
 				if(method_exists($class, 'action'.ucfirst($this->request->action))){
 					$action = 'action'.ucfirst($this->request->action);
-					$params = self::Injector()->getArgsMethod($class, $action);
+					$params = Injector::getInstance()->getArgsMethod($class, $action);
 
 					$reflectionMethod = new \ReflectionMethod($class, $action);
 					$output = $reflectionMethod->invokeArgs($class, $params);
@@ -368,7 +374,7 @@
 					$this->_controller();
 				}
 
-				$this->response->run($this->profiler, $this->config, $this->request);
+				$this->response->run();
 				$this->addErrorHr(LOG_ERROR);
 				$this->addErrorHr(LOG_SYSTEM);
 				$this->_setHistory('');
@@ -415,7 +421,7 @@
 		*/
 
 		private function maintenance(){
-			$tpl = self::Template('.app/system/maintenance', 'maintenance');
+			$tpl = new Template('.app/system/maintenance', 'maintenance');
 			return $tpl->show();
 		}
 
@@ -462,9 +468,9 @@
 
 		private function _setCron($src = null){
 			if($src == null)
-				self::Cron(APP_CONFIG_CRON);
+				new Cron(APP_CONFIG_CRON);
 			else
-				self::Cron(SRC_PATH.$src.'/'.SRC_CONFIG_CRON);
+				new Cron(SRC_PATH.$src.'/'.SRC_CONFIG_CRON);
 		}
 
 		/**
@@ -478,9 +484,9 @@
 
 		private function _setDefine($src = null){
 			if($src == null)
-				self::Define('app');
+				new Define('app');
 			else
-				self::Define($src);
+				new Define($src);
 		}
 
 		/**
@@ -494,9 +500,9 @@
 
 		private function _setLibrary($src = null){
 			if($src == null)
-				self::Library('app');
+				new Library('app');
 			else
-				self::Library($src);
+				new Library($src);
 		}
 
 		/**
@@ -613,7 +619,7 @@
 
 		private function _setDatabase($db){
 			if(DATABASE == true)
-				self::Database($db);
+				Database::getInstance($db);
 		}
 
 		/**

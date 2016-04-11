@@ -14,6 +14,7 @@
 	use System\Exception\MissingEntityException;
 	use System\General\facades;
 	use System\Orm\Entity\ForeignKey;
+	use System\Profiler\Profiler;
 	use System\Sql\Sql;
 
 	class Builder {
@@ -396,7 +397,7 @@
 			}
 
 			/** Query execution */
-			$sql = self::Sql();
+			$sql = new Sql();
 			$sql->vars($this->_vars);
 			$sql->query('orm-'.$this->_token, $this->_query);
 
@@ -537,7 +538,7 @@
 		*/
 
 		protected function _dataManyToMany($field, $collection){
-			self::Profiler()->addTime('test-many');
+			Profiler::getInstance()->addTime('test-many');
 			/**
 			 * Instead of making only one query by line, we assemble all the lines IDs and we make a big query (time saving)
 			 * First, we make the query, using IN()
@@ -601,7 +602,7 @@
 				$line->set($field->name, $data);
 			}
 
-			self::Profiler()->addTime('test-many', \System\Profiler\Profiler::USER_END);
+			Profiler::getInstance()->addTime('test-many', \System\Profiler\Profiler::USER_END);
 
 			return $collection;
 		}
@@ -760,7 +761,7 @@
 			$className = '\Orm\Entity\\'.ucfirst($entity);
 
 			if(class_exists($className)){
-				return  self::Entity()->$entity();
+				return self::Entity()->$entity();
 			}
 			else{
 				throw new MissingEntityException('The entity '.$entity.' does not exist');

@@ -22,6 +22,5 @@
 		*/
 
 		public function __construct(){
-			$this->_createlang();
 		}
 	}

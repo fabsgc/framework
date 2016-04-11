@@ -10,12 +10,15 @@
 	
 	namespace System\Template;
 
+	use System\AssetManager\AssetManager;
+	use System\Config\Config;
 	use System\General\error;
 	use System\General\langs;
 	use System\General\facades;
 	use System\General\url;
 	use System\General\resolve;
-	
+	use System\Request\Request;
+
 	class templateParser{
 		use error, langs, url, resolve, facades;
 
@@ -97,7 +100,6 @@
 		*/
 
 		public function __construct(template $tpl){
-			$this->_createlang();
 			$this->_template = $tpl;
 		}
 
@@ -216,7 +218,7 @@
 				$this->_content = $extend[0]::$extend[1]($this->_content);
 			}
 
-			foreach(self::Config()->config['template-extend'] as $extend){
+			foreach(Config::getInstance()->config['template-extend'] as $extend){
 				$this->_content = $extend[0]::$extend[1]($this->_content);
 			}
 		}
@@ -256,9 +258,9 @@
 			if($this->_template->getFile() != $file){
 				if(file_exists($file)){
 					if(isset($m[4])) //precised time cache
-						$t = self::Template($m[1], 'tplInclude_'.$this->_template->getName().'_'.$m[4].'_'.self::Request()->lang.'_'.$this->_includeI.'_', $m[4]);
+						$t = new Template($m[1], 'tplInclude_'.$this->_template->getName().'_'.$m[4].'_'.Request::getInstance()->lang.'_'.$this->_includeI.'_', $m[4]);
 					else
-						$t = self::Template($m[1], 'tplInclude_'.$this->_template->getName().'_'.self::Request()->lang.'_'.$this->_includeI.'_', 0);
+						$t = new Template($m[1], 'tplInclude_'.$this->_template->getName().'_'.Request::getInstance()->lang.'_'.$this->_includeI.'_', 0);
 
 					$t->assign($this->_template->vars);
 					$t->show(Template::TPL_COMPILE_TO_INCLUDE, Template::TPL_COMPILE_INCLUDE);
@@ -336,9 +338,9 @@
 			if($this->_template->getFile() != $file){
 				if(file_exists($file)){
 					if(isset($m[4])) //precised time cache
-						$this->_parent = self::Template($m[1], 'tplExtends_'.$this->_template->getName().'_'.$m[4].'_'.self::Request()->lang, $m[4]);
+						$this->_parent = new Template($m[1], 'tplExtends_'.$this->_template->getName().'_'.$m[4].'_'.Request::getInstance()->lang, $m[4]);
 					else
-						$this->_parent = self::Template($m[1], 'tplExtends_'.$this->_template->getName().'_'.self::Request()->lang, 0);
+						$this->_parent = new Template($m[1], 'tplExtends_'.$this->_template->getName().'_'.Request::getInstance()->lang, 0);
 
 					$this->_parent->assign($this->_template->vars);
 				}
@@ -897,7 +899,7 @@
 					'cache' => $m[3],
 					'files' => explode(',', $m[2]));
 
-				$asset = self::AssetManager($data);
+				$asset = new AssetManager($data);
 
 				if($m[1] == 'css'){
 					return '<link href="{{url:.gcs.gcs.assetManager.default:\''.$asset->getId().'\',\''.$asset->getType().'\'}}" rel="stylesheet" media="screen" type="text/css" />';

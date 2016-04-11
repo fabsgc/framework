@@ -17,7 +17,7 @@
 	use System\Exception\MissingDatabaseException;
 
 	class Database{
-		use error, facades, singleton;
+		use singleton;
 
 		/**
 		 * @var \System\Pdo\Pdo
@@ -47,9 +47,9 @@
 		*/
 
 		public static function getInstance($db = []){
-			if (is_null(self::$_instance)){;
+			if (is_null(self::$_instance)){
 				if(DATABASE == true)
-					self::$_instance = new Database($db[0]);
+					self::$_instance = new Database($db);
 				else
 					self::$_instance = new Database(array());
 			}

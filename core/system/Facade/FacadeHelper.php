@@ -10,13 +10,9 @@
 
 	namespace System\Facade;
 
-	use System\General\error;
-	use System\General\langs;
-	use System\General\facades;
 	use System\Exception\MissingHelperException;
 
 	class FacadeHelper {
-		use error, facades, langs;
 
 		/** 
 		 * list of the class aliases and the real classes behind

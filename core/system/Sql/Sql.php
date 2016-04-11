@@ -10,6 +10,8 @@
 	
 	namespace System\Sql;
 
+	use System\Cache\Cache;
+	use System\Database\Database;
 	use System\General\di;
 	use System\General\error;
 	use System\General\facades;
@@ -18,11 +20,13 @@
 	use System\Collection\Collection;
 	use System\Orm\Entity\Field;
 	use System\Orm\Entity\ForeignKey;
+	use System\Orm\Entity\Multiple;
 	use System\Orm\Entity\Type\File;
 	use System\Profiler\Profiler;
+	use System\Request\Request;
 
 	class Sql{
-		use error, facades,facadesEntity, di;
+		use error, facades, facadesEntity, di;
 
 		/**
 		 * @var array
@@ -89,9 +93,9 @@
 		*/
 
 		public function __construct (){
-			$this->request = self::Request();
-			$this->profiler = self::Profiler();
-			$this->_db = self::Database()->db();
+			$this->request = Request::getInstance();
+			$this->profiler = Profiler::getInstance();
+			$this->_db = Database::getInstance()->db();
 
 			$stack = debug_backtrace(0);
 			$trace = $this->getStackTraceToString($stack);
@@ -240,7 +244,7 @@
 
 		public function fetch($name, $fetch = self::PARAM_FETCH){
 			if($this->_time[''.$name.''] > 0){
-				$this->_cache = self::Cache($this->_nameQuery.$name.'.sql', "", $this->_time[''.$name.'']);
+				$this->_cache = new Cache($this->_nameQuery.$name.'.sql', "", $this->_time[''.$name.'']);
 			}
 
 			if((isset($this->_cache) && $this->_cache->isDie() && $this->_time[''.$name.''] > 0) ||
@@ -399,7 +403,7 @@
 					}
 				}
 				else{
-					$entityObject = self::EntityMultiple($line);
+					$entityObject = new Multiple($line);
 				}
 
 				array_push($entities, $entityObject);

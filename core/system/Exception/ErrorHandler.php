@@ -19,7 +19,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package system
+		 * @package System\Exception
 		*/
 
 		public function __construct () {
@@ -36,7 +36,7 @@
 		 * @param $errline integer
 		 * @return void
 		 * @since 3.0
-		 * @package system
+		 * @package System\Exception
 		*/
 
 		public function errorHandler($errno, $errstr, $errfile, $errline){
@@ -71,7 +71,7 @@
 		 * @param $e \Exception
 		 * @return void
 		 * @since 3.0
-		 * @package system
+		 * @package System\Exception
 		*/
 
 		public function exceptionHandler($e){
@@ -85,7 +85,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package system
+		 * @package System\Exception
 		*/
 
 		public function __destruct(){

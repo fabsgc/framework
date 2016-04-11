@@ -10,10 +10,9 @@
 
 	namespace System\Form\Validation\Element;
 
-	use System\General\facades;
+	use System\Lang\Lang;
 
 	class Radio extends Element{
-		use facades;
 
 		/**
 		 * constructor
@@ -31,7 +30,7 @@
 			if(!isset($this->_data[$field])){
 				array_push($this->_errors, [
 					'field' => $this->_label,
-					'message' =>self::Lang()->lang('.app.system.form.exist')
+					'message' => Lang::getInstance()->lang('.app.system.form.exist')
 				]);
 
 				$this->_exist = false;

@@ -55,7 +55,6 @@
 
 		final public function __construct(){
 			$this->db = self::Database()->db();
-			$this->_createlang();
 			
 			$this->entity = self::Entity();
 			$this->helper = self::Helper();

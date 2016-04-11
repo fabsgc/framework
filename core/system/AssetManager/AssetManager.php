@@ -10,14 +10,10 @@
 
 	namespace System\AssetManager;
 
-	use \system\General;
-	use System\General\error;
-	use System\General\langs;
-	use System\General\facades;
+	use System\General;
 	use System\Cache\Cache;
 
 	class AssetManager{
-		use error, langs, facades;
 
 		/**
 		 * concatenated name files

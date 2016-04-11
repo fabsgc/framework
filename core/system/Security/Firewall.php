@@ -10,15 +10,18 @@
 	
 	namespace System\Security;
 
+	use System\Config\Config;
 	use System\General\di;
 	use System\General\error;
-	use System\General\langs;
 	use System\General\facades;
+	use System\General\langs;
 	use System\General\url;
-	use System\General\resolve;
+	use System\Request\Request;
+	use System\Response\Response;
+	use System\Template\Template;
 
-    class Firewall{
-		use error, facades, langs, url, resolve, di;
+	class Firewall{
+		use error, langs, url, di;
 
 		/**
 		 * @var array
@@ -52,10 +55,9 @@
 		*/
 		
 		public function __construct(){
-			$this->request = self::Request();
-			$this->config = self::Config();
-			$this->response = self::Response();
-			$this->_createlang();
+			$this->request = Request::getInstance();
+			$this->config = Config::getInstance();
+			$this->response = Response::getInstance();
 
 			$this->_configFirewall = &$this->config->config['firewall'][''.$this->request->src.''];
 			$this->_setFirewall();
@@ -133,7 +135,7 @@
 								return true;
 							}
 							else{
-								$t = self::Template($this->_configFirewall['forbidden']['template'], 'gcsfirewall', 0);
+								$t = new Template($this->_configFirewall['forbidden']['template'], 'gcsfirewall', 0);
 								foreach($this->_configFirewall['forbidden']['variable'] as $val){
 									if($val['type'] == 'var'){
 										$t->assign(array($val['name']=>$val['value']));
@@ -186,7 +188,7 @@
 				}
 			}
 			else{
-				$t = self::Template($this->_configFirewall['csrf']['template'], 'gcsfirewall', 0);
+				$t = new Template($this->_configFirewall['csrf']['template'], 'gcsfirewall', 0);
 				foreach($this->_configFirewall['csrf']['variable'] as $val){
 					if($val['type'] == 'var'){
 						$t->assign(array($val['name']=>$val['value']));

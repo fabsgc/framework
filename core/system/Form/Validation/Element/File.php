@@ -10,12 +10,10 @@
 
 	namespace System\Form\Validation\Element;
 
-	use System\General\facades;
 	use System\Lang\Lang;
 	use System\Request\Data;
 
 	class File extends Element{
-		use facades;
 
 		/**
 		 * constructor

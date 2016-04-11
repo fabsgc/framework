@@ -120,7 +120,6 @@
 		*/
 
 		public function __construct ($file = '', $name = 'template', $cache = 0, $stream = self::TPL_FILE){
-			$this->_createlang();
 			$this->_file = $this->resolve(RESOLVE_TEMPLATE, $file).EXT_TEMPLATE;
 			$this->_name      = $name;
 			$this->_timeCache = $cache;
@@ -295,7 +294,7 @@
 		*/
 
 		public function show($returnType = self::TPL_COMPILE_TO_STRING, $type = self::TPL_COMPILE_ALL){
-			$profiler = self::Profiler();
+			$profiler = Profiler::getInstance();
 
 			$profiler->addTime('template '.$this->_name);
 			$profiler->addTemplate($this->_name, Profiler::TEMPLATE_START, $this->_file);

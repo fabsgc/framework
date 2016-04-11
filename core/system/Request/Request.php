@@ -10,7 +10,6 @@
 	
 	namespace System\Request;
 
-	use System\General\error;
 	use System\General\singleton;
 	use System\Exception\AttributeNotAllowedException;
 
@@ -28,7 +27,7 @@
 	 * @property \System\Request\Data data
 	*/
 	class Request{
-		use error, singleton;
+		use singleton;
 
 		/** 
 		 * parameters of each action

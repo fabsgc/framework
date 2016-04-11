@@ -10,6 +10,7 @@
 	
 	namespace System\Terminal;
 
+	use System\Database\Database;
 	use System\Orm\Entity\ForeignKey;
 	use System\Sql\Sql;
 	use System\Template\Template;
@@ -22,7 +23,7 @@
 			//choose the module name
 			while(1==1){
 				echo ' - choose module name : ';
-				$src = ArgvInput::get(STDIN);
+				$src = ArgvInput::get();
 
 				if(!file_exists(DOCUMENT_ROOT.SRC_PATH.$src.'/')){
 					break;
@@ -35,7 +36,7 @@
 			//choose the number of controllers
 			while(1==1){
 				echo ' - add a controller (keep empty to stop) : ';
-				$controller = argvInput::get(STDIN);
+				$controller = argvInput::get();
 					
 				if($controller != ''){
 					if(!in_array($controller, $controllers)){
@@ -155,7 +156,7 @@
 			//choose the module name
 			while(1==1){
 				echo ' - choose a module : ';
-				$src = ArgvInput::get(STDIN);
+				$src = ArgvInput::get();
 
 				if(file_exists(DOCUMENT_ROOT.SRC_PATH.$src.'/')){
 					break;
@@ -168,7 +169,7 @@
 			//choose the controllers
 			while(1==1){
 				echo ' - add a controller (keep empty to stop) : ';
-				$controller = argvInput::get(STDIN);
+				$controller = argvInput::get();
 					
 				if($controller != ''){
 					if(!in_array($controller, $controllers) AND !file_exists(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_CONTROLLER_PATH.'/'.ucfirst($controller).EXT_CONTROLLER.'.php')){
@@ -189,9 +190,9 @@
 			}
 
 			foreach ($controllers as $value) {
-				$tpl['controller'] = self::Template('.app/system/module/controller', 'terminalCreateController'.$value);
+				$tpl['controller'] = new Template('.app/system/module/controller', 'terminalCreateController'.$value);
 				$tpl['controller']->assign(array('src' => $src, 'controller' => ucfirst($value)));
-				$tpl['model'] = self::Template('.app/system/module/model', 'terminalCreateModel'.$value);
+				$tpl['model'] = new Template('.app/system/module/model', 'terminalCreateModel'.$value);
 				$tpl['model']->assign(array('src' => $src, 'model' => ucfirst($value)));
 
 				file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_CONTROLLER_PATH.ucfirst($value).EXT_CONTROLLER.'.php', $tpl['controller']->show());
@@ -207,13 +208,13 @@
 			if(DATABASE){
 				while(1==1){
 					echo ' - choose a table (*) : ';
-					$table = ArgvInput::get(STDIN);
+					$table = ArgvInput::get();
 
 					if($table != ''){
 						break;
 					}
 					else{
-						$table = ArgvInput::get(STDIN);
+						$table = ArgvInput::get();
 					}
 				}
 
@@ -221,8 +222,8 @@
 					TerminalCreate::addEntity($table);
 				}
 				else{
-					$sql = self::Sql(self::Database()->db());
-					$sql->query('add-entity', 'SHOW TABLES FROM '.self::Database()->db()->getDatabase());
+					$sql = new Sql(Database::getInstance()->db());
+					$sql->query('add-entity', 'SHOW TABLES FROM '.Database::getInstance()->db()->getDatabase());
 					$data = $sql->fetch('add-entity', Sql::PARAM_FETCH);
 
 					foreach($data as $value){
@@ -254,9 +255,9 @@
 				unlink(APP_RESOURCE_ENTITY_PATH.$table.EXT_ENTITY.'.php');
 			}
 
-			$sql = self::Sql(self::Database()->db());
+			$sql = new Sql(Database::getInstance()->db());
 			$sql->query('add-entity', 'SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table');
-			$sql->vars(array('db' => self::Database()->db()->getDatabase()));
+			$sql->vars(array('db' => Database::getInstance()->db()->getDatabase()));
 			$sql->vars(array('table' => $table));
 
 			$field = '';
@@ -401,7 +402,7 @@
 			$field = str_replace("\n;", ';', $field);
 
 			if($primary == true){
-				$t = self::Template('.app/system/module/orm/entity', 'gcsEntity_'.$table, '0');
+				$t = new Template('.app/system/module/orm/entity', 'gcsEntity_'.$table, '0');
 				$t->assign(array('class'=> $class, 'table' => $table, 'field'=> $field));
 				file_put_contents(APP_RESOURCE_ENTITY_PATH.ucfirst($class).EXT_ENTITY.'.php', $t->show());
 
@@ -418,13 +419,13 @@
 			if(DATABASE){
 				while(1==1){
 					echo ' - choose an entity : ';
-					$table = ArgvInput::get(STDIN);
+					$table = ArgvInput::get();
 
 					if($table != ''){
 						break;
 					}
 					else{
-						$table = ArgvInput::get(STDIN);
+						$table = ArgvInput::get();
 					}
 				}
 
@@ -449,7 +450,7 @@
 								sort($tableNames, SORT_STRING);
 								$tableName = $tableNames[0].strtolower($tableNames[1]);
 
-								$t = self::Template('.app/system/module/orm/manytomany', 'gcsEntity_'.$table, '0');
+								$t = new Template('.app/system/module/orm/manytomany', 'gcsEntity_'.$table, '0');
 								$t->assign(array(
 									'table'   => $tableName,
 									'entity1' => $entity->name(),
@@ -460,7 +461,7 @@
 
 								$query = $t->show();
 
-								$sql = self::Sql();
+								$sql = new Sql();
 								$sql->query('create-table-manytomany', $query);
 								$sql->execute('create-table-manytomany');
 

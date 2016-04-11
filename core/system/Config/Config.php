@@ -11,14 +11,13 @@
 	
 	namespace System\Config;
 
-	use System\General\error;
-	use System\General\facades;
+	use System\Cache\Cache;
 	use System\General\singleton;
 	use System\Exception\Exception;
 	use System\Exception\MissingConfigException;
 
 	class Config{
-		use error, singleton, facades;
+		use singleton;
 
 		/** 
 		 * contain all the config, lang and path data (path, or content file)
@@ -78,7 +77,7 @@
 			}
 			else{
 				$var = null;
-				$this->_cache = self::Cache('config');
+				$this->_cache = new Cache('config');
 
 				if($this->_cache->isExist()){
 					$this->config = $this->_cache->getCache();
@@ -593,7 +592,7 @@
 		 * @access protected
 		 * @return string
 		 * @since 3.0
-		 * @package system
+		 * @package System\Config
 		*/
 
 		public function __destruct(){

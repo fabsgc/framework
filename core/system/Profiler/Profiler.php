@@ -10,14 +10,12 @@
 	
 	namespace System\Profiler;
 
-	use System\General\error;
-	use System\General\facades;
-	use System\General\langs;
-	use System\General\singleton;
 	use System\Cache\Cache;
+	use System\General\error;
+	use System\General\singleton;
 
 	class Profiler{
-		use error, facades, langs, singleton;
+		use error, singleton;
 
 		/**
 		 * sql queries

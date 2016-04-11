@@ -96,10 +96,10 @@
 						array_push($params, self::$name());
 					}
 					else if(preg_match('#(Controller\\\Request\\\)#isU', $object->name)){
-						array_push($params, self::FormInjector()->get($object));
+						array_push($params, Form::getInstance()->get($object));
 					}
 					else if(preg_match('#(Orm\\\Entity\\\)#isU', $object->name)){
-						array_push($params, self::OrmInjector()->get($object));
+						array_push($params, Orm::getInstance()->get($object));
 					}
 					else{
 						array_push($params, null);

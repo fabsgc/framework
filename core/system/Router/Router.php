@@ -11,6 +11,7 @@
 	namespace System\Router;
 
 	use System\General\facades;
+	use System\Request\Request;
 
 	class Router{
 		use facades;
@@ -52,7 +53,7 @@
 			$routeRight = null;
 
 			foreach ($this->routes as $route){
-				if (($varsValues = $route->match($url2)) != false && ($route->method() == '*' || in_array(self::Request()->data->method, explode(',', $route->method())) || $route->method() == self::Request()->data->method)){
+				if (($varsValues = $route->match($url2)) != false && ($route->method() == '*' || in_array(Request::getInstance()->data->method, explode(',', $route->method())) || $route->method() == Request::getInstance()->data->method)){
 					$routeRight = $route;
 					// if she has vars
 					if ($route->hasVars()){

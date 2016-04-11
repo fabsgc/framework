@@ -10,10 +10,7 @@
 
 	namespace System\Orm\Entity;
 
-	use System\General\facades;
-
 	class Multiple {
-		use facades;
 
 		/**
 		 * @var array
@@ -24,6 +21,7 @@
 		/**
 		 * Constructor
 		 * @access public
+		 * @param $data array
 		 * @since 3.0
 		 * @package System\Orm\Entity
 		*/
@@ -39,7 +37,7 @@
 		 * @param array $value
 		 * @return void
 		 * @since 3.0
-		 * @package system
+		 * @package System\Orm\Entity
 		*/
 
 		public function __set($key, $value) {
@@ -54,7 +52,7 @@
 		 * @param $key string
 		 * @return string
 		 * @since 3.0
-		 * @package system
+		 * @package System\Orm\Entity
 		*/
 
 		public function __get($key) {
@@ -71,7 +69,7 @@
 		 * @param $data array
 		 * @return array,null
 		 * @since 3.0
-		 * @package system
+		 * @package System\Orm\Entity
 		*/
 
 		public function data($data = []){

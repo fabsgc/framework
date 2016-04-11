@@ -11,13 +11,13 @@
 	namespace System\Lang;
 
 	use System\General\error;
-	use System\General\facades;
 	use System\General\resolve;
 	use System\General\singleton;
+	use System\Request\Request;
 	use System\Template\Template;
 
     class Lang{
-		use error, facades, resolve, singleton;
+		use error, resolve, singleton;
 
 		const USE_NOT_TPL    = 0;
 		const USE_TPL        = 1;
@@ -58,7 +58,7 @@
 		*/
 		
 		public function lang($name, $vars = [], $template = self::USE_NOT_TPL){
-			$request = self::Request();
+			$request = Request::getInstance();
 			$config = $this->resolve(RESOLVE_LANG, $name);
 			$name = $config[1];
 			$config = $config[0];
@@ -79,7 +79,7 @@
 					}
 				}
 				else{
-					$tpl = self::Template($config[$request->lang][$name], $name, 0, Template::TPL_STRING);
+					$tpl = new Template($config[$request->lang][$name], $name, 0, Template::TPL_STRING);
 					$tpl->assign($vars);
 					return $tpl->show(Template::TPL_COMPILE_TO_STRING, Template::TPL_COMPILE_LANG);
 				}

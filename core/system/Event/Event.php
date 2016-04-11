@@ -10,18 +10,43 @@
 	
 	namespace System\Event;
 
-	use System\General\error;
-	use System\General\facades;
-
 	class Event {
-		use error, facades;
 
-		public $parent     = null; //reference to the object which start the event
-		public $data       = null; //data you can pass from the controller to the event
 
-		protected $_name         ; //name of the event which is started
-		protected $_status = true; //status of the event : stopped or running
-		protected $_result =   []; //data returned by the event after each call
+		/**
+		 * reference to the object which start the event
+		 * @var $parent object
+		*/
+
+		public $parent = null;
+
+		/**
+		 * data you can pass from the controller to the event
+		 * @var $data array
+		*/
+
+		public $data = null;
+
+		/**
+		 * name of the event which is started
+		 * @var $_name string
+		*/
+
+		protected $_name;
+
+		/**
+		 * status of the event : stopped or running
+		 * @var $_status bool
+		*/
+
+		protected $_status = true;
+
+		/**
+		 * data returned by the event after each call
+		 * @var $_result array
+		*/
+
+		protected $_result = [];
 
 		const START =  true;
 		const STOP  = false;

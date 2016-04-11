@@ -10,10 +10,7 @@
 
 	namespace System\Router;
 
-	use System\General\error;
-
 	class Route{
-		use error;
 
 		/**
 		 * @var string

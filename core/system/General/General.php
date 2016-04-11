@@ -10,9 +10,13 @@
 
 	namespace System\General;
 
-	use System\Exception\MissingConfigException;
-	use System\Orm\Entity\Multiple;
+	use System\Facade\Facade;
 	use System\Lang\Lang;
+	use System\Config\Config;
+	use System\Request\Request;
+	use System\Orm\Entity\Multiple;
+	use System\Exception\MissingConfigException;
+	use System\Database\Database;
 
 	trait resolve{
 
@@ -25,14 +29,13 @@
 		 * @throws MissingConfigException
 		 * @return mixed
 		 * @since 3.0
-		 * @package system
+		 * @package System\General
 		*/
 
 		protected function resolve($type, $data){
-			$request = self::Request();
-			$config  = self::Config();
-
-
+			$request = Request::getInstance();
+			$config  = Config::getInstance();
+			
 			if($type == RESOLVE_ROUTE || $type == RESOLVE_LANG){
 				if(preg_match('#^((\.)([a-zA-Z0-9_-]+)(\.)(.+))#', $data, $matches)){
 					$src = $matches[3];
@@ -80,7 +83,7 @@
 		 * @param $php boolean : because method return path, the framework wants to know if you want the html path or the php path
 		 * @return string
 		 * @since 3.0
-		 * @package system
+		 * @package System\General
 		*/
 
 		protected function path($type, $data = '', $php = false){
@@ -131,7 +134,7 @@
 		 * @param $arguments array
 		 * @return object
 		 * @since 3.0
-		 * @package system
+		 * @package System\General
 		*/
 
 		public function __call($name, $arguments = []){
@@ -143,7 +146,7 @@
 				array_push($params, $value);
 			}
 
-			return \System\Facade\Facade::load($name, $params, $trace);
+			return Facade::load($name, $params, $trace);
 		}
 
 		
@@ -239,7 +242,7 @@
 			foreach($data as $value){
 				if($entity != ''){
 					$entityName = '\entity\\'.$entity;
-					$entityObject = new $entityName(self::Database()->db);
+					$entityObject = new $entityName(Database::getInstance()->db());
 
 					foreach($value as $key => $value2){
 						$entityObject->$key = $value2;
@@ -257,8 +260,12 @@
 	}
 
 	trait langs{
+
+		/**
+		 * @var $lang string
+		 */
+
 		protected $lang  = LANG;
-		protected $langInstance;
 
 		/**
 		 * get the client language
@@ -287,8 +294,7 @@
 		*/
 
 		public function setLang($lang = ''){
-			self::Request()->lang = $lang;
-			$this->langInstance->setLang(self::Request()->lang);
+			Request::getInstance()->lang = $lang;
 		}
 
 		/**
@@ -299,7 +305,7 @@
 		*/
 
 		public function getLang(){
-			return self::Request()->lang;
+			return Request::getInstance()->lang;
 		}
 
 		/**
@@ -307,24 +313,12 @@
 		 * @param $lang
 		 * @param $vars array : vars
 		 * @param int $template : use template syntax or not
-		 * @internal param string $langs : sentence name
 		 * @return string
 		 * @since 3.0
 		 */
 
 		final public function useLang($lang, $vars = [], $template = Lang::USE_NOT_TPL){
-			return $this->langInstance->lang($lang, $vars, $template);
-		}
-
-		/**
-		 * create new instance of \system\Lang\Lang
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		*/
-
-		final protected function _createlang(){
-			$this->langInstance = self::Lang();
+			return Lang::getInstance()->lang($lang, $vars, $template);
 		}
 	}
 

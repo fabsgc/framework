@@ -10,12 +10,7 @@
 	
 	namespace System\Cache;
 
-	use System\General\error;
-	use System\General\langs;
-	use System\General\facades;
-
 	class Cache{
-		use error, langs, facades;
 
 		/**
 		 * cache name
@@ -49,7 +44,7 @@
 		 * Constructor
 		 * @access public
 		 * @param $name string : name of the cache file
-		 * @param $time int : temps de mise en cache du fichier. La valeur par défaut, 0 correspond à un fichier non mis en cache
+		 * @param $time int : cache time, default value is 0
 		 * @since 3.0
 		 * @package System\Cache
 		*/

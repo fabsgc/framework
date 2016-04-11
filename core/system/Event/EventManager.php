@@ -11,10 +11,9 @@
 	namespace System\Event;
 
 	use System\General\error;
-	use System\General\facades;
 
 	class EventManager {
-		use error, facades;
+		use error;
 
 		/**
 		 * @var \System\Event\Event[]

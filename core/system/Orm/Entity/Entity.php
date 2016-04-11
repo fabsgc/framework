@@ -10,16 +10,15 @@
 
 	namespace System\Orm\Entity;
 
+	use System\Database\Database;
 	use System\Exception\MissingEntityException;
 	use System\Orm\Entity\Type\File;
 	use System\Orm\Validation\Validation;
-	use System\General\facades;
 	use System\Orm\Builder;
 	use System\Request\Data;
 	use System\Sql\Sql;
 
 	abstract class Entity {
-		use facades;
 
 		/**
 		 * @var string
@@ -415,14 +414,14 @@
 		*/
 
 		public function insert() {
-			$sql = self::Sql();
+			$sql = new Sql();
 			$queryFields = '';
 			$queryValues = '';
 			$manyToMany  = null;
-			$transaction = self::Database()->db()->inTransaction();
+			$transaction = Database::getInstance()->db()->inTransaction();
 
 			if(!$transaction)
-				self::Database()->db()->beginTransaction();
+				Database::getInstance()->db()->beginTransaction();
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
 			$fieldsInsertOneToMany = [];
@@ -595,7 +594,7 @@
 			$sql->fetch('insert_'.$this->_name.'_'.$this->_token, Sql::PARAM_FETCHINSERT);
 
 			/** Update primary key */
-			$this->_fields[$this->_primary] = self::Database()->db()->lastInsertId();
+			$this->_fields[$this->_primary] = Database::getInstance()->db()->lastInsertId();
 
 			/** ######################################################################## */
 			/** One to many and many to many need more queries after the principal query */
@@ -649,7 +648,7 @@
 				/** @var $referencedEntity \System\Orm\Entity\Entity */
 				$referencedEntity = new $class();
 
-				$sql = self::Sql();
+				$sql = new Sql();
 				$sql->query('orm-delete-many', 'DELETE FROM '.$table.' WHERE '.$this->name().'_'.$manyToMany->foreign->referenceField().' = '.$this->_fields[$this->_primary]);
 				$sql->fetch('orm-delete-many');
 
@@ -670,7 +669,7 @@
 			}
 
 			if(!$transaction)
-				self::Database()->db()->commit();
+				Database::getInstance()>db()->commit();
 		}
 
 		/**
@@ -687,13 +686,13 @@
 				throw new MissingEntityException('The primary key of the entity "'.get_class($this).'" is null, you can\'t update it');
 			}
 
-			$sql = self::Sql();
+			$sql = new Sql();
 			$queryFields = '';
 			$manyToMany  = null;
-			$transaction = self::Database()->db()->inTransaction();
+			$transaction = Database::getInstance()->db()->inTransaction();
 
 			if(!$transaction)
-				self::Database()->db()->beginTransaction();
+				Database::getInstance()->db()->beginTransaction();
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
 			$fieldsInsertOneToMany = [];
@@ -912,7 +911,7 @@
 				/** @var $referencedEntity \System\Orm\Entity\Entity */
 				$referencedEntity = new $class();
 
-				$sql = self::Sql();
+				$sql = new Sql();
 				$sql->query('orm-delete-many', 'DELETE FROM '.$table.' WHERE '.$this->name().'_'.$manyToMany->foreign->referenceField().' = '.$this->_fields[$this->_primary]);
 				$sql->fetch('orm-delete-many');
 
@@ -933,7 +932,7 @@
 			}
 
 			if(!$transaction)
-				self::Database()->db()->commit();
+				Database::getInstance()->db()->commit();
 		}
 
 		/**
@@ -946,11 +945,11 @@
 		*/
 
 		public function delete() {
-			$sql = self::Sql();
-			$transaction = self::Database()->db()->inTransaction();
+			$sql = new Sql();
+			$transaction = Database::getInstance()->db()->inTransaction();
 
 			if(!$transaction)
-				self::Database()->db()->beginTransaction();
+				Database::getInstance()->db()->beginTransaction();
 
 			foreach($this->_fields as $field){
 				if($field->primary == false){
@@ -1027,7 +1026,7 @@
 										sort($table, SORT_STRING);
 										$table = ucfirst($table[0].$table[1]);
 
-										$sql = self::Sql();
+										$sql = new Sql();
 										$sql->query('orm-delete-many', 'DELETE FROM '.$table.' WHERE '.$this->name().'_'.$field->foreign->referenceField().' = '.$this->_fields[$this->_primary]);
 										$sql->fetch('orm-delete-many');
 
@@ -1060,7 +1059,7 @@
 			$sql->fetch('delete_'.$this->_name.'_'.$this->_token, Sql::PARAM_FETCHDELETE);
 
 			if(!$transaction)
-				self::Database()->db()->commit();
+				Database::getInstance()->db()->commit();
 		}
 
 		/**

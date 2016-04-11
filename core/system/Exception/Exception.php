@@ -15,8 +15,11 @@
 		/**
 		 * constructor
 		 * @access public
+		 * @param $message string
+		 * @param $code int
+		 * @param $previous Exception
 		 * @since 3.0
-		 * @package system
+		 * @package \System\Exception
 		*/
 
 		public function __construct ($message, $code = 0, Exception $previous = null){
@@ -27,7 +30,7 @@
 		 * toString
 		 * @access public
 		 * @since 3.0
-		 * @package system
+		 * @package \System\Exception
 		*/
 
 		public function __toString(){

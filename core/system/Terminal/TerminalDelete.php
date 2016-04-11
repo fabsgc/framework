@@ -17,7 +17,7 @@
 			//choose the module name
 			while(1==1){
 				echo ' - choose the module you want to delete : ';
-				$src = argvInput::get(STDIN);
+				$src = argvInput::get();
 
 				if(file_exists(DOCUMENT_ROOT.SRC_PATH.$src.'/')){
 					break;
@@ -59,7 +59,7 @@
 			//choose the module name
 			while(1==1){
 				echo ' - choose module : ';
-				$src = ArgvInput::get(STDIN);
+				$src = ArgvInput::get();
 
 				if(file_exists(DOCUMENT_ROOT.SRC_PATH.$src.'/')){
 					break;
@@ -72,7 +72,7 @@
 			//choose the controllers
 			while(1==1){
 				echo ' - choose a controller (keep empty to stop) : ';
-				$controller = argvInput::get(STDIN);
+				$controller = argvInput::get();
 					
 				if($controller != ''){
 					if(!in_array($controller, $controllers) AND file_exists(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_CONTROLLER_PATH.'/'.ucfirst($controller).EXT_CONTROLLER.'.php')){

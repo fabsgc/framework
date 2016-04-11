@@ -15,7 +15,7 @@
 	use System\Request\Request;
 
 	class Form{
-		use facades, singleton;
+		use singleton;
 
 		/**
 		 * Constructor

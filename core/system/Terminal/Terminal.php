@@ -10,13 +10,7 @@
 	
 	namespace System\Terminal;
 
-	use System\General\error;
-	use System\General\langs;
-	use System\General\facades;
-	use System\General\resolve;
-
     class Terminal{
-		use error, facades, langs, resolve;
 
 		/**
 		 * args
@@ -33,8 +27,6 @@
 		*/
 
 		public function __construct(){
-			$this->_createlang();
-
 			$this->_parseArg($_SERVER['argv']);
 
 			if(isset($this->_argv[0]))
@@ -154,7 +146,6 @@
 	}
 
 	class TerminalCommand{
-		use error, facades, langs, resolve;
 
 		/**
 		 * command content
@@ -173,7 +164,6 @@
 
 		public function __construct($argv){
 			$this->_argv = $argv;
-			$this->_createlang();
 		}
 	}
 

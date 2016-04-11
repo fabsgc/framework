@@ -10,6 +10,7 @@
 	
 	namespace System\Model;
 
+	use System\Database\Database;
 	use System\General\error;
 	use System\General\langs;
 	use System\General\facades;
@@ -41,11 +42,11 @@
 		 * @param $entity \system\General\facadesEntity
 		 * @param $helper \system\General\facadesHelper
 		 * @since 3.0
-		 * @package system
+		 * @package System\Model
 		*/
 		
 		final public function __construct($entity, $helper){
-			$this->db       =   self::Database()->db();
+			$this->db       =   Database::getInstance()->db();
 			$this->entity   =   $entity;
 			$this->helper   =   $helper;
 
@@ -57,7 +58,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package system
+		 * @package System\Model
 		*/
 			
 		public function init(){	
@@ -67,7 +68,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package system
+		 * @package System\Model
 		*/
 		
 		public function __destruct(){

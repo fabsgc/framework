@@ -10,13 +10,12 @@
 	
 	namespace System\Response;
 
-	use System\General\error;
-	use System\General\facades;
-	use System\General\langs;
+	use System\Request\Request;
 	use System\General\singleton;
+	use System\Template\Template;
 
 	class Response{
-		use error, langs, singleton, facades;
+		use singleton;
 
 		/**
 		 * Array of http errors
@@ -205,7 +204,7 @@
 				http_response_code($this->_status);
 
 			if(array_key_exists($this->_status, $this->_statusErrorPage)){
-				$tpl = self::Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0', self::Request()->lang);
+				$tpl = new Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0',Request::getInstance()->lang);
 
 				$tpl->assign(array(
 					'code' => $this->_status,

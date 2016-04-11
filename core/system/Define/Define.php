@@ -10,12 +10,11 @@
 	
 	namespace System\Define;
 
+	use System\Config\Config;
 	use System\General\error;
-	use System\General\facades;
-	use System\General\langs;
 
 	class Define{
-		use error, langs, facades;
+		use error;
 
 		/**
 		 * constructor
@@ -26,7 +25,7 @@
 		*/
 
 		public function __construct ($src){
-			foreach(self::Config()->config['define'][''.$src.''] as $key => $value){
+			foreach(Config::getInstance()->config['define'][''.$src.''] as $key => $value){
 				$define = strtoupper($src.'_'.DEFINE_PREFIX.strval($key));
 
 				if (!defined($define)){

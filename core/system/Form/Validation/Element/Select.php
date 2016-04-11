@@ -10,10 +10,7 @@
 
 	namespace System\Form\Validation\Element;
 
-	use System\General\facades;
-
 	class Select extends Element{
-		use facades;
 
 		/**
 		 * constructor
