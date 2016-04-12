@@ -492,7 +492,7 @@
 			/** @var $line \System\Orm\Entity\Entity */
 			foreach($collection as $line){
 				$count = $line->get($field->name);
-				$data = null;
+				$data = new Collection();
 
 				/** @var $dataJoin \System\Orm\Entity\Entity */
 				foreach($datasJoin as $key2 => $dataJoin){
@@ -504,9 +504,6 @@
 						$data = new Collection($datasJoin->getRange($key2, $count));
 						$datasJoin->deleteRange($key2, $count);
 						break;
-					}
-					else{
-						$data = new Collection();
 					}
 				}
 

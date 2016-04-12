@@ -353,7 +353,7 @@
 							$sql = new Sql();
 							$sql->query('query-form-validation', $constraints['value']['query']);
 							$sql->vars('value', $value);
-							$sql->vars($constraints['value']['query']);
+							$sql->vars($constraints['value']['vars']);
 							$data = $sql->fetch('query-form-validation', Sql::PARAM_FETCHCOLUMN);
 
 							$querySuccess = true;

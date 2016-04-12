@@ -10,6 +10,7 @@
 	
 	namespace System\Controller;
 
+	use System\Database\Database;
 	use System\Orm\Entity\Entity;
 	use System\General\error;
 	use System\General\langs;
@@ -21,6 +22,10 @@
 	use System\General\facadesHelper;
 	use System\Event\EventManager;
 	use System\Exception\MissingModelException;
+	use System\Request\Request;
+	use System\Security\Firewall;
+	use System\Security\Spam;
+	use System\Template\Template;
 
 	/**
 	 * @method Entity entity
@@ -54,7 +59,7 @@
 		*/
 
 		final public function __construct(){
-			$this->db = self::Database()->db();
+			$this->db = Database::getInstance()->db();
 			
 			$this->entity = self::Entity();
 			$this->helper = self::Helper();
@@ -93,7 +98,7 @@
 		*/
 		
 		final public function setFirewall(){
-			$firewall = self::Firewall();
+			$firewall = new Firewall();
 			
 			if($firewall->check())
 				return true;
@@ -110,7 +115,7 @@
 		*/
 
 		final public function setSpam(){
-			$spam = self::Spam();
+			$spam = new Spam();
 			
 			if($spam->check())
 				return true;
@@ -128,7 +133,7 @@
 		*/
 		
 		final public function model(){
-			$request = self::Request();
+			$request = Request::getInstance();
 			$class = "\\".$request->src."\\".'Manager'.ucfirst($request->controller);
 			
 			if(class_exists($class)){
@@ -149,8 +154,8 @@
 		 */
 
 		final public function showDefault(){
-			$request = self::Request();
-			$t = self::Template('.app/system/default', 'systemDefault');
+			$request = Request::getInstance();
+			$t = new Template('.app/system/default', 'systemDefault');
 			$t->assign(array('action' => $request->src.'::'.$request->controller.'::'.$request->action));
 			return $t->show();
 		}

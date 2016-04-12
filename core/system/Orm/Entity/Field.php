@@ -94,6 +94,13 @@
 		public $beNull = true;
 
 		/**
+		 * the default value of the field
+		 * @var String
+		 */
+
+		public $default = '';
+
+		/**
 		 * @var mixed string|\System\Orm\Entity\Field|\System\Orm\Entity\Field[]|\System\Orm\Entity\Type
 		*/
 
@@ -263,6 +270,20 @@
 
 		public function beNull($beNull){
 			$this->beNull = $beNull;
+			return $this;
+		}
+
+		/**
+		 * Set default value
+		 * @access public
+		 * @param $default String
+		 * @since 3.0
+		 * @return \System\Orm\Entity\Field
+		 * @package System\Orm\Entity
+		 */
+
+		public function defaultValue($default){
+			$this->default = $default;
 			return $this;
 		}
 

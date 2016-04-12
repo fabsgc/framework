@@ -15,13 +15,14 @@
 	use System\General\error;
 	use System\General\facades;
 	use System\General\langs;
+	use System\General\resolve;
 	use System\General\url;
 	use System\Request\Request;
 	use System\Response\Response;
 	use System\Template\Template;
 
 	class Firewall{
-		use error, langs, url, di;
+		use error, langs, url, di, resolve;
 
 		/**
 		 * @var array

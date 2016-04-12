@@ -559,6 +559,10 @@
 							throw new MissingEntityException('The field "'.$field->name.'" in "'.$this->_name.'" can\'t be null');
 						}
 
+						if($field->value == null && $field->default != ''){
+							$field->value = $field->default;
+						}
+
 						if(gettype($field->value) != 'object'){
 							if(in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])){
 								$sql->vars($field->name, [$field->value, sql::PARAM_INT]);
@@ -585,8 +589,8 @@
 			}
 
 			/** Execution of the query */
-			$queryFields = trim($queryFields, ',');
-			$queryValues = trim($queryValues, ',');
+			$queryFields = substr(trim($queryFields, ','), 0, strlen($queryFields)-2);
+			$queryValues = substr(trim($queryValues, ','), 0, strlen($queryValues)-2);
 
 			$query = 'INSERT INTO '.$this->_name.'('.$queryFields.') VALUES('.$queryValues.')';
 
@@ -669,7 +673,7 @@
 			}
 
 			if(!$transaction)
-				Database::getInstance()>db()->commit();
+				Database::getInstance()->db()->commit();
 		}
 
 		/**
@@ -852,7 +856,7 @@
 				}
 			}
 
-			$queryFields = trim($queryFields, ',');
+			$queryFields = substr(trim($queryFields, ','), 0, strlen($queryFields)-2);
 
 			$query = 'UPDATE '.$this->_name.' SET '.$queryFields.' WHERE '.$this->_fields[$this->_primary]->name.' = '.$this->_fields[$this->_primary]->value;
 

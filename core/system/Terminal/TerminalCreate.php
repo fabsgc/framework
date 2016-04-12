@@ -75,6 +75,8 @@
 			mkdir(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_LANG_PATH);
 			mkdir(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_LIBRARY_PATH);
 			mkdir(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_REQUEST_PATH);
+			mkdir(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_REQUEST_PATH.'/Custom/');
+			mkdir(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_REQUEST_PATH.'/Plugin/');
 			mkdir(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_TEMPLATE_PATH);
 
 			mkdir(DOCUMENT_ROOT.WEB_PATH.$src);
@@ -95,6 +97,8 @@
 			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_LIBRARY_PATH.'.gitignore', $gitignore);
 			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_LIBRARY_PATH.'.gitignore', $gitignore);
 			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_REQUEST_PATH.'.gitignore', $gitignore);
+			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_REQUEST_PATH.'/Custom/.gitignore', $gitignore);
+			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_REQUEST_PATH.'/Plugin/.gitignore', $gitignore);
 			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_TEMPLATE_PATH.'.gitignore', $gitignore);
 
 			file_put_contents(DOCUMENT_ROOT.SRC_PATH.$src.'/'.SRC_RESOURCE_CONFIG_PATH.'cron.xml', $tpl['cron']->show());
@@ -306,21 +310,21 @@
 					$field .= '				->type(Field::FLOAT)'."\n";
 					$columnType = str_replace('decimal(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
-					$field .= '				->precision(array('.$columnType.'))'."\n";
+					$field .= '				->precision(array(\''.$columnType.'\'))'."\n";
 					$property .= '	 * @property float '.$value['COLUMN_NAME'];
 				}
 				else if(preg_match('#(float)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::FLOAT)'."\n";
 					$columnType = str_replace('float(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
-					$field .= '				->precision(array('.$columnType.'))'."\n";
+					$field .= '				->precision(array(\''.$columnType.'\'))'."\n";
 					$property .= '	 * @property float '.$value['COLUMN_NAME'];
 				}
 				else if(preg_match('#(double)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::FLOAT)'."\n";
 					$columnType = str_replace('double(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
-					$field .= '				->precision(array('.$columnType.'))'."\n";
+					$field .= '				->precision(array(\''.$columnType.'\'))'."\n";
 					$property .= '	 * @property float '.$value['COLUMN_NAME'];
 				}
 				else if(preg_match('#(datetime)#isU', $value['DATA_TYPE'])){
@@ -363,6 +367,10 @@
 					$field .= '				->beNull(false)'."\n";
 				}
 
+				if($value['COLUMN_DEFAULT'] != "NULL"){
+					$field .= '				->defaultValue(\''.addslashes($value['COLUMN_DEFAULT']).'\')'."\n";
+				}
+
 				$sql->query('add-entity-unique-key', 'SELECT COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table AND COLUMN_NAME = :field AND CONSTRAINT_NAME = :primary');
 				$sql->vars('field', $value['COLUMN_NAME']);
 				$sql->vars('primary', 'my_unique_key');
@@ -383,14 +391,14 @@
 						case true :
 							$field .= '				->foreign(['."\n";
 							$field .= '					\'type\' => ForeignKey::ONE_TO_ONE,'."\n";
-							$field .= '					\'reference\' => [\''.ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'\', \''.$data[0]['REFERENCED_COLUMN_NAME'].'\''."\n";
+							$field .= '					\'reference\' => [\''.ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'\', \''.$data[0]['REFERENCED_COLUMN_NAME'].'\']'."\n";
 							$field .= '				])'."\n";
 						break;
 
 						case false :
 							$field .= '				->foreign(['."\n";
 							$field .= '					\'type\' => ForeignKey::MANY_TO_ONE,'."\n";
-							$field .= '					\'reference\' => [\''.ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'\', \''.$data[0]['REFERENCED_COLUMN_NAME'].'\''."\n";
+							$field .= '					\'reference\' => [\''.ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'\', \''.$data[0]['REFERENCED_COLUMN_NAME'].'\']'."\n";
 							$field .= '				])'."\n";
 						break;
 					}

@@ -15,10 +15,6 @@ class Alert extends Helper{
 	public function __construct($data = array()){
 	}
 
-	public static function template2222($content){
-		return $content;
-	}
-
 	public function add($type, $message){
 		if(!$_SESSION['alert']){
 			$_SESSION['alert'] = array();

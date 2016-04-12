@@ -397,7 +397,7 @@
 									break;
 								}
 							}
-							
+
 							$entityObject->getField($key)->value = $value;
 						}
 					}
