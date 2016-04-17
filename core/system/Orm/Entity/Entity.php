@@ -555,7 +555,7 @@
 						}
 					}
 					else{
-						if($field->value == null && $field->beNull == false){
+						if($field->value == null && $field->beNull == false && $field->default == ''){
 							throw new MissingEntityException('The field "'.$field->name.'" in "'.$this->_name.'" can\'t be null');
 						}
 
@@ -565,13 +565,13 @@
 
 						if(gettype($field->value) != 'object'){
 							if(in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])){
-								$sql->vars($field->name, [$field->value, sql::PARAM_INT]);
+								$sql->vars($field->name, [$field->value, Sql::PARAM_INT]);
 							}
 							else if(in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])){
-								$sql->vars($field->name, [$field->value, sql::PARAM_STR]);
+								$sql->vars($field->name, [$field->value, Sql::PARAM_STR]);
 							}
 							else if(in_array($field->type, [Field::BOOL])){
-								$sql->vars($field->name, [$field->value, sql::PARAM_BOOL]);
+								$sql->vars($field->name, [$field->value, Sql::PARAM_BOOL]);
 							}
 							else{
 								$sql->vars($field->name, $field->value);
@@ -834,13 +834,13 @@
 
 						if(gettype($field->value) != 'object'){
 							if(in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])){
-								$sql->vars($field->name, [$field->value, sql::PARAM_INT]);
+								$sql->vars($field->name, [$field->value, Sql::PARAM_INT]);
 							}
 							else if(in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])){
-								$sql->vars($field->name, [$field->value, sql::PARAM_STR]);
+								$sql->vars($field->name, [$field->value, Sql::PARAM_STR]);
 							}
 							else if(in_array($field->type, [Field::BOOL])){
-								$sql->vars($field->name, [$field->value, sql::PARAM_BOOL]);
+								$sql->vars($field->name, [$field->value, Sql::PARAM_BOOL]);
 							}
 							else{
 								$sql->vars($field->name, $field->value);
@@ -1161,6 +1161,7 @@
 			$table = strtolower($this->_name);
 
 			/** First, we check if the primary key is specified or not */
+			/** It's possible to have a sub entity with an existing primary key and to override its field values */
 
 			if(isset($this->_data[$table.'_'.$this->primary()])){
 				$entityName = '\Orm\Entity\\'.lcfirst($table);
@@ -1184,7 +1185,7 @@
 					$inVars = [];
 					$entityName = '\Orm\Entity\\'.$field->foreign->referenceEntity();
 					$fieldName = $prefix.lcfirst($field->foreign->entity()).'_'.lcfirst($field->foreign->referenceEntity());
-					$fieldFormName = lcfirst($field->foreign->referenceEntity()).'.'.lcfirst($field->foreign->referenceField());
+					$fieldFormName = ucfirst($field->foreign->referenceEntity()).'.'.lcfirst($field->foreign->referenceField());
 					$entityJoin = new $entityName();
 
 					switch($field->foreign->type()){
@@ -1217,6 +1218,8 @@
 									->vars(array('id' => $this->_data[$fieldName]))
 									->fetch()
 									->first();
+
+								$field->value->hydrate($field->foreign->entity().'_');
 							}
 							else{ //if it doesn't exist, we try to get data from the form
 								$entity = 'Orm\Entity\\'.$field->foreign->referenceEntity();
@@ -1238,7 +1241,7 @@
 								$in = trim($in, ',');
 
 								$builder = new Builder($entityJoin);
-								$field->value = $field->value = $builder->find()
+								$field->value = $builder->find()
 									->where($fieldFormName.' IN('.$in.')')
 									->vars($inVars)
 									->fetch();
@@ -1255,7 +1258,7 @@
 								$in = trim($in, ',');
 
 								$builder = new Builder($entityJoin);
-								$field->value = $field->value = $builder->find()
+								$field->value = $builder->find()
 									->where($fieldFormName.' IN('.$in.')')
 									->vars($inVars)
 									->fetch();
@@ -1266,36 +1269,24 @@
 				else if(in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])){
 					if(isset($this->_data[$prefix.$table.'_'.$field->name]))
 						$field->value = $this->_data[$prefix.$table.'_'.$field->name];
-					else
-						$field->value = null;
 				}
 				else if(in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])){
 					if(isset($this->_data[$prefix.$table.'_'.$field->name]))
 						$field->value = $this->_data[$prefix.$table.'_'.$field->name];
-					else
-						$field->value = null;
 				}
 				else if(in_array($field->type, [Field::BOOL])){
 					if(isset($this->_data[$prefix.$table.'_'.$field->name]))
 						$field->value = true;
-					else
-						$field->value = false;
 				}
 				else if(in_array($field->type, [Field::FILE])){
 					$data = Data::getInstance()->file;
 
-					if(isset($data[$prefix.$table.'_'.$field->name])){
-						if(isset($data[$prefix.$table.'_'.$field->name]) && $data[$prefix.$table.'_'.$field->name]['error'] != 4){
-							$tmp = $data[$prefix.$table.'_'.$field->name];
+					if(isset($data[$prefix.$table.'_'.$field->name])) {
+						if (isset($data[$prefix . $table . '_' . $field->name]) && $data[$prefix . $table . '_' . $field->name]['error'] != 4) {
+							$tmp = $data[$prefix . $table . '_' . $field->name];
 							$file = new File($tmp['name'], file_get_contents($tmp['tmp_name']), $tmp['type']);
 							$field->value = $file;
 						}
-						else{
-							$field->value = null;
-						}
-					}
-					else{
-						$field->value = null;
 					}
 				}
 				else{

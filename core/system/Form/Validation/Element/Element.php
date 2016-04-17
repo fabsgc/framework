@@ -139,7 +139,19 @@
 		}
 
 		/**
-		 * constructor
+		 * return field name
+		 * @access public
+		 * @return string
+		 * @since 3.0
+		 * @package System\Form\Validation\Element
+		*/
+
+		public function field(){
+			return $this->_field;
+		}
+
+		/**
+		 * check data
 		 * @access public
 		 * @return void
 		 * @since 3.0

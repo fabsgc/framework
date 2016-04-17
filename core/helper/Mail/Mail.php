@@ -13,6 +13,7 @@
 	use System\Helper\Helper;
 	use System\Mime\Mime;
 	use System\General\facades;
+	use System\Template\Template;
 
 	class Mail extends Helper{
 		use facades;
@@ -157,7 +158,7 @@
 		*/
 		
 		public function addTemplate($template, $vars = []){
-			$tpl = self::Template($template, 'template-mail', 0);
+			$tpl = new Template($template, 'template-mail', 0);
 				
 			foreach ($vars as $key => $var){
 				$tpl->assign($key, $var);
