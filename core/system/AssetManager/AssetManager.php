@@ -275,7 +275,7 @@
 			if(!preg_match('#^/#isU', $m[1]))
 				$m[1] = '/'.$m[1];
 
-			return 'http://'.$_SERVER['HTTP_HOST'].'/'.str_replace('//', '/', FOLDER.$m[1]);
+			return 'http://'.$_SERVER['HTTP_HOST'].str_replace('//', '/', FOLDER.$m[1]);
 		}
 
 		/**

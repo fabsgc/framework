@@ -116,7 +116,7 @@
 			if(isset($stack[5]['line']))
 				return preg_replace('#^(.*)\\\([a-zA-Z0-9_]+)$#isU', '$2', $stack[5]['class']).'_'.$stack[5]['function'].'_'.$stack[5]['line'].'_';
 			else
-				return preg_replace('#^(.*)\\\([a-zA-Z0-9_]+)$#isU', '$2', $stack[5]['class']).'_'.$stack[5]['function'].'_';
+				return preg_replace('#^(.*)\\\([a-zA-Z0-9_]+)$#isU', '$2', $stack[4]['class']).'_'.$stack[4]['function'].'_';
 		}
 
 		/**
@@ -368,12 +368,13 @@
 
 					foreach($line as $key => $field){
 						$value = null;
+						$parent = '';
 
 						$key = str_replace('count_one_'.$entity.'_', '', $key);
 						$key = str_replace('count_many_'.$entity.'_', '', $key);
 						$key = str_replace($entity.'_', '', $key);
 
-						if(gettype($key) == "string" && $entityObject->getField($key) != null){
+						if($entityObject->getField($key) != null){
 							if(in_array($entityObject->getField($key)->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])){
 								if($entityObject->getField($key)->foreign == null){
 									$value = $field;
@@ -385,7 +386,13 @@
 									$value = $field;
 								}
 								else{
-									$value = $this->_getDataRelation($line, $entityObject->getField($key)->foreign);
+									foreach ($entityObject->fields() as $fieldIsRightForeign) {
+										if ($fieldIsRightForeign->foreign != null) {
+											$parent = $fieldIsRightForeign->name . '_';
+											$value = $this->_getDataRelation($line, $entityObject->getField(str_replace($fieldIsRightForeign->name . '_', '', $key))->foreign, $parent);
+										}
+									}
+
 								}
 							}
 							else{
@@ -398,7 +405,7 @@
 								}
 							}
 
-							$entityObject->getField($key)->value = $value;
+							$entityObject->getField(str_replace($parent, '', $key))->value = $value;
 						}
 					}
 				}
@@ -423,36 +430,40 @@
 		 * @package System\Sql
 		*/
 
-		protected function _getDataRelation($line, $foreign){
+		protected function _getDataRelation($line, $foreign, $parent){
 			/** @var $entity \System\Orm\Entity\Entity */
 
 			$class = $foreign->referenceEntity();
 			$entity = self::Entity()->$class();
 
-			foreach($line as $key => $field){
-				$value = null;
+			if($line[$foreign->field().'_'.$entity->name().'_'.$entity->primary()] != '') {
+				foreach ($line as $key => $field) {
+					$value = null;
 
-				$key = str_replace($entity->name().'_', '', $key);
+					$key = str_replace($foreign->field().'_'.$entity->name().'_', '', $key);
 
-				if(gettype($key) == "string" && $entity->getField($key) != null){
-					if(in_array($entity->getField($key)->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])){
-						$value = $field;
-					}
-					else{
-						switch( $entity->getField($key)->type){
-							case Field::FILE :
-								$file = new File('','','','');
-								$file->hydrate($field);
-								$value = $file;
-							break;
+					if ($entity->getField(str_replace($parent, '', $key)) != null) {
+						if (in_array($entity->getField(str_replace($parent, '', $key))->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])) {
+							$value = $field;
+						} else {
+							switch ($entity->getField(str_replace($parent, '', $key))->type) {
+								case Field::FILE :
+									$file = new File('', '', '', '');
+									$file->hydrate($field);
+									$value = $file;
+									break;
+							}
 						}
+
+						$entity->getField(str_replace($parent, '', $key))->value = $value;
 					}
-
-					$entity->getField($key)->value = $value;
 				}
-			}
 
-			return $entity;
+				return $entity;
+			}
+			else{
+				return null;
+			}
 		}
 
 		/**

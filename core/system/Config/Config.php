@@ -129,7 +129,7 @@
 			/* ## CSS ## */
 			$this->config['css']['app'] = WEB_PATH.'app/'.WEB_CSS_PATH;
 			/* ## IMAGE ## */
-			$this->config['image']['app'] = WEB_PATH.'app/'.WEB_IMAGE_PATH;
+			$this->config['img']['app'] = WEB_PATH.'app/'.WEB_IMAGE_PATH;
 			/* ## FILE ## */
 			$this->config['file']['app'] = WEB_PATH.'app/'.WEB_FILE_PATH;
 			/* ## JS ## */
@@ -169,7 +169,7 @@
 					/* ## CSS ## */
 					$this->config['css'][''.$data['name'].''] = WEB_PATH.$data['name'].'/'.WEB_CSS_PATH;
 					/* ## IMAGE ## */
-					$this->config['image'][''.$data['name'].''] = WEB_PATH.$data['name'].'/'.WEB_IMAGE_PATH;
+					$this->config['img'][''.$data['name'].''] = WEB_PATH.$data['name'].'/'.WEB_IMAGE_PATH;
 					/* ## FILE ## */
 					$this->config['file'][''.$data['name'].''] = WEB_PATH.$data['name'].'/'.WEB_FILE_PATH;
 					/* ## JS ## */

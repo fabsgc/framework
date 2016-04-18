@@ -249,22 +249,25 @@
 		 * @param $type string
 		 * @param $table string
 		 * @param $on string
+		 * @param $reference string : reference field
 		 * @throws MissingEntityException
 		 * @return \System\Orm\Builder
 		 * @since 3.0
 		 * @package System\Orm
 		*/
 
-		public function join($type = self::JOIN_INNER, $table, $on){
+		public function join($type = self::JOIN_INNER, $table, $on, $reference = ''){
 			$class = $this->_getTableName($table);
 
 			if($table != $class->name())
 				$table = $class->name();
 
-			if($class->name() != $this->_entity->name()){
+			//if($class->name() != $this->_entity->name()){
 				$this->_detectEntity($on);
-				$this->_query .=' '.$type.' '.$table.' ON '.$on;
-			}
+
+				if($reference != '')
+					$this->_query .=' '.$type.' '.$table.' AS '.$reference.'_'.$table.' ON '.$on;
+			//}
 
 			return $this;
 		}
@@ -547,7 +550,7 @@
 
 			/** we built the relation table name : $table */
 			$currentEntity = $field->foreign->entity();
-			$currentField  = $field->foreign->field();
+			$currentField  = $this->_entity->primary();
 			$referenceEntity  = $field->foreign->referenceEntity();
 			$referenceField  = $field->foreign->referenceField();
 			$fieldFormName = lcfirst($referenceEntity).'_'.lcfirst($referenceField);
@@ -584,13 +587,11 @@
 
 				/** @var $dataJoin \System\Orm\Entity\Entity */
 				foreach($datasJoin as $key2 => $dataJoin){
-
 					/**
 					 * The lines are ordered by reference entity ID, so when we find the first line, we have just to
 					 * get the following lines thanks to $count
 					*/
 					if($count > 0 && $dataJoin->get($fieldRelation)->get($currentField) == $line->get($currentField)){
-
 						$data->add($dataJoin->get($fieldRelation));
 						$datasJoin->delete($key2);
 					}
@@ -599,7 +600,7 @@
 				$line->set($field->name, $data);
 			}
 
-			Profiler::getInstance()->addTime('test-many', \System\Profiler\Profiler::USER_END);
+			Profiler::getInstance()->addTime('test-many', Profiler::USER_END);
 
 			return $collection;
 		}
@@ -614,6 +615,8 @@
 
 		protected function _getSelect(){
 			$fields = $this->_entity->fields();
+
+			//var_dump("#####".$this->_entity->name());
 
 			switch($this->_type){
 				case self::QUERY_SELECT :
@@ -648,7 +651,7 @@
 						//To optimize the relation MANY TO MANY, we replace the join value by the number of element in this join
 						else if($value->foreign != null && $value->foreign->type() == ForeignKey::MANY_TO_MANY){
 							$currentEntity  = $value->foreign->entity();
-							$currentField  = $value->foreign->field();
+							$currentField  = $this->_entity->primary();
 							$referenceEntity = $value->foreign->referenceEntity();
 							$referenceField = $value->foreign->referenceField();
 							$current   = strtolower($currentEntity.$currentField);
@@ -671,6 +674,7 @@
 
 					//if some fields have a relation one to one or many to one, we had a join
 					foreach($fields as $value){
+
 						if($value->foreign != null && in_array($value->foreign->type(), [ForeignKey::ONE_TO_ONE, ForeignKey::MANY_TO_ONE])){
 							$this->_query .= ', ';
 
@@ -682,7 +686,7 @@
 
 							foreach($fieldsRelation as $relation){
 								if($relation->foreign == null || in_array($relation->foreign->type(), [ForeignKey::ONE_TO_ONE, ForeignKey::MANY_TO_ONE])){
-									$this->_query.= $class->name().'.'.$relation->name. ' AS '.$class->name().'_'.$relation->name;
+									$this->_query.= $value->name.'_'.$class->name().'.'.$relation->name. ' AS '.$value->name.'_'.$class->name().'_'.$relation->name;
 
 									if($i < $nFieldsRelation - 1){
 										$this->_query .= ', ';
@@ -720,12 +724,12 @@
 					$field  = $value->foreign->field();
 					$referenceEntity = $value->foreign->referenceEntity();
 					$referenceField  = $value->foreign->referenceField();
-					$this->join($value->foreign->join(), $referenceEntity, $entity.'.'.$field.' = '.$referenceEntity.'.'.$referenceField);
+					$this->join($value->foreign->join(), $referenceEntity, $entity.'.'.$field.' = '.$field.'_'.$referenceEntity.'.'.$referenceField, $field);
 				}
 				else if($value->foreign != null && in_array($value->foreign->type(), [ForeignKey::MANY_TO_MANY])){
 					//We add here two join (relation table and table linked)
 					$currentEntity    = $value->foreign->entity();
-					$currentField     = $value->foreign->field();
+					$currentField     = $this->_entity->primary();
 					$referenceEntity  = $value->foreign->referenceEntity();
 					$referenceField   = $value->foreign->referenceField();
 

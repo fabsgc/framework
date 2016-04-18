@@ -225,7 +225,7 @@
 		*/
 
 		protected function _setParser(){
-			$this->_parser = $this->TemplateParser($this);
+			$this->_parser = new TemplateParser($this);
 		}
 
 		/**
