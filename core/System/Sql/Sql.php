@@ -442,20 +442,21 @@
 
 					$key = str_replace($foreign->field().'_'.$entity->name().'_', '', $key);
 
-					if ($entity->getField(str_replace($parent, '', $key)) != null) {
-						if (in_array($entity->getField(str_replace($parent, '', $key))->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])) {
+					if ($entity->getField(str_replace($foreign->field().'_'.$entity->name().'_', '', $key)) != null) {
+						if (in_array($entity->getField(str_replace($foreign->field().'_'.$entity->name().'_', '', $key))->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])) {
 							$value = $field;
-						} else {
-							switch ($entity->getField(str_replace($parent, '', $key))->type) {
+						}
+						else {
+							switch ($entity->getField(str_replace($foreign->field().'_'.$entity->name().'_', '', $key))->type) {
 								case Field::FILE :
 									$file = new File('', '', '', '');
 									$file->hydrate($field);
 									$value = $file;
-									break;
+								break;
 							}
 						}
 
-						$entity->getField(str_replace($parent, '', $key))->value = $value;
+						$entity->getField(str_replace($foreign->field().'_'.$entity->name().'_', '', $key))->value = $value;
 					}
 				}
 

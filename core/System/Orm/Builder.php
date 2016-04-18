@@ -553,7 +553,7 @@
 			$currentField  = $this->_entity->primary();
 			$referenceEntity  = $field->foreign->referenceEntity();
 			$referenceField  = $field->foreign->referenceField();
-			$fieldFormName = lcfirst($referenceEntity).'_'.lcfirst($referenceField);
+			$fieldFormName = lcfirst($this->_entity->name()).'_'.lcfirst($currentField).'_'.lcfirst($this->_entity->name()).'.'.lcfirst($currentField);
 			$fieldRelation = $this->_getTableName($referenceEntity)->name().'_'.$referenceField;
 
 			/** We must know the join table name */
@@ -591,7 +591,8 @@
 					 * The lines are ordered by reference entity ID, so when we find the first line, we have just to
 					 * get the following lines thanks to $count
 					*/
-					if($count > 0 && $dataJoin->get($fieldRelation)->get($currentField) == $line->get($currentField)){
+
+					if($count > 0){
 						$data->add($dataJoin->get($fieldRelation));
 						$datasJoin->delete($key2);
 					}
@@ -615,8 +616,6 @@
 
 		protected function _getSelect(){
 			$fields = $this->_entity->fields();
-
-			//var_dump("#####".$this->_entity->name());
 
 			switch($this->_type){
 				case self::QUERY_SELECT :
@@ -660,7 +659,7 @@
 							sort($table, SORT_STRING);
 							$table = ucfirst($table[0].$table[1]);
 
-							$this->_query.= '(SELECT COUNT(*) FROM '.$table.' WHERE '.$referenceEntity.'_'.$referenceField.' = '.$currentEntity.'.'.$currentField.') AS count_many_'.$this->_entity->name().'_'.$value->name;
+							$this->_query.= '(SELECT COUNT(*) FROM '.$table.' WHERE '.$table.'.'.$currentEntity.'_'.$currentField.' = '.$currentEntity.'.'.$currentField.') AS count_many_'.$this->_entity->name().'_'.$value->name;
 
 							if($i < $nFields - 1){
 								$this->_query .= ', ';
