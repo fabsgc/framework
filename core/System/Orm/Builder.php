@@ -257,7 +257,7 @@
 		*/
 
 		public function join($type = self::JOIN_INNER, $table, $on, $reference = ''){
-			$class = $this->_getTableName($table);
+			$class = $this->_getTableEntity($table);
 
 			if($table != $class->name())
 				$table = $class->name();
@@ -393,7 +393,7 @@
 		public function fetch($return = self::RETURN_COLLECTION) {
 			/** We replace Post.xx by post.xx */
 			foreach($this->_entities as $entity){
-				$class = $this->_getTableName($entity);
+				$class = $this->_getTableEntity($entity);
 
 				if($entity != $class->name())
 					$this->_query = preg_replace('#(.*)'.$entity.'\.(.*)#isU', '$1'.$class->name().'.$2', $this->_query);
@@ -409,7 +409,7 @@
 			else
 				$sql->fetch('orm-'.$this->_token, Sql::PARAM_FETCH);
 
-			$collection = $sql->data($this->_getTableName($this->_entity->name())->name());
+			$collection = $sql->data($this->_getEntityName($this->_entity->name()));
 
 			/** We can do SELECT OR SELECT DISTINCT OR SELECT RAW */
 			if(in_array($this->_type, [self::QUERY_DISTINCT, self::QUERY_RAW])){
@@ -554,7 +554,7 @@
 			$referenceEntity  = $field->foreign->referenceEntity();
 			$referenceField  = $field->foreign->referenceField();
 			$fieldFormName = lcfirst($this->_entity->name()).'_'.lcfirst($currentField).'_'.lcfirst($this->_entity->name()).'.'.lcfirst($currentField);
-			$fieldRelation = $this->_getTableName($referenceEntity)->name().'_'.$referenceField;
+			$fieldRelation = $this->_getTableEntity($referenceEntity)->name().'_'.$referenceField;
 
 			/** We must know the join table name */
 			$current   = strtolower($currentEntity.$currentField);
@@ -677,7 +677,7 @@
 						if($value->foreign != null && in_array($value->foreign->type(), [ForeignKey::ONE_TO_ONE, ForeignKey::MANY_TO_ONE])){
 							$this->_query .= ', ';
 
-							$class = $this->_getTableName($value->foreign->referenceEntity());
+							$class = $this->_getTableEntity($value->foreign->referenceEntity());
 
 							$fieldsRelation = $class->fields();
 							$nFieldsRelation = count($fieldsRelation);
@@ -745,7 +745,7 @@
 		}
 
 		/**
-		 * add join
+		 * return an entity from his name
 		 * @access protected
 		 * @param $entity string
 		 * @throws MissingEntityException
@@ -754,14 +754,44 @@
 		 * @package System\Orm
 		*/
 
-		protected function _getTableName($entity = ''){
+		protected function _getTableEntity($entity = ''){
 			/** @var $class \System\Orm\Entity\Entity */
 
-			$entity = ucfirst($entity);
+			$entity = ucfirst(preg_replace_callback("/(?:^|_)([a-z])/", function($matches) {
+				return strtoupper($matches[1]);
+			}, $entity));
+
 			$className = '\Orm\Entity\\'.ucfirst($entity);
 
 			if(class_exists($className)){
 				return self::Entity()->$entity();
+			}
+			else{
+				throw new MissingEntityException('The entity '.$entity.' does not exist');
+			}
+		}
+
+		/**
+		 * return an entity name
+		 * @access protected
+		 * @param $entity string
+		 * @throws MissingEntityException
+		 * @return string
+		 * @since 3.0
+		 * @package System\Orm
+		 */
+
+		protected function _getEntityName($entity = ''){
+			/** @var $class \System\Orm\Entity\Entity */
+
+			$entity = ucfirst(preg_replace_callback("/(?:^|_)([a-z])/", function($matches) {
+				return strtoupper($matches[1]);
+			}, $entity));
+			
+			$className = '\Orm\Entity\\'.ucfirst($entity);
+
+			if(class_exists($className)){
+				return $entity;
 			}
 			else{
 				throw new MissingEntityException('The entity '.$entity.' does not exist');

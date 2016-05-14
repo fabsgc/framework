@@ -370,9 +370,9 @@
 						$value = null;
 						$parent = '';
 
-						$key = str_replace('count_one_'.$entity.'_', '', $key);
-						$key = str_replace('count_many_'.$entity.'_', '', $key);
-						$key = str_replace($entity.'_', '', $key);
+						$key = str_replace('count_one_'.$entityObject->name().'_', '', $key);
+						$key = str_replace('count_many_'.$entityObject->name().'_', '', $key);
+						$key = str_replace($entityObject->name().'_', '', $key);
 
 						if($entityObject->getField($key) != null){
 							if(in_array($entityObject->getField($key)->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])){

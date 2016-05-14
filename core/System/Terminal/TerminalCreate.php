@@ -253,7 +253,10 @@
 			//the entity must have a primary key
 			$primary = false;
 			$property = '';
-			$class = str_replace('_', '', ucfirst(strtolower($table)));
+
+			$class = ucfirst(preg_replace_callback("/(?:^|_)([a-z])/", function($matches) {
+				return strtoupper($matches[1]);
+			}, $table));
 
 			if(file_exists(APP_RESOURCE_ENTITY_PATH.$table.EXT_ENTITY.'.php')){
 				unlink(APP_RESOURCE_ENTITY_PATH.$table.EXT_ENTITY.'.php');
@@ -288,33 +291,33 @@
 
 				if(preg_match('#(auto_increment)#isU', $value['EXTRA'])){
 					$field .= '				->type(Field::INCREMENT)'."\n";
-					$property .= '	 /** @property int $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property integer '.$value['COLUMN_NAME']."\n";
 					$primary = true;
 					$columnTypeNumber = true;
 				}
 				else if(preg_match('#(int)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::INT)'."\n";
-					$property .= '	 /** @property integer $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property integer '.$value['COLUMN_NAME']."\n";
 					$columnTypeNumber = true;
 				}
 				else if(preg_match('#(char)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::STRING)'."\n";
-					$property .= '	 /** @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 				else if(preg_match('#(text)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::TEXT)'."\n";
-					$property .= '	 /** @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 				else if(preg_match('#(binary)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::STRING)'."\n";
-					$property .= '	 /** @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 				else if(preg_match('#(decimal)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::FLOAT)'."\n";
 					$columnType = str_replace('decimal(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
 					$field .= '				->precision(array(\''.$columnType.'\'))'."\n";
-					$property .= '	 /** @property float $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property float '.$value['COLUMN_NAME']."\n";
 					$columnTypeNumber = true;
 				}
 				else if(preg_match('#(float)#isU', $value['DATA_TYPE'])){
@@ -322,7 +325,7 @@
 					$columnType = str_replace('float(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
 					$field .= '				->precision(array(\''.$columnType.'\'))'."\n";
-					$property .= '	 /** @property float $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property float '.$value['COLUMN_NAME']."\n";
 					$columnTypeNumber = true;
 				}
 				else if(preg_match('#(double)#isU', $value['DATA_TYPE'])){
@@ -330,39 +333,39 @@
 					$columnType = str_replace('double(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
 					$field .= '				->precision(array(\''.$columnType.'\'))'."\n";
-					$property .= '	 /** @property float $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property float '.$value['COLUMN_NAME']."\n";
 					$columnTypeNumber = true;
 				}
 				else if(preg_match('#(datetime)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::DATETIME)'."\n";
-					$property .= '	 /** @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 				else if(preg_match('#(date)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::DATE)'."\n";
-					$property .= '	 /** @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 				else if(preg_match('#(timestamp)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::TIMESTAMP)'."\n";
-					$property .= '	 /** @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 				else if(preg_match('#(time)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::TIME)'."\n";
-					$property .= '	 /** @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 				else if(preg_match('#(binary)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::STRING)'."\n";
-					$property .= '	 /** @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 				else if(preg_match('#(enum)#isU', $value['DATA_TYPE'])){
 					$field .= '				->type(Field::ENUM)'."\n";
 					$columnType = str_replace('enum(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
 					$field .= '				->enum(array('.$columnType.'))'."\n";
-					$property .= '	 * @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 				else{
 					$field .= '				->type(Field::STRING)'."\n";
-					$property .= '	 * @property string $'.$value['COLUMN_NAME']." */\n";
+					$property .= '	  * @property string '.$value['COLUMN_NAME']."\n";
 				}
 
 				if($value['CHARACTER_MAXIMUM_LENGTH'] != ''){
