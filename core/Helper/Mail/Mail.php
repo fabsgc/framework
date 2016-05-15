@@ -20,7 +20,8 @@
 
 		protected $_sender        = ['mail', 'mail@mail.com']; //name and e-mail of the sender
 		protected $_reply         = ['mail', 'mail@mail.com']; //e-mail where you can reply
-		protected $_receiver      = ['mail@mail.com']        ; //receivers
+		protected $_receiver      = []                       ; //receivers
+		protected $_subject       = ''                       ; //subject
 		protected $_message       = []                       ; //message
 		protected $_attachment    = []                       ; //attachments
 		protected $_priority      = '3'                      ; //priority
@@ -299,9 +300,10 @@
 					$message.= $this->_backline.$value[0].$this->_backline.$this->_backline;
 				}
 				
-				$message.= $this->_backline."--".$this->_boundary."--".$this->_backline; 
+				$message.= $this->_backline."--".$this->_boundary."--".$this->_backline;
 				
-				mail($this->_receiver, $this->_subject, $message, $header);
+				if(MAIL)
+					mail($receiver, $this->_subject, $message, $header);
 			}
 		}
 

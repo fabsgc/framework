@@ -12,6 +12,7 @@
 
 	use System\Database\Database;
 	use System\Exception\MissingEntityException;
+	use System\Exception\MissingFieldException;
 	use System\Orm\Entity\Type\File;
 	use System\Orm\Validation\Validation;
 	use System\Orm\Builder;
@@ -84,7 +85,7 @@
 
 		final public function __construct() {
 			$this->tableDefinition();
-			$this->_getPrimary();
+			$this->getPrimary();
 			$this->_token = rand(0,10000);
 			$this->validation = new Validation($this);
 
@@ -158,7 +159,7 @@
 		 * @package System\Orm\Entity
 		*/
 
-		protected function _getPrimary(){
+		public function getPrimary(){
 			foreach($this->_fields as $key => $field){
 				if($field->primary == true){
 					$this->_primary = $key;
@@ -1159,10 +1160,10 @@
 		 * Before validation, we must inserting all the data
 		 * @access public
 		 * @param $prefix string : If we want to hydrate a sub Entity (from a relation), we need to know the name of the parent
-		 * @return void
+		 * @throws MissingFieldException
 		 * @since 3.0
 		 * @package System\Request
-		*/
+		 */
 
 		public function hydrate($prefix = ''){
 			$table = strtolower($this->_name);
@@ -1170,7 +1171,7 @@
 			/** First, we check if the primary key is specified or not */
 			/** It's possible to have a sub entity with an existing primary key and to override its field values */
 
-			if(isset($this->_data[$table.'_'.$this->primary()])){
+			if(isset($this->_data[$prefix.$this->primary()])){
 				$entityName = '\Orm\Entity\\'.lcfirst($table);
 				$field = lcfirst($table).'.'.$this->primary();
 
@@ -1191,50 +1192,80 @@
 					$in = '';
 					$inVars = [];
 					$entityName = '\Orm\Entity\\'.$field->foreign->referenceEntity();
-					$fieldName = $prefix.lcfirst($field->foreign->entity()).'_'.lcfirst($field->foreign->referenceEntity());
+					$fieldName = $prefix.lcfirst($field->name);
 					$fieldFormName = ucfirst($field->foreign->referenceEntity()).'.'.lcfirst($field->foreign->referenceField());
 					$entityJoin = new $entityName();
 
 					switch($field->foreign->type()){
-						case ForeignKey::ONE_TO_ONE :
+						case ForeignKey::ONE_TO_ONE : {
 							//If the primary key exists, we get it in the database
-							if(isset($this->_data[$fieldName])) {
-								$builder = new Builder($entityJoin);
-								$field->value = $builder->find()
-									->where($fieldFormName . ' = :id')
-									->vars(array('id' => $this->_data[$fieldName]))
-									->fetch()
-									->first();
-							}
-							else{ //if it doesn't exist, we try to get data from the form
+							if (isset($this->_data[$fieldName])) {
+								if ($this->_data[$fieldName] != '') {
+									$builder = new Builder($entityJoin);
+									$field->value = $builder->find()
+										->where($fieldFormName . ' = :id')
+										->vars(array('id' => $this->_data[$fieldName]))
+										->fetch()
+										->first();
+
+									if ($field->value != null)
+										$field->value->hydrate($prefix . lcfirst($field->name) . '_');
+								}
+							} else { //if it doesn't exist, we try to get data from the form and check if it exists input values
 								$entity = $field->foreign->referenceEntity();
 
 								/** @var $entity \System\Orm\Entity\Entity */
 								$entity = new $entity();
-								$entity->hydrate($field->foreign->entity().'_');
-								$field->value = $entity;
+								$canHydrate = true;
+
+								foreach ($entity->fields() as $fieldName) {
+									if (empty($this->_data[$prefix . $table . '_' . $entity->name() . '_' . $fieldName->name]) && $fieldName->primary == false && $fieldName->beNull == false) {
+										$canHydrate = false;
+										//throw new MissingFieldException('The field "' . $prefix . $entity->name() . '_' . $fieldName->name . '" can\'t be hydrated from the form because it miss one or several input');
+									}
+								}
+
+								if($canHydrate){
+									$entity->hydrate($prefix . lcfirst($field->name) . '_');
+									$field->value = $entity;
+								}
 							}
+						}
 						break;
 
 						case ForeignKey::MANY_TO_ONE :
 							//If the primary key exists, we get it in the database
 							if(isset($this->_data[$fieldName])) {
-								$builder = new Builder($entityJoin);
-								$field->value = $builder->find()
-									->where($fieldFormName . ' = :id')
-									->vars(array('id' => $this->_data[$fieldName]))
-									->fetch()
-									->first();
+								if($this->_data[$fieldName] != '') {
+									$builder = new Builder($entityJoin);
+									$field->value = $builder->find()
+										->where($fieldFormName . ' = :id')
+										->vars(array('id' => $this->_data[$fieldName]))
+										->fetch()
+										->first();
 
-								$field->value->hydrate($field->foreign->entity().'_');
+									if ($field->value != null)
+										$field->value->hydrate($prefix . lcfirst($field->name) . '_');
+								}
 							}
-							else{ //if it doesn't exist, we try to get data from the form
+							else{ //if it doesn't exist, we try to get data from the form and check if it exists input values
 								$entity = 'Orm\Entity\\'.$field->foreign->referenceEntity();
 
 								/** @var $entity \System\Orm\Entity\Entity */
 								$entity = new $entity();
-								$entity->hydrate($field->foreign->entity().'_');
-								$field->value = $entity;
+								$canHydrate = true;
+
+								foreach ($entity->fields() as $fieldName){
+									if(empty($this->_data[$prefix.$table.'_'.$entity->name().'_'.$fieldName->name]) && $fieldName->primary == false && $fieldName->beNull == false){
+										$canHydrate = false;
+										//throw new MissingFieldException('The field "' . $prefix.$entity->name().'_'.$fieldName->name . '" can\'t be hydrated from the form because it miss one or several input');
+									}
+								}
+
+								if($canHydrate){
+									$entity->hydrate($prefix . lcfirst($field->name) . '_');
+									$field->value = $entity;
+								}
 							}
 						break;
 
@@ -1274,23 +1305,23 @@
 					}
 				}
 				else if(in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])){
-					if(isset($this->_data[$prefix.$table.'_'.$field->name]))
-						$field->value = $this->_data[$prefix.$table.'_'.$field->name];
+					if(isset($this->_data[$prefix.$field->name]))
+						$field->value = $this->_data[$prefix.$field->name];
 				}
 				else if(in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])){
-					if(isset($this->_data[$prefix.$table.'_'.$field->name]))
-						$field->value = $this->_data[$prefix.$table.'_'.$field->name];
+					if(isset($this->_data[$prefix.$field->name]))
+						$field->value = $this->_data[$prefix.$field->name];
 				}
 				else if(in_array($field->type, [Field::BOOL])){
-					if(isset($this->_data[$prefix.$table.'_'.$field->name]))
+					if(isset($this->_data[$prefix.$field->name]))
 						$field->value = true;
 				}
 				else if(in_array($field->type, [Field::FILE])){
 					$data = Data::getInstance()->file;
 
-					if(isset($data[$prefix.$table.'_'.$field->name])) {
-						if (isset($data[$prefix . $table . '_' . $field->name]) && $data[$prefix . $table . '_' . $field->name]['error'] != 4) {
-							$tmp = $data[$prefix . $table . '_' . $field->name];
+					if(isset($data[$prefix.$field->name])) {
+						if (isset($data[$prefix . $field->name]) && $data[$prefix . $field->name]['error'] != 4) {
+							$tmp = $data[$prefix . $field->name];
 							$file = new File($tmp['name'], file_get_contents($tmp['tmp_name']), $tmp['type']);
 							$field->value = $file;
 						}

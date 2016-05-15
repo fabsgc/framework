@@ -56,7 +56,7 @@
 				$element->check();
 
 				if($element->valid() == false){
-					$this->_errors[$element->field()] = $element->errors();
+					$this->_errors = array_merge($this->_errors, $element->errors());
 				}
 			}
 		}

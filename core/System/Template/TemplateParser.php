@@ -36,6 +36,18 @@
 
 		/**
 		 * @var string
+		 */
+
+		protected $_openTag = '{';
+
+		/**
+		 * @var string
+		 */
+
+		protected $_closeTag = '}';
+
+		/**
+		 * @var string
 		*/
 
 		protected $_space = '\s*';
@@ -99,7 +111,7 @@
 		 * @package System\Template
 		*/
 
-		public function __construct(template $tpl){
+		public function __construct(Template $tpl){
 			$this->_template = $tpl;
 		}
 
@@ -235,10 +247,10 @@
 
 		protected function _parseInclude(){
 			$this->_content = preg_replace_callback(
-				'`<'.$this->_name.preg_quote($this->markup['include'][0]).$this->_spaceR.preg_quote($this->markup['include'][1]).$this->_space.'='.$this->_space.'"([A-Za-z0-9_\-\$/]+)"'.$this->_space.'(('.preg_quote($this->markup['include'][2]).$this->_space.'='.$this->_space.'"([0-9]*)"'.$this->_space.')*)'.$this->_space.'/>`isU',
+				'`'.$this->_openTag.$this->_name.preg_quote($this->markup['include'][0]).$this->_spaceR.preg_quote($this->markup['include'][1]).$this->_space.'='.$this->_space.'"([A-Za-z0-9_\-\$/]+)"'.$this->_space.'(('.preg_quote($this->markup['include'][2]).$this->_space.'='.$this->_space.'"([0-9]*)"'.$this->_space.')*)'.$this->_space.'/'.$this->_closeTag.'`isU',
 				array('System\Template\templateParser','_parseIncludeCallback'), $this->_content);
 			$this->_content = preg_replace_callback(
-				'`<'.$this->_name.preg_quote($this->markup['include'][0]).$this->_spaceR.preg_quote($this->markup['include'][1]).$this->_space.'='.$this->_space.'"([A-Za-z0-9_\-\$/]+)"'.$this->_space.preg_quote($this->markup['include'][3]).$this->_space.'='.$this->_space.'"'.preg_quote($this->markup['include'][4]).'"'.$this->_space.'(('.preg_quote($this->markup['include'][2]).$this->_space.'='.$this->_space.'"([0-9]*)"'.$this->_space.')*)'.$this->_space.'/>`isU',
+				'`'.$this->_openTag.$this->_name.preg_quote($this->markup['include'][0]).$this->_spaceR.preg_quote($this->markup['include'][1]).$this->_space.'='.$this->_space.'"([A-Za-z0-9_\-\$/]+)"'.$this->_space.preg_quote($this->markup['include'][3]).$this->_space.'='.$this->_space.'"'.preg_quote($this->markup['include'][4]).'"'.$this->_space.'(('.preg_quote($this->markup['include'][2]).$this->_space.'='.$this->_space.'"([0-9]*)"'.$this->_space.')*)'.$this->_space.'/'.$this->_closeTag.'`isU',
 				array('System\Template\templateParser','_parseIncludeCompileCallback'), $this->_content);
 		}
 
@@ -319,7 +331,7 @@
 
 		protected function _parseExtends(){
 			$this->_content = preg_replace_callback(
-				'`<'.$this->_name.preg_quote($this->markup['extends'][0]).$this->_spaceR.preg_quote($this->markup['extends'][1]).$this->_space.'='.$this->_space.'"([\.A-Za-z0-9_\-\$/]+)"'.$this->_space.'(('.preg_quote($this->markup['extends'][2]).$this->_space.'='.$this->_space.'"([0-9]*)"'.$this->_space.')*)'.$this->_space.'/>`isU',
+				'`'.$this->_openTag.$this->_name.preg_quote($this->markup['extends'][0]).$this->_spaceR.preg_quote($this->markup['extends'][1]).$this->_space.'='.$this->_space.'"([\.A-Za-z0-9_\-\$/]+)"'.$this->_space.'(('.preg_quote($this->markup['extends'][2]).$this->_space.'='.$this->_space.'"([0-9]*)"'.$this->_space.')*)'.$this->_space.'/'.$this->_closeTag.'`isU',
 				array('System\Template\templateParser','_parseExtendsCallback'), $this->_content);
 		}
 
@@ -360,7 +372,7 @@
 
 		protected function _parseExtendsMain(){
 			$content = file_get_contents($this->_parent->getFile());
-			$this->_content = preg_replace('`<'.$this->_name.preg_quote($this->markup['extends'][3]).$this->_space.'/>`isU', $this->_content, $content);
+			$this->_content = preg_replace('`'.$this->_openTag.$this->_name.preg_quote($this->markup['extends'][3]).$this->_space.'/'.$this->_closeTag.'`isU', $this->_content, $content);
 		}
 
 		/**
@@ -614,8 +626,8 @@
 
 		protected function _parseForeach(){
 			$this->_content = preg_replace(array(
-				'`<'.$this->_name.preg_quote($this->markup['foreach'][0]).$this->_spaceR.preg_quote($this->markup['foreach'][1]).$this->_space.'="'.$this->_space.'(.+)'.$this->_space.'"'.$this->_spaceR.preg_quote($this->markup['foreach'][2]).$this->_space.'='.$this->_space.'"(.+)'.$this->_space.'"'.$this->_space.'>`sU',
-				'`</'.$this->_name.preg_quote($this->markup['foreach'][0]).$this->_space.'>`sU'
+				'`'.$this->_openTag.$this->_name.preg_quote($this->markup['foreach'][0]).$this->_spaceR.preg_quote($this->markup['foreach'][1]).$this->_space.'="'.$this->_space.'(.+)'.$this->_space.'"'.$this->_spaceR.preg_quote($this->markup['foreach'][2]).$this->_space.'='.$this->_space.'"(.+)'.$this->_space.'"'.$this->_space.$this->_closeTag.'`sU',
+				'`'.$this->_openTag.'/'.$this->_name.preg_quote($this->markup['foreach'][0]).$this->_space.$this->_closeTag.'`sU'
 			),array(
 				'<?php foreach(\1 as \2) { ?>',
 				'<?php } ?>'
@@ -633,8 +645,8 @@
 
 		protected function _parseFor(){
 			$this->_content = preg_replace(array(
-				'`<'.$this->_name.preg_quote($this->markup['for'][0]).$this->_spaceR.preg_quote($this->markup['for'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(.+)'.$this->_space.'"'.$this->_space.'>`sU',
-				'`</'.$this->_name.preg_quote($this->markup['for'][0]).$this->_space.'>`sU'
+				'`'.$this->_openTag.$this->_name.preg_quote($this->markup['for'][0]).$this->_spaceR.preg_quote($this->markup['for'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(.+)'.$this->_space.'"'.$this->_space.$this->_closeTag.'`sU',
+				'`'.$this->_openTag.'/'.$this->_name.preg_quote($this->markup['for'][0]).$this->_space.$this->_closeTag.'`sU'
 			),array(
 				'<?php for($1) { ?>',
 				'<?php } ?>'
@@ -656,7 +668,7 @@
 
 		/**
 		 * parse echo function result
-		 * 		{<gc:function call=""/>}
+		 * 		<gc:function call=""/>
 		 * @access protected
 		 * @return void
 		 * @since 3.0
@@ -664,7 +676,7 @@
 		*/
 
 		protected function _parseVarFunc(){
-			$this->_content = preg_replace('`'.preg_quote($this->markup['vars'][0]).$this->_space.'<gc:function(.+)>'.$this->_space.preg_quote($this->markup['vars'][1]).'`isU', '<?php echo <gc:function$1>; ?>', $this->_content);
+			$this->_content = preg_replace('`'.preg_quote($this->markup['vars'][0]).$this->_space.$this->_openTag.'gc:function(.+)'.$this->_closeTag.$this->_space.preg_quote($this->markup['vars'][1]).'`isU', '<?php echo '.$this->_openTag.'gc:function$1'.$this->_closeTag.'; ?>', $this->_content);
 		}
 
 		/**
@@ -681,10 +693,10 @@
 
 		protected function _parseCondition(){
 			$this->_content = preg_replace(array(
-				'`<'.$this->_name.preg_quote($this->markup['condition'][0]).$this->_spaceR.preg_quote($this->markup['condition'][3]).$this->_space.'='.$this->_space.'"(.+)"'.$this->_space.'>`sU',
-				'`</'.$this->_name.preg_quote($this->markup['condition'][0]).$this->_space.'>`sU',
-				'`<'.$this->_name.preg_quote($this->markup['condition'][1]).$this->_spaceR.preg_quote($this->markup['condition'][3]).'='.$this->_space.'"(.+)"'.$this->_space.'/>`sU',
-				'`<'.$this->_name.preg_quote($this->markup['condition'][2]).$this->_space.'/>`sU',
+				'`'.$this->_openTag.$this->_name.preg_quote($this->markup['condition'][0]).$this->_spaceR.preg_quote($this->markup['condition'][3]).$this->_space.'='.$this->_space.'"(.+)"'.$this->_space.$this->_closeTag.'`sU',
+				'`'.$this->_openTag.'/'.$this->_name.preg_quote($this->markup['condition'][0]).$this->_space.$this->_closeTag.'`sU',
+				'`'.$this->_openTag.$this->_name.preg_quote($this->markup['condition'][1]).$this->_spaceR.preg_quote($this->markup['condition'][3]).'='.$this->_space.'"(.+)"'.$this->_space.'/'.$this->_closeTag.'`sU',
+				'`'.$this->_openTag.$this->_name.preg_quote($this->markup['condition'][2]).$this->_space.'/'.$this->_closeTag.'`sU',
 			),array(
 				'<?php if(\1) { ?>',
 				'<?php } ?>',
@@ -704,7 +716,7 @@
 		*/
 
 		protected function _parseFunction(){
-			$this->_content = preg_replace('`<'.$this->_name.preg_quote($this->markup['function'][0]).$this->_spaceR.preg_quote($this->markup['function'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(.+)'.$this->_space.'"'.$this->_space.'/>`isU', '<?php $1 ?>', $this->_content);
+			$this->_content = preg_replace('`'.$this->_openTag.$this->_name.preg_quote($this->markup['function'][0]).$this->_spaceR.preg_quote($this->markup['function'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(.+)'.$this->_space.'"'.$this->_space.'/'.$this->_closeTag.'`isU', '<?php $1 ?>', $this->_content);
 
 		}
 
@@ -717,7 +729,7 @@
 		*/
 
 		protected function _parseBlock(){
-			$this->_content = preg_replace_callback('`<'.$this->_name.preg_quote($this->markup['block'][0]).$this->_spaceR.preg_quote($this->markup['block'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(\w+)\(\)'.$this->_space.'"'.$this->_space.'>(.*)</'.$this->_name.$this->markup['block'][0].$this->_space.'>`isU', ['System\Template\templateParser', '_parseBlockCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`'.$this->_openTag.$this->_name.preg_quote($this->markup['block'][0]).$this->_spaceR.preg_quote($this->markup['block'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(\w+)\(\)'.$this->_space.'"'.$this->_space.$this->_closeTag.'(.*)'.$this->_openTag.'/'.$this->_name.$this->markup['block'][0].$this->_space.$this->_closeTag.'`isU', ['System\Template\templateParser', '_parseBlockCallback'], $this->_content);
 		}
 
 		/**
@@ -751,7 +763,7 @@
 		*/
 
 		protected function _parseTemplate(){
-			$this->_content = preg_replace_callback('`<'.$this->_name.preg_quote($this->markup['template'][0]).$this->_spaceR.preg_quote($this->markup['template'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(\w+)\((.*)\)'.$this->_space.'"'.$this->_space.'>(.*)</'.$this->_name.$this->markup['template'][0].$this->_space.'>`isU', ['System\Template\templateParser', '_parseTemplateCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`'.$this->_openTag.$this->_name.preg_quote($this->markup['template'][0]).$this->_spaceR.preg_quote($this->markup['template'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(\w+)\((.*)\)'.$this->_space.'"'.$this->_space.$this->_closeTag.'(.*)'.$this->_openTag.'/'.$this->_name.$this->markup['template'][0].$this->_space.$this->_closeTag.'`isU', ['System\Template\templateParser', '_parseTemplateCallback'], $this->_content);
 		}
 
 		/**
@@ -813,8 +825,8 @@
 		*/
 
 		protected function _parseCall(){
-			$this->_content = preg_replace_callback('`<'.$this->_name.preg_quote($this->markup['call'][0]).$this->_spaceR.preg_quote($this->markup['call'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(\w+)\(\)'.$this->_space.'"'.$this->_space.'/>`isU', ['System\Template\templateParser', '_parseCallBlockCallback'], $this->_content);
-			$this->_content = preg_replace_callback('`<'.$this->_name.preg_quote($this->markup['call'][0]).$this->_spaceR.preg_quote($this->markup['call'][2]).$this->_space.'='.$this->_space.'"'.$this->_space.'(\w+)\((.*)\)'.$this->_space.'"'.$this->_space.'/>`isU', ['System\Template\templateParser', '_parseCallTemplateCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`'.$this->_openTag.$this->_name.preg_quote($this->markup['call'][0]).$this->_spaceR.preg_quote($this->markup['call'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(\w+)\(\)'.$this->_space.'"'.$this->_space.'/'.$this->_closeTag.'`isU', ['System\Template\templateParser', '_parseCallBlockCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`'.$this->_openTag.$this->_name.preg_quote($this->markup['call'][0]).$this->_spaceR.preg_quote($this->markup['call'][2]).$this->_space.'='.$this->_space.'"'.$this->_space.'(\w+)\((.*)\)'.$this->_space.'"'.$this->_space.'/'.$this->_closeTag.'`isU', ['System\Template\templateParser', '_parseCallTemplateCallback'], $this->_content);
 		}
 
 		/**
@@ -876,11 +888,11 @@
 		*/
 
 		protected function _parseAssetManager(){
-			$this->_content = preg_replace_callback('`<'.$this->_name.preg_quote($this->markup['assetManager'][0]).
+			$this->_content = preg_replace_callback('`'.$this->_openTag.$this->_name.preg_quote($this->markup['assetManager'][0]).
 				$this->_spaceR.preg_quote($this->markup['assetManager'][1]).$this->_space.'='.$this->_space.'"'.$this->_space.'(.+)'.$this->_space.'"'.
 				$this->_spaceR.preg_quote($this->markup['assetManager'][2]).$this->_space.'='.$this->_space.'"'.$this->_space.'(.+)'.$this->_space.'"'.
 				$this->_spaceR.preg_quote($this->markup['assetManager'][3]).$this->_space.'='.$this->_space.'"'.$this->_space.'(.+)'.$this->_space.'"'.
-				$this->_space.'/>`isU', ['System\Template\templateParser', '_parseAssetManagerCallback'], $this->_content);
+				$this->_space.'/'.$this->_closeTag.'`isU', ['System\Template\templateParser', '_parseAssetManagerCallback'], $this->_content);
 		}
 
 		/**
@@ -940,7 +952,7 @@
 		*/
 
 		protected function _parseMinify(){
-			$this->_content = preg_replace_callback('`<'.$this->_name.preg_quote($this->markup['minify'][0]).$this->_space.'>(.*)</'.$this->_name.preg_quote($this->markup['minify'][0]).$this->_space.'>`isU', ['System\Template\templateParser', '_parseMinifyCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`'.$this->_openTag.$this->_name.preg_quote($this->markup['minify'][0]).$this->_space.$this->_closeTag.'(.*)'.$this->_openTag.'/'.$this->_name.preg_quote($this->markup['minify'][0]).$this->_space.$this->_closeTag.'`isU', ['System\Template\templateParser', '_parseMinifyCallback'], $this->_content);
 		}
 
 		/**

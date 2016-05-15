@@ -39,8 +39,8 @@
 		/**
 		 * Initialization of the model
 		 * @access public
-		 * @param $entity \system\General\facadesEntity
-		 * @param $helper \system\General\facadesHelper
+		 * @param $entity \System\General\facadesEntity
+		 * @param $helper \System\General\facadesHelper
 		 * @since 3.0
 		 * @package System\Model
 		*/
