@@ -175,6 +175,7 @@
 						case self::EQUAL:
 							if($value != $constraints['value']){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -184,6 +185,7 @@
 						case self::DIFFERENT:
 							if($value == $constraints['value']){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -193,6 +195,7 @@
 						case self::MORETHAN:
 							if($value <= $constraints['value']){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -202,6 +205,7 @@
 						case self::LESSTHAN:
 							if($value >= $constraints['value']){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -211,6 +215,7 @@
 						case self::BETWEEN:
 							if($value < $constraints['value'][0] || $value > $constraints['value'][1]){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -220,6 +225,7 @@
 						case self::IN:
 							if(!in_array($value, $constraints['value'])){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -229,6 +235,7 @@
 						case self::NOTIN:
 							if(in_array($value, $constraints['value'])){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -238,6 +245,7 @@
 						case self::LENGTH:
 							if(strlen($value) != $constraints['value']){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -247,6 +255,7 @@
 						case self::LENGTHMIN:
 							if(strlen($value) < $constraints['value']){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -256,6 +265,7 @@
 						case self::LENGTHMAX:
 							if(strlen($value) > $constraints['value']){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -265,6 +275,7 @@
 						case self::LENGTHIN:
 							if(!in_array(strlen($value), $constraints['value'])){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -274,6 +285,7 @@
 						case self::LENGTHBETWEEN:
 							if(strlen($value) < $constraints['value'][0] || strlen($value) > $constraints['value'][1]){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -283,6 +295,7 @@
 						case self::REGEX:
 							if(!preg_match($constraints['value'], $value)){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -292,6 +305,7 @@
 						case self::URL:
 							if(!filter_var($value, FILTER_VALIDATE_URL)){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -301,6 +315,7 @@
 						case self::MAIL:
 							if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -310,6 +325,7 @@
 						case self::INT:
 							if(!filter_var($value, FILTER_VALIDATE_INT)){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -319,6 +335,7 @@
 						case self::FLOAT:
 							if(!filter_var($value, FILTER_VALIDATE_FLOAT)){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -328,6 +345,7 @@
 						case self::ALPHA:
 							if(!preg_match('#^([a-zA-Z]+)$#', $value)){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -337,6 +355,7 @@
 						case self::ALPHANUM:
 							if(!preg_match('#^([a-zA-Z0-9]+)$#', $value)){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -346,6 +365,7 @@
 						case self::ALPHADASH:
 							if(!preg_match('#^([a-zA-Z0-9_-]+)$#', $value)){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -355,6 +375,7 @@
 						case self::IP:
 							if(!filter_var($value, FILTER_VALIDATE_IP)){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -394,6 +415,7 @@
 
 							if(!$querySuccess){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -404,6 +426,7 @@
 							/** @var object[] $constraints */
 							if ($constraints['value']->filter() == false) {
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['value']->error()
 								]);
@@ -416,6 +439,7 @@
 					case self::COUNT:
 						if(count($this->_data[$this->_field]) != $constraints['value']){
 							array_push($this->_errors, [
+								'name' => $this->_field,
 								'field' => $this->_label,
 								'message' => $constraints['message']
 							]);
@@ -425,6 +449,7 @@
 					case self::COUNTMIN:
 						if(count($this->_data[$this->_field]) < $constraints['value']){
 							array_push($this->_errors, [
+								'name' => $this->_field,
 								'field' => $this->_label,
 								'message' => $constraints['message']
 							]);
@@ -434,6 +459,7 @@
 					case self::COUNTMAX:
 						if(count($this->_data[$this->_field]) > $constraints['value']){
 							array_push($this->_errors, [
+								'name' => $this->_field,
 								'field' => $this->_label,
 								'message' => $constraints['message']
 							]);
@@ -444,6 +470,7 @@
 						/** @var array $constraints */
 						if(!in_array(count($this->_data[$this->_field]), $constraints['value'])){
 							array_push($this->_errors, [
+								'name' => $this->_field,
 								'field' => $this->_label,
 								'message' => $constraints['message']
 							]);
@@ -453,6 +480,7 @@
 					case self::EXIST:
 						if(count($this->_data[$this->_field]) == 0){
 							array_push($this->_errors, [
+								'name' => $this->_field,
 								'field' => $this->_label,
 								'message' => $constraints['message']
 							]);
@@ -462,6 +490,7 @@
 					case self::NOTEXIST:
 						if(count($this->_data[$this->_field]) > 0){
 							array_push($this->_errors, [
+								'name' => $this->_field,
 								'field' => $this->_label,
 								'message' => $constraints['message']
 							]);

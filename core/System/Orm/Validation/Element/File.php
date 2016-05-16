@@ -49,6 +49,7 @@
 							case self::ACCEPT:
 								if(!in_array($value->contentType, $constraints['value'])){
 									array_push($this->_errors, [
+										'name' => $this->_field,
 										'field' => $this->_label,
 										'message' => $constraints['message']
 									]);
@@ -58,6 +59,7 @@
 							case self::EXTENSION:
 								if(!in_array($value->extension(), $constraints['value'])){
 									array_push($this->_errors, [
+										'name' => $this->_field,
 										'field' => $this->_label,
 										'message' => $constraints['message']
 									]);
@@ -67,6 +69,7 @@
 							case self::SIZE:
 								if(strlen($value->content) != $constraints['value']){
 									array_push($this->_errors, [
+										'name' => $this->_field,
 										'field' => $this->_label,
 										'message' => $constraints['message']
 									]);
@@ -76,6 +79,7 @@
 							case self::SIZEMIN:
 								if(strlen($value->content) < $constraints['value']){
 									array_push($this->_errors, [
+										'name' => $this->_field,
 										'field' => $this->_label,
 										'message' => $constraints['message']
 									]);
@@ -85,6 +89,7 @@
 							case self::SIZEMAX:
 								if(strlen($value->content) > $constraints['value']){
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['message']
 								]);
@@ -94,6 +99,7 @@
 							case self::SIZEBETWEEN:
 								if(!in_array(strlen($value->content), $constraints['value'])){
 									array_push($this->_errors, [
+										'name' => $this->_field,
 										'field' => $this->_label,
 										'message' => $constraints['message']
 									]);

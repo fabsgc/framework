@@ -29,6 +29,7 @@
 
 			if(!isset($this->_data[$field])){
 				array_push($this->_errors, [
+					'name' => $this->_field,
 					'field' => $this->_label,
 					'message' => Lang::getInstance()->lang('.app.system.form.exist')
 				]);

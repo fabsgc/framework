@@ -375,7 +375,7 @@
 						$key = str_replace($entityObject->name().'_', '', $key);
 
 						if($entityObject->getField($key) != null){
-							if(in_array($entityObject->getField($key)->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])){
+							if(in_array($entityObject->getField($key)->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::FLOAT, Field::STRING, Field::CHAR, Field::BOOL, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP, Field::ENUM])){
 								if($entityObject->getField($key)->foreign == null){
 									$value = $field;
 								}
@@ -443,7 +443,7 @@
 					$key = str_replace($foreign->field().'_'.$entity->name().'_', '', $key);
 
 					if ($entity->getField(str_replace($foreign->field().'_'.$entity->name().'_', '', $key)) != null) {
-						if (in_array($entity->getField(str_replace($foreign->field().'_'.$entity->name().'_', '', $key))->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::STRING, Field::BOOL])) {
+						if (in_array($entity->getField(str_replace($foreign->field().'_'.$entity->name().'_', '', $key))->type, [Field::INCREMENT, Field::INT, Field::FLOAT, Field::TEXT, Field::STRING, Field::CHAR, Field::BOOL, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP, Field::ENUM])) {
 							$value = $field;
 						}
 						else {

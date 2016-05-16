@@ -445,7 +445,7 @@
 				}
 			}
 
-			if($return == self::RETURN_ENTITY && $collection->count() == 1)
+			if($return == self::RETURN_ENTITY && $collection->count() <= 1)
 				return $collection->first();
 			else
 				return $collection;

@@ -63,6 +63,7 @@
 								if($value != '') {
 									if (!in_array($value, $constraint['value'])) {
 										array_push($this->_errors, [
+											'name' => $this->_field,
 											'field' => $this->_label,
 											'message' => $constraint['message']
 										]);
@@ -80,6 +81,7 @@
 								if($value != '') {
 									if (!in_array(pathinfo($value)['extension'], $constraint['value'])) {
 										array_push($this->_errors, [
+											'name' => $this->_field,
 											'field' => $this->_label,
 											'message' => $constraint['message']
 										]);
@@ -97,6 +99,7 @@
 								if($value != 0) {
 									if ($value < $constraint['value']) {
 										array_push($this->_errors, [
+											'name' => $this->_field,
 											'field' => $this->_label,
 											'message' => $constraint['message']
 										]);
@@ -114,6 +117,7 @@
 								if($value != 0) {
 									if ($value > $constraint['value']) {
 										array_push($this->_errors, [
+											'name' => $this->_field,
 											'field' => $this->_label,
 											'message' => $constraint['message']
 										]);
@@ -131,6 +135,7 @@
 								if($value != 0) {
 									if ($value < $constraint['value'][0] || $value > $constraint['value'][1]) {
 										array_push($this->_errors, [
+											'name' => $this->_field,
 											'field' => $this->_label,
 											'message' => $constraint['message']
 										]);
@@ -146,6 +151,7 @@
 
 							if (count($this->_data[$this->_field]['name']) != $constraint['value']) {
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraint['message']
 								]);
@@ -159,6 +165,7 @@
 
 							if (count($this->_data[$this->_field]['name']) < $constraint['value']) {
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraint['message']
 								]);
@@ -172,6 +179,7 @@
 
 							if (count($this->_data[$this->_field]['name']) > $constraint['value']) {
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraint['message']
 								]);
@@ -185,6 +193,7 @@
 
 							if (!in_array(count($this->_data[$this->_field]['name']), $constraint['value'])) {
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraint['message']
 								]);
@@ -195,6 +204,7 @@
 							/** @var object[] $constraints */
 							if ($constraints['value']->filter() == false) {
 								array_push($this->_errors, [
+									'name' => $this->_field,
 									'field' => $this->_label,
 									'message' => $constraints['value']->error()
 								]);
