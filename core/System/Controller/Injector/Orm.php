@@ -10,47 +10,52 @@
 
 	namespace System\Controller\Injector;
 
-	use System\General\facades;
 	use System\General\singleton;
 	use System\Request\Request;
 
-	class Orm{
+	/**
+	 * Class Orm
+	 * @package System\Controller\Injector
+	 */
+
+	class Orm {
 		use singleton;
 
 		/**
 		 * Constructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Controller\Injector
-		*/
+		 */
 
-		private function __construct(){
+		private function __construct() {
 		}
 
 		/**
 		 * singleton
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Controller\Injector
-		*/
+		 */
 
-		public static function getInstance(){
-			if (is_null(self::$_instance))
+		public static function getInstance() {
+			if (is_null(self::$_instance)) {
 				self::$_instance = new Orm();
+			}
 
 			return self::$_instance;
 		}
 
 		/**
 		 * Return a fully completed Request Object
-		 * @access public
+		 * @access  public
 		 * @param \ReflectionClass $object
 		 * @return \System\Orm\Entity\Entity
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Controller\Injector
-		*/
+		 */
 
-		public static function get($object){
+		public static function get($object) {
 			$class = $object->name;
 
 			/** @var \System\Orm\Entity\Entity $class */
@@ -58,25 +63,30 @@
 
 			$request = Request::getInstance();
 
-			if(($class->getForm() == '' && $request->data->form == true) || isset($request->data->post[$class->getForm()])){
-				switch($request->data->method){
+			if (($class->getForm() == '' && $request->data->form == true) || isset($request->data->post[$class->getForm()])) {
+				switch ($request->data->method) {
 					case 'get' :
-						$class->hydrate(strtolower($class->name()).'_');
+						$class->hydrate(strtolower($class->name()) . '_');
 						$class->beforeInsert();
 					break;
 
 					case 'post' :
-						$class->hydrate(strtolower($class->name()).'_');
+						$class->hydrate(strtolower($class->name()) . '_');
 						$class->beforeInsert();
 					break;
 
 					case 'put' :
-						$class->hydrate(strtolower($class->name()).'_');
+						$class->hydrate(strtolower($class->name()) . '_');
 						$class->beforeUpdate();
 					break;
 
+					case 'patch' :
+						$class->hydrate(strtolower($class->name()) . '_');
+						$class->beforePatch();
+					break;
+
 					case 'delete' :
-						$class->hydrate(strtolower($class->name()).'_');
+						$class->hydrate(strtolower($class->name()) . '_');
 						$class->beforeDelete();
 					break;
 				}
@@ -89,11 +99,11 @@
 
 		/**
 		 * destructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Controller\Injector
-		*/
+		 */
 
-		public function __desctuct(){
+		public function __desctuct() {
 		}
 	}

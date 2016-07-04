@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MissingConfigException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingConfigException
+	 * @package System\Exception
+	 */
+
+	class MissingConfigException extends Exception {
+		public function getType() {
 			return 'MissingConfigException';
 		}
 	}

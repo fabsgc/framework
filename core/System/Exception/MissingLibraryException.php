@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MissingLibraryException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingLibraryException
+	 * @package System\Exception
+	 */
+
+	class MissingLibraryException extends Exception {
+		public function getType() {
 			return 'MissingLibraryException';
 		}
 	}

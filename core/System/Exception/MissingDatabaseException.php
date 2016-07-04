@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MissingDatabaseException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingDatabaseException
+	 * @package System\Exception
+	 */
+
+	class MissingDatabaseException extends Exception {
+		public function getType() {
 			return 'MissingDatabaseException';
 		}
 	}

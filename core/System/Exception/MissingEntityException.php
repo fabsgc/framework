@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MissingEntityException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingEntityException
+	 * @package System\Exception
+	 */
+
+	class MissingEntityException extends Exception {
+		public function getType() {
 			return 'MissingEntityException';
 		}
 	}

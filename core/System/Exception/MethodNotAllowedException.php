@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MethodNotAllowedException extends Exception{
-		public function getType(){
+	/**
+	 * Class MethodNotAllowedException
+	 * @package System\Exception
+	 */
+
+	class MethodNotAllowedException extends Exception {
+		public function getType() {
 			return 'MethodNotAllowedException';
 		}
 	}

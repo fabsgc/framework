@@ -7,16 +7,32 @@
 	 | @version : 3.0 bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Terminal;
 
-	class TerminalClear extends TerminalCommand{
-		public function log(){
+	/**
+	 * Class TerminalClear
+	 * @package System\Terminal
+	 */
+
+	class TerminalClear extends TerminalCommand {
+		
+		/**
+		 * return void
+		 * @access public
+		 */
+
+		public function log() {
 			Terminal::rrmdir(APP_LOG_PATH, false, ['.gitignore']);
 			echo ' - log files were successfully deleted';
 		}
 
-		public function cache(){
+		/**
+		 * return void
+		 * @access public
+		 */
+
+		public function cache() {
 			Terminal::rrmdir(APP_CACHE_PATH, false, ['.gitignore']);
 			echo ' - cache files were successfully deleted';
 		}

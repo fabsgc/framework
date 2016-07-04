@@ -7,51 +7,56 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Database;
 
-	use System\Pdo\Pdo;
-	use System\General\error;
-	use System\General\facades;
-	use System\General\singleton;
 	use System\Exception\MissingDatabaseException;
+	use System\General\singleton;
+	use System\Pdo\Pdo;
 
-	class Database{
+	/**
+	 * Class Database
+	 * @package System\Database
+	 */
+
+	class Database {
 		use singleton;
 
 		/**
 		 * @var \System\Pdo\Pdo
-		*/
+		 */
 
 		protected $db;
 
 		/**
 		 * constructor
-		 * @access public
+		 * @access  public
 		 * @param $db array
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Response
 		 */
 
-		private function __construct ($db){
+		private function __construct($db) {
 			$this->connect($db);
 		}
 
 		/**
 		 * singleton
-		 * @access public
+		 * @access  public
 		 * @param $db []
 		 * @return \System\Database\Database
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Request
-		*/
+		 */
 
-		public static function getInstance($db = []){
-			if (is_null(self::$_instance)){
-				if(DATABASE == true)
+		public static function getInstance($db = []) {
+			if (is_null(self::$_instance)) {
+				if (DATABASE == true) {
 					self::$_instance = new Database($db);
-				else
-					self::$_instance = new Database(array());
+				}
+				else {
+					self::$_instance = new Database([]);
+				}
 			}
 
 			return self::$_instance;
@@ -59,42 +64,42 @@
 
 		/**
 		 * create the database connection
-		 * @access public
+		 * @access  public
 		 * @param $db []
 		 * @throws MissingDatabaseException
 		 * @return mixed
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Database
-		*/
+		 */
 
-		protected function connect($db = []){
-			if(DATABASE == true){
-				switch ($db['driver']){
+		protected function connect($db = []) {
+			if (DATABASE == true) {
+				switch ($db['driver']) {
 					case 'pdo' :
 						$options = [
 							Pdo::ATTR_STATEMENT_CLASS => ['\System\Pdo\PdoStatement', []]
 						];
 
-						switch ($db['type']){
+						switch ($db['type']) {
 							case 'mysql':
-								try{
-									$this->db = new Pdo('mysql:host='.$db['hostname'].';dbname='.$db['database'], $db['username'], $db['password'], $options);
+								try {
+									$this->db = new Pdo('mysql:host=' . $db['hostname'] . ';dbname=' . $db['database'], $db['username'], $db['password'], $options);
 									//self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									$this->db->exec('SET NAMES '.strtoupper($db['charset']));
+									$this->db->exec('SET NAMES ' . strtoupper($db['charset']));
 								}
-								catch (\PDOException $e){
-									throw new MissingDatabaseException($e->getMessage().' / '.$e->getCode());
+								catch (\PDOException $e) {
+									throw new MissingDatabaseException($e->getMessage() . ' / ' . $e->getCode());
 								}
 							break;
 
 							case 'pgsql':
-								try{
-									$this->db = new Pdo('mysql:host='.$db['hostname'].';dbname='.$db['database'], $db['username'], $db['password'], $options);
+								try {
+									$this->db = new Pdo('mysql:host=' . $db['hostname'] . ';dbname=' . $db['database'], $db['username'], $db['password'], $options);
 									//self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									$this->db->exec('SET NAMES '.strtoupper($db['charset']));
+									$this->db->exec('SET NAMES ' . strtoupper($db['charset']));
 								}
-								catch (\PDOException $e){
-									throw new MissingDatabaseException($e->getMessage().' / '.$e->getCode());
+								catch (\PDOException $e) {
+									throw new MissingDatabaseException($e->getMessage() . ' / ' . $e->getCode());
 								}
 							break;
 
@@ -111,12 +116,12 @@
 
 				return $this->db;
 			}
-			else{
+			else {
 				return null;
 			}
 		}
 
-		public function db(){
+		public function db() {
 			return $this->db;
 		}
 	}

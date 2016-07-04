@@ -12,37 +12,42 @@
 
 	use System\General\error;
 
+	/**
+	 * Class ErrorHandler
+	 * @package System\Exception
+	 */
+
 	class ErrorHandler {
 		use error;
 
 		/**
 		 * constructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Exception
-		*/
+		 */
 
-		public function __construct () {
-			set_error_handler(array($this, 'errorHandler'));
-			set_exception_handler(array($this, 'exceptionHandler'));
+		public function __construct() {
+			set_error_handler([$this, 'errorHandler']);
+			set_exception_handler([$this, 'exceptionHandler']);
 		}
 
 		/**
 		 * capture error
-		 * @access public
-		 * @param $errno integer
-		 * @param $errstr string
+		 * @access  public
+		 * @param $errno   integer
+		 * @param $errstr  string
 		 * @param $errfile string
 		 * @param $errline integer
 		 * @return void
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Exception
-		*/
+		 */
 
-		public function errorHandler($errno, $errstr, $errfile, $errline){
+		public function errorHandler($errno, $errstr, $errfile, $errline) {
 			$error = sprintf("[%d] (%s)", $errno, $errstr);
 
-			switch($errno){
+			switch ($errno) {
 				case E_USER_NOTICE:
 					$this->addError($error, $errfile, $errline, ERROR_ERROR, LOG_ERROR);
 				break;
@@ -67,27 +72,29 @@
 
 		/**
 		 * capture exception
-		 * @access public
+		 * @access  public
 		 * @param $e \Exception
 		 * @return void
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Exception
-		*/
+		 */
 
-		public function exceptionHandler($e){
-			if(method_exists($e, 'getType'))
+		public function exceptionHandler($e) {
+			if (method_exists($e, 'getType')) {
 				$this->addError($e->getMessage(), $e->getFile(), $e->getLine(), $e->getType());
-			else
+			}
+			else {
 				$this->addError($e->getMessage(), $e->getFile(), $e->getLine(), gettype($e));
+			}
 		}
 
 		/**
 		 * destructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Exception
-		*/
+		 */
 
-		public function __destruct(){
+		public function __destruct() {
 		}
 	}

@@ -12,24 +12,28 @@
 
 	use System\Lang\Lang;
 
-	class Radio extends Element{
+	/**
+	 * Class Radio
+	 * @package System\Form\Validation\Element
+	 */
 
+	class Radio extends Element {
 		/**
 		 * constructor
-		 * @access public
+		 * @access  public
 		 * @param $field string
 		 * @param $label string
 		 * @return \System\Form\Validation\Element\Radio
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function __construct ($field, $label){
+		public function __construct($field, $label) {
 			parent::__construct($field, $label);
 
-			if(!isset($this->_data[$field])){
+			if (!isset($this->_data[$field])) {
 				array_push($this->_errors, [
-					'field' => $this->_label,
+					'field'   => $this->_label,
 					'message' => Lang::getInstance()->lang('.app.system.form.exist')
 				]);
 
@@ -41,24 +45,25 @@
 
 		/**
 		 * check validity
-		 * @access public
+		 * @access  public
 		 * @return void
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function check(){
-			if($this->_exist)
+		public function check() {
+			if ($this->_exist) {
 				parent::check();
+			}
 		}
 
 		/**
 		 * destructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function __destruct(){
+		public function __destruct() {
 		}
 	}

@@ -7,20 +7,25 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Response;
 
-	use System\Request\Request;
 	use System\General\singleton;
+	use System\Request\Request;
 	use System\Template\Template;
 
-	class Response{
+	/**
+	 * Class Response
+	 * @package System\Response
+	 */
+
+	class Response {
 		use singleton;
 
 		/**
 		 * Array of http errors
 		 * @var array
-	 	*/
+		 */
 
 		protected $_statusCode = [
 			100 => 'Continue',
@@ -65,13 +70,13 @@
 			504 => 'Gateway Time-out',
 			505 => 'Unsupported Version'
 		];
-		
-		/** 
+
+		/**
 		 * status code which display an error page
 		 * @var array
-		*/
+		 */
 
-		protected $_statusErrorPage = array(
+		protected $_statusErrorPage = [
 			400 => ['error.http.400', ERROR_TEMPLATE],
 			401 => ['error.http.401', ERROR_TEMPLATE],
 			402 => ['error.http.402', ERROR_TEMPLATE],
@@ -97,35 +102,39 @@
 			503 => ['error.http.503', ERROR_TEMPLATE],
 			504 => ['error.http.504', ERROR_TEMPLATE],
 			505 => ['error.http.505', ERROR_TEMPLATE]
-		);
+		];
 
-		protected $_status      = null;
-		protected $_contentType = null;
-		protected $_headers =      [] ;
-		protected $_page              ;
+		protected $_status          = null;
+
+		protected $_contentType     = null;
+
+		protected $_headers         = [];
+
+		protected $_page;
 
 		/**
 		 * constructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Response
-		*/
+		 */
 
-		private function __construct (){
+		private function __construct() {
 			$this->_status = http_response_code();
-			$this->_contentType = 'text/html; charset='.CHARSET;
+			$this->_contentType = 'text/html; charset=' . CHARSET;
 		}
 
 		/**
 		 * singleton
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Request
-		*/
+		 */
 
-		public static function getInstance(){
-			if (is_null(self::$_instance))
+		public static function getInstance() {
+			if (is_null(self::$_instance)) {
 				self::$_instance = new Response();
+			}
 
 			return self::$_instance;
 		}
@@ -133,18 +142,18 @@
 		/**
 		 * add header to the stack
 		 * get headers
-		 * @access public
+		 * @access  public
 		 * @param $header string
 		 * @return mixed
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Response
-		*/
+		 */
 
-		public function header($header = null){
-			if($this->_status != null){
+		public function header($header = null) {
+			if ($this->_status != null) {
 				array_push($this->_headers, $header);
 			}
-			else{
+			else {
 				return $this->_headers;
 			}
 		}
@@ -152,20 +161,20 @@
 		/**
 		 * set the status code. If you use 404, 403 or 500, the framework will display an error page
 		 * get the status code
-		 * @access public
+		 * @access  public
 		 * @param $status string
 		 * @return mixed
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Response
-		*/
+		 */
 
-		public function status($status = null){
-			if($status != null){
-				if(array_key_exists($status, $this->_statusCode)){
+		public function status($status = null) {
+			if ($status != null) {
+				if (array_key_exists($status, $this->_statusCode)) {
 					$this->_status = $status;
 				}
 			}
-			else{
+			else {
 				return $this->_status;
 			}
 		}
@@ -173,47 +182,48 @@
 		/**
 		 * set Content-Type without Content-Type
 		 * get Content-Type
-		 * @access public
+		 * @access  public
 		 * @param $contentType string
 		 * @return mixed
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Response
-		*/
+		 */
 
-		public function contentType($contentType = null){
-			if($contentType != null){
+		public function contentType($contentType = null) {
+			if ($contentType != null) {
 				$this->_contentType = $contentType;
 			}
-			else{
+			else {
 				return $this->_contentType;
 			}
 		}
 
 		/**
 		 * execute all the headers
-		 * @access public
+		 * @access  public
 		 * @return string
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Response
-		*/
+		 */
 
-		public function run(){
-			header('Content-Type: '.$this->_contentType);
-			
-			if($this->_status != 200)
+		public function run() {
+			header('Content-Type: ' . $this->_contentType);
+
+			if ($this->_status != 200) {
 				http_response_code($this->_status);
+			}
 
-			if(array_key_exists($this->_status, $this->_statusErrorPage)){
-				$tpl = new Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0',Request::getInstance()->lang);
+			if (array_key_exists($this->_status, $this->_statusErrorPage)) {
+				$tpl = new Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0', Request::getInstance()->lang);
 
-				$tpl->assign(array(
-					'code' => $this->_status,
+				$tpl->assign([
+					'code'        => $this->_status,
 					'description' => $this->_statusCode[$this->_status]
-				));
+				]);
 
 				$this->_page = $tpl->show();
 			}
-			else{
+			else {
 				foreach ($this->_headers as $value) {
 					header($value);
 				}
@@ -222,30 +232,30 @@
 
 		/**
 		 * return the page content
-		 * @access public
+		 * @access  public
 		 * @param $page string
 		 * @return mixed
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Response
-		*/
+		 */
 
-		public function page($page = null){
-			if($page != null){
+		public function page($page = null) {
+			if ($page != null) {
 				$this->_page = $page;
 			}
-			else{
+			else {
 				return $this->_page;
 			}
 		}
 
 		/**
 		 * destructor
-		 * @access public
+		 * @access  public
 		 * @return string
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Response
-		*/
+		 */
 
-		public function __destruct(){
+		public function __destruct() {
 		}
 	}

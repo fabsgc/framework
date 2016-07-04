@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MissingSqlException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingSqlException
+	 * @package System\Exception
+	 */
+
+	class MissingSqlException extends Exception {
+		public function getType() {
 			return 'MissingSqlException';
 		}
 	}

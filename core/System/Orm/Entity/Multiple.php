@@ -10,87 +10,90 @@
 
 	namespace System\Orm\Entity;
 
-	class Multiple {
+	/**
+	 * Class Multiple
+	 * @package System\Orm\Entity
+	 */
 
+	class Multiple {
 		/**
 		 * @var array
-		*/
+		 */
 
 		private $_data;
 
 		/**
 		 * Constructor
-		 * @access public
+		 * @access  public
 		 * @param $data array
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Orm\Entity
-		*/
+		 */
 
 		public function __construct($data) {
 			$this->_data = $data;
 		}
 
 		/**
-		 * edit the value of a column
-		 * @access public
-		 * @param string $key
-		 * @param array $value
-		 * @return void
-		 * @since 3.0
-		 * @package System\Orm\Entity
-		*/
-
-		public function __set($key, $value) {
-			if(array_key_exists($key, $this->_data)){
-				$this->_data[''.$key.''] = $value;
-			}
-		}
-
-		/**
 		 * get a column
-		 * @access public
+		 * @access  public
 		 * @param $key string
 		 * @return string
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Orm\Entity
-		*/
+		 */
 
 		public function __get($key) {
-			if(array_key_exists($key, $this->_data)){
-				return $this->_data[''.$key.''];
+			if (array_key_exists($key, $this->_data)) {
+				return $this->_data['' . $key . ''];
 			}
 
 			return null;
 		}
 
 		/**
+		 * edit the value of a column
+		 * @access  public
+		 * @param string $key
+		 * @param array  $value
+		 * @return void
+		 * @since   3.0
+		 * @package System\Orm\Entity
+		 */
+
+		public function __set($key, $value) {
+			if (array_key_exists($key, $this->_data)) {
+				$this->_data['' . $key . ''] = $value;
+			}
+		}
+
+		/**
 		 * return data
-		 * @access public
+		 * @access  public
 		 * @param $data array
 		 * @return array,null
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function data($data = []){
-			if(count($data) == 0){
+		public function data($data = []) {
+			if (count($data) == 0) {
 				return $this->_data;
 			}
-			else{
+			else {
 				$this->_data = $data;
 			}
 
 			return null;
 		}
 
-
 		/**
 		 * Destructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function __destruct(){
+		public function __destruct() {
 		}
 	}

@@ -10,8 +10,13 @@
 
 	namespace System\Exception;
 
-	class MissingClassException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingClassException
+	 * @package System\Exception
+	 */
+
+	class MissingClassException extends Exception {
+		public function getType() {
 			return 'MissingClassException';
 		}
 	}

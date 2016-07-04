@@ -1,67 +1,93 @@
 <?php
 
-namespace Helper\Alert;
+	namespace Helper\Alert;
 
-use System\General\error;
-use System\General\facades;
-use System\Helper\Helper;
+	use System\General\error;
+	use System\General\facades;
+	use System\Helper\Helper;
+	use System\Template\Template;
 
+	/**
+	 * Class Alert
+	 * @package Helper\Alert
+	 */
 
-class Alert extends Helper{
-	use error, facades;
+	class Alert extends Helper {
+		use error, facades;
 
-	private $content = array();
+		/**
+		 * @var string[]
+		 * @access private
+		 */
 
-	public function __construct($data = array()){
-	}
+		private $content = [];
 
-	public function add($type, $message){
-		if(!$_SESSION['alert']){
-			$_SESSION['alert'] = array();
+		/**
+		 * Alert constructor.
+		 * @param array $data
+		 * @access public
+		 */
+
+		public function __construct($data = []) {
 		}
 
-		$alert = array('type' => $type, 'message' => $message, 'time' => 0);
-		array_push($_SESSION['alert'], $alert);
-	}
+		/**
+		 * @param $type string
+		 * @param $message string
+		 * @access public
+		 */
 
-	public function view(){
-		if(isset($_SESSION['alert']) && count($_SESSION['alert']) > 0){
-			foreach($_SESSION['alert'] as $key => $value)
-			{
-				switch($value['type']){
-					case 'info' :
-						$info = self::Template('.app/system/helper/alert/info', 'alert-info-'.$key);
-						$info->assign('message',$value['message']);
-						array_push($this->content,$info->show());
-					break;
+		public function add($type, $message) {
+			if (!$_SESSION['alert']) {
+				$_SESSION['alert'] = [];
+			}
 
-					case 'danger' :
-						$danger = self::Template('.app/system/helper/alert/danger', 'alert-danger'.$key);
-						$danger->assign('message',$value['message']);
-						array_push($this->content,$danger->show());
-					break;
+			$alert = ['type' => $type, 'message' => $message, 'time' => 0];
+			array_push($_SESSION['alert'], $alert);
+		}
 
-					case 'error' :
-						$error = self::Template('.app/system/helper/alert/error', 'alert-error'.$key);
-						$error->assign('message',$value['message']);
-						array_push($this->content,$error->show());
-					break;
+		/**
+		 * @return string[]
+		 * @access public
+		 */
 
-					case 'success' :
-						$success = self::Template('.app/system/helper/alert/success', 'alert-success'.$key);
-						$success->assign(array('message'=>$value['message']));
-						array_push($this->content,$success->show());
-					break;
-				}
+		public function view() {
+			if (isset($_SESSION['alert']) && count($_SESSION['alert']) > 0) {
+				foreach ($_SESSION['alert'] as $key => $value) {
+					switch ($value['type']) {
+						case 'info' :
+							$info = new Template('.app/system/helper/alert/info', 'alert-info-' . $key);
+							$info->assign('message', $value['message']);
+							array_push($this->content, $info->show());
+						break;
 
-				if($value['time'] >= 0){
-					unset($_SESSION['alert'][$key]);
-				}
-				else{
-					$_SESSION['alert'][$key]['time']++;
+						case 'danger' :
+							$danger = new Template('.app/system/helper/alert/danger', 'alert-danger' . $key);
+							$danger->assign('message', $value['message']);
+							array_push($this->content, $danger->show());
+						break;
+
+						case 'error' :
+							$error = new Template('.app/system/helper/alert/error', 'alert-error' . $key);
+							$error->assign('message', $value['message']);
+							array_push($this->content, $error->show());
+						break;
+
+						case 'success' :
+							$success = new Template('.app/system/helper/alert/success', 'alert-success' . $key);
+							$success->assign(['message' => $value['message']]);
+							array_push($this->content, $success->show());
+						break;
+					}
+
+					if ($value['time'] >= 0) {
+						unset($_SESSION['alert'][$key]);
+					}
+					else {
+						$_SESSION['alert'][$key]['time']++;
+					}
 				}
 			}
+			return $this->content;
 		}
-		return $this->content;
 	}
-}

@@ -7,45 +7,50 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Library;
 
 	use System\Config\Config;
+	use System\Exception\MissingLibraryException;
 	use System\General\error;
 	use System\Request\Request;
-	use System\Exception\MissingLibraryException;
 
-	class Library{
+	/**
+	 * Class Library
+	 * @package System\Library
+	 */
+
+	class Library {
 		use error;
 
 		/**
 		 * constructor
-		 * @access public
+		 * @access  public
 		 * @param $src string
-		 * @since 3.0
+		 * @since   3.0
 		 * @throws \System\Exception\MissingLibraryException
 		 * @package System\Library
-		*/
+		 */
 
-		public function __construct ($src){
+		public function __construct($src) {
 			$config = Config::getInstance();
 
-			foreach($config->config['library'][''.$src.''] as $value){
-				if($value['enabled'] == 'true'){
-					if($this->_checkInclude($value['include']) == true){
-						if($src == 'app'){
-							$file = APP_RESOURCE_LIBRARY_PATH.$value['access'];
+			foreach ($config->config['library']['' . $src . ''] as $value) {
+				if ($value['enabled'] == 'true') {
+					if ($this->_checkInclude($value['include']) == true) {
+						if ($src == 'app') {
+							$file = APP_RESOURCE_LIBRARY_PATH . $value['access'];
 						}
-						else{
-							$file = SRC_PATH.$src.'/'.SRC_RESOURCE_LIBRARY_PATH.$value['access'];
+						else {
+							$file = SRC_PATH . $src . '/' . SRC_RESOURCE_LIBRARY_PATH . $value['access'];
 						}
 
-						if(file_exists($file)){
+						if (file_exists($file)) {
 							require_once($file);
-							$this->addError('The library '.$file.' was successfully included', __FILE__, __LINE__, ERROR_INFORMATION, LOG_SYSTEM);
+							$this->addError('The library ' . $file . ' was successfully included', __FILE__, __LINE__, ERROR_INFORMATION, LOG_SYSTEM);
 						}
-						else{
-							throw new MissingLibraryException('The library '.$file.' could not be included');
+						else {
+							throw new MissingLibraryException('The library ' . $file . ' could not be included');
 						}
 					}
 				}
@@ -54,63 +59,63 @@
 
 		/**
 		 * check if the library can be included
-		 * @access protected
+		 * @access  protected
 		 * @param $include string
 		 * @return boolean
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Library
-		*/
+		 */
 
-		protected function _checkInclude($include){
+		protected function _checkInclude($include) {
 			$request = Request::getInstance();
-			
-			if($include == '*'){
+
+			if ($include == '*') {
 				return true;
 			}
-			else if(preg_match('#no\[(.*)\]#isU', $include, $matches)){
+			else if (preg_match('#no\[(.*)\]#isU', $include, $matches)) {
 				$match = array_map('trim', explode(',', $matches[1]));
 
-				if(
-					in_array('.'.$request->src, $match) || 
-					in_array('.'.$request->src.'.'.$request->controller, $match) || 
-					in_array('.'.$request->src.'.'.$request->controller.'.'.$request->action, $match) ||
-					in_array($request->controller, $match) || 
-					in_array($request->controller.'.'.$request->action, $match)
-				){
+				if (
+					in_array('.' . $request->src, $match) ||
+					in_array('.' . $request->src . '.' . $request->controller, $match) ||
+					in_array('.' . $request->src . '.' . $request->controller . '.' . $request->action, $match) ||
+					in_array($request->controller, $match) ||
+					in_array($request->controller . '.' . $request->action, $match)
+				) {
 					return false;
 				}
-				else{
+				else {
 					return true;
 				}
 			}
-			else if(preg_match('#yes\[(.*)\]#isU', $include, $matches)){
+			else if (preg_match('#yes\[(.*)\]#isU', $include, $matches)) {
 				$match = explode(',', $matches[1]);
 
-				if(
-					in_array('.'.$request->src, $match) || 
-					in_array('.'.$request->src.'.'.$request->controller, $match) || 
-					in_array('.'.$request->src.'.'.$request->controller.'.'.$request->action, $match) ||
-					in_array($request->controller, $match) || 
-					in_array($request->controller.'.'.$request->action, $match)
-				){
+				if (
+					in_array('.' . $request->src, $match) ||
+					in_array('.' . $request->src . '.' . $request->controller, $match) ||
+					in_array('.' . $request->src . '.' . $request->controller . '.' . $request->action, $match) ||
+					in_array($request->controller, $match) ||
+					in_array($request->controller . '.' . $request->action, $match)
+				) {
 					return true;
 				}
-				else{
+				else {
 					return false;
 				}
 			}
-			else{
+			else {
 				return false;
 			}
 		}
 
 		/**
 		 * destructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Library
-		*/
+		 */
 
-		public function __destruct(){
+		public function __destruct() {
 		}
 	}

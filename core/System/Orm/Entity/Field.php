@@ -13,83 +13,86 @@
 	use System\Exception\MissingEntityException;
 	use System\Orm\Builder;
 
-	class Field {
+	/**
+	 * Class Field
+	 * @package System\Orm\Entity
+	 */
 
-		const INCREMENT  =  0;
-		const INT        =  1;
-		const CHAR       =  2;
-		const TEXT       =  3;
-		const STRING     =  4;
-		const BOOL       =  5;
-		const FILE       =  6;
-		const FLOAT      =  8;
-		const DATE       =  9;
-		const DATETIME   = 10;
-		const TIME       = 11;
-		const TIMESTAMP  = 12;
-		const ENUM       = 14;
+	class Field {
+		const INCREMENT = 0;
+		const INT       = 1;
+		const CHAR      = 2;
+		const TEXT      = 3;
+		const STRING    = 4;
+		const BOOL      = 5;
+		const FILE      = 6;
+		const FLOAT     = 8;
+		const DATE      = 9;
+		const DATETIME  = 10;
+		const TIME      = 11;
+		const TIMESTAMP = 12;
+		const ENUM      = 14;
 
 		/**
 		 * @var string
-		*/
+		 */
 
 		public $type = self::INT;
 
 		/**
 		 * @var string
-		*/
+		 */
 
 		public $name = null;
 
 		/**
 		 * @var string
-		*/
+		 */
 
 		public $entity = null;
 
 		/**
 		 * @var boolean
-		*/
+		 */
 
 		public $primary = false;
 
-
 		/**
 		 * @var integer
-		*/
+		 */
 
 		protected $size = 0;
 
 		/**
 		 * @var \System\Orm\Entity\ForeignKey
-		*/
+		 */
 
 		public $foreign = null;
 
 		/**
 		 * @var boolean
-		*/
+		 */
 
 		public $unique = false;
 
 		/**
 		 * if the field is INT,FLOAT etc.
 		 * @var integer[]
-		*/
+		 */
 
 		public $precision = [];
 
 		/**
 		 * if the field is INT,FLOAT etc.
 		 * @var string[]
-		*/
+		 */
 
 		public $enum = [];
 
 		/**
 		 * the field can be null ?
 		 * @var boolean
-		*/
+		 */
 
 		public $beNull = true;
 
@@ -102,18 +105,18 @@
 
 		/**
 		 * @var mixed string|\System\Orm\Entity\Field|\System\Orm\Entity\Field[]|\System\Orm\Entity\Type
-		*/
+		 */
 
 		public $value = null;
 
 		/**
 		 * Constructor
-		 * @access public
+		 * @access  public
 		 * @param string $name
 		 * @param string $entity
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Orm\Entity
-		*/
+		 */
 
 		public function __construct($name, $entity) {
 			$this->name = $name;
@@ -123,92 +126,92 @@
 
 		/**
 		 * Set type
-		 * @access public
+		 * @access  public
 		 * @param integer $type
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function type($type = self::BOOL){
+		public function type($type = self::BOOL) {
 			$this->type = $type;
 			return $this;
 		}
 
 		/**
 		 * Set name
-		 * @access public
+		 * @access  public
 		 * @param string $name
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function name($name = ''){
+		public function name($name = '') {
 			$this->name = $name;
 			return $this;
 		}
 
 		/**
 		 * Set primary key
-		 * @access public
+		 * @access  public
 		 * @param boolean $primary
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function primary($primary = false){
+		public function primary($primary = false) {
 			$this->primary = $primary;
 			return $this;
 		}
 
 		/**
 		 * Set primary key
-		 * @access public
+		 * @access  public
 		 * @param $size integer
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function size($size = 255){
+		public function size($size = 255) {
 			$this->size = $size;
 			return $this;
 		}
 
 		/**
 		 * Set foreigns key
-		 * @access public
+		 * @access  public
 		 * @param $datas array
 		 * @throws MissingEntityException
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function foreign($datas = []){
-			if(!array_key_exists('type', $datas)){
+		public function foreign($datas = []) {
+			if (!array_key_exists('type', $datas)) {
 				throw new MissingEntityException('The parameter "type" is missing for the foreign key');
 			}
 
-			if(!array_key_exists('reference', $datas)){
+			if (!array_key_exists('reference', $datas)) {
 				throw new MissingEntityException('The parameter "reference" is missing for the foreign key');
 			}
 
-			if(!array_key_exists('belong', $datas)){
+			if (!array_key_exists('belong', $datas)) {
 				$datas['belong'] = ForeignKey::AGGREGATION;
 			}
 
-			if(!array_key_exists('current', $datas)){
+			if (!array_key_exists('current', $datas)) {
 				$datas['current'] = [$this->entity, $this->name];
 			}
 
-			if(!array_key_exists('value', $datas)){
+			if (!array_key_exists('value', $datas)) {
 				$datas['value'] = '';
 			}
 
-			if(!array_key_exists('join', $datas)){
+			if (!array_key_exists('join', $datas)) {
 				$datas['join'] = Builder::JOIN_INNER;
 			}
 
@@ -219,81 +222,81 @@
 
 		/**
 		 * Set unique
-		 * @access public
+		 * @access  public
 		 * @param boolean $unique
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function unique($unique = false){
+		public function unique($unique = false) {
 			$this->unique = $unique;
 			return $this;
 		}
 
 		/**
 		 * Set precision
-		 * @access public
+		 * @access  public
 		 * @param $precision string
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function precision($precision){
+		public function precision($precision) {
 			$this->precision = $precision;
 			return $this;
 		}
 
 		/**
 		 * Set precision
-		 * @access public
+		 * @access  public
 		 * @param $enum string[]
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function enum($enum = []){
+		public function enum($enum = []) {
 			$this->enum = $enum;
 			return $this;
 		}
 
 		/**
 		 * Set beNull
-		 * @access public
+		 * @access  public
 		 * @param $beNull boolean
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function beNull($beNull){
+		public function beNull($beNull) {
 			$this->beNull = $beNull;
 			return $this;
 		}
 
 		/**
 		 * Set default value
-		 * @access public
+		 * @access  public
 		 * @param $default String
-		 * @since 3.0
+		 * @since   3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
 
-		public function defaultValue($default){
+		public function defaultValue($default) {
 			$this->default = $default;
 			return $this;
 		}
 
 		/**
 		 * Destructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Orm\Entity
-		*/
+		 */
 
-		public function __destruct(){
+		public function __destruct() {
 		}
 	}

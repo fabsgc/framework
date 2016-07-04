@@ -7,20 +7,24 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Helper;
 
-	use System\General\Error;
 	use System\General\Langs;
 
-	class Helper{
+	/**
+	 * Class Helper
+	 * @package System\Helper
+	 */
+
+	class Helper {
 		use langs;
 
 		/**
 		 * Initialization of a helper
 		 * @access public
-		*/
+		 */
 
-		public function __construct(){
+		public function __construct() {
 		}
 	}

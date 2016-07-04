@@ -13,58 +13,63 @@
 	use System\General\facades;
 	use System\Request\Request;
 
-	class Router{
+	/**
+	 * Class Router
+	 * @package System\Router
+	 */
+
+	class Router {
 		use facades;
 
 		/**
 		 * contain all the routes
 		 * @var \System\Router\Route[]
-		*/
+		 */
 
 		protected $routes = [];
 
 		/**
 		 * add route to the instance
-		 * @access public
+		 * @access  public
 		 * @param $route route : route instance
 		 * @return void
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Router
-		*/
+		 */
 
-		public function addRoute(route $route){
-			if (!in_array($route, $this->routes)){
+		public function addRoute(route $route) {
+			if (!in_array($route, $this->routes)) {
 				$this->routes[] = $route;
 			}
 		}
 
 		/**
 		 * after url rewriting, return the right route
-		 * @access public
+		 * @access  public
 		 * @param $url string
 		 * @param $config
 		 * @return \system\Router\Route
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Router
-		*/
+		 */
 
-		public function getRoute($url, $config){
+		public function getRoute($url, $config) {
 			$url2 = substr($url, strlen(FOLDER), strlen($url));
 			$routeRight = null;
 
-			foreach ($this->routes as $route){
-				if (($varsValues = $route->match($url2)) != false && ($route->method() == '*' || in_array(Request::getInstance()->data->method, explode(',', $route->method())) || $route->method() == Request::getInstance()->data->method)){
+			foreach ($this->routes as $route) {
+				if (($varsValues = $route->match($url2)) != false && ($route->method() == '*' || in_array(Request::getInstance()->data->method, explode(',', $route->method())) || $route->method() == Request::getInstance()->data->method)) {
 					$routeRight = $route;
 					// if she has vars
-					if ($route->hasVars()){
+					if ($route->hasVars()) {
 						$varsNames = $route->varsNames();
 						$listVars = [];
 
 						//key : name of the var, value = value
-						foreach ($varsValues as $key => $match){
+						foreach ($varsValues as $key => $match) {
 							// the first key contains all the captured string (preg_match)
-							if ($key > 0){
-								if(array_key_exists($key - 1, $varsNames)){
+							if ($key > 0) {
+								if (array_key_exists($key - 1, $varsNames)) {
 									$listVars[$varsNames[$key - 1]] = $match;
 								}
 							}
@@ -77,21 +82,21 @@
 					 * sometimes, it's possible to have several times the same URL, for example, one when we are logged and one when we are not logged.
 					 * each url has a different ID, so, when we have an url which her "logged" attribute is not correct,
 					 * we have to check if there is an other url whith the right "logged" attribute
-					*/
-					$logged = explode('.', $config->config['firewall'][''.$route->src().'']['logged']['name']);
-					$role = explode('.', $config->config['firewall'][''.$route->src().'']['roles']['name']);
+					 */
+					$logged = explode('.', $config->config['firewall']['' . $route->src() . '']['logged']['name']);
+					$role = explode('.', $config->config['firewall']['' . $route->src() . '']['roles']['name']);
 					$logged = $this->_setFirewallConfigArray($_SESSION, $logged);
 					$role = $this->_setFirewallConfigArray($_SESSION, $role);
 
-					switch($route->logged()){
+					switch ($route->logged()) {
 						case 'true' :
-							if($logged == true && (in_array($role, array_map('trim', explode(',', $route->access()))) || $route->access() == '*')){
+							if ($logged == true && (in_array($role, array_map('trim', explode(',', $route->access()))) || $route->access() == '*')) {
 								return $route;
 							}
 						break;
 
 						case 'false' :
-							if($logged == false){
+							if ($logged == false) {
 								return $route;
 							}
 						break;
@@ -103,37 +108,38 @@
 				}
 			}
 
-			if($routeRight != null && $routeRight->match($url2) != false)
+			if ($routeRight != null && $routeRight->match($url2) != false) {
 				return $routeRight;
+			}
 
 			return null;
 		}
 
 		/**
 		 * get token, logged and role value from environment
-		 * @access public
-		 * @param $in array : array which contain the value
+		 * @access  public
+		 * @param $in    array : array which contain the value
 		 * @param $array array : "path" to the value in $in
 		 * @return mixed
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Router
-		*/
+		 */
 
-		protected function _setFirewallConfigArray($in, $array){
-			if(isset($in[''.$array[0].''])){
-				$to = $in[''.$array[0].''];
+		protected function _setFirewallConfigArray($in, $array) {
+			if (isset($in['' . $array[0] . ''])) {
+				$to = $in['' . $array[0] . ''];
 				array_splice($array, 0, 1);
 
 				foreach ($array as $value) {
-					if(isset($to[''.$value.''])){
-						$to = $to[''.$value.''];
+					if (isset($to['' . $value . ''])) {
+						$to = $to['' . $value . ''];
 					}
-					else{
+					else {
 						return false;
 					}
 				}
 			}
-			else{
+			else {
 				return false;
 			}
 

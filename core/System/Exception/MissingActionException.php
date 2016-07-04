@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MissingActionException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingActionException
+	 * @package System\Exception
+	 */
+
+	class MissingActionException extends Exception {
+		public function getType() {
 			return 'MissingActionException';
 		}
 	}

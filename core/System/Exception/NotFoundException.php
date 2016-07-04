@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class NotFoundException extends Exception{
-		public function getType(){
+	/**
+	 * Class NotFoundException
+	 * @package System\Exception
+	 */
+
+	class NotFoundException extends Exception {
+		public function getType() {
 			return 'NotFoundException';
 		}
 	}

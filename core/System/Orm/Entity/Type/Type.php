@@ -10,71 +10,74 @@
 
 	namespace System\Orm\Entity\Type;
 
-	abstract class Type {
+	/**
+	 * Class Type
+	 * @package System\Orm\Entity\Type
+	 */
 
+	abstract class Type {
 		/**
 		 * Constructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Orm\Entity\Type
-		*/
+		 */
 
-		public function __construct(){
+		public function __construct() {
 		}
 
 		/**
 		 * Hydrate object
-		 * @access public
+		 * @access  public
 		 * @param $field string
 		 * @return void
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Orm\Entity\Type
-		*/
+		 */
 
-		public function hydrate($field){
+		public function hydrate($field) {
 		}
 
 		/**
 		 * Which value orm save in the database
-		 * @access public
+		 * @access  public
 		 * @return string
-		 * @since 3.0
+		 * @since   3.0
 		 * @package string
-		*/
+		 */
 
-		public function value(){
+		public function value() {
 		}
 
 		/**
 		 * Save the file on the HDD
-		 * @access public
+		 * @access  public
 		 * @return void
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Orm\Entity\Type
-		*/
+		 */
 
-		public function save(){
+		public function save() {
 		}
 
 		/**
 		 * Delete the file
-		 * @access public
+		 * @access  public
 		 * @return void
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Orm\Entity\Type
-		*/
+		 */
 
-		public function delete(){
-
+		public function delete() {
 		}
 
 		/**
 		 * Destructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Orm\Entity\Type
-		*/
+		 */
 
-		public function __destruct(){
+		public function __destruct() {
 		}
 	}

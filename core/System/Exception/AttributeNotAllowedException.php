@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class AttributeNotAllowedException extends Exception{
-		public function getType(){
+	/**
+	 * Class AttributeNotAllowedException
+	 * @package System\Exception
+	 */
+
+	class AttributeNotAllowedException extends Exception {
+		public function getType() {
 			return 'AttributeNotAllowedException';
 		}
 	}

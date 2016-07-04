@@ -10,43 +10,48 @@
 
 	namespace System\Form\Validation\Element;
 
-	class Select extends Element{
+	/**
+	 * Class Select
+	 * @package System\Form\Validation\Element
+	 */
 
+	class Select extends Element {
 		/**
 		 * constructor
-		 * @access public
+		 * @access  public
 		 * @param $field string
 		 * @param $label string
 		 * @return \System\Form\Validation\Element\Select
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function __construct ($field, $label){
+		public function __construct($field, $label) {
 			parent::__construct($field, $label);
 			return $this;
 		}
 
 		/**
 		 * validity
-		 * @access public
+		 * @access  public
 		 * @return void
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function check(){
-			if($this->_exist)
+		public function check() {
+			if ($this->_exist) {
 				parent::check();
+			}
 		}
 
 		/**
 		 * destructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function __destruct(){
+		public function __destruct() {
 		}
 	}

@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MissingControllerException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingControllerException
+	 * @package System\Exception
+	 */
+
+	class MissingControllerException extends Exception {
+		public function getType() {
 			return 'MissingControllerException';
 		}
 	}

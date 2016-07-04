@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MissingTerminalException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingTerminalException
+	 * @package System\Exception
+	 */
+
+	class MissingTerminalException extends Exception {
+		public function getType() {
 			return 'MissingTerminalException';
 		}
 	}

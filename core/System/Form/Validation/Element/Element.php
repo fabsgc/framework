@@ -15,29 +15,28 @@
 	use System\Sql\Sql;
 
 	/**
+	 * Class Element
 	 * @method accept
 	 * @method extension
 	 * @method sizeMin
 	 * @method sizeMax
 	 * @method sizeIn
-	*/
+	 * @package System\Form\Validation\Element
+	 */
 
-	abstract class Element{
-
-		const EQUAL         =  0;
-		const DIFFERENT     =  1;
-		const MORETHAN      =  2;
-		const LESSTHAN      =  3;
-		const BETWEEN       =  4;
-		const IN            =  5;
-		const NOTIN         =  6;
-
-		const LENGTH        =  7;
-		const LENGTHMIN     =  8;
-		const LENGTHMAX     =  9;
+	abstract class Element {
+		const EQUAL         = 0;
+		const DIFFERENT     = 1;
+		const MORETHAN      = 2;
+		const LESSTHAN      = 3;
+		const BETWEEN       = 4;
+		const IN            = 5;
+		const NOTIN         = 6;
+		const LENGTH        = 7;
+		const LENGTHMIN     = 8;
+		const LENGTHMAX     = 9;
 		const LENGTHIN      = 10;
 		const LENGTHBETWEEN = 11;
-
 		const REGEX         = 12;
 		const URL           = 13;
 		const MAIL          = 14;
@@ -48,75 +47,71 @@
 		const ALPHADASH     = 19;
 		const IP            = 20;
 		const SQL           = 21;
-
 		const COUNT         = 22;
 		const COUNTMIN      = 23;
 		const COUNTMAX      = 24;
 		const COUNTIN       = 25;
 		const COUNTBETWEEN  = 26;
-
 		const ACCEPT        = 27;
 		const EXTENSION     = 28;
 		const SIZE          = 29;
 		const SIZEMIN       = 30;
 		const SIZEMAX       = 31;
 		const SIZEBETWEEN   = 32;
-
 		const EXIST         = 33;
 		const NOTEXIST      = 34;
-
 		const CUSTOM        = 35;
 
 		/**
 		 * post, put, get data
 		 * @var $_data array
-		*/
+		 */
 
 		protected $_data;
 
 		/**
 		 * @var $_field string
-		*/
+		 */
 
 		protected $_field;
 
 		/**
 		 * @var $_label string
-		*/
+		 */
 
 		protected $_label;
 
 		/**
 		 * @var $_exist boolean
-		*/
+		 */
 
 		protected $_exist = true;
 
 		/**
 		 * @var $_errors array[]
-		*/
+		 */
 
 		protected $_errors = [];
 
 		/**
 		 * @var $_constraints array[]
-		*/
+		 */
 
 		protected $_constraints = [];
 
 		/**
 		 * constructor
-		 * @access public
+		 * @access  public
 		 * @param $field string
 		 * @param $label string
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function __construct ($field, $label){
+		public function __construct($field, $label) {
 			$requestData = Data::getInstance();
 
-			switch($requestData->method){
+			switch ($requestData->method) {
 				case 'get' :
 					$this->_data = $requestData->get;
 				break;
@@ -126,6 +121,10 @@
 				break;
 
 				case 'put' :
+					$this->_data = $requestData->post;
+				break;
+
+				case 'patch' :
 					$this->_data = $requestData->post;
 				break;
 
@@ -140,243 +139,243 @@
 
 		/**
 		 * return field name
-		 * @access public
+		 * @access  public
 		 * @return string
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function field(){
+		public function field() {
 			return $this->_field;
 		}
 
 		/**
 		 * check data
-		 * @access public
+		 * @access  public
 		 * @return void
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function check(){
+		public function check() {
 			$this->_errors = [];
 
-			foreach($this->_constraints as $constraints){
-				if(!isset($this->_data[$this->_field])){
+			foreach ($this->_constraints as $constraints) {
+				if (!isset($this->_data[$this->_field])) {
 					$this->_data[$this->_field] = [];
 				}
 
-				if(!is_array($this->_data[$this->_field])){
+				if (!is_array($this->_data[$this->_field])) {
 					$this->_data[$this->_field] = [$this->_data[$this->_field]];
 				}
 
-				foreach($this->_data[$this->_field] as $value) {
+				foreach ($this->_data[$this->_field] as $value) {
 					switch ($constraints['type']) {
 						case self::EQUAL:
-							if($value != $constraints['value']){
+							if ($value != $constraints['value']) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::DIFFERENT:
-							if($value == $constraints['value']){
+							if ($value == $constraints['value']) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::MORETHAN:
-							if($value <= $constraints['value']){
+							if ($value <= $constraints['value']) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::LESSTHAN:
-							if($value >= $constraints['value']){
+							if ($value >= $constraints['value']) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::BETWEEN:
-							if($value < $constraints['value'][0] || $value > $constraints['value'][1]){
+							if ($value < $constraints['value'][0] || $value > $constraints['value'][1]) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::IN:
-							if(!in_array($value, $constraints['value'])){
+							if (!in_array($value, $constraints['value'])) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::NOTIN:
-							if(in_array($value, $constraints['value'])){
+							if (in_array($value, $constraints['value'])) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::LENGTH:
-							if(strlen($value) != $constraints['value']){
+							if (strlen($value) != $constraints['value']) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::LENGTHMIN:
-							if(strlen($value) < $constraints['value']){
+							if (strlen($value) < $constraints['value']) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::LENGTHMAX:
-							if(strlen($value) > $constraints['value']){
+							if (strlen($value) > $constraints['value']) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::LENGTHIN:
-							if(!in_array(strlen($value), $constraints['value'])){
+							if (!in_array(strlen($value), $constraints['value'])) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::LENGTHBETWEEN:
-							if(strlen($value) < $constraints['value'][0] || strlen($value) > $constraints['value'][1]){
+							if (strlen($value) < $constraints['value'][0] || strlen($value) > $constraints['value'][1]) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::REGEX:
-							if(!preg_match($constraints['value'], $value)){
+							if (!preg_match($constraints['value'], $value)) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::URL:
-							if(!filter_var($value, FILTER_VALIDATE_URL)){
+							if (!filter_var($value, FILTER_VALIDATE_URL)) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::MAIL:
-							if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
+							if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::INT:
-							if(!filter_var($value, FILTER_VALIDATE_INT)){
+							if (!filter_var($value, FILTER_VALIDATE_INT)) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::FLOAT:
-							if(!filter_var($value, FILTER_VALIDATE_FLOAT)){
+							if (!filter_var($value, FILTER_VALIDATE_FLOAT)) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::ALPHA:
-							if(!preg_match('#^([a-zA-Z]+)$#', $value)){
+							if (!preg_match('#^([a-zA-Z]+)$#', $value)) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::ALPHANUM:
-							if(!preg_match('#^([a-zA-Z0-9]+)$#', $value)){
+							if (!preg_match('#^([a-zA-Z0-9]+)$#', $value)) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::ALPHADASH:
-							if(!preg_match('#^([a-zA-Z0-9_-]+)$#', $value)){
+							if (!preg_match('#^([a-zA-Z0-9_-]+)$#', $value)) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
 						break;
 
 						case self::IP:
-							if(!filter_var($value, FILTER_VALIDATE_IP)){
+							if (!filter_var($value, FILTER_VALIDATE_IP)) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
@@ -391,32 +390,36 @@
 
 							$querySuccess = true;
 
-							switch($constraints['value']['constraint']){
+							switch ($constraints['value']['constraint']) {
 								case '==':
-									if($data != $constraints['value']['value'])
+									if ($data != $constraints['value']['value']) {
 										$querySuccess = false;
+									}
 								break;
 
 								case '!=':
-									if($data == $constraints['value']['value'])
+									if ($data == $constraints['value']['value']) {
 										$querySuccess = false;
+									}
 								break;
 
 								case '>':
-									if($data <= $constraints['value']['value'])
+									if ($data <= $constraints['value']['value']) {
 										$querySuccess = false;
+									}
 								break;
 
 								case '<':
-									if($data >= $constraints['value']['value'])
+									if ($data >= $constraints['value']['value']) {
 										$querySuccess = false;
+									}
 								break;
 							}
 
-							if(!$querySuccess){
+							if (!$querySuccess) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['message']
 								]);
 							}
@@ -426,8 +429,8 @@
 							/** @var object[] $constraints */
 							if ($constraints['value']->filter() == false) {
 								array_push($this->_errors, [
-									'name' => $this->_field,
-									'field' => $this->_label,
+									'name'    => $this->_field,
+									'field'   => $this->_label,
 									'message' => $constraints['value']->error()
 								]);
 							}
@@ -435,32 +438,32 @@
 					}
 				}
 
-				switch($constraints['type']){
+				switch ($constraints['type']) {
 					case self::COUNT:
-						if(count($this->_data[$this->_field]) != $constraints['value']){
+						if (count($this->_data[$this->_field]) != $constraints['value']) {
 							array_push($this->_errors, [
-								'name' => $this->_field,
-								'field' => $this->_label,
+								'name'    => $this->_field,
+								'field'   => $this->_label,
 								'message' => $constraints['message']
 							]);
 						}
 					break;
 
 					case self::COUNTMIN:
-						if(count($this->_data[$this->_field]) < $constraints['value']){
+						if (count($this->_data[$this->_field]) < $constraints['value']) {
 							array_push($this->_errors, [
-								'name' => $this->_field,
-								'field' => $this->_label,
+								'name'    => $this->_field,
+								'field'   => $this->_label,
 								'message' => $constraints['message']
 							]);
 						}
 					break;
 
 					case self::COUNTMAX:
-						if(count($this->_data[$this->_field]) > $constraints['value']){
+						if (count($this->_data[$this->_field]) > $constraints['value']) {
 							array_push($this->_errors, [
-								'name' => $this->_field,
-								'field' => $this->_label,
+								'name'    => $this->_field,
+								'field'   => $this->_label,
 								'message' => $constraints['message']
 							]);
 						}
@@ -468,30 +471,30 @@
 
 					case self::COUNTIN:
 						/** @var array $constraints */
-						if(!in_array(count($this->_data[$this->_field]), $constraints['value'])){
+						if (!in_array(count($this->_data[$this->_field]), $constraints['value'])) {
 							array_push($this->_errors, [
-								'name' => $this->_field,
-								'field' => $this->_label,
+								'name'    => $this->_field,
+								'field'   => $this->_label,
 								'message' => $constraints['message']
 							]);
 						}
 					break;
 
 					case self::EXIST:
-						if(count($this->_data[$this->_field]) == 0){
+						if (count($this->_data[$this->_field]) == 0) {
 							array_push($this->_errors, [
-								'name' => $this->_field,
-								'field' => $this->_label,
+								'name'    => $this->_field,
+								'field'   => $this->_label,
 								'message' => $constraints['message']
 							]);
 						}
 					break;
 
 					case self::NOTEXIST:
-						if(count($this->_data[$this->_field]) > 0){
+						if (count($this->_data[$this->_field]) > 0) {
 							array_push($this->_errors, [
-								'name' => $this->_field,
-								'field' => $this->_label,
+								'name'    => $this->_field,
+								'field'   => $this->_label,
 								'message' => $constraints['message']
 							]);
 						}
@@ -502,47 +505,48 @@
 
 		/**
 		 * is valid
-		 * @access public
+		 * @access  public
 		 * @return boolean
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation
-		*/
+		 */
 
-		public function valid(){
-			if(count($this->_errors) > 0)
+		public function valid() {
+			if (count($this->_errors) > 0) {
 				return false;
-			else
+			}
+			else {
 				return true;
+			}
 		}
 
 		/**
 		 * get errors
-		 * @access public
+		 * @access  public
 		 * @return array
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation
-		*/
+		 */
 
-		public function errors(){
+		public function errors() {
 			return $this->_errors;
 		}
 
-
 		/**
 		 * the field must be equal to
-		 * @access public
+		 * @access  public
 		 * @param $equal string
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function equal($equal, $error){
-			if($this->_exist){
+		public function equal($equal, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::EQUAL,
-					'value' => $equal,
+					'type'    => self::EQUAL,
+					'value'   => $equal,
 					'message' => $error
 				]);
 			}
@@ -552,19 +556,19 @@
 
 		/**
 		 * the field must be different from
-		 * @access public
+		 * @access  public
 		 * @param $different string
-		 * @param $error string
+		 * @param $error     string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function different($different, $error){
-			if($this->_exist){
+		public function different($different, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::DIFFERENT,
-					'value' => $different,
+					'type'    => self::DIFFERENT,
+					'value'   => $different,
 					'message' => $error
 				]);
 			}
@@ -574,19 +578,19 @@
 
 		/**
 		 * the field value must be more than
-		 * @access public
+		 * @access  public
 		 * @param $moreThan integer
-		 * @param $error string
+		 * @param $error    string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function moreThan($moreThan, $error){
-			if($this->_exist){
+		public function moreThan($moreThan, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::MORETHAN,
-					'value' => $moreThan,
+					'type'    => self::MORETHAN,
+					'value'   => $moreThan,
 					'message' => $error
 				]);
 			}
@@ -596,19 +600,19 @@
 
 		/**
 		 * the field value must be less than
-		 * @access public
+		 * @access  public
 		 * @param $lessThan integer
-		 * @param $error string
+		 * @param $error    string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function lessThan($lessThan, $error){
-			if($this->_exist){
+		public function lessThan($lessThan, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::LESSTHAN,
-					'value' => $lessThan,
+					'type'    => self::LESSTHAN,
+					'value'   => $lessThan,
 					'message' => $error
 				]);
 			}
@@ -618,19 +622,19 @@
 
 		/**
 		 * the field value must be between
-		 * @access public
+		 * @access  public
 		 * @param $between integer[]
-		 * @param $error string
+		 * @param $error   string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function between($between, $error){
-			if($this->_exist){
+		public function between($between, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::BETWEEN,
-					'value' => $between,
+					'type'    => self::BETWEEN,
+					'value'   => $between,
 					'message' => $error
 				]);
 			}
@@ -640,19 +644,19 @@
 
 		/**
 		 * the field value must be in
-		 * @access public
-		 * @param $in integer[]
+		 * @access  public
+		 * @param $in    integer[]
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function in($in, $error){
-			if($this->_exist){
+		public function in($in, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::IN,
-					'value' => $in,
+					'type'    => self::IN,
+					'value'   => $in,
 					'message' => $error
 				]);
 			}
@@ -662,19 +666,19 @@
 
 		/**
 		 * the field value must not be in
-		 * @access public
+		 * @access  public
 		 * @param $notIn integer[]
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function notIn($notIn, $error){
-			if($this->_exist){
+		public function notIn($notIn, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::NOTIN,
-					'value' => $notIn,
+					'type'    => self::NOTIN,
+					'value'   => $notIn,
 					'message' => $error
 				]);
 			}
@@ -684,19 +688,19 @@
 
 		/**
 		 * the field size must be
-		 * @access public
+		 * @access  public
 		 * @param $length integer
-		 * @param $error string
+		 * @param $error  string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function length($length, $error){
-			if($this->_exist){
+		public function length($length, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::LENGTH,
-					'value' => $length,
+					'type'    => self::LENGTH,
+					'value'   => $length,
 					'message' => $error
 				]);
 			}
@@ -706,19 +710,19 @@
 
 		/**
 		 * the field size must more than
-		 * @access public
+		 * @access  public
 		 * @param $lengthMin integer
-		 * @param $error string
+		 * @param $error     string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function lengthMin($lengthMin, $error){
-			if($this->_exist){
+		public function lengthMin($lengthMin, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::LENGTHMIN,
-					'value' => $lengthMin,
+					'type'    => self::LENGTHMIN,
+					'value'   => $lengthMin,
 					'message' => $error
 				]);
 			}
@@ -728,19 +732,19 @@
 
 		/**
 		 * the field size must be less than
-		 * @access public
+		 * @access  public
 		 * @param $lengthMax integer
-		 * @param $error string
+		 * @param $error     string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function lengthMax($lengthMax, $error){
-			if($this->_exist){
+		public function lengthMax($lengthMax, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::LENGTHMIN,
-					'value' => $lengthMax,
+					'type'    => self::LENGTHMIN,
+					'value'   => $lengthMax,
 					'message' => $error
 				]);
 			}
@@ -750,19 +754,19 @@
 
 		/**
 		 * the field size must be less than
-		 * @access public
+		 * @access  public
 		 * @param $lengthIn integer[]
-		 * @param $error string
+		 * @param $error    string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function lengthIn($lengthIn, $error){
-			if($this->_exist){
+		public function lengthIn($lengthIn, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::LENGTHIN,
-					'value' => $lengthIn,
+					'type'    => self::LENGTHIN,
+					'value'   => $lengthIn,
 					'message' => $error
 				]);
 			}
@@ -772,19 +776,19 @@
 
 		/**
 		 * the field size must be less than
-		 * @access public
+		 * @access  public
 		 * @param $lengthBetween integer[]
-		 * @param $error string
+		 * @param $error         string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function lengthBetween($lengthBetween, $error){
-			if($this->_exist){
+		public function lengthBetween($lengthBetween, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::LENGTHBETWEEN,
-					'value' => $lengthBetween,
+					'type'    => self::LENGTHBETWEEN,
+					'value'   => $lengthBetween,
 					'message' => $error
 				]);
 			}
@@ -794,19 +798,19 @@
 
 		/**
 		 * the field size must be less than
-		 * @access public
+		 * @access  public
 		 * @param $regex string
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function regex($regex, $error){
-			if($this->_exist){
+		public function regex($regex, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::REGEX,
-					'value' => $regex,
+					'type'    => self::REGEX,
+					'value'   => $regex,
 					'message' => $error
 				]);
 			}
@@ -816,17 +820,17 @@
 
 		/**
 		 * the field must be an email address
-		 * @access public
+		 * @access  public
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function mail($error){
-			if($this->_exist){
+		public function mail($error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::MAIL,
+					'type'    => self::MAIL,
 					'message' => $error
 				]);
 			}
@@ -836,17 +840,17 @@
 
 		/**
 		 * the field must be an int
-		 * @access public
+		 * @access  public
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function int($error){
-			if($this->_exist){
+		public function int($error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::INT,
+					'type'    => self::INT,
 					'message' => $error
 				]);
 			}
@@ -856,17 +860,17 @@
 
 		/**
 		 * the field must be a float
-		 * @access public
+		 * @access  public
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function float($error){
-			if($this->_exist){
+		public function float($error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::FLOAT,
+					'type'    => self::FLOAT,
 					'message' => $error
 				]);
 			}
@@ -876,17 +880,17 @@
 
 		/**
 		 * the field must contains only letters
-		 * @access public
+		 * @access  public
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function alpha($error){
-			if($this->_exist){
+		public function alpha($error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::ALPHA,
+					'type'    => self::ALPHA,
 					'message' => $error
 				]);
 			}
@@ -896,17 +900,17 @@
 
 		/**
 		 * the field must contain only letters and numerics
-		 * @access public
+		 * @access  public
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function alphaNum($error){
-			if($this->_exist){
+		public function alphaNum($error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::ALPHANUM,
+					'type'    => self::ALPHANUM,
 					'message' => $error
 				]);
 			}
@@ -916,17 +920,17 @@
 
 		/**
 		 * the field must contain only letters, numerics ans underscore
-		 * @access public
+		 * @access  public
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function alphaDash($error){
-			if($this->_exist){
+		public function alphaDash($error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::ALPHADASH,
+					'type'    => self::ALPHADASH,
 					'message' => $error
 				]);
 			}
@@ -936,17 +940,17 @@
 
 		/**
 		 * the field must be an ip
-		 * @access public
+		 * @access  public
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function ip($error){
-			if($this->_exist){
+		public function ip($error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::IP,
+					'type'    => self::IP,
 					'message' => $error
 				]);
 			}
@@ -956,23 +960,23 @@
 
 		/**
 		 * the field must valid the query
-		 * @access public
-		 * @param $sql string[]
-		 *   query => string
-		 *   vars  => array (:value => field value directly added to vars)
-		 *   constraint => (>,<,==,!=)
-		 *   value => string
+		 * @access  public
+		 * @param $sql   string[]
+		 *               query => string
+		 *               vars  => array (:value => field value directly added to vars)
+		 *               constraint => (>,<,==,!=)
+		 *               value => string
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function sql($sql, $error){
-			if($this->_exist){
+		public function sql($sql, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::SQL,
-					'value' => $sql,
+					'type'    => self::SQL,
+					'value'   => $sql,
 					'message' => $error
 				]);
 			}
@@ -982,19 +986,19 @@
 
 		/**
 		 * When the field value is an array, it must contain N lines
-		 * @access public
+		 * @access  public
 		 * @param $count integer
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function count($count, $error){
-			if($this->_exist){
+		public function count($count, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::COUNT,
-					'value' => $count,
+					'type'    => self::COUNT,
+					'value'   => $count,
 					'message' => $error
 				]);
 			}
@@ -1004,19 +1008,19 @@
 
 		/**
 		 * When the field value is an array, it must contain at least N lines
-		 * @access public
+		 * @access  public
 		 * @param $countMin integer
-		 * @param $error string
+		 * @param $error    string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function countMin($countMin, $error){
-			if($this->_exist){
+		public function countMin($countMin, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::COUNTIN,
-					'value' => $countMin,
+					'type'    => self::COUNTIN,
+					'value'   => $countMin,
 					'message' => $error
 				]);
 			}
@@ -1026,19 +1030,19 @@
 
 		/**
 		 * When the field value is an array, it must contain less than N+1 lines
-		 * @access public
+		 * @access  public
 		 * @param $countMax integer
-		 * @param $error string
+		 * @param $error    string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function countMax($countMax, $error){
-			if($this->_exist){
+		public function countMax($countMax, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::COUNTMAX,
-					'value' => $countMax,
+					'type'    => self::COUNTMAX,
+					'value'   => $countMax,
 					'message' => $error
 				]);
 			}
@@ -1048,19 +1052,19 @@
 
 		/**
 		 * When the field value is an array, its value must be in
-		 * @access public
+		 * @access  public
 		 * @param $countIn integer[]
-		 * @param $error string
+		 * @param $error   string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function countIn($countIn, $error){
-			if($this->_exist){
+		public function countIn($countIn, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::COUNTIN,
-					'value' => $countIn,
+					'type'    => self::COUNTIN,
+					'value'   => $countIn,
 					'message' => $error
 				]);
 			}
@@ -1070,19 +1074,19 @@
 
 		/**
 		 * When the field value is an array, its value must be between
-		 * @access public
+		 * @access  public
 		 * @param $countBetween integer[]
-		 * @param $error string
+		 * @param $error        string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function countBetween($countBetween, $error){
-			if($this->_exist){
+		public function countBetween($countBetween, $error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::COUNTBETWEEN,
-					'value' => $countBetween,
+					'type'    => self::COUNTBETWEEN,
+					'value'   => $countBetween,
 					'message' => $error
 				]);
 			}
@@ -1092,17 +1096,17 @@
 
 		/**
 		 * The field must exist
-		 * @access public
+		 * @access  public
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function exist($error){
-			if($this->_exist){
+		public function exist($error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::EXIST,
+					'type'    => self::EXIST,
 					'message' => $error
 				]);
 			}
@@ -1112,17 +1116,17 @@
 
 		/**
 		 * The field must not exist
-		 * @access public
+		 * @access  public
 		 * @param $error string
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function notExist($error){
-			if($this->_exist){
+		public function notExist($error) {
+			if ($this->_exist) {
 				array_push($this->_constraints, [
-					'type' => self::NOTEXIST,
+					'type'    => self::NOTEXIST,
 					'message' => $error
 				]);
 			}
@@ -1132,24 +1136,25 @@
 
 		/**
 		 * custom filter made by the user
-		 * @access public
+		 * @access  public
 		 * @param $name string
 		 * @throws MissingClassException
 		 * @return \System\Form\Validation\Element\Element
-		 * @since 3.0
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function custom($name){
-			if($this->_exist) {
+		public function custom($name) {
+			if ($this->_exist) {
 				$class = 'Controller\Request\Custom\\' . ucfirst($name);
 
 				if (class_exists($class)) {
 					array_push($this->_constraints, [
-						'type' => self::CUSTOM,
+						'type'  => self::CUSTOM,
 						'value' => new $class($this->_field, $this->_label, $this->_data[$this->_field])
 					]);
-				} else {
+				}
+				else {
 					throw new MissingClassException('The custom validation class "' . $class . '" was not found');
 				}
 			}
@@ -1159,11 +1164,11 @@
 
 		/**
 		 * destructor
-		 * @access public
-		 * @since 3.0
+		 * @access  public
+		 * @since   3.0
 		 * @package System\Form\Validation\Element
-		*/
+		 */
 
-		public function __destruct(){
+		public function __destruct() {
 		}
 	}

@@ -7,11 +7,16 @@
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Exception;
 
-	class MissingTemplateException extends Exception{
-		public function getType(){
+	/**
+	 * Class MissingTemplateException
+	 * @package System\Exception
+	 */
+
+	class MissingTemplateException extends Exception {
+		public function getType() {
 			return 'MissingTemplateException';
 		}
 	}

@@ -7,11 +7,16 @@
 	 | @version : 3.0 bêta
 	 | ------------------------------------------------------
 	\*/
-	
+
 	namespace System\Terminal;
 
-	class TerminalHelp extends TerminalCommand{
-		public function help(){
+	/**
+	 * Class TerminalHelp
+	 * @package System\Terminal
+	 */
+
+	class TerminalHelp extends TerminalCommand {
+		public function help() {
 			echo " - create module\n";
 			echo " - create controller\n";
 			echo " - create entity\n";
