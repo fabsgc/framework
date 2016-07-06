@@ -530,7 +530,10 @@
 				$type = '';
 			}
 			else {
-				$type = '"http://' . $_SERVER['HTTP_HOST'] . '".';
+				if(Config::config()['user']['output']['https'])
+					$type = '"https://' . $_SERVER['HTTP_HOST'] . '".';
+				else	
+					$type = '"http://' . $_SERVER['HTTP_HOST'] . '".';
 			}
 
 			$data = $this->_parseUrlCallbackNormal($m);
@@ -550,7 +553,10 @@
 				$type = '';
 			}
 			else {
-				$type = '"http://' . $_SERVER['HTTP_HOST'] . '".';
+				if(Config::config()['user']['output']['https'])
+					$type = '"https://' . $_SERVER['HTTP_HOST'] . '".';
+				else	
+					$type = '"http://' . $_SERVER['HTTP_HOST'] . '".';
 			}
 
 			$data = $this->_parseUrlCallbackNormal($m);
@@ -948,7 +954,7 @@
 		 */
 
 		protected function _parseAssetManagerCallback($m) {
-			if (Config::config()['user']['output']['asset']) {
+			if (Config::config()['user']['output']['asset']['enabled']) {
 				$data = [
 					'type'  => $m[1],
 					'cache' => $m[3],

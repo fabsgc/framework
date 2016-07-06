@@ -60,7 +60,10 @@
 						return '/' . substr($folder, 0, strlen($folder) - 1) . $result;
 					}
 					else {
-						return 'http://' . $_SERVER['HTTP_HOST'] . $folder . $result;
+						if(Config::config()['user']['output']['https'])
+							return 'https://' . $_SERVER['HTTP_HOST'] . $folder . $result;
+						else
+							return 'http://' . $_SERVER['HTTP_HOST'] . $folder . $result;
 					}
 				}
 				else {
@@ -73,7 +76,10 @@
 						}
 					}
 					else {
-						return 'http://' . $_SERVER['HTTP_HOST'] . $result;
+						if(Config::config()['user']['output']['https'])
+							return 'https://' . $_SERVER['HTTP_HOST'] . $result;
+						else
+							return 'http://' . $_SERVER['HTTP_HOST'] . $result;
 					}
 				}
 			}

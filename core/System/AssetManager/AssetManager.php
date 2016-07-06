@@ -283,7 +283,10 @@
 				$m[1] = '/' . $m[1];
 			}
 
-			return 'http://' . $_SERVER['HTTP_HOST'] . str_replace('//', '/', Config::config()['user']['framework']['folder'] . $m[1]);
+			if(Config::config()['user']['output']['https'])
+				return 'https://' . $_SERVER['HTTP_HOST'] . str_replace('//', '/', Config::config()['user']['framework']['folder'] . $m[1]);
+			else
+				return 'http://' . $_SERVER['HTTP_HOST'] . str_replace('//', '/', Config::config()['user']['framework']['folder'] . $m[1]);
 		}
 
 		/**
