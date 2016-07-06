@@ -10,6 +10,7 @@
 
 	namespace System\Database;
 
+	use System\Config\Config;
 	use System\Exception\MissingDatabaseException;
 	use System\General\singleton;
 	use System\Pdo\Pdo;
@@ -31,13 +32,12 @@
 		/**
 		 * constructor
 		 * @access  public
-		 * @param $db array
 		 * @since   3.0
 		 * @package System\Response
 		 */
 
-		private function __construct($db) {
-			$this->connect($db);
+		private function __construct() {
+			$this->db = Config::config()['user']['database'];
 		}
 
 		/**
@@ -49,13 +49,13 @@
 		 * @package System\Request
 		 */
 
-		public static function getInstance($db = []) {
+		public static function instance() {
 			if (is_null(self::$_instance)) {
-				if (DATABASE == true) {
-					self::$_instance = new Database($db);
+				if (Config::config()['user']['database']['enabled']) {
+					self::$_instance = new Database();
 				}
 				else {
-					self::$_instance = new Database([]);
+					self::$_instance = new Database();
 				}
 			}
 
@@ -73,7 +73,7 @@
 		 */
 
 		protected function connect($db = []) {
-			if (DATABASE == true) {
+			if ($db['enabled']) {
 				switch ($db['driver']) {
 					case 'pdo' :
 						$options = [

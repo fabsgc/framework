@@ -10,6 +10,7 @@
 
 	namespace System\Response;
 
+	use System\Config\Config;
 	use System\General\singleton;
 	use System\Request\Request;
 	use System\Template\Template;
@@ -77,40 +78,60 @@
 		 */
 
 		protected $_statusErrorPage = [
-			400 => ['error.http.400', ERROR_TEMPLATE],
-			401 => ['error.http.401', ERROR_TEMPLATE],
-			402 => ['error.http.402', ERROR_TEMPLATE],
-			403 => ['error.http.403', ERROR_403_TEMPLATE],
-			404 => ['error.http.404', ERROR_404_TEMPLATE],
-			405 => ['error.http.405', ERROR_TEMPLATE],
-			406 => ['error.http.406', ERROR_TEMPLATE],
-			407 => ['error.http.407', ERROR_TEMPLATE],
-			408 => ['error.http.408', ERROR_TEMPLATE],
-			409 => ['error.http.409', ERROR_TEMPLATE],
-			410 => ['error.http.410', ERROR_TEMPLATE],
-			411 => ['error.http.411', ERROR_TEMPLATE],
-			412 => ['error.http.412', ERROR_TEMPLATE],
-			413 => ['error.http.413', ERROR_TEMPLATE],
-			414 => ['error.http.414', ERROR_TEMPLATE],
-			415 => ['error.http.415', ERROR_TEMPLATE],
-			416 => ['error.http.416', ERROR_TEMPLATE],
-			417 => ['error.http.417', ERROR_TEMPLATE],
-			418 => ['error.http.418', ERROR_TEMPLATE],
-			500 => ['error.http.500', ERROR_500_TEMPLATE],
-			501 => ['error.http.501', ERROR_TEMPLATE],
-			502 => ['error.http.502', ERROR_TEMPLATE],
-			503 => ['error.http.503', ERROR_TEMPLATE],
-			504 => ['error.http.504', ERROR_TEMPLATE],
-			505 => ['error.http.505', ERROR_TEMPLATE]
+			400 => ['error.http.400', ''],
+			401 => ['error.http.401', ''],
+			402 => ['error.http.402', ''],
+			403 => ['error.http.403', ''],
+			404 => ['error.http.404', ''],
+			405 => ['error.http.405', ''],
+			406 => ['error.http.406', ''],
+			407 => ['error.http.407', ''],
+			408 => ['error.http.408', ''],
+			409 => ['error.http.409', ''],
+			410 => ['error.http.410', ''],
+			411 => ['error.http.411', ''],
+			412 => ['error.http.412', ''],
+			413 => ['error.http.413', ''],
+			414 => ['error.http.414', ''],
+			415 => ['error.http.415', ''],
+			416 => ['error.http.416', ''],
+			417 => ['error.http.417', ''],
+			418 => ['error.http.418', ''],
+			500 => ['error.http.500', ''],
+			501 => ['error.http.501', ''],
+			502 => ['error.http.502', ''],
+			503 => ['error.http.503', ''],
+			504 => ['error.http.504', ''],
+			505 => ['error.http.505', '']
 		];
 
-		protected $_status          = null;
+		/**
+		 * @var int $_status
+		 * @access private
+		 */
 
-		protected $_contentType     = null;
+		private $_status          = 200;
 
-		protected $_headers         = [];
+		/**
+		 * @var string $_contentType
+		 * @access private
+		 */
 
-		protected $_page;
+		private $_contentType     = '';
+
+		/**
+		 * @var array $_headers
+		 * @access private
+		 */
+
+		private $_headers         = [];
+
+		/**
+		 * @var string $_page
+		 * @access private
+		 */
+
+		private $_page;
 
 		/**
 		 * constructor
@@ -120,8 +141,28 @@
 		 */
 
 		private function __construct() {
+			foreach ($this->_statusErrorPage as $key => $status){
+				switch ($key){
+					case 403:
+						$this->_statusErrorPage[$key] = Config::config()['user']['framework']['http']['error']['403'];
+					break;
+
+					case 404:
+						$this->_statusErrorPage[$key] = Config::config()['user']['framework']['http']['error']['404'];
+					break;
+
+					case 500:
+						$this->_statusErrorPage[$key] = Config::config()['user']['framework']['http']['error']['500'];
+					break;
+
+					default:
+						$this->_statusErrorPage[$key] = Config::config()['user']['framework']['http']['error']['template'];
+					break;
+				}
+			}
+
 			$this->_status = http_response_code();
-			$this->_contentType = 'text/html; charset=' . CHARSET;
+			$this->_contentType = 'text/html; charset=' . Config::config()['user']['output']['charset'];
 		}
 
 		/**
@@ -131,7 +172,7 @@
 		 * @package System\Request
 		 */
 
-		public static function getInstance() {
+		public static function instance() {
 			if (is_null(self::$_instance)) {
 				self::$_instance = new Response();
 			}
@@ -214,7 +255,7 @@
 			}
 
 			if (array_key_exists($this->_status, $this->_statusErrorPage)) {
-				$tpl = new Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0', Request::getInstance()->lang);
+				$tpl = new Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0', Request::instance()->lang);
 
 				$tpl->assign([
 					'code'        => $this->_status,

@@ -44,7 +44,7 @@
 		 * @package System\Request
 		 */
 
-		public static function getInstance() {
+		public static function instance() {
 			if (is_null(self::$_instance)) {
 				self::$_instance = new Lang();
 			}
@@ -64,7 +64,7 @@
 		 */
 
 		public function lang($name, $vars = [], $template = self::USE_NOT_TPL) {
-			$request = Request::getInstance();
+			$request = Request::instance();
 			$config = $this->resolve(RESOLVE_LANG, $name);
 			$name = $config[1];
 			$config = $config[0];

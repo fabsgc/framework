@@ -34,7 +34,7 @@
 			if (!isset($this->_data[$field])) {
 				array_push($this->_errors, [
 					'field'   => $this->_label,
-					'message' => Lang::getInstance()->lang('.app.system.form.exist')
+					'message' => Lang::instance()->lang('.app.system.form.exist')
 				]);
 
 				$this->_exist = false;

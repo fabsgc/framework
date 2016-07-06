@@ -37,23 +37,18 @@
 				return;
 			}
 
-			if (file_exists(APP_RESOURCE_PATH . lcfirst(str_replace('Orm/', '', $class)) . EXT_ENTITY . '.php')) {
-				include_once(APP_RESOURCE_PATH . lcfirst(str_replace('Orm/', '', $class)) . EXT_ENTITY . '.php');
+			if (file_exists(APP_RESOURCE_PATH . lcfirst(str_replace('Orm/', '', $class)) . '.php')) {
+				include_once(APP_RESOURCE_PATH . lcfirst(str_replace('Orm/', '', $class)) . '.php');
 				return;
 			}
 
-			if (file_exists(SRC_PATH . $class . EXT_CONTROLLER . '.php')) {
-				include_once(SRC_PATH . $class . EXT_CONTROLLER . '.php');
+			if (file_exists(SRC_PATH . $class . '.php')) {
+				include_once(SRC_PATH . $class . '.php');
 				return;
 			}
 
-			if (file_exists(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', '$1/' . SRC_CONTROLLER_PATH . '$2', $class) . EXT_CONTROLLER . '.php')) {
-				include_once(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', '$1/' . SRC_CONTROLLER_PATH . '$2', $class) . EXT_CONTROLLER . '.php');
-				return;
-			}
-
-			if (file_exists(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', '$1/' . SRC_MODEL_PATH . '$2', $class) . EXT_MODEL . '.php')) {
-				include_once(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', '$1/' . SRC_MODEL_PATH . '$2', $class) . EXT_MODEL . '.php');
+			if (file_exists(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', '$1/' . SRC_CONTROLLER_PATH . '$2', $class) . '.php')) {
+				include_once(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', '$1/' . SRC_CONTROLLER_PATH . '$2', $class) . '.php');
 				return;
 			}
 

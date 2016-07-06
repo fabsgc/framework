@@ -10,6 +10,7 @@
 
 	namespace Helper\Mail;
 
+	use System\Config\Config;
 	use System\General\facades;
 	use System\Helper\Helper;
 	use System\Mime\Mime;
@@ -117,7 +118,7 @@
 		 * @access protected
 		 */
 
-		protected $_charset = CHARSET;
+		protected $_charset = '';
 
 		/**
 		 * the e-mails has at least one attachment ?
@@ -173,6 +174,7 @@
 
 		public function __construct($data = []) {
 			parent::__construct();
+			$this->_charset = Config::config()['output']['charset'];
 
 			foreach ($data as $key => $value) {
 				switch ($key) {
@@ -438,7 +440,7 @@
 
 				$message .= $this->_backline . "--" . $this->_boundary . "--" . $this->_backline;
 
-				if (MAIL) {
+				if (Config::config()['user']['mail']['enabled']) {
 					mail($receiver, $this->_subject, $message, $header);
 				}
 			}

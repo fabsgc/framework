@@ -18,6 +18,7 @@
 	use System\Define\Define;
 	use System\Exception\ErrorHandler;
 	use System\Exception\Exception;
+	use System\General\di;
 	use System\General\error;
 	use System\General\langs;
 	use System\General\resolve;
@@ -37,25 +38,13 @@
 	 */
 
 	class Engine {
-		use error, langs, resolve;
-
-		/**
-		 * @var \System\Controller\Controller
-		 */
-
-		protected $_controller;
+		use error, langs, resolve, di;
 
 		/**
 		 * @var \System\Router\Route
 		 */
 
-		protected $_route = false;
-
-		/**
-		 * @var array
-		 */
-
-		protected $_db = null;
+		private $_route = false;
 
 		/**
 		 * constructor
@@ -70,31 +59,31 @@
 				define('CONSOLE_ENABLED', $mode);
 			}
 
+			$this->config = Config::instance();
+			$this->request = Request::instance();
+			$this->response = Response::instance();
+			$this->profiler = Profiler::instance();
+
 			$this->_setLog();
 			$this->_setErrorHandler();
-			$this->request = Request::getInstance();
-			$this->response = Response::getInstance();
-			$this->profiler = Profiler::getInstance();
-			$this->config = Config::getInstance();
 		}
 
 		/**
 		 * initialization of the engine
 		 * @access  public
-		 * @param $db array
 		 * @return void
 		 * @since   3.0
 		 * @package System\Engine
 		 */
 
-		public function init($db) {
-			if (MAINTENANCE == false) {
-				date_default_timezone_set(TIMEZONE);
+		public function init() {
+			if (!Config::config()['user']['debug']['maintenance']) {
+				date_default_timezone_set(Config::config()['user']['output']['timezone']);
 				$this->_setEnvironment();
 				$this->_route();
 
 				if ($this->_route == true) {
-					$this->_setDatabase($db);
+					$this->_setDatabase();
 					$this->_setSecure();
 					$this->_setDefine();
 					$this->_setLibrary();
@@ -116,14 +105,13 @@
 		 * @param $src        string
 		 * @param $controller string
 		 * @param $action     string
-		 * @param $db         \System\Pdo\Pdo
 		 * @return void
 		 * @since   3.0
 		 * @package System\Engine
 		 */
 
-		public function initCron($src, $controller, $action, $db) {
-			if (MAINTENANCE == false) {
+		public function initCron($src, $controller, $action) {
+			if (!Config::config()['user']['debug']['maintenance']) {
 				$this->_routeCron($src, $controller, $action);
 
 				if ($this->_route == true) {
@@ -132,7 +120,6 @@
 					$this->_setDefine($this->request->src);
 					$this->_setLibrary($this->request->src);
 					$this->_setEvent($this->request->src);
-					$this->_db = $db;
 				}
 			}
 		}
@@ -140,13 +127,12 @@
 		/**
 		 * initialization of the console
 		 * @access  public
-		 * @param $db array
 		 * @return void
 		 * @since   3.0
 		 * @package System\Engine
 		 */
-		public function console($db) {
-			$this->_setDatabase($db);
+		public function console() {
+			$this->_setDatabase();
 			new Terminal();
 		}
 
@@ -211,7 +197,7 @@
 				$this->request->method = $matchedRoute->method();
 				$this->request->auth = new Auth($this->request->src);
 
-				if (CACHE_ENABLED == true && $matchedRoute->cache() != '') {
+				if ($this->config->config['user']['output']['cache']['enabled'] && $matchedRoute->cache() != '') {
 					$this->request->cache = $matchedRoute->cache();
 				}
 				else {
@@ -267,14 +253,12 @@
 				/** @var \System\Controller\Controller $class */
 				$class = new $className();
 
-				if (SECURITY == false || ($this->request->logged == '*' && $this->request->access == '*') || $class->setFirewall() == true) {
-					if (SPAM == false || $class->setSpam() == true) {
+				if ($this->config->config['user']['security']['firewall'] == false || ($this->request->logged == '*' && $this->request->access == '*') || $class->setFirewall() == true) {
+					if ($this->config->config['user']['security']['spam'] == false || $class->setSpam() == true) {
 						if ($this->request->cache > 0) {
 							$cache = new Cache('page_' . preg_replace('#\/#isU', '-slash-', $this->request->env('REQUEST_URI')), $this->request->cache);
 
 							if ($cache->isDie() == true) {
-								$class->model();
-
 								$output = $this->_action($class);
 								$this->response->page($output);
 
@@ -290,7 +274,6 @@
 							}
 						}
 						else {
-							$class->model();
 							$output = $this->_action($class);
 							$this->response->page($output);
 						}
@@ -304,7 +287,7 @@
 				}
 			}
 			else {
-				throw new Exception("Can't include controller and model from module " . $this->request->src);
+				throw new Exception("Can't include controller from module " . $this->request->src);
 			}
 		}
 
@@ -324,7 +307,7 @@
 
 			if (method_exists($class, 'action' . ucfirst($this->request->action))) {
 				$action = 'action' . ucfirst($this->request->action);
-				$params = Injector::getInstance()->getArgsMethod($class, $action);
+				$params = Injector::instance()->getArgsMethod($class, $action);
 
 				$reflectionMethod = new \ReflectionMethod($class, $action);
 				$output = $reflectionMethod->invokeArgs($class, $params);
@@ -353,12 +336,10 @@
 		 */
 
 		protected function _setControllerFile($src, $controller) {
-			$controllerPath = SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($controller) . EXT_CONTROLLER . '.php';
-			$modelPath = SRC_PATH . $src . '/' . SRC_MODEL_PATH . ucfirst($controller) . EXT_MODEL . '.php';
+			$controllerPath = SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($controller) . '.php';
 
-			if (file_exists($controllerPath) && file_exists($modelPath)) {
+			if (file_exists($controllerPath)) {
 				require_once($controllerPath);
-				require_once($modelPath);
 
 				return true;
 			}
@@ -376,7 +357,7 @@
 		 */
 
 		public function run() {
-			if (MAINTENANCE == false) {
+			if (!Config::config()['user']['debug']['maintenance']) {
 				if ($this->_route == false) {
 					$this->response->status(404);
 					$this->addError('routing failed : http://' . $this->request->env('HTTP_HOST') . $this->request->env('REQUEST_URI'), __FILE__, __LINE__, ERROR_WARNING);
@@ -390,11 +371,11 @@
 				$this->addErrorHr(LOG_SYSTEM);
 				$this->_setHistory('');
 
-				if (MINIFY_OUTPUT_HTML == true && preg_match('#text/html#isU', $this->response->contentType())) {
+				if (Config::config()['user']['output']['minify'] && preg_match('#text/html#isU', $this->response->contentType())) {
 					$this->response->page($this->_minifyHtml($this->response->page()));
 				}
 
-				if (ENVIRONMENT == 'development' && PROFILER == true) {
+				if (Config::config()['user']['debug']['environment'] == 'development' && Config::config()['user']['debug']['profiler']) {
 					$this->profiler->profiler($this->request, $this->response);
 				}
 			}
@@ -414,11 +395,11 @@
 		 */
 
 		public function runCron() {
-			if (MAINTENANCE == false) {
+			if (!Config::config()['user']['debug']['maintenance']) {
 				$this->_controller();
 				$this->_setHistory('CRON');
 
-				if (ENVIRONMENT == 'development' && PROFILER == true) {
+				if (Config::config()['user']['debug']['environment'] == 'development' && Config::config()['user']['debug']['profiler']) {
 					$this->profiler->profiler($this->request, $this->response);
 				}
 			}
@@ -448,7 +429,7 @@
 		 */
 
 		private function _setEnvironment() {
-			switch (ENVIRONMENT) {
+			switch (Config::config()['user']['debug']['environment']) {
 				case 'development' :
 					error_reporting(E_ALL | E_NOTICE);
 				break;
@@ -534,11 +515,11 @@
 		 */
 
 		private function _setSecure() {
-			if (SECURE_GET == true && isset($_GET)) {
+			if (Config::config()['user']['secure']['get'] && isset($_GET)) {
 				$_GET = $this->_setSecureArray($_GET);
 			}
 
-			if (SECURE_POST == true && isset($_POST)) {
+			if (Config::config()['user']['secure']['post'] && isset($_POST)) {
 				$_POST = $this->_setSecureArray($_POST);
 			}
 		}
@@ -593,11 +574,11 @@
 							include_once($path . $entry);
 
 							if ($src != null) {
-								$event = '\Event\\' . ucfirst($src) . '\\' . preg_replace('#(.+)' . preg_quote(EXT_EVENT . '.php') . '#', '$1', $entry);
+								$event = '\Event\\' . ucfirst($src) . '\\' . preg_replace('#(.+)' . preg_quote('.php') . '#', '$1', $entry);
 								$event = preg_replace('#' . preg_quote('/') . '#', '\\', $event);
 							}
 							else {
-								$event = '\Event\\' . preg_replace('#(.+)' . preg_quote(EXT_EVENT . '.php') . '#', '$1', $entry);
+								$event = '\Event\\' . preg_replace('#(.+)' . preg_quote('.php') . '#', '$1', $entry);
 								$event = preg_replace('#' . preg_quote('/') . '#', '\\', $event);
 							}
 
@@ -631,15 +612,14 @@
 		/**
 		 * set database
 		 * @access  private
-		 * @param $db array
 		 * @return void
 		 * @since   3.0
 		 * @package System\Engine
 		 */
 
-		private function _setDatabase($db) {
-			if (DATABASE == true) {
-				Database::getInstance($db);
+		private function _setDatabase() {
+			if (Config::config()['user']['database']['enabled']) {
+				Database::instance();
 			}
 		}
 

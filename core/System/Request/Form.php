@@ -59,7 +59,7 @@
 		 */
 
 		public function __construct() {
-			$this->data = Data::getInstance();
+			$this->data = Data::instance();
 			$this->validation = new Validation();
 		}
 

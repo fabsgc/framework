@@ -9,6 +9,8 @@
 	\*/
 
 	namespace System\Cache;
+	
+	use System\Config\Config;
 
 	/**
 	 * Class Cache
@@ -20,34 +22,34 @@
 		/**
 		 * cache name
 		 * @var string
-		 * @access protected
+		 * @access private
 		 */
 
-		protected $_name;
+		private $_name;
 
 		/**
 		 * cache file name
 		 * @var string
-		 * @access protected
+		 * @access private
 		 */
 
-		protected $_fileName;
+		private $_fileName;
 
 		/**
 		 * cache time
 		 * @var string
-		 * @access protected
+		 * @access private
 		 */
 
-		protected $_time = 0;
+		private $_time = 0;
 
 		/**
 		 * cache content
 		 * @var string
-		 * @access protected
+		 * @access private
 		 */
 
-		protected $_content;
+		private $_content;
 
 		/**
 		 * Constructor
@@ -65,14 +67,14 @@
 				mkdir(APP_CACHE_PATH_DEFAULT, 0777, true);
 			}
 
-			if (CACHE_SHA1 == 'true') {
+			if (Config::config()['user']['output']['cache']['sha1']) {
 				$this->_fileName = APP_CACHE_PATH_DEFAULT . sha1($this->_name . '.cache');
 			}
 			else {
 				$this->_fileName = APP_CACHE_PATH_DEFAULT . $this->_name . '.cache';
 			}
 
-			if (CACHE_ENABLED == true) {
+			if (Config::config()['user']['output']['cache']['enabled']) {
 				$this->_time = $time;
 			}
 			else {
@@ -143,7 +145,7 @@
 		 * @package System\Cache
 		 */
 
-		protected function _uncompress($val) {
+		private function _uncompress($val) {
 			return gzuncompress($val);
 		}
 
@@ -176,7 +178,7 @@
 		 * @package System\Cache
 		 */
 
-		protected function _compress($content) {
+		private function _compress($content) {
 			return gzcompress($content, 9);
 		}
 

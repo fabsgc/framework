@@ -11,6 +11,7 @@
 	namespace System\Security;
 
 	use System\Config\Config;
+	use System\General\di;
 	use System\General\error;
 	use System\General\langs;
 	use System\General\resolve;
@@ -25,7 +26,7 @@
 	 */
 
 	class Firewall {
-		use error, langs, resolve;
+		use error, langs, resolve, di;
 
 		/**
 		 * @var array $_configFirewall
@@ -63,9 +64,9 @@
 		 */
 
 		public function __construct() {
-			$this->request = Request::getInstance();
-			$this->config = Config::getInstance();
-			$this->response = Response::getInstance();
+			$this->request = Request::instance();
+			$this->config = Config::instance();
+			$this->response = Response::instance();
 
 			$this->_configFirewall = &$this->config->config['firewall']['' . $this->request->src . ''];
 			$this->_setFirewall();

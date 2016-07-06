@@ -109,7 +109,7 @@
 		 */
 
 		public function __construct($field, $label) {
-			$requestData = Data::getInstance();
+			$requestData = Data::instance();
 
 			switch ($requestData->method) {
 				case 'get' :

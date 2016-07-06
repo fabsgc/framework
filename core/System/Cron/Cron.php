@@ -14,6 +14,7 @@
 	use System\Database\Database;
 	use System\Engine\Engine;
 	use System\Exception\MissingConfigException;
+	use System\General\di;
 	use System\General\error;
 	use System\General\facades;
 	use System\Profiler\Profiler;
@@ -26,7 +27,7 @@
 	 */
 
 	class Cron {
-		use error, facades;
+		use error, facades, di;
 
 		/**
 		 * @var boolean
@@ -56,10 +57,10 @@
 		 */
 
 		public function __construct($file) {
-			$this->config = Config::getInstance();
-			$this->request = Request::getInstance();
-			$this->response = Response::getInstance();
-			$this->profiler = Profiler::getInstance();
+			$this->config = Config::instance();
+			$this->request = Request::instance();
+			$this->response = Response::instance();
+			$this->profiler = Profiler::instance();
 
 			if (@fopen($file, 'r+')) {
 				if ($this->_xmlContent = simplexml_load_file($file)) {
@@ -82,7 +83,7 @@
 
 								$action = explode('.', $value['action']);
 								$controller = new Engine();
-								$controller->initCron($action[0], $action[1], $action[2], Database::getInstance()->db());
+								$controller->initCron($action[0], $action[1], $action[2], Database::instance()->db());
 
 								ob_start();
 								$controller->runCron();

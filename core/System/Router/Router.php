@@ -10,6 +10,7 @@
 
 	namespace System\Router;
 
+	use System\Config\Config;
 	use System\General\facades;
 	use System\Request\Request;
 
@@ -54,11 +55,11 @@
 		 */
 
 		public function getRoute($url, $config) {
-			$url2 = substr($url, strlen(FOLDER), strlen($url));
+			$url2 = substr($url, strlen(Config::config()['user']['framework']['folder']), strlen($url));
 			$routeRight = null;
 
 			foreach ($this->routes as $route) {
-				if (($varsValues = $route->match($url2)) != false && ($route->method() == '*' || in_array(Request::getInstance()->data->method, explode(',', $route->method())) || $route->method() == Request::getInstance()->data->method)) {
+				if (($varsValues = $route->match($url2)) != false && ($route->method() == '*' || in_array(Request::instance()->data->method, explode(',', $route->method())) || $route->method() == Request::instance()->data->method)) {
 					$routeRight = $route;
 					// if she has vars
 					if ($route->hasVars()) {

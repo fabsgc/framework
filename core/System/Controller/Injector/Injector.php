@@ -69,7 +69,7 @@
 		 * @package System\Controller\Injector
 		 */
 
-		public static function getInstance() {
+		public static function instance() {
 			if (is_null(self::$_instance)) {
 				self::$_instance = new Injector();
 			}
@@ -102,10 +102,10 @@
 						array_push($params, self::$name());
 					}
 					else if (preg_match('#(Controller\\\Request\\\)#isU', $object->name)) {
-						array_push($params, Form::getInstance()->get($object));
+						array_push($params, Form::instance()->get($object));
 					}
 					else if (preg_match('#(Orm\\\Entity\\\)#isU', $object->name)) {
-						array_push($params, Orm::getInstance()->get($object));
+						array_push($params, Orm::instance()->get($object));
 					}
 					else {
 						array_push($params, null);

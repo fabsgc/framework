@@ -38,7 +38,7 @@
 		 * @package System\Request\Injector
 		 */
 
-		public static function getInstance() {
+		public static function instance() {
 			if (is_null(self::$_instance)) {
 				self::$_instance = new Form();
 			}
@@ -61,7 +61,7 @@
 			$class = new $class();
 			$class->init();
 
-			$request = Request::getInstance();
+			$request = Request::instance();
 
 			if (($class->getForm() == '' && $request->data->form == true) || isset($request->data->post[$class->getForm()])) {
 				switch ($request->data->method) {

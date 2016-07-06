@@ -92,9 +92,9 @@
 		 */
 
 		public function __construct() {
-			$this->request = Request::getInstance();
-			$this->profiler = Profiler::getInstance();
-			$this->_db = Database::getInstance()->db();
+			$this->request = Request::instance();
+			$this->profiler = Profiler::instance();
+			$this->_db = Database::instance()->db();
 
 			$stack = debug_backtrace(0);
 			$trace = $this->getStackTraceToString($stack);

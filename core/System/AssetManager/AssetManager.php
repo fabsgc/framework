@@ -11,6 +11,7 @@
 	namespace System\AssetManager;
 
 	use System\Cache\Cache;
+	use System\Config\Config;
 	use System\General;
 
 	/**
@@ -282,7 +283,7 @@
 				$m[1] = '/' . $m[1];
 			}
 
-			return 'http://' . $_SERVER['HTTP_HOST'] . str_replace('//', '/', FOLDER . $m[1]);
+			return 'http://' . $_SERVER['HTTP_HOST'] . str_replace('//', '/', Config::config()['user']['framework']['folder'] . $m[1]);
 		}
 
 		/**

@@ -30,8 +30,8 @@
 		 */
 
 		public function __construct($src) {
-			foreach (Config::getInstance()->config['define']['' . $src . ''] as $key => $value) {
-				$define = strtoupper($src . '_' . DEFINE_PREFIX . strval($key));
+			foreach (Config::instance()->config['define']['' . $src . ''] as $key => $value) {
+				$define = strtoupper($src . '_' . Config::config()['user']['define']['prefix'] . strval($key));
 
 				if (!defined($define)) {
 					define($define, htmlspecialchars_decode($value));

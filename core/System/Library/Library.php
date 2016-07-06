@@ -33,7 +33,7 @@
 		 */
 
 		public function __construct($src) {
-			$config = Config::getInstance();
+			$config = Config::instance();
 
 			foreach ($config->config['library']['' . $src . ''] as $value) {
 				if ($value['enabled'] == 'true') {
@@ -67,7 +67,7 @@
 		 */
 
 		protected function _checkInclude($include) {
-			$request = Request::getInstance();
+			$request = Request::instance();
 
 			if ($include == '*') {
 				return true;

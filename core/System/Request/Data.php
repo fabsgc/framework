@@ -60,7 +60,7 @@
 		 * @package System\Request
 		 */
 
-		public static function getInstance() {
+		public static function instance() {
 			if (is_null(self::$_instance)) {
 				self::$_instance = new Data();
 			}

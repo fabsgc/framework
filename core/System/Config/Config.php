@@ -20,7 +20,6 @@
 	 * Class Config
 	 * @package System\Config
 	 */
-	
 	class Config {
 		use singleton;
 
@@ -74,10 +73,15 @@
 		 * @access  public
 		 * @since   3.0
 		 * @package System\Config
+		 * @param array $data
+		 * @throws Exception
 		 */
 
-		public function __construct() {
-			if (CACHE_CONFIG == false) {
+		public function __construct($data = []) {
+			self::$_instance = $this;
+			$this->config['user'] = $data;
+
+			if (!$this->config['user']['output']['cache']['config']) {
 				$this->_init();
 			}
 			else {
@@ -98,14 +102,27 @@
 		 * @access  public
 		 * @since   3.0
 		 * @package System\Request
+		 * @param array $data
+		 * @return object|Config
 		 */
 
-		public static function getInstance() {
+		public static function instance($data = []) {
 			if (is_null(self::$_instance)) {
-				self::$_instance = new Config();
+				new Config($data);
 			}
 
 			return self::$_instance;
+		}
+
+		/**
+		 * provide direct access to the attribute $config
+		 * @access  public
+		 * @since   3.0
+		 * @package System\Config\Config
+		 */
+
+		public static function config() {
+			return Config::instance()->config;
 		}
 
 		/**
@@ -123,8 +140,8 @@
 			/* ## LANG ## */
 			if ($handle = opendir(APP_RESOURCE_LANG_PATH)) {
 				while (false !== ($entry = readdir($handle))) {
-					if (preg_match('#(' . preg_quote(EXT_LANG) . ')$#isU', $entry)) {
-						$this->_parseLang(null, str_replace(EXT_LANG, '', $entry));
+					if (preg_match('#(' . preg_quote('.xml') . ')$#isU', $entry)) {
+						$this->_parseLang(null, str_replace('.xml', '', $entry));
 					}
 				}
 
@@ -151,62 +168,64 @@
 			$this->_parseTemplate();
 
 			/* ############## SRC ############## */
-			$xml = simplexml_load_file(APP_CONFIG_SRC);
-			$datas = $xml->xpath('//src');
 
-			foreach ($datas as $data) {
-				if (file_exists(SRC_PATH . '/' . $data['name'])) {
-					/* ## ROUTE ## */
-					$this->_parseRoute($data['name']);
+			if ($handleSrc= opendir(SRC_PATH)) {
+				while (false !== ($entrySrc = readdir($handleSrc))) {
+					if (is_dir(SRC_PATH . '/' . $entrySrc) && $entrySrc != '.' && $entrySrc != '..') {
+						/* ## ROUTE ## */
+						$this->_parseRoute($entrySrc);
 
-					/* ## LANG ## */
-					if ($handle = opendir(SRC_PATH . $data['name'] . '/' . SRC_RESOURCE_LANG_PATH)) {
-						while (false !== ($entry = readdir($handle))) {
-							if (preg_match('#(' . preg_quote(EXT_LANG) . ')$#isU', $entry)) {
-								$lang = str_replace(EXT_LANG, '', $entry);
-								$this->_parseLang($data['name'], $lang);
+						/* ## LANG ## */
+						if ($handle = opendir(SRC_PATH . $entrySrc . '/' . SRC_RESOURCE_LANG_PATH)) {
+							while (false !== ($entry = readdir($handle))) {
+								if (preg_match('#(' . preg_quote('.xml') . ')$#isU', $entry)) {
+									$lang = str_replace('.xml', '', $entry);
+									$this->_parseLang($entrySrc, $lang);
+								}
 							}
+
+							closedir($handle);
 						}
 
-						closedir($handle);
-					}
+						/* ## TEMPLATE ## */
+						$this->config['template']['' . $entrySrc . ''] = SRC_PATH . $entrySrc . '/' . SRC_RESOURCE_TEMPLATE_PATH;
+						/* ## CSS ## */
+						$this->config['css']['' . $entrySrc . ''] = WEB_PATH . $entrySrc . '/' . WEB_CSS_PATH;
+						/* ## IMAGE ## */
+						$this->config['img']['' . $entrySrc . ''] = WEB_PATH . $entrySrc . '/' . WEB_IMAGE_PATH;
+						/* ## FILE ## */
+						$this->config['file']['' . $entrySrc . ''] = WEB_PATH . $entrySrc . '/' . WEB_FILE_PATH;
+						/* ## JS ## */
+						$this->config['js']['' . $entrySrc . ''] = WEB_PATH . $entrySrc . '/' . WEB_JS_PATH;
+						/* ## FIREWALL ## */
+						$this->_parseFirewall($entrySrc);
+						/* ## DEFINE ## */
+						$this->_parseDefine($entrySrc);
+						/* ## LIBRARY ## */
+						$this->_parseLibrary($entrySrc);
 
-					/* ## TEMPLATE ## */
-					$this->config['template']['' . $data['name'] . ''] = SRC_PATH . $data['name'] . '/' . SRC_RESOURCE_TEMPLATE_PATH;
-					/* ## CSS ## */
-					$this->config['css']['' . $data['name'] . ''] = WEB_PATH . $data['name'] . '/' . WEB_CSS_PATH;
-					/* ## IMAGE ## */
-					$this->config['img']['' . $data['name'] . ''] = WEB_PATH . $data['name'] . '/' . WEB_IMAGE_PATH;
-					/* ## FILE ## */
-					$this->config['file']['' . $data['name'] . ''] = WEB_PATH . $data['name'] . '/' . WEB_FILE_PATH;
-					/* ## JS ## */
-					$this->config['js']['' . $data['name'] . ''] = WEB_PATH . $data['name'] . '/' . WEB_JS_PATH;
-					/* ## FIREWALL ## */
-					$this->_parseFirewall($data['name']);
-					/* ## DEFINE ## */
-					$this->_parseDefine($data['name']);
-					/* ## LIBRARY ## */
-					$this->_parseLibrary($data['name']);
-
-					//copy app lang in each other module lang
-					foreach ($this->config['lang'] as $key => $value) {
-						if ($key != 'app') {
-							foreach ($value as $key2 => $value2) {
-								$this->config['lang']['' . $key . '']['' . $key2 . ''] =
-									array_merge(
-										$this->config['lang']['app']['' . $key2 . ''],
-										$value2
-									);
+						//copy app lang in each other module lang
+						foreach ($this->config['lang'] as $key => $value) {
+							if ($key != 'app') {
+								foreach ($value as $key2 => $value2) {
+									$this->config['lang']['' . $key . '']['' . $key2 . ''] =
+										array_merge(
+											$this->config['lang']['app']['' . $key2 . ''],
+											$value2
+										);
+								}
 							}
 						}
 					}
 				}
-				else {
-					throw new Exception('The module ' . $data['name'] . ' described in the module config file is missing');
-				}
+
+				closedir($handleSrc);
+			}
+			else {
+				throw new Exception('The directory ' . SRC_PATH . 'doesn\'t exist');
 			}
 
-			if (CACHE_CONFIG == true) {
+			if ($this->config['user']['output']['cache']['config']) {
 				$this->_cache->setContent($this->config);
 				$this->_cache->setCache();
 			}
@@ -276,11 +295,11 @@
 
 		protected function _parseLang($src = null, $lang) {
 			if ($src == null) {
-				$file = APP_RESOURCE_LANG_PATH . $lang . EXT_LANG;
+				$file = APP_RESOURCE_LANG_PATH . $lang . '.xml';
 				$src = 'app';
 			}
 			else {
-				$file = SRC_PATH . $src . '/' . SRC_RESOURCE_LANG_PATH . $lang . EXT_LANG;
+				$file = SRC_PATH . $src . '/' . SRC_RESOURCE_LANG_PATH . $lang . '.xml';
 			}
 
 			$this->config['lang']['' . $src . '']['' . $lang . ''] = [];

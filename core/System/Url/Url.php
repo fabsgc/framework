@@ -1,6 +1,7 @@
 <?php
 	namespace System\Url;
 
+	use System\Config\Config;
 	use System\General\resolve;
 
 	/**
@@ -52,12 +53,14 @@
 
 				$result = preg_replace('#\\\.#U', '.', $result);
 
-				if (FOLDER != '') {
+				if (Config::config()['user']['framework']['folder'] != '') {
+					$folder = Config::config()['user']['framework']['folder'];
+					
 					if ($absolute == false) {
-						return '/' . substr(FOLDER, 0, strlen(FOLDER) - 1) . $result;
+						return '/' . substr($folder, 0, strlen($folder) - 1) . $result;
 					}
 					else {
-						return 'http://' . $_SERVER['HTTP_HOST'] . FOLDER . $result;
+						return 'http://' . $_SERVER['HTTP_HOST'] . $folder . $result;
 					}
 				}
 				else {

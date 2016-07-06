@@ -38,7 +38,6 @@
 	use System\Template\Template;
 	use System\Template\TemplateParser;
 	use System\Terminal\Terminal;
-	use System\Url\Url;
 
 	/**
 	 * Trait resolve
@@ -76,8 +75,8 @@
 		 */
 
 		protected static function resolveStatic($type, $data) {
-			$request = Request::getInstance();
-			$config = Config::getInstance();
+			$request = Request::instance();
+			$config = Config::instance();
 
 			if ($type == RESOLVE_ROUTE || $type == RESOLVE_LANG) {
 				if (preg_match('#^((\.)([a-zA-Z0-9_-]+)(\.)(.+))#', $data, $matches)) {
@@ -134,7 +133,7 @@
 				return $this->resolve($type, $data);
 			}
 			else {
-				return FOLDER . $this->resolve($type, $data);
+				return Config::config()['user']['framework']['folder'] . $this->resolve($type, $data);
 			}
 		}
 	}
@@ -238,17 +237,17 @@
 
 		public function addError($error, $file = __FILE__, $line = __LINE__, $type = ERROR_INFORMATION, $log = LOG_SYSTEM) {
 			if ($log != LOG_HISTORY && $log != LOG_CRONS && $log != LOG_EVENT) {
-				if (LOG_ENABLED == true) {
+				if (Config::config()['user']['debug']['log']) {
 					if ($log == LOG_SQL) {
 						$error = preg_replace('#([\t]{2,})#isU', "", $error);
 					}
 
 					$data = date("d/m/Y H:i:s : ", time()) . '[' . $type . '] file ' . $file . ' / line ' . $line . ' / ' . $error;
-					file_put_contents(APP_LOG_PATH . $log . EXT_LOG, $data . "\n", FILE_APPEND | LOCK_EX);
+					file_put_contents(APP_LOG_PATH . $log . '.log', $data . "\n", FILE_APPEND | LOCK_EX);
 
-					if ((DISPLAY_ERROR_FATAL == true && $type == ERROR_FATAL) ||
-						(DISPLAY_ERROR_EXCEPTION == true && $type == ERROR_EXCEPTION) || preg_match('#Exception#isU', $type) ||
-						(DISPLAY_ERROR_ERROR == true && $type == ERROR_ERROR)
+					if ((Config::config()['user']['debug']['error']['error'] && $type == ERROR_FATAL) ||
+						(Config::config()['user']['debug']['error']['exception'] == true && $type == ERROR_EXCEPTION) || preg_match('#Exception#isU', $type) ||
+						(Config::config()['user']['debug']['error']['fatal'] == true && $type == ERROR_ERROR)
 					) {
 						if (CONSOLE_ENABLED == MODE_HTTP) {
 							echo $data . "\n<br />";
@@ -260,7 +259,7 @@
 				}
 			}
 			else {
-				file_put_contents(APP_LOG_PATH . $log . EXT_LOG, $error . "\n", FILE_APPEND | LOCK_EX);
+				file_put_contents(APP_LOG_PATH . $log . '.log', $error . "\n", FILE_APPEND | LOCK_EX);
 			}
 		}
 
@@ -273,8 +272,8 @@
 		 */
 
 		public function addErrorHr($log = LOG_SYSTEM) {
-			if (LOG_ENABLED == true) {
-				file_put_contents(APP_LOG_PATH . $log . EXT_LOG, "#################### END OF EXECUTION OF http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . " ####################\n", FILE_APPEND | LOCK_EX);
+			if (Config::config()['user']['debug']['log']) {
+				file_put_contents(APP_LOG_PATH . $log . '.log', "#################### END OF EXECUTION OF http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . " ####################\n", FILE_APPEND | LOCK_EX);
 			}
 		}
 	}
@@ -300,7 +299,7 @@
 			foreach ($data as $value) {
 				if ($entity != '') {
 					$entityName = '\entity\\' . $entity;
-					$entityObject = new $entityName(Database::getInstance()->db());
+					$entityObject = new $entityName(Database::instance()->db());
 
 					foreach ($value as $key => $value2) {
 						$entityObject->$key = $value2;
@@ -328,7 +327,7 @@
 		 * @var $lang string
 		 */
 
-		protected $lang = LANG;
+		protected $lang = 'fr';
 
 		/**
 		 * get the client language
@@ -339,7 +338,7 @@
 
 		public function getLangClient() {
 			if (!array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) || !$_SERVER['HTTP_ACCEPT_LANGUAGE']) {
-				return LANG;
+				return Config::config()['user']['output']['lang'];
 			}
 			else {
 				$langcode = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
@@ -359,7 +358,7 @@
 		 */
 
 		public function setLang($lang = '') {
-			Request::getInstance()->lang = $lang;
+			Request::instance()->lang = $lang;
 		}
 
 		/**
@@ -370,7 +369,7 @@
 		 */
 
 		public function getLang() {
-			return Request::getInstance()->lang;
+			return Request::instance()->lang;
 		}
 
 		/**
@@ -383,7 +382,7 @@
 		 */
 
 		final public function useLang($lang, $vars = [], $template = Lang::USE_NOT_TPL) {
-			return Lang::getInstance()->lang($lang, $vars, $template);
+			return Lang::instance()->lang($lang, $vars, $template);
 		}
 	}
 
@@ -408,4 +407,35 @@
 
 	interface EventListener {
 		public function implementedEvents();
+	}
+
+	/***
+	 * trait di
+	 * @package System\General
+	 */
+
+	trait di{
+		/**
+		 * @var \System\Request\Request $request
+		 */
+
+		private $request = null;
+
+		/**
+		 * @var \System\Response\Response $response
+		 */
+
+		private $response = null;
+
+		/**
+		 * @var \System\Profiler\Profiler $profiler
+		 */
+
+		private $profiler = null;
+
+		/**
+		 * @var \System\Config\Config $config
+		 */
+
+		private $config = null;
 	}

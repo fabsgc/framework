@@ -37,12 +37,6 @@
 		use error, langs, resolve, ormFunctions, facades, facadesEntity, facadesHelper;
 
 		/**
-		 * @var \System\Model\Model
-		 */
-
-		public $model;
-
-		/**
 		 * @var \System\Pdo\Pdo
 		 */
 
@@ -62,7 +56,7 @@
 		 */
 
 		final public function __construct() {
-			$this->db = Database::getInstance()->db();
+			$this->db = Database::instance()->db();
 
 			$this->entity = self::Entity();
 			$this->helper = self::Helper();
@@ -131,28 +125,6 @@
 		}
 
 		/**
-		 * load model
-		 * @access  public
-		 * @return void
-		 * @since   3.0
-		 * @throws \System\Exception\MissingModelException
-		 * @package System\Controller
-		 */
-
-		final public function model() {
-			$request = Request::getInstance();
-			$class = "\\" . $request->src . "\\" . 'Manager' . ucfirst($request->controller);
-
-			if (class_exists($class)) {
-				$this->model = new $class($this->entity, $this->helper);
-				$this->model->init();
-			}
-			else {
-				throw new MissingModelException('can\'t load model "' . $request->controller . '"');
-			}
-		}
-
-		/**
 		 * display a default template
 		 * @access  public
 		 * @return string
@@ -161,7 +133,7 @@
 		 */
 
 		final public function showDefault() {
-			$request = Request::getInstance();
+			$request = Request::instance();
 			$t = new Template('.app/system/default', 'systemDefault');
 			$t->assign(['action' => $request->src . '::' . $request->controller . '::' . $request->action]);
 			return $t->show();

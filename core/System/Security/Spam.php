@@ -12,6 +12,7 @@
 
 	use System\Config\Config;
 	use System\Exception\MissingConfigException;
+	use System\General\di;
 	use System\General\error;
 	use System\General\langs;
 	use System\General\resolve;
@@ -24,7 +25,7 @@
 	 */
 
 	class Spam {
-		use error, langs, resolve;
+		use error, langs, resolve, di;
 
 		/**
 		 * @var string[] $_ip
@@ -68,8 +69,8 @@
 		 */
 
 		public function __construct() {
-			$this->request = Request::getInstance();
-			$this->config = Config::getInstance();
+			$this->request = Request::instance();
+			$this->config = Config::instance();
 
 			$this->_ipClient = $this->request->env('REMOTE_ADDR');
 

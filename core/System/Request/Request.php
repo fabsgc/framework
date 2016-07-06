@@ -10,6 +10,7 @@
 
 	namespace System\Request;
 
+	use System\Config\Config;
 	use System\Exception\AttributeNotAllowedException;
 	use System\General\singleton;
 
@@ -46,7 +47,7 @@
 			'logged'     => '*',
 			'access'     => '*',
 			'method'     => '*',
-			'lang'       => LANG,
+			'lang'       => 'fr',
 			'auth'       => '',
 			'data'       => null
 		];
@@ -59,7 +60,8 @@
 		 */
 
 		private function __construct() {
-			$this->param['data'] = Data::getInstance();
+			$this->param['data'] = Data::instance();
+			$this->param['lang'] = Config::config()['user']['output']['lang'];
 		}
 
 		/**
@@ -69,7 +71,7 @@
 		 * @package System\Request
 		 */
 
-		public static function getInstance() {
+		public static function instance() {
 			if (is_null(self::$_instance)) {
 				self::$_instance = new Request();
 			}

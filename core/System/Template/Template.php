@@ -10,6 +10,7 @@
 
 	namespace System\Template;
 
+	use System\Config\Config;
 	use System\Exception\MissingTemplateException;
 	use System\General\error;
 	use System\General\facades;
@@ -135,12 +136,12 @@
 		 */
 
 		public function __construct($file = '', $name = 'template', $cache = 0, $stream = self::TPL_FILE) {
-			$this->_file = $this->resolve(RESOLVE_TEMPLATE, $file) . EXT_TEMPLATE;
+			$this->_file = $this->resolve(RESOLVE_TEMPLATE, $file) . '.tpl';
 			$this->_name = $name;
 			$this->_timeCache = $cache;
 			$this->_stream = $stream;
 
-			if (CACHE_ENABLED == false) {
+			if (!Config::config()['user']['output']['cache']['enabled']) {
 				$this->_timeCache = 0;
 			}
 
@@ -171,11 +172,11 @@
 				$hash = '';
 			}
 
-			if (CACHE_SHA1 == 'true') {
-				$this->_fileCache = APP_CACHE_PATH_TEMPLATE . sha1(substr($hash, 0, 10) . '_template_' . $this->_name . EXT_COMPILED_TEMPLATE);
+			if (Config::config()['user']['output']['cache']['sha1']) {
+				$this->_fileCache = APP_CACHE_PATH_TEMPLATE . sha1(substr($hash, 0, 10) . '_template_' . $this->_name . 'tpl.compiled.php.cache');
 			}
 			else {
-				$this->_fileCache = APP_CACHE_PATH_TEMPLATE . substr($hash, 0, 10) . '_template_' . $this->_name . EXT_COMPILED_TEMPLATE;
+				$this->_fileCache = APP_CACHE_PATH_TEMPLATE . substr($hash, 0, 10) . '_template_' . $this->_name . 'tpl.compiled.php.cache';
 			}
 
 			$this->_setParser();
@@ -315,7 +316,7 @@
 		 */
 
 		public function show($returnType = self::TPL_COMPILE_TO_STRING, $type = self::TPL_COMPILE_ALL) {
-			$profiler = Profiler::getInstance();
+			$profiler = Profiler::instance();
 
 			$profiler->addTime('template ' . $this->_name);
 			$profiler->addTemplate($this->_name, Profiler::TEMPLATE_START, $this->_file);

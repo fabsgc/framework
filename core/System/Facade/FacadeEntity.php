@@ -40,8 +40,8 @@
 		 */
 
 		public function __call($name, $arguments) {
-			if (file_exists(APP_RESOURCE_ENTITY_PATH . $name . EXT_ENTITY . '.php')) {
-				include_once(APP_RESOURCE_ENTITY_PATH . $name . EXT_ENTITY . '.php');
+			if (file_exists(APP_RESOURCE_ENTITY_PATH . $name . '.php')) {
+				include_once(APP_RESOURCE_ENTITY_PATH . $name . '.php');
 
 				$class = '\Orm\Entity\\' . $name;
 

@@ -97,7 +97,7 @@
 				throw new MissingEntityException('The entity ' . $this->_name . ' does not have any primary key');
 			}
 
-			$requestData = Data::getInstance();
+			$requestData = Data::instance();
 
 			switch ($requestData->method) {
 				case 'get' :
@@ -433,10 +433,10 @@
 			$queryFields = '';
 			$queryValues = '';
 			$manyToMany = null;
-			$transaction = Database::getInstance()->db()->inTransaction();
+			$transaction = Database::instance()->db()->inTransaction();
 
 			if (!$transaction) {
-				Database::getInstance()->db()->beginTransaction();
+				Database::instance()->db()->beginTransaction();
 			}
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
@@ -620,7 +620,7 @@
 			$sql->fetch('insert_' . $this->_name . '_' . $this->_token, Sql::PARAM_FETCHINSERT);
 
 			/** Update primary key */
-			$this->_fields[$this->_primary] = Database::getInstance()->db()->lastInsertId();
+			$this->_fields[$this->_primary] = Database::instance()->db()->lastInsertId();
 
 			/** ######################################################################## */
 			/** One to many and many to many need more queries after the principal query */
@@ -695,7 +695,7 @@
 			}
 
 			if (!$transaction) {
-				Database::getInstance()->db()->commit();
+				Database::instance()->db()->commit();
 			}
 		}
 
@@ -716,10 +716,10 @@
 			$sql = new Sql();
 			$queryFields = '';
 			$manyToMany = null;
-			$transaction = Database::getInstance()->db()->inTransaction();
+			$transaction = Database::instance()->db()->inTransaction();
 
 			if (!$transaction) {
-				Database::getInstance()->db()->beginTransaction();
+				Database::instance()->db()->beginTransaction();
 			}
 
 			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
@@ -966,7 +966,7 @@
 			}
 
 			if (!$transaction) {
-				Database::getInstance()->db()->commit();
+				Database::instance()->db()->commit();
 			}
 		}
 
@@ -981,10 +981,10 @@
 
 		public function delete() {
 			$sql = new Sql();
-			$transaction = Database::getInstance()->db()->inTransaction();
+			$transaction = Database::instance()->db()->inTransaction();
 
 			if (!$transaction) {
-				Database::getInstance()->db()->beginTransaction();
+				Database::instance()->db()->beginTransaction();
 			}
 
 			foreach ($this->_fields as $field) {
@@ -1097,7 +1097,7 @@
 			$sql->fetch('delete_' . $this->_name . '_' . $this->_token, Sql::PARAM_FETCHDELETE);
 
 			if (!$transaction) {
-				Database::getInstance()->db()->commit();
+				Database::instance()->db()->commit();
 			}
 		}
 
@@ -1361,7 +1361,7 @@
 					}
 				}
 				else if (in_array($field->type, [Field::FILE])) {
-					$data = Data::getInstance()->file;
+					$data = Data::instance()->file;
 
 					if (isset($data[$prefix . $field->name])) {
 						if (isset($data[$prefix . $field->name]) && $data[$prefix . $field->name]['error'] != 4) {

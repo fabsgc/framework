@@ -548,7 +548,7 @@
 		 */
 
 		protected function _dataManyToMany($field, $collection) {
-			Profiler::getInstance()->addTime('test-many');
+			Profiler::instance()->addTime('test-many');
 			/**
 			 * Instead of making only one query by line, we assemble all the lines IDs and we make a big query (time saving)
 			 * First, we make the query, using IN()
@@ -611,7 +611,7 @@
 				$line->set($field->name, $data);
 			}
 
-			Profiler::getInstance()->addTime('test-many', Profiler::USER_END);
+			Profiler::instance()->addTime('test-many', Profiler::USER_END);
 
 			return $collection;
 		}

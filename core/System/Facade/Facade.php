@@ -40,16 +40,16 @@
 			'EntityMultiple' => '\System\Orm\Entity\Multiple',
 			'TemplateParser' => '\System\Template\TemplateParser',
 			'FormValidation' => '\System\Form\Validation\Validation',
-			'Lang'           => ['\System\Lang\Lang', 'getInstance'],
-			'Config'         => ['\System\Config\Config', 'getInstance'],
-			'Request'        => ['\System\Request\Request', 'getInstance'],
-			'Database'       => ['\System\Database\Database', 'getInstance'],
-			'Response'       => ['\System\Response\Response', 'getInstance'],
-			'Profiler'       => ['\System\Profiler\Profiler', 'getInstance'],
-			'RequestData'    => ['\System\Request\Data', 'getInstance'],
-			'FormInjector'   => ['\System\Controller\Injector\Form', 'getInstance'],
-			'OrmInjector'    => ['\System\Controller\Injector\Orm', 'getInstance'],
-			'Injector'       => ['\System\Controller\Injector\Injector', 'getInstance']
+			'Lang'           => ['\System\Lang\Lang', 'instance'],
+			'Config'         => ['\System\Config\Config', 'instance'],
+			'Request'        => ['\System\Request\Request', 'instance'],
+			'Database'       => ['\System\Database\Database', 'instance'],
+			'Response'       => ['\System\Response\Response', 'instance'],
+			'Profiler'       => ['\System\Profiler\Profiler', 'instance'],
+			'RequestData'    => ['\System\Request\Data', 'instance'],
+			'FormInjector'   => ['\System\Controller\Injector\Form', 'instance'],
+			'OrmInjector'    => ['\System\Controller\Injector\Orm', 'instance'],
+			'Injector'       => ['\System\Controller\Injector\Injector', 'instance']
 		];
 
 		/**

@@ -11,6 +11,7 @@
 	namespace System\Profiler;
 
 	use System\Cache\Cache;
+	use System\Config\Config;
 	use System\General\error;
 	use System\General\singleton;
 
@@ -48,7 +49,7 @@
 		 * @var boolean
 		 */
 
-		protected $_enabled = PROFILER;
+		protected $_enabled = true;
 
 		/**
 		 * time
@@ -88,6 +89,7 @@
 
 		public function __construct() {
 			$this->_time = microtime(true);
+			$this->_enabled = Config::config()['user']['debug']['profiler'];
 		}
 
 		/**
@@ -97,7 +99,7 @@
 		 * @package System\Request
 		 */
 
-		public static function getInstance() {
+		public static function instance() {
 			if (is_null(self::$_instance)) {
 				self::$_instance = new Profiler();
 			}

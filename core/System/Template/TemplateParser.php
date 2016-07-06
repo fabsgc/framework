@@ -246,7 +246,7 @@
 				$this->_content = $extend[0]::$extend[1]($this->_content);
 			}
 
-			foreach (Config::getInstance()->config['template-extend'] as $extend) {
+			foreach (Config::instance()->config['template-extend'] as $extend) {
 				$this->_content = $extend[0]::$extend[1]($this->_content);
 			}
 		}
@@ -280,17 +280,17 @@
 		 */
 
 		protected function _parseIncludeCallback($m) {
-			$file = $this->resolve(RESOLVE_TEMPLATE, $m[1]) . EXT_TEMPLATE;
+			$file = $this->resolve(RESOLVE_TEMPLATE, $m[1]) . '.tpl';
 
 			$content = "";
 			if ($this->_template->getFile() != $file) {
 				if (file_exists($file)) {
 					if (isset($m[4])) //precised time cache
 					{
-						$t = new Template($m[1], 'tplInclude_' . $this->_template->getName() . '_' . $m[4] . '_' . Request::getInstance()->lang . '_' . $this->_includeI . '_', $m[4]);
+						$t = new Template($m[1], 'tplInclude_' . $this->_template->getName() . '_' . $m[4] . '_' . Request::instance()->lang . '_' . $this->_includeI . '_', $m[4]);
 					}
 					else {
-						$t = new Template($m[1], 'tplInclude_' . $this->_template->getName() . '_' . Request::getInstance()->lang . '_' . $this->_includeI . '_', 0);
+						$t = new Template($m[1], 'tplInclude_' . $this->_template->getName() . '_' . Request::instance()->lang . '_' . $this->_includeI . '_', 0);
 					}
 
 					$t->assign($this->_template->vars);
@@ -368,16 +368,16 @@
 		 */
 
 		protected function _parseExtendsCallback($m) {
-			$file = $this->resolve(RESOLVE_TEMPLATE, $m[1]) . EXT_TEMPLATE;
+			$file = $this->resolve(RESOLVE_TEMPLATE, $m[1]) . '.tpl';
 
 			if ($this->_template->getFile() != $file) {
 				if (file_exists($file)) {
 					if (isset($m[4])) //precised time cache
 					{
-						$this->_parent = new Template($m[1], 'tplExtends_' . $this->_template->getName() . '_' . $m[4] . '_' . Request::getInstance()->lang, $m[4]);
+						$this->_parent = new Template($m[1], 'tplExtends_' . $this->_template->getName() . '_' . $m[4] . '_' . Request::instance()->lang, $m[4]);
 					}
 					else {
-						$this->_parent = new Template($m[1], 'tplExtends_' . $this->_template->getName() . '_' . Request::getInstance()->lang, 0);
+						$this->_parent = new Template($m[1], 'tplExtends_' . $this->_template->getName() . '_' . Request::instance()->lang, 0);
 					}
 
 					$this->_parent->assign($this->_template->vars);
@@ -948,7 +948,7 @@
 		 */
 
 		protected function _parseAssetManagerCallback($m) {
-			if (ASSET_MANAGER == true) {
+			if (Config::config()['user']['output']['asset']) {
 				$data = [
 					'type'  => $m[1],
 					'cache' => $m[3],
@@ -1008,7 +1008,7 @@
 		 */
 
 		protected function _parseMinifyCallback($m) {
-			if (MINIFY_OUTPUT_HTML == true) {
+			if (Config::config()['user']['output']['minify']) {
 				$m[1] = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $m[1]);
 				$m[1] = str_replace(["\t", '  ', '    ', '    '], '', $m[1]);
 			}

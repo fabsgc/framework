@@ -10,6 +10,7 @@
 
 	namespace System\Terminal;
 
+	use System\Config\Config;
 	use System\Database\Database;
 	use System\Orm\Entity\ForeignKey;
 	use System\Sql\Sql;
@@ -79,7 +80,6 @@
 			//creation of directories and files
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH);
-			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_MODEL_PATH);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_PATH);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_EVENT_PATH);
@@ -129,36 +129,12 @@
 
 				$tpl['controller'] = new Template('.app/system/module/controller', 'terminalCreateController' . $value);
 				$tpl['controller']->assign(['src' => $src, 'controller' => ucfirst($value)]);
-				$tpl['model'] = new Template('.app/system/module/model', 'terminalCreateModel' . $value);
-				$tpl['model']->assign(['src' => $src, 'model' => ucfirst($value)]);
 
-				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . EXT_CONTROLLER . '.php', $tpl['controller']->show());
-				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_MODEL_PATH . ucfirst($value) . EXT_MODEL . '.php', $tpl['model']->show());
+				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . '.php', $tpl['controller']->show());
 			}
 
 			$tpl['route']->assign('route', $routeGroup);
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'route.xml', $tpl['route']->show());
-
-			$exist = false;
-			$xml = simplexml_load_file(APP_CONFIG_SRC);
-			$datas = $xml->xpath('//src');
-
-			foreach ($datas as $data) {
-				if ($data['name'] == $src) {
-					$exist = true;
-				}
-			}
-
-			if ($exist == false) {
-				$node = $xml->addChild('src', null);
-				$node->addAttribute('name', $src);
-
-				$dom = new \DOMDocument("1.0");
-				$dom->preserveWhiteSpace = false;
-				$dom->formatOutput = true;
-				$dom->loadXML($xml->asXML());
-				$dom->save(APP_CONFIG_SRC);
-			}
 
 			echo ' - the module has been successfully created';
 		}
@@ -191,7 +167,7 @@
 				$controller = argvInput::get();
 
 				if ($controller != '') {
-					if (!in_array($controller, $controllers) AND !file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . '/' . ucfirst($controller) . EXT_CONTROLLER . '.php')) {
+					if (!in_array($controller, $controllers) AND !file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . '/' . ucfirst($controller) . '.php')) {
 						array_push($controllers, $controller);
 					}
 					else {
@@ -211,11 +187,8 @@
 			foreach ($controllers as $value) {
 				$tpl['controller'] = new Template('.app/system/module/controller', 'terminalCreateController' . $value);
 				$tpl['controller']->assign(['src' => $src, 'controller' => ucfirst($value)]);
-				$tpl['model'] = new Template('.app/system/module/model', 'terminalCreateModel' . $value);
-				$tpl['model']->assign(['src' => $src, 'model' => ucfirst($value)]);
 
-				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . EXT_CONTROLLER . '.php', $tpl['controller']->show());
-				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_MODEL_PATH . ucfirst($value) . EXT_MODEL . '.php', $tpl['model']->show());
+				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . '.php', $tpl['controller']->show());
 
 				echo "\n - the controller " . $value . " have been successfully created";
 			}
@@ -229,7 +202,7 @@
 		public function entity() {
 			$table = '';
 
-			if (DATABASE) {
+			if (Config::instance()->config['user']['database']['enabled']) {
 				while (1 == 1) {
 					echo ' - choose a table (*) : ';
 					$table = ArgvInput::get();
@@ -246,8 +219,8 @@
 					TerminalCreate::addEntity($table);
 				}
 				else {
-					$sql = new Sql(Database::getInstance()->db());
-					$sql->query('add-entity', 'SHOW TABLES FROM ' . Database::getInstance()->db()->getDatabase());
+					$sql = new Sql(Database::instance()->db());
+					$sql->query('add-entity', 'SHOW TABLES FROM ' . Database::instance()->db()->getDatabase());
 					$data = $sql->fetch('add-entity', Sql::PARAM_FETCH);
 
 					foreach ($data as $value) {
@@ -278,13 +251,13 @@
 				return strtoupper($matches[1]);
 			}, $table));
 
-			if (file_exists(APP_RESOURCE_ENTITY_PATH . $table . EXT_ENTITY . '.php')) {
-				unlink(APP_RESOURCE_ENTITY_PATH . $table . EXT_ENTITY . '.php');
+			if (file_exists(APP_RESOURCE_ENTITY_PATH . $table . '.php')) {
+				unlink(APP_RESOURCE_ENTITY_PATH . $table . '.php');
 			}
 
-			$sql = new Sql(Database::getInstance()->db());
+			$sql = new Sql(Database::instance()->db());
 			$sql->query('add-entity', 'SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table');
-			$sql->vars(['db' => Database::getInstance()->db()->getDatabase()]);
+			$sql->vars(['db' => Database::instance()->db()->getDatabase()]);
 			$sql->vars(['table' => $table]);
 
 			$field = '';
@@ -435,7 +408,7 @@
 			if ($primary == true) {
 				$t = new Template('.app/system/module/orm/entity', 'gcsEntity_' . $table, '0');
 				$t->assign(['class' => $class, 'table' => $table, 'field' => $field, 'property' => $property]);
-				file_put_contents(APP_RESOURCE_ENTITY_PATH . ucfirst($class) . EXT_ENTITY . '.php', $t->show());
+				file_put_contents(APP_RESOURCE_ENTITY_PATH . ucfirst($class) . '.php', $t->show());
 
 				echo ' - the entity "' . $class . '" has been successfully created';
 			}
@@ -452,7 +425,7 @@
 		public function manytomany() {
 			$table = '';
 
-			if (DATABASE) {
+			if (Config::config()['user']['database']['enabled']) {
 				while (1 == 1) {
 					echo ' - choose an entity : ';
 					$table = ArgvInput::get();

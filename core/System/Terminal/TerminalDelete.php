@@ -31,24 +31,7 @@
 					echo " - [ERROR] this module doesn't exist\n";
 				}
 			}
-
-			$xml = simplexml_load_file(APP_CONFIG_SRC);
-			$datas = $xml->xpath('//src');
-
-			foreach ($datas as $data) {
-				if ($data['name'] == $src) {
-					$dom = dom_import_simplexml($data);
-					$dom->parentNode->removeChild($dom);
-				}
-			}
-
-			$xml->asXML(APP_CONFIG_SRC);
-			$dom = new \DOMDocument("1.0");
-			$dom->preserveWhiteSpace = false;
-			$dom->formatOutput = true;
-			$dom->load(APP_CONFIG_SRC);
-			$dom->save(APP_CONFIG_SRC);
-
+			
 			Terminal::rrmdir(SRC_PATH . $src, true);
 			Terminal::rrmdir(WEB_PATH . $src, true);
 			rmdir(SRC_PATH . $src);
@@ -85,7 +68,7 @@
 				$controller = argvInput::get();
 
 				if ($controller != '') {
-					if (!in_array($controller, $controllers) AND file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . '/' . ucfirst($controller) . EXT_CONTROLLER . '.php')) {
+					if (!in_array($controller, $controllers) AND file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . '/' . ucfirst($controller) . '.php')) {
 						array_push($controllers, $controller);
 					}
 					else {
@@ -103,8 +86,7 @@
 			}
 
 			foreach ($controllers as $value) {
-				unlink(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . EXT_CONTROLLER . '.php');
-				unlink(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_MODEL_PATH . ucfirst($value) . EXT_MODEL . '.php');
+				unlink(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . '.php');
 
 				echo " - the controller " . $value . " have been successfully deleted";
 			}
