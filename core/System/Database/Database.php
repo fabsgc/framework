@@ -37,7 +37,7 @@
 		 */
 
 		private function __construct() {
-			$this->db = Config::config()['user']['database'];
+			$this->connect();
 		}
 
 		/**
@@ -73,6 +73,8 @@
 		 */
 
 		protected function connect($db = []) {
+			$db = Config::config()['user']['database'];
+
 			if ($db['enabled']) {
 				switch ($db['driver']) {
 					case 'pdo' :
