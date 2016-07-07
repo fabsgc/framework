@@ -15,7 +15,6 @@
 	use System\Controller\Injector\Injector;
 	use System\Cron\Cron;
 	use System\Database\Database;
-	use System\Define\Define;
 	use System\Exception\ErrorHandler;
 	use System\Exception\Exception;
 	use System\General\di;
@@ -85,15 +84,11 @@
 				if ($this->_route == true) {
 					$this->_setDatabase();
 					$this->_setSecure();
-					$this->_setDefine();
 					$this->_setLibrary();
 					$this->_setEvent();
 					$this->_setCron();
 					$this->_setFunction();
 					$this->_setFunction($this->request->src);
-					$this->_setCron($this->request->src);
-					$this->_setDefine($this->request->src);
-					$this->_setLibrary($this->request->src);
 					$this->_setEvent($this->request->src);
 				}
 			}
@@ -116,9 +111,6 @@
 
 				if ($this->_route == true) {
 					$this->_setFunction($this->request->src);
-					$this->_setCron($this->request->src);
-					$this->_setDefine($this->request->src);
-					$this->_setLibrary($this->request->src);
 					$this->_setEvent($this->request->src);
 				}
 			}
@@ -455,55 +447,25 @@
 		/**
 		 * set cron
 		 * @access  private
-		 * @param $src string
 		 * @return void
 		 * @since   3.0
 		 * @package System\Engine
 		 */
 
-		private function _setCron($src = null) {
-			if ($src == null) {
-				new Cron(APP_CONFIG_CRON);
-			}
-			else {
-				new Cron(SRC_PATH . $src . '/' . SRC_CONFIG_CRON);
-			}
-		}
-
-		/**
-		 * set define
-		 * @access  private
-		 * @param $src string
-		 * @return void
-		 * @since   3.0
-		 * @package System\Engine
-		 */
-
-		private function _setDefine($src = null) {
-			if ($src == null) {
-				new Define('app');
-			}
-			else {
-				new Define($src);
-			}
+		private function _setCron() {
+			new Cron();
 		}
 
 		/**
 		 * set library
 		 * @access  private
-		 * @param $src string
 		 * @return void
 		 * @since   3.0
 		 * @package System\Engine
 		 */
 
-		private function _setLibrary($src = null) {
-			if ($src == null) {
-				new Library('app');
-			}
-			else {
-				new Library($src);
-			}
+		private function _setLibrary() {
+			new Library('app');
 		}
 
 		/**

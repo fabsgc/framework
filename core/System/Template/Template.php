@@ -100,7 +100,7 @@
 
 		/**
 		 * reference to the parser instance
-		 * @var \System\Template\TemplateParser $_parser
+		 * @var \System\Template\Parser $_parser
 		 * @access protected
 		 */
 
@@ -197,7 +197,7 @@
 		public static function extend($method) {
 			if (is_array($method)) {
 				if (count($method) == 2 && method_exists($method[0], $method[1])) {
-					array_push(self::$_extends, $method);
+					array_push(self::$_extends,  ['class' => $method[0], 'method' => $method[1]]);
 				}
 				else {
 					throw new MissingTemplateException('You c\'ant extend the template engine with the method : "' . $method[0] . '"');
@@ -207,7 +207,7 @@
 				$trace = debug_backtrace();
 
 				if (isset($trace[1])) {
-					array_push(self::$_extends, ['\\' . $trace[1]['class'], $method]);
+					array_push(self::$_extends, ['class' => '\\' . $trace[1]['class'], 'method' => $method]);
 				}
 				else {
 					throw new MissingTemplateException('Can\'t reach the method "' . $method . '"');
@@ -245,7 +245,7 @@
 		 */
 
 		protected function _setParser() {
-			$this->_parser = new TemplateParser($this);
+			$this->_parser = new Parser($this);
 		}
 
 		/**

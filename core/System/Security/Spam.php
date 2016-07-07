@@ -74,8 +74,8 @@
 
 			$this->_ipClient = $this->request->env('REMOTE_ADDR');
 
-			if ($fp = @fopen(APP_CONFIG_SPAM, 'r+')) {
-				if ($this->_xmlContent = simplexml_load_file(APP_CONFIG_SPAM)) {
+			if ($fp = @fopen(APP_CONFIG_SECURITY, 'r+')) {
+				if ($this->_xmlContent = simplexml_load_file(APP_CONFIG_SECURITY)) {
 					if ($this->_exception() == false) {
 						flock($fp, LOCK_EX);
 						$this->_setIp();
@@ -84,7 +84,7 @@
 				}
 				else {
 					$this->_xmlValid = true;
-					throw new MissingConfigException('Can\'t open file "' . APP_CONFIG_SPAM . '"');
+					throw new MissingConfigException('Can\'t open file "' . APP_CONFIG_SECURITY . '"');
 				}
 			}
 		}
@@ -164,6 +164,7 @@
 			$values = $this->_xmlContent->xpath('//ip');
 
 			if (count($values) > 0) {
+				/** @var \SimpleXMLElement[] $value */
 				foreach ($values as $value) {
 					$this->_ip['ip'] = $value['ip']->__toString();
 					$this->_ip['number'] = $value['number']->__toString();
@@ -189,7 +190,7 @@
 
 		protected function _updateIp($time = 0, $number = 1) {
 			$values = $this->_xmlContent->xpath('//ip[@ip=\'' . $this->_ip['ip'] . '\']');
-			$xml = simplexml_load_file(APP_CONFIG_SPAM);
+			$xml = simplexml_load_file(APP_CONFIG_SECURITY);
 
 			if (count($values) > 0) {
 				foreach ($values as $value) {
@@ -199,7 +200,7 @@
 					$dom->preserveWhiteSpace = false;
 					$dom->formatOutput = true;
 					$dom->loadXML($this->_xmlContent->asXML());
-					$dom->save(APP_CONFIG_SPAM);
+					$dom->save(APP_CONFIG_SECURITY);
 				}
 			}
 			else {
@@ -213,7 +214,7 @@
 				$dom->preserveWhiteSpace = false;
 				$dom->formatOutput = true;
 				$dom->loadXML($xml->asXML());
-				$dom->save(APP_CONFIG_SPAM);
+				$dom->save(APP_CONFIG_SECURITY);
 			}
 		}
 

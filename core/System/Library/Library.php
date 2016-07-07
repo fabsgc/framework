@@ -26,32 +26,24 @@
 		/**
 		 * constructor
 		 * @access  public
-		 * @param $src string
 		 * @since   3.0
 		 * @throws \System\Exception\MissingLibraryException
 		 * @package System\Library
 		 */
 
-		public function __construct($src) {
+		public function __construct() {
 			$config = Config::instance();
 
-			foreach ($config->config['library']['' . $src . ''] as $value) {
-				if ($value['enabled'] == 'true') {
-					if ($this->_checkInclude($value['include']) == true) {
-						if ($src == 'app') {
-							$file = APP_RESOURCE_LIBRARY_PATH . $value['access'];
-						}
-						else {
-							$file = SRC_PATH . $src . '/' . SRC_RESOURCE_LIBRARY_PATH . $value['access'];
-						}
+			foreach ($config->config['user']['library'] as $key => $value) {
+				if ($this->_checkInclude($value)) {
+					$file = APP_RESOURCE_LIBRARY_PATH . $value['access'];
 
-						if (file_exists($file)) {
-							require_once($file);
-							$this->addError('The library ' . $file . ' was successfully included', __FILE__, __LINE__, ERROR_INFORMATION, LOG_SYSTEM);
-						}
-						else {
-							throw new MissingLibraryException('The library ' . $file . ' could not be included');
-						}
+					if (file_exists($file)) {
+						require_once($file);
+						$this->addError('The library ' . $file . ' was successfully included', __FILE__, __LINE__, ERROR_INFORMATION, LOG_SYSTEM);
+					}
+					else {
+						throw new MissingLibraryException('The library ' . $file . ' could not be included');
 					}
 				}
 			}
@@ -69,18 +61,13 @@
 		protected function _checkInclude($include) {
 			$request = Request::instance();
 
-			if ($include == '*') {
-				return true;
-			}
-			else if (preg_match('#no\[(.*)\]#isU', $include, $matches)) {
-				$match = array_map('trim', explode(',', $matches[1]));
-
+			if (isset($include['no'])) {
 				if (
-					in_array('.' . $request->src, $match) ||
-					in_array('.' . $request->src . '.' . $request->controller, $match) ||
-					in_array('.' . $request->src . '.' . $request->controller . '.' . $request->action, $match) ||
-					in_array($request->controller, $match) ||
-					in_array($request->controller . '.' . $request->action, $match)
+					in_array('.' . $request->src, $include['no']) ||
+					in_array('.' . $request->src . '.' . $request->controller, $include['no']) ||
+					in_array('.' . $request->src . '.' . $request->controller . '.' . $request->action, $include['no']) ||
+					in_array('.' . $request->controller, $include['no']) ||
+					in_array('.' . $request->controller . '.' . $request->action, $include['no'])
 				) {
 					return false;
 				}
@@ -88,15 +75,13 @@
 					return true;
 				}
 			}
-			else if (preg_match('#yes\[(.*)\]#isU', $include, $matches)) {
-				$match = explode(',', $matches[1]);
-
+			if (isset($include['yes'])) {
 				if (
-					in_array('.' . $request->src, $match) ||
-					in_array('.' . $request->src . '.' . $request->controller, $match) ||
-					in_array('.' . $request->src . '.' . $request->controller . '.' . $request->action, $match) ||
-					in_array($request->controller, $match) ||
-					in_array($request->controller . '.' . $request->action, $match)
+					in_array('.' . $request->src, $include['yes']) ||
+					in_array('.' . $request->src . '.' . $request->controller, $include['yes']) ||
+					in_array('.' . $request->src . '.' . $request->controller . '.' . $request->action, $include['yes']) ||
+					in_array('.' . $request->controller, $include['yes']) ||
+					in_array('.' . $request->controller . '.' . $request->action, $include['yes'])
 				) {
 					return true;
 				}
@@ -104,9 +89,8 @@
 					return false;
 				}
 			}
-			else {
-				return false;
-			}
+
+			return true;
 		}
 
 		/**

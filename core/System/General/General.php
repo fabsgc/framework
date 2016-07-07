@@ -19,7 +19,6 @@
 	use System\Controller\Injector\Orm;
 	use System\Cron\Cron;
 	use System\Database\Database;
-	use System\Define\Define;
 	use System\Exception\MissingConfigException;
 	use System\Facade\Facade;
 	use System\Facade\FacadeEntity;
@@ -36,7 +35,7 @@
 	use System\Security\Spam;
 	use System\Sql\Sql;
 	use System\Template\Template;
-	use System\Template\TemplateParser;
+	use System\Template\Parser;
 	use System\Terminal\Terminal;
 
 	/**
@@ -145,7 +144,6 @@
 	 * @method Lang Lang
 	 * @method Cron Cron
 	 * @method Cache Cache
-	 * @method Define Define
 	 * @method FacadeHelper Helper
 	 * @method FacadeEntity Entity
 	 * @method Library Library
@@ -161,7 +159,7 @@
 	 * @method AssetManager AssetManager
 	 * @method Validation OrmValidation
 	 * @method Multiple EntityMultiple
-	 * @method TemplateParser TemplateParser
+	 * @method Parser Parser
 	 * @method Config Config
 	 * @method Request Request
 	 * @method Data RequestData

@@ -50,22 +50,21 @@
 		/**
 		 * constructor
 		 * @access  public
-		 * @param $file string : file path
 		 * @throws \System\Exception\MissingConfigException
 		 * @since   3.0
 		 * @package System\Cron
 		 */
 
-		public function __construct($file) {
+		public function __construct() {
 			$this->config = Config::instance();
 			$this->request = Request::instance();
 			$this->response = Response::instance();
 			$this->profiler = Profiler::instance();
 
-			if (@fopen($file, 'r+')) {
-				if ($this->_xmlContent = simplexml_load_file($file)) {
+			if (@fopen(APP_CONFIG_SECURITY, 'r+')) {
+				if ($this->_xmlContent = simplexml_load_file(APP_CONFIG_SECURITY)) {
 					if ($this->_exception() == false) {
-						$crons = $this->_xmlContent->xpath('//cron');
+						$crons = $this->_xmlContent->xpath('//cron//cron');
 
 						foreach ($crons as $value) {
 							if ($value['executed'] + $value['time'] < time() || $value['time'] == 0) {
@@ -79,11 +78,11 @@
 								$dom->preserveWhiteSpace = false;
 								$dom->formatOutput = true;
 								$dom->loadXML($this->_xmlContent->asXML());
-								$dom->save($file);
+								$dom->save(APP_CONFIG_SECURITY);
 
 								$action = explode('.', $value['action']);
 								$controller = new Engine();
-								$controller->initCron($action[0], $action[1], $action[2], Database::instance()->db());
+								$controller->initCron($action[0], $action[1], $action[2]);
 
 								ob_start();
 								$controller->runCron();
@@ -101,7 +100,7 @@
 				}
 				else {
 					$this->_xmlValid = true;
-					throw new MissingConfigException('Can\'t open file "' . $file . '"');
+					throw new MissingConfigException('Can\'t open file "' . APP_CONFIG_SECURITY . '"');
 				}
 			}
 

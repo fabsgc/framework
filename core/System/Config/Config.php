@@ -11,6 +11,7 @@
 
 	namespace System\Config;
 
+	use SimpleXMLElement;
 	use System\Cache\Cache;
 	use System\Exception\Exception;
 	use System\Exception\MissingConfigException;
@@ -160,12 +161,6 @@
 			$this->config['js']['app'] = WEB_PATH . 'app/' . WEB_JS_PATH;
 			/* ## SPAM ## */
 			$this->_parseSpam();
-			/* ## DEFINE ## */
-			$this->_parseDefine();
-			/* ## LIBRARY ## */
-			$this->_parseLibrary();
-			/* ## TEMPLATE EXTEND ## */
-			$this->_parseTemplate();
 
 			/* ############## SRC ############## */
 
@@ -199,10 +194,6 @@
 						$this->config['js']['' . $entrySrc . ''] = WEB_PATH . $entrySrc . '/' . WEB_JS_PATH;
 						/* ## FIREWALL ## */
 						$this->_parseFirewall($entrySrc);
-						/* ## DEFINE ## */
-						$this->_parseDefine($entrySrc);
-						/* ## LIBRARY ## */
-						$this->_parseLibrary($entrySrc);
 
 						//copy app lang in each other module lang
 						foreach ($this->config['lang'] as $key => $value) {
@@ -247,6 +238,7 @@
 			if ($xml = simplexml_load_file($file)) {
 				$values = $xml->xpath('//route');
 
+				/** @var SimpleXMLElement[] $value */
 				foreach ($values as $value) {
 					foreach ($this->_routeAttribute as $attribute) {
 						$attributeType = $attribute['name'];
@@ -260,6 +252,7 @@
 					}
 
 					/** @var array $data */
+					/** @var SimpleXMLElement $value */
 					$data = $this->_parseParent($value, $data, $this->_routeAttribute);
 
 					if (empty($data['logged']) || $data['logged'] == '') {
@@ -308,6 +301,7 @@
 				if ($xml = simplexml_load_file($file)) {
 					$values = $xml->xpath('//lang');
 
+					/** @var SimpleXMLElement[] $value */
 					foreach ($values as $value) {
 						$data = null;
 
@@ -321,6 +315,7 @@
 								$data[$attributeType] = '';
 							}
 
+							/** @var SimpleXMLElement $value */
 							$data['content'] = $value->__toString();
 						}
 
@@ -349,12 +344,13 @@
 		 */
 
 		protected function _parseSpam() {
-			if ($xml = simplexml_load_file(APP_CONFIG_SPAM)) {
-				$query = $xml->xpath('//query');
-				$error = $xml->xpath('//error');
-				$exception = $xml->xpath('//exception');
-				$errorVariable = $xml->xpath('//variable');
+			if ($xml = simplexml_load_file(APP_CONFIG_SECURITY)) {
+				$query = $xml->xpath('//spam//query');
+				$error = $xml->xpath('//spam//error');
+				$exception = $xml->xpath('//spam//exception');
+				$errorVariable = $xml->xpath('//spam//variable');
 
+				/** @var SimpleXMLElement[] $value */
 				foreach ($query as $value) {
 					$this->config['spam']['app']['query']['number'] = $value['number']->__toString();
 					$this->config['spam']['app']['query']['duration'] = $value['duration']->__toString();
@@ -387,30 +383,6 @@
 		}
 
 		/**
-		 * parse template extend file
-		 * @access  protected
-		 * @return void
-		 * @since   3.0
-		 * @throws \System\Exception\MissingConfigException if template config file doesn't exist
-		 * @package System\Config
-		 */
-
-		protected function _parseTemplate() {
-			if (!isset($this->config['template-extend'])) {
-				$this->config['template-extend'] = [];
-			}
-
-			if ($xml = simplexml_load_file(APP_CONFIG_TEMPLATE)) {
-				$values = $xml->xpath('//extend');
-
-				/** @var $value \SimpleXMLElement */
-				foreach ($values as $value) {
-					array_push($this->config['template-extend'], [$value['class']->__toString(), $value['method']->__toString()]);
-				}
-			}
-		}
-
-		/**
 		 * parse firewall file
 		 * @access  protected
 		 * @param $src string
@@ -438,6 +410,8 @@
 					$this->config['firewall']['' . $src . '']['roles'] = [];
 					$this->config['firewall']['' . $src . '']['forbidden']['variable'] = [];
 					$this->config['firewall']['' . $src . '']['csrf']['variable'] = [];
+
+					/** @var SimpleXMLElement[] $value */
 
 					foreach ($roles as $value) {
 						$this->config['firewall']['' . $src . '']['roles']['name'] = $value['name']->__toString();
@@ -519,17 +493,20 @@
 					$name = $attribute['name'];
 
 					if (is_object($parent[0][$name])) {
+						/** @var SimpleXMLElement $element */
+						$element = $parent[0][$name];
+
 						if ($attribute['concatenate'] == true) {
 							if ($data[$name] != '') {
-								$data[$name] = $parent[0][$name]->__toString() . $attribute['separator'] . $data[$name];
+								$data[$name] = $element->__toString() . $attribute['separator'] . $data[$name];
 							}
 							else {
-								$data[$name] = $parent[0][$name]->__toString();
+								$data[$name] = $element->__toString();
 							}
 						}
 						else {
 							if ($data[$name] == '') {
-								$data[$name] = $parent[0][$name]->__toString();
+								$data[$name] = $element->__toString();
 							}
 						}
 					}
@@ -539,88 +516,6 @@
 			}
 
 			return $data;
-		}
-
-		/**
-		 * parse define file and put data in an array
-		 * @access  protected
-		 * @param $src string
-		 * @return array
-		 * @since   3.0
-		 * @throws \System\Exception\MissingConfigException if define config file doesn't exist
-		 * @package System\Config
-		 */
-
-		protected function _parseDefine($src = null) {
-			if ($src == null) {
-				$file = APP_CONFIG_DEFINE;
-				$src = 'app';
-			}
-			else {
-				$file = SRC_PATH . $src . '/' . SRC_CONFIG_DEFINE;
-			}
-
-			$this->config['define']['' . $src . ''] = [];
-
-			if (file_exists($file)) {
-				if ($xml = simplexml_load_file($file)) {
-					$values = $xml->xpath('//define');
-
-					foreach ($values as $value) {
-						$this->config['define']['' . $src . '']['' . $value['name'] . ''] = dom_import_simplexml($value)->textContent;
-					}
-				}
-				else {
-					throw new MissingConfigException('can\'t open file "' . $file . '"');
-				}
-			}
-			else {
-				throw new MissingConfigException('can\'t open file "' . $file . '"');
-			}
-		}
-
-		/**
-		 * parse library file and put data in an array
-		 * @access  protected
-		 * @param $src string
-		 * @return array
-		 * @since   3.0
-		 * @throws \System\Exception\MissingConfigException if define config file doesn't exist
-		 * @package System\Config
-		 */
-
-		protected function _parseLibrary($src = null) {
-			if ($src == null) {
-				$file = APP_CONFIG_LIBRARY;
-				$src = 'app';
-			}
-			else {
-				$file = SRC_PATH . $src . '/' . SRC_CONFIG_LIBRARY;
-			}
-
-			$this->config['library']['' . $src . ''] = [];
-
-			if (file_exists($file)) {
-				if ($xml = simplexml_load_file($file)) {
-					$values = $xml->xpath('//library');
-
-					foreach ($values as $value) {
-						$library = [];
-						$library['name'] = $value['name']->__toString();
-						$library['access'] = $value['access']->__toString();
-						$library['enabled'] = $value['enabled']->__toString();
-						$library['include'] = $value['include']->__toString();
-
-						array_push($this->config['library']['' . $src . ''], $library);
-					}
-				}
-				else {
-					throw new MissingConfigException('can\'t open file "' . $file . '"');
-				}
-			}
-			else {
-				throw new MissingConfigException('can\'t open file "' . $file . '"');
-			}
 		}
 
 		/**

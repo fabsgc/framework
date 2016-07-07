@@ -69,10 +69,7 @@
 			}
 
 			//load all template to fill the new files
-			$tpl['cron'] = new Template('.app/system/module/cron', 'terminalCreateCron');
-			$tpl['define'] = new Template('.app/system/module/define', 'terminalCreateDefine');
 			$tpl['lang'] = new Template('.app/system/module/lang', 'terminalCreateLang');
-			$tpl['library'] = new Template('.app/system/module/library', 'terminalCreateLibrary');
 			$tpl['route'] = new Template('.app/system/module/route', 'terminalCreateRoute');
 			$tpl['firewall'] = new Template('.app/system/module/firewall', 'terminalCreateFirewall');
 			$tpl['firewall']->assign('src', $src);
@@ -84,7 +81,6 @@
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_EVENT_PATH);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_LANG_PATH);
-			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_LIBRARY_PATH);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '/Custom/');
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_TEMPLATE_PATH);
@@ -104,16 +100,11 @@
 
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/.gitignore', $gitignore);
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_EVENT_PATH . '.gitignore', $gitignore);
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_LIBRARY_PATH . '.gitignore', $gitignore);
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_LIBRARY_PATH . '.gitignore', $gitignore);
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '.gitignore', $gitignore);
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '/Custom/.gitignore', $gitignore);
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_TEMPLATE_PATH . '.gitignore', $gitignore);
 
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'cron.xml', $tpl['cron']->show());
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'define.xml', $tpl['define']->show());
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'firewall.xml', $tpl['firewall']->show());
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'library.xml', $tpl['library']->show());
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'route.xml', '');
 
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_LANG_PATH . 'fr.xml', $tpl['lang']->show());
