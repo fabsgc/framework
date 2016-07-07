@@ -255,7 +255,7 @@
 			}
 
 			if (array_key_exists($this->_status, $this->_statusErrorPage)) {
-				$tpl = new Template($this->_statusErrorPage[$this->_status][1], $this->_status, '0', Request::instance()->lang);
+				$tpl = new Template($this->_statusErrorPage[$this->_status], $this->_status, '0', Request::instance()->lang);
 
 				$tpl->assign([
 					'code'        => $this->_status,

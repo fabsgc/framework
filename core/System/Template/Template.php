@@ -164,6 +164,7 @@
 					$hash = sha1(preg_replace('#/#isU', '', $file));
 				}
 				else {
+					var_dump(debug_backtrace());
 					throw new MissingTemplateException('can\'t open template file "' . $this->_file . '"');
 				}
 			}
