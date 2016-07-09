@@ -34,9 +34,10 @@
 		/**
 		 * cache instance
 		 * @var \System\Cache\Cache
+		 * @access private
 		 */
 
-		protected $_cache;
+		private $_cache;
 
 		/**
 		 * permit to parse easily parents node for route file.
@@ -44,9 +45,10 @@
 		 * - the separator used if it must concatenate values
 		 * - concatenate or no
 		 * @var array
+		 * @access private
 		 */
 
-		protected $_routeAttribute = [
+		private $_routeAttribute = [
 			['name' => 'name', 'separator' => '.', 'concatenate' => true],
 			['name' => 'url', 'separator' => '', 'concatenate' => true],
 			['name' => 'action', 'separator' => '.', 'concatenate' => true],
@@ -63,9 +65,10 @@
 		 * - the separator used if it must concatenate values
 		 * - concatenate or no
 		 * @var array
+		 * @access private
 		 */
 
-		protected $_langAttribute = [
+		private $_langAttribute = [
 			['name' => 'name', 'separator' => '.', 'concatenate' => true]
 		];
 
@@ -159,8 +162,6 @@
 			$this->config['file']['app'] = WEB_PATH . 'app/' . WEB_FILE_PATH;
 			/* ## JS ## */
 			$this->config['js']['app'] = WEB_PATH . 'app/' . WEB_JS_PATH;
-			/* ## SPAM ## */
-			$this->_parseSpam();
 
 			/* ############## SRC ############## */
 
@@ -331,54 +332,6 @@
 			}
 			else {
 				throw new MissingConfigException('can\'t open file "' . $file . '"');
-			}
-		}
-
-		/**
-		 * parse spam file
-		 * @access  protected
-		 * @return array
-		 * @since   3.0
-		 * @throws \System\Exception\MissingConfigException if spam config file doesn't exist
-		 * @package System\Config
-		 */
-
-		protected function _parseSpam() {
-			if ($xml = simplexml_load_file(APP_CONFIG_SECURITY)) {
-				$query = $xml->xpath('//spam//query');
-				$error = $xml->xpath('//spam//error');
-				$exception = $xml->xpath('//spam//exception');
-				$errorVariable = $xml->xpath('//spam//variable');
-
-				/** @var SimpleXMLElement[] $value */
-				foreach ($query as $value) {
-					$this->config['spam']['app']['query']['number'] = $value['number']->__toString();
-					$this->config['spam']['app']['query']['duration'] = $value['duration']->__toString();
-				}
-
-				foreach ($error as $value) {
-					$this->config['spam']['app']['error']['template'] = $value['template']->__toString();
-				}
-
-				$this->config['spam']['app']['exception'] = [];
-
-				foreach ($exception as $value) {
-					array_push($this->config['spam']['app']['exception'], $value['name']->__toString());
-				}
-
-				foreach ($errorVariable as $value) {
-					$data = [];
-					$this->config['spam']['app']['error']['variable'] = [];
-
-					$data['type'] = $value['type']->__toString();
-					$data['name'] = $value['name']->__toString();
-					$data['value'] = $value['value']->__toString();
-
-					array_push($this->config['spam']['app']['error']['variable'], $data);
-				}
-			}
-			else {
-				throw new MissingConfigException('can\'t open file "' . APP_CONFIG_SPAM . '"');
 			}
 		}
 

@@ -107,7 +107,7 @@
 				}
 				else {
 					if (!isset($config->config[$type][$src])) {
-						throw new MissingConfigException('The section "' . $type . '"/".$src." does not exist in configuration');
+						throw new MissingConfigException('The section "' . $type . '"/"'.$src.'" does not exist in configuration');
 					}
 				}
 

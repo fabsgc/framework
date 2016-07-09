@@ -139,12 +139,12 @@
 				$dataProfiler['url'] = $_SERVER['REQUEST_URI'];
 
 				if ($request->controller != 'assetManager' && $request->controller != 'profiler') {
-					$cache = new Cache('gcsProfiler', 0);
+					$cache = new Cache('core-profiler', 0);
 					$cache->setContent($dataProfiler);
 					$cache->setCache();
 				}
 
-				$cacheId = new Cache('gcsProfiler_' . $request->src . '.' . $request->controller . '.' . $request->action, 0);
+				$cacheId = new Cache('core-profiler-' . $request->src . '.' . $request->controller . '.' . $request->action, 0);
 				$cacheId->setContent($dataProfiler);
 				$cacheId->setCache();
 			}

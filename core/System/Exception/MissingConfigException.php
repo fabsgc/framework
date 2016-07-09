@@ -15,8 +15,8 @@
 	 * @package System\Exception
 	 */
 
-	class MissingLangException extends Exception {
+	class MissingConfigException extends Exception {
 		public function getType() {
-			return 'MissingLangException';
+			return 'MissingConfigException';
 		}
 	}

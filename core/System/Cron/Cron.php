@@ -10,6 +10,7 @@
 
 	namespace System\Cron;
 
+	use System\Cache\Cache;
 	use System\Config\Config;
 	use System\Database\Database;
 	use System\Engine\Engine;
@@ -31,21 +32,20 @@
 
 		/**
 		 * @var boolean
+		 * @access private
 		 */
 
-		protected $_xmlValid = true;
+		private $_exception = false;
 
 		/**
-		 * @var string
+		 * list of execution time
+		 * @var array
+		 * @access private
 		 */
 
-		protected $_xmlContent = '';
+		private $_crons = [];
 
-		/**
-		 * @var boolean
-		 */
-
-		protected $_exception = false;
+		private $auth = null;
 
 		/**
 		 * constructor
@@ -61,50 +61,49 @@
 			$this->response = Response::instance();
 			$this->profiler = Profiler::instance();
 
-			if (@fopen(APP_CONFIG_SECURITY, 'r+')) {
-				if ($this->_xmlContent = simplexml_load_file(APP_CONFIG_SECURITY)) {
-					if ($this->_exception() == false) {
-						$crons = $this->_xmlContent->xpath('//cron//cron');
+			if (isset($this->config->config['user']['cron'])) {
+				Request::$_instance = null;
+				Response::$_instance = null;
+				Profiler::$_instance = null;
 
-						foreach ($crons as $value) {
-							if ($value['executed'] + $value['time'] < time() || $value['time'] == 0) {
-								Config::$_instance = null;
-								Request::$_instance = null;
-								Response::$_instance = null;
-								Profiler::$_instance = null;
+				if (!$this->_exception()) {
+					$cache = new Cache('core-cron-crons');
 
-								$value['executed'] = time();
-								$dom = new \DOMDocument("1.0");
-								$dom->preserveWhiteSpace = false;
-								$dom->formatOutput = true;
-								$dom->loadXML($this->_xmlContent->asXML());
-								$dom->save(APP_CONFIG_SECURITY);
+					if($cache->isExist()){
+						$this->_crons = $cache->getCache();
+					}
 
-								$action = explode('.', $value['action']);
-								$controller = new Engine();
-								$controller->initCron($action[0], $action[1], $action[2]);
+					foreach ($this->config->config['user']['cron']['task'] as $key => $time) {
+						if (empty($this->_crons[$key]) || $this->_crons[$key] + $time < time() || $time == 0) {
+							$this->_crons[$key] = time();
 
-								ob_start();
+							$action = explode('.', $key);
+							$controller = new Engine();
+							$controller->initCron($action[1], $action[2], $action[3]);
+							$this->profiler->addTime('route cron : ' . $key);
+
+							ob_start();
 								$controller->runCron();
 								$output = ob_get_contents();
-								ob_get_clean();
+							ob_get_clean();
 
-								$this->addError('[' . $value['action'] . "]\n[" . $output . "]", 0, 0, 0, LOG_CRONS);
-								$this->addError('CRON ' . $value['action'] . ' called successfully ', __FILE__, __LINE__, ERROR_INFORMATION);
-							}
+							$this->profiler->addTime('route cron : ' . $key, Profiler::USER_END);
+							$this->addError('[' . $key . "]\n[" . $output . "]", 0, 0, 0, LOG_CRONS);
+							$this->addError('CRON ' . $key . ' called successfully ', __FILE__, __LINE__, ERROR_INFORMATION);
 						}
 					}
-					else {
-						$this->addError('CRON : the page is an exception ', __FILE__, __LINE__, ERROR_INFORMATION);
-					}
+
+					$cache->setContent($this->_crons);
+					$cache->setCache();
 				}
 				else {
-					$this->_xmlValid = true;
-					throw new MissingConfigException('Can\'t open file "' . APP_CONFIG_SECURITY . '"');
+					$this->addError('CRON : the page is an exception ', __FILE__, __LINE__, ERROR_INFORMATION);
 				}
 			}
+			else{
+				throw new MissingConfigException('Can\'t read cron configuration');
+			}
 
-			Config::$_instance = $this->config;
 			Request::$_instance = $this->request;
 			Response::$_instance = $this->response;
 			Profiler::$_instance = $this->profiler;
@@ -113,21 +112,22 @@
 		/**
 		 * return if the current page which calls crons is an exception
 		 * @access  protected
-		 * @return boolean
+		 * @return  boolean
 		 * @since   3.0
 		 * @package System\Cron
 		 */
 
 		protected function _exception() {
-			$exceptions = $this->_xmlContent->xpath('//exception');
+			$url = '.' . $this->request->src . '.' . $this->request->controller . '.' . $this->request->action;
 
-			foreach ($exceptions as $value) {
-				if ($this->request->src . '.' . $this->request->controller . '.' . $this->request->action == $value['action']) {
-					return true;
-				}
+			if (in_array($url, $this->config->config['user']['cron']['config']['exception'])) {
+				$this->_exception = true;
+			}
+			else{
+				$this->_exception = false;
 			}
 
-			return false;
+			return $this->_exception;
 		}
 
 		/**

@@ -10,6 +10,7 @@
 
 	namespace System\Security;
 
+	use System\Cache\Cache;
 	use System\Config\Config;
 	use System\Exception\MissingConfigException;
 	use System\General\di;
@@ -31,19 +32,13 @@
 		 * @var string[] $_ip
 		 */
 
-		protected $_ip = [];
+		protected $_ips = [];
 
 		/**
-		 * @var boolean $_xmlValid
+		 * @var \System\Cache\Cache $_cache
 		 */
 
-		protected $_xmlValid = true;
-
-		/**
-		 * @var string $_xmlContent
-		 */
-
-		protected $_xmlContent = '';
+		protected $_cache = null;
 
 		/**
 		 * @var boolean $_exception
@@ -55,10 +50,7 @@
 		 * @var string $_ipClient
 		 */
 
-		protected $_ipClient = '127.0.0.1';
-
-		const USE_NOT_TPL = 0;
-		const USE_TPL     = 1;
+		protected $_ip = '127.0.0.1';
 
 		/**
 		 * init Spam class
@@ -70,61 +62,55 @@
 
 		public function __construct() {
 			$this->request = Request::instance();
-			$this->config = Config::instance();
+			$this->config = Config::config();
 
-			$this->_ipClient = $this->request->env('REMOTE_ADDR');
+			$this->_cache = new Cache('core-spam-ips');
+			$this->_ip = $this->request->env('REMOTE_ADDR');
 
-			if ($fp = @fopen(APP_CONFIG_SECURITY, 'r+')) {
-				if ($this->_xmlContent = simplexml_load_file(APP_CONFIG_SECURITY)) {
-					if ($this->_exception() == false) {
-						flock($fp, LOCK_EX);
-						$this->_setIp();
-						flock($fp, LOCK_UN);
-					}
+			if (isset($this->config['user']['security']['spam'])) {
+				if (!$this->_exception()) {
+					$this->_ips();
 				}
-				else {
-					$this->_xmlValid = true;
-					throw new MissingConfigException('Can\'t open file "' . APP_CONFIG_SECURITY . '"');
-				}
+			}
+			else {
+				throw new MissingConfigException('Can\'t read spam configuration');
 			}
 		}
 
 		/**
 		 * check authorization to allow to a visitor to load a page
 		 * @access  public
-		 * @return array
+		 * @return boolean
 		 * @since   3.0
 		 * @package System\Security
 		 */
 
 		public function check() {
-			if ($this->_exception == false && $this->_xmlValid == true) {
-				if (isset($this->_ip['ip']) && $this->_ip['ip'] == $this->_ipClient) {
-					if (intval($this->_ip['time']) + intval($this->config->config['spam']['app']['query']['duration']) < time()) {
-						$this->_updateIp(time(), 1);
-						return true;
-					}
-					elseif ($this->_ip['number'] < $this->config->config['spam']['app']['query']['number']) {
-						$this->_updateIp($this->_ip['time'], intval($this->_ip['number']) + 1);
-						return true;
-					}
-					else {
-						$t = new Template($this->config->config['spam']['app']['error']['template'], 'GCspam', 0);
+			if ($this->_exception == false) {
+				if (intval($this->_ips[$this->_ip]['time']) + intval($this->config['user']['security']['spam']['config']['query']['duration']) < time()) {
+					$this->_updateIp(time(), 1);
+					return true;
+				}
+				elseif ($this->_ips[$this->_ip]['number'] <= $this->config['user']['security']['spam']['config']['query']['number']) {
+					$this->_updateIp($this->_ips[$this->_ip]['time'], intval($this->_ips[$this->_ip]['number']) + 1);
+					return true;
+				}
+				else {
+					$t = new Template($this->config['user']['security']['spam']['config']['error']['template'], 'core-security-spam', 0);
 
-						foreach ($this->config->config['spam']['app']['error']['variable'] as $value) {
-							if ($value['type'] == 'var') {
-								$t->assign([$value['name'] => $value['value']]);
-							}
-							else {
-								$t->assign([$value['name'] => $this->useLang($value['value'])]);
-							}
+					foreach ($this->config['user']['security']['spam']['config']['error']['variable'] as $key => $value) {
+						if ($value['type'] == 'var') {
+							$t->assign([$key => $value['value']]);
 						}
-
-						echo $t->show();
-
-						$this->addError($this->_ipClient . ' : exceeded the number of queries allowed for the page ' . $this->request->src . '/' . $this->request->controller . '/' . $this->request->action, __FILE__, __LINE__, ERROR_ERROR);
-						return false;
+						else {
+							$t->assign([$key => $this->useLang($value['value'])]);
+						}
 					}
+
+					echo $t->show();
+
+					$this->addError($this->_ip . ' : exceeded the number of queries allowed for the page ' . $this->request->src . '/' . $this->request->controller . '/' . $this->request->action, __FILE__, __LINE__, ERROR_ERROR);
+					return false;
 				}
 			}
 
@@ -142,80 +128,53 @@
 		protected function _exception() {
 			$url = '.' . $this->request->src . '.' . $this->request->controller . '.' . $this->request->action;
 
-			if (in_array($url, $this->config->config['spam']['app']['exception'])) {
+			if (in_array($url, $this->config['user']['security']['spam']['config']['exception'])) {
 				$this->_exception = true;
-				return true;
 			}
-			else {
-				$this->_exception = false;
-				return false;
-			}
+
+			return $this->_exception;
 		}
 
 		/**
 		 * get the the list of IPs
 		 * @access  public
-		 * @return array
+		 * @return void
 		 * @since   3.0
 		 * @package System\Security
 		 */
 
-		protected function _setIp() {
-			$values = $this->_xmlContent->xpath('//ip');
-
-			if (count($values) > 0) {
-				/** @var \SimpleXMLElement[] $value */
-				foreach ($values as $value) {
-					$this->_ip['ip'] = $value['ip']->__toString();
-					$this->_ip['number'] = $value['number']->__toString();
-					$this->_ip['time'] = $value['time']->__toString();
-				}
+		protected function _ips() {
+			if($this->_cache->isExist()){
+				$this->_ips = $this->_cache->getCache();
 			}
 			else {
-				$this->_ip['ip'] = $this->request->env('REMOTE_ADDR');
-				$this->_ip['number'] = 1;
-				$this->_ip['time'] = time();
+				$this->_ips = [
+					$this->_ip => [
+						'time'   => time(),
+						'number' => 1
+					]
+				];
 			}
 		}
 
 		/**
 		 * update time and number attribute from IP
 		 * @access  public
-		 * @param $time   int
-		 * @param $number int
+		 * @param int $time
+		 * @param int $number
 		 * @return array
 		 * @since   3.0
 		 * @package System\Security
 		 */
 
 		protected function _updateIp($time = 0, $number = 1) {
-			$values = $this->_xmlContent->xpath('//ip[@ip=\'' . $this->_ip['ip'] . '\']');
-			$xml = simplexml_load_file(APP_CONFIG_SECURITY);
+			$this->_ips[$this->_ip] = [
+				'time' => $time,
+				'number' => $number
+			];
 
-			if (count($values) > 0) {
-				foreach ($values as $value) {
-					$value['time'] = $time;
-					$value['number'] = $number;
-					$dom = new \DOMDocument("1.0");
-					$dom->preserveWhiteSpace = false;
-					$dom->formatOutput = true;
-					$dom->loadXML($this->_xmlContent->asXML());
-					$dom->save(APP_CONFIG_SECURITY);
-				}
-			}
-			else {
-				$values = $xml->xpath('//ips')[0];
-				$node = $values->addChild('ip', null);
-				$node->addAttribute('ip', $this->_ip['ip']);
-				$node->addAttribute('time', $this->_ip['time']);
-				$node->addAttribute('number', $this->_ip['number']);
-
-				$dom = new \DOMDocument("1.0");
-				$dom->preserveWhiteSpace = false;
-				$dom->formatOutput = true;
-				$dom->loadXML($xml->asXML());
-				$dom->save(APP_CONFIG_SECURITY);
-			}
+			$this->_cache->setContent($this->_ips);
+			$this->_cache->setCache();
 		}
 
 		/**

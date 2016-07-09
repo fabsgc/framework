@@ -354,7 +354,7 @@
 
 		protected function _parseExtends() {
 			$this->_content = preg_replace_callback(
-				'`' . $this->_openTag . $this->_name . preg_quote($this->markup['extends'][0]) . $this->_spaceR . preg_quote($this->markup['extends'][1]) . $this->_space . '=' . $this->_space . '"([\.A-Za-z0-9_\-\$/]+)"' . $this->_space . '((' . preg_quote($this->markup['extends'][2]) . $this->_space . '=' . $this->_space . '"([0-9]*)"' . $this->_space . ')*)' . $this->_space . '/' . $this->_closeTag . '`isU',
+				'`' . $this->_openTag . $this->_name . preg_quote($this->markup['extends'][0]) . $this->_spaceR . preg_quote($this->markup['extends'][1]) . $this->_space . '=' . $this->_space . '"([\.A-Za-z0-9_\->\$\/\{\}:\(\)\[\]\'\\\\]+)"' . $this->_space . '((' . preg_quote($this->markup['extends'][2]) . $this->_space . '=' . $this->_space . '"([0-9]*)"' . $this->_space . ')*)' . $this->_space . '/' . $this->_closeTag . '`isU',
 				['System\Template\Parser', '_parseExtendsCallback'], $this->_content);
 		}
 
@@ -368,6 +368,8 @@
 		 */
 
 		protected function _parseExtendsCallback($m) {
+			$m[1] = $this->_parseVariableInParameters($m[1]);
+
 			$file = $this->resolve(RESOLVE_TEMPLATE, $m[1]) . '.tpl';
 
 			if ($this->_template->getFile() != $file) {
@@ -1057,6 +1059,25 @@
 		protected function _parseException() {
 			$this->_content = preg_replace('#' . preg_quote('; ?>; ?>') . '#isU', '; ?>', $this->_content);
 			$this->_content = preg_replace('#' . preg_quote('<?php echo <?php') . '#isU', '<?php echo', $this->_content);
+		}
+
+		/**
+		 * Allow the user to put {$variable} in gcs:keyword parameters
+		 * @param string $parameter
+		 * @return string
+		 */
+
+		protected function _parseVariableInParameters($parameter){
+			return preg_replace_callback('`' . preg_quote($this->markup['vars'][0]) . $this->_space . '([\[\]\(\)A-Za-z0-9\$\'._>\+-:\\\\]+)' . $this->_space . preg_quote($this->markup['vars'][1]) . '`', ['System\Template\Parser', '_parseVariableInParametersCallback'], $parameter);
+		}
+
+		protected function _parseVariableInParametersCallback($m){
+			ob_start();
+				eval('echo ' . $m[1] . ';');
+				$output = ob_get_contents();
+			ob_get_clean();
+
+			return $output;
 		}
 
 		/**

@@ -220,14 +220,12 @@
 		 */
 
 		private function _routeCron($src, $controller, $action) {
-			$this->profiler->addTime('route cron : ' . $src . '/' . $controller . '/' . $action);
 			$this->request->name = '-' . $src . '_' . $controller . '_' . $action;
 			$this->request->src = $src;
 			$this->request->controller = $controller;
 			$this->request->action = $action;
 			$this->request->auth = new Auth($this->request->src);
 			$this->_route = true;
-			$this->profiler->addTime('route cron : ' . $src . '/' . $controller . '/' . $action, Profiler::USER_END);
 		}
 
 		/**
@@ -332,12 +330,10 @@
 
 			if (file_exists($controllerPath)) {
 				require_once($controllerPath);
-
 				return true;
 			}
-			else {
-				return false;
-			}
+
+			return false;
 		}
 
 		/**
@@ -390,10 +386,6 @@
 			if (!Config::config()['user']['debug']['maintenance']) {
 				$this->_controller();
 				$this->_setHistory('CRON');
-
-				if (Config::config()['user']['debug']['environment'] == 'development' && Config::config()['user']['debug']['profiler']) {
-					$this->profiler->profiler($this->request, $this->response);
-				}
 			}
 
 			echo $this->response->page();

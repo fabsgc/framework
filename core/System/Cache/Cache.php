@@ -85,7 +85,7 @@
 		/**
 		 * set content of the cache
 		 * @access  public
-		 * @param string $content : cache content
+		 * @param mixed $content
 		 * @return void
 		 * @since   3.0
 		 * @package System\Cache
@@ -120,16 +120,13 @@
 		/**
 		 * get cache content
 		 * @access  public
-		 * @return string
+		 * @return mixed
 		 * @since   3.0
 		 * @package System\Cache
 		 */
 
 		public function getCache() {
-			if (file_exists($this->_fileName)) {
-				return unserialize(($this->_uncompress(file_get_contents($this->_fileName))));
-			}
-			else {
+			if (!file_exists($this->_fileName)) {
 				$this->setCache();
 			}
 
