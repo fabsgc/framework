@@ -23,10 +23,12 @@
 	use System\Orm\Entity\Type\File;
 	use System\Profiler\Profiler;
 	use System\Request\Request;
+	use System\Annotation\Annotations\Before;
 
 	/**
 	 * Class Sql
 	 * @package System\Sql
+	 * @Before(class="className")
 	 */
 	class Sql {
 		use error, facades, facadesEntity;
