@@ -23,12 +23,10 @@
 	use System\Orm\Entity\Type\File;
 	use System\Profiler\Profiler;
 	use System\Request\Request;
-	use System\Annotation\Annotations\Before;
 
 	/**
 	 * Class Sql
 	 * @package System\Sql
-	 * @Before(class="className")
 	 */
 	class Sql {
 		use error, facades, facadesEntity;
@@ -110,7 +108,7 @@
 
 		/**
 		 * get the trace of execution. it's used to give an explicit name to the caching file
-		 * @access  protected
+		 * @access protected
 		 * @param $stack string
 		 * @return string
 		 * @since 3.0
@@ -179,13 +177,14 @@
 		 * @access public
 		 * @param string $name : name of the query you want to execute
 		 * @throws \System\Exception\MissingSqlException
-		 * @return \System\Pdo\Pdo
+		 * @return \System\Pdo\PdoStatement
 		 * @since 3.0
 		 * @package System\Sql
 		 */
 
 		public function execute($name) {
 			try {
+				/** @var \System\Pdo\PdoStatement $query */
 				$query = $this->_db->prepare('' . $this->_query['' . $name . ''] . '');
 
 				foreach ($this->_var as $key => $value) {
@@ -452,7 +451,7 @@
 		/**
 		 * If the entity used has at least one relation, we have
 		 * to get an Entity object instead of the foreign key
-		 * @access  protected
+		 * @access protected
 		 * @param $line    \System\Collection\Collection
 		 * @param $foreign \System\Orm\Entity\ForeignKey
 		 * @param $parent  string

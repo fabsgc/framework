@@ -111,7 +111,7 @@
 
 		/**
 		 * return if the current page which calls crons is an exception
-		 * @access  protected
+		 * @access protected
 		 * @return  boolean
 		 * @since 3.0
 		 * @package System\Cron

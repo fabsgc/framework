@@ -333,7 +333,7 @@
 
 		/**
 		 * include the module
-		 * @access  protected
+		 * @access protected
 		 * @param $src        string
 		 * @param $controller string
 		 * @return boolean

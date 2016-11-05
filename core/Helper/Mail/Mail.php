@@ -266,7 +266,7 @@
 		 * Depending on the mail, we must change de back line type '\n' or '\r\n'
 		 * @param $mail string
 		 * @return string
-		 * @access  protected
+		 * @access protected
 		 * @since 3.0
 		 * @package Helper\Mail
 		 */

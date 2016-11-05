@@ -12,6 +12,7 @@
 	namespace System\Config;
 
 	use SimpleXMLElement;
+	use System\Annotation\Annotation;
 	use System\Cache\Cache;
 	use System\Exception\Exception;
 	use System\Exception\MissingConfigException;
@@ -89,7 +90,6 @@
 				$this->_init();
 			}
 			else {
-				$var = null;
 				$this->_cache = new Cache('config');
 
 				if ($this->_cache->isExist()) {
@@ -131,7 +131,7 @@
 
 		/**
 		 * put config in array
-		 * @access  protected
+		 * @access protected
 		 * @throws Exception
 		 * @return void
 		 * @since 3.0
@@ -165,9 +165,9 @@
 
 			/* ############## SRC ############## */
 
-			if ($handleSrc= opendir(SRC_PATH)) {
+			if ($handleSrc = opendir(SRC_PATH)) {
 				while (false !== ($entrySrc = readdir($handleSrc))) {
-					if (is_dir(SRC_PATH . '/' . $entrySrc) && $entrySrc != '.' && $entrySrc != '..') {
+					if (is_dir(SRC_PATH . $entrySrc) && $entrySrc != '.' && $entrySrc != '..') {
 						/* ## ROUTE ## */
 						$this->_parseRoute($entrySrc);
 
@@ -208,6 +208,16 @@
 								}
 							}
 						}
+
+						/* ## ANNOTATIONS ## */
+						$controllers = scandir(SRC_PATH . $entrySrc . '/' . SRC_CONTROLLER_PATH);
+
+						foreach ($controllers as $controller){
+							if(strlen($controller) > 2){
+								$annotation = Annotation::getClass(strtolower($entrySrc . '\\' . basename($controller, '.php')));
+								$this->_parseAnnotationRoute($entrySrc, $controller, $annotation);
+							}
+						}
 					}
 				}
 
@@ -225,7 +235,41 @@
 
 		/**
 		 * parse route file and put data in an array
-		 * @access  protected
+		 * @access protected
+		 * @param $src string
+		 * @param $controller string
+		 * @param $annotation array
+		 * @since 3.0
+		 * @package System\Config
+		 */
+
+		protected function _parseAnnotationRoute($src, $controller, $annotation){
+			foreach ($annotation['methods'] as $action => $annotationMethods){
+				$data = [];
+
+				foreach ($annotationMethods as $annotationMethod){
+					if($annotationMethod['annotation'] == 'Routing'){
+						/** @var \System\Annotation\Annotations\Router\Routing $annotation */
+						$annotation = $annotationMethod['instance'];
+
+						$data['name'] = $annotation->name;
+						$data['url'] = $annotation->url;
+						$data['vars'] = $annotation->vars;
+						$data['method'] = $annotation->method;
+						$data['access'] = $annotation->access;
+						$data['cache'] = $annotation->cache;
+						$data['logged'] = $annotation->logged;
+						$data['action'] = lcfirst(basename($controller, '.php')) . '.' . lcfirst(str_replace('action', '', $action));
+					}
+
+					$this->config['route'][$src][$data['name']] = $data;
+				}
+			}
+		}
+
+		/**
+		 * parse route file and put data in an array
+		 * @access protected
 		 * @param $src string
 		 * @return array
 		 * @since 3.0
@@ -278,7 +322,7 @@
 
 		/**
 		 * parse lang files and put data in an array
-		 * @access  protected
+		 * @access protected
 		 * @param $src  string
 		 * @param $lang string
 		 * @return array
@@ -337,7 +381,7 @@
 
 		/**
 		 * parse firewall file
-		 * @access  protected
+		 * @access protected
 		 * @param $src string
 		 * @return array
 		 * @since 3.0
@@ -429,7 +473,7 @@
 
 		/**
 		 * parse parent node
-		 * @access  protected
+		 * @access protected
 		 * @param $child      \SimpleXMLElement
 		 * @param $data       string
 		 * @param $attributes array
@@ -473,7 +517,7 @@
 
 		/**
 		 * destructor
-		 * @access  protected
+		 * @access protected
 		 * @return string
 		 * @since 3.0
 		 * @package System\Config

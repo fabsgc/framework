@@ -8,21 +8,28 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace System\Annotation\Annotations;
-	use Doctrine\Common\Annotations\Annotation;
+	namespace System\Annotation\Annotations\Common;
+
+	use System\Annotation\Annotations\Annotation;
 
 	/**
 	 * Class Before
-	 * @package System\Annotation\Annotations
-	 * @Annotation
-	 * @Target("CLASS")
+	 * @package System\Annotation\Annotations\Common
 	 */
 
 	class Before extends Annotation {
+
 		/**
 		 * Parameter class
 		 * @var string
 		 */
 
 		public $class;
+
+		/**
+		 * Parameter class
+		 * @var string
+		 */
+
+		public $method;
 	}

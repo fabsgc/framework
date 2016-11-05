@@ -131,7 +131,7 @@
 
 		/**
 		 * configuration
-		 * @access  protected
+		 * @access protected
 		 * @param $data array
 		 * @return void
 		 * @since 3.0

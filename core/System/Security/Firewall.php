@@ -218,7 +218,7 @@
 
 		/**
 		 * check csrf
-		 * @access  protected
+		 * @access protected
 		 * @return boolean
 		 * @since 3.0
 		 * @package System\Security
@@ -245,7 +245,7 @@
 
 		/**
 		 * check logged
-		 * @access  protected
+		 * @access protected
 		 * @return boolean
 		 * @since 3.0
 		 * @package System\Security
@@ -257,7 +257,7 @@
 
 		/**
 		 * check role
-		 * @access  protected
+		 * @access protected
 		 * @return boolean
 		 * @since 3.0
 		 * @package System\Security

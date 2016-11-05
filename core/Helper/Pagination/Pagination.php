@@ -241,7 +241,7 @@
 
 		/**
 		 * Initialization of the helper
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package helper\Pagination

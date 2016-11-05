@@ -758,7 +758,7 @@
 
 		/**
 		 * return an entity from his name
-		 * @access  protected
+		 * @access protected
 		 * @param $entity string
 		 * @throws MissingEntityException
 		 * @return \System\Orm\Entity\Entity
@@ -785,7 +785,7 @@
 
 		/**
 		 * return an entity name
-		 * @access  protected
+		 * @access protected
 		 * @param $entity string
 		 * @throws MissingEntityException
 		 * @return string

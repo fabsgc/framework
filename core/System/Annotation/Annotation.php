@@ -11,6 +11,9 @@
 	namespace System\Annotation;
 
 	use Doctrine\Common\Annotations\AnnotationReader;
+	use System\Cache\Cache;
+	use System\Config\Config;
+	use System\Sql\Sql;
 
 	/**
 	 * Class Annotation
@@ -25,47 +28,80 @@
 		 * @return array
 		 * @throws \Exception
 		 */
-		public static function getClass($class){
-			$reflectionClass = new \ReflectionClass($class);
-			$reader = new AnnotationReader();
+		public static function getClass($class) {
+			$cache = new Cache('gcs_cache_annotation_' . strtolower(str_replace('\\', '-', $class)), 0);
 
-			var_dump($reflectionClass);
-
-
-
-			$apiMetaAnnotation = $reader->getClassAnnotation($reflectionClass, '\\System\\Annotation\\Annotations\\Before');
-
-			var_dump('salut');
-
-			if(!$apiMetaAnnotation) {
-				throw new \Exception(sprintf('Entity class %s does not have required annotation ApiMeta', $class));
+			if($cache->isExist() && Config::config()['user']['debug']['environment'] != 'development'){
+				return $cache->getCache();
 			}
 
-			$resource = strtolower($apiMetaAnnotation->resource);
-			$resourcePlural = strtolower($apiMetaAnnotation->resourcePlural);
-			// do http lookup based on resource names
+			$data = [
+				'class' => [],
+				'methods' => [],
+				'properties' => []
+			];
 
-			return null;
-		}
+			$reflectionClass = new \ReflectionClass($class);
 
-		/**
-		 * Get class methods annotations
-		 * @param $class string
-		 */
-		public static function getMethods($class){
+			//Class annotations
+			$parser = new Parser($reflectionClass->getDocComment());
+			$dataClasses = $parser->parse();
 
-		}
+			foreach ($dataClasses as $key => $dataClass){
+				$processorClass = new Processor($dataClass);
+				array_push($data['class'], [
+					'annotation' => $key,
+					'instance' => $processorClass->process()
+				]);
+			}
 
-		/**
-		 * Get method annotations
-		 * @param $class string
-		 * @param $method string
-		 */
-		public static function getMethod($class, $method){
+			//Method annotations
+			$methodsName = $reflectionClass->getMethods();
 
-		}
+			foreach ($methodsName as $methodName){
+				$method = new \ReflectionMethod($class, $methodName->getName());
 
-		public static function processAnnotations(){
+				$parser = new Parser($method->getDocComment());
+				$dataMethods = $parser->parse();
 
+				if(count($dataMethods) > 0){
+					$data['methods'][$methodName->getName()] = [];
+
+					foreach ($dataMethods as $key => $dataMethod){
+						$processorMethods = new Processor($dataMethod);
+						array_push($data['methods'][$methodName->getName()], [
+							'annotation' => $key,
+							'instance' => $processorMethods->process()
+						]);
+					}
+				}
+			}
+
+			//Properties annotations
+			$propertiesNames = $reflectionClass->getProperties();
+
+			foreach ($propertiesNames as $propertyName){
+				$property = new \ReflectionProperty($class, $propertyName->getName());
+
+				$parser = new Parser($property->getDocComment());
+				$dataProperties = $parser->parse();
+
+				if(count($dataProperties) > 0){
+					$data['properties'][$propertyName->getName()] = [];
+
+					foreach ($dataProperties as $key => $dataProperty){
+						$processorProperties = new Processor($dataProperty);
+						array_push($data['properties'][$propertyName->getName()], [
+							'annotation' => $key,
+							'instance' => $processorProperties->process()
+						]);
+					}
+				}
+			}
+
+			$cache->setContent($data);
+			$cache->setCache();
+
+			return $data;
 		}
 	}

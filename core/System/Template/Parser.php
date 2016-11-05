@@ -255,7 +255,7 @@
 		 * parse include :
 		 *        <gc:include file="" cache="" />
 		 *        <gc:include file="" compile="false" cache="" />
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -272,7 +272,7 @@
 
 		/**
 		 * parse include callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m
 		 * @return string
 		 * @since 3.0
@@ -312,7 +312,7 @@
 
 		/**
 		 * parse include no compiled callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m
 		 * @return string
 		 * @since 3.0
@@ -346,7 +346,7 @@
 		/**
 		 * parse extends :
 		 *        <gc:include file="" cache="" />
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -360,7 +360,7 @@
 
 		/**
 		 * parse extends callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m
 		 * @return void
 		 * @since 3.0
@@ -392,7 +392,7 @@
 
 		/**
 		 * if there is a parent template, we parse it
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -405,7 +405,7 @@
 
 		/**
 		 * parse path (img)
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -418,7 +418,7 @@
 
 		/**
 		 * parse gravatar {{gravatar:email:size}}
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -431,7 +431,7 @@
 
 		/**
 		 * parse gravatar callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m
 		 * @return string
 		 * @since 3.0
@@ -474,7 +474,7 @@
 		 *        {{url[absolute]:id:vars}}
 		 *      {_{url:id:vars}_}
 		 *        {_{url[absolute]:id:vars}_}
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -567,7 +567,7 @@
 
 		/**
 		 * parse php {{php:code}}
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -583,7 +583,7 @@
 		 *        {{lang[absolute]:id:vars}}
 		 *      {_{lang:id:vars}_}
 		 *        {_{lang[template]:id:vars}_}
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -670,7 +670,7 @@
 
 		/**
 		 * parse foreach <gc:foreach var="" as=""></gc:foreach>
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -689,7 +689,7 @@
 
 		/**
 		 * parse for <gc:for condition=""></gc:for>
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -708,7 +708,7 @@
 
 		/**
 		 * parse vars
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -721,7 +721,7 @@
 		/**
 		 * parse echo function result
 		 *        <gc:function call=""/>
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -737,7 +737,7 @@
 		 *        <gc:elseif condition="">
 		 *        <gc:else/>
 		 *        </gc:else>
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -761,7 +761,7 @@
 		/**
 		 * parse function :
 		 *        <gc:function call=""/>
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -773,7 +773,7 @@
 
 		/**
 		 * parse block : <gc:block name="">
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -785,7 +785,7 @@
 
 		/**
 		 * parse block callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
@@ -807,7 +807,7 @@
 
 		/**
 		 * parse template : <gc:template name="name(*)">
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -819,7 +819,7 @@
 
 		/**
 		 * parse template callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
@@ -869,7 +869,7 @@
 		 * parse calling template or block :
 		 *        <gc:call template="name()">
 		 *        <gc:call block="name()">
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -882,7 +882,7 @@
 
 		/**
 		 * parse call block callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
@@ -895,7 +895,7 @@
 
 		/**
 		 * parse call block callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
@@ -932,7 +932,7 @@
 		 *        <gc:asset type="css" files="
 		 *            .app/css/other.css
 		 *        </gc:asset>
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -948,7 +948,7 @@
 
 		/**
 		 * parse assetManager callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
@@ -996,7 +996,7 @@
 
 		/**
 		 * parse minify : <gc:minify>
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -1008,7 +1008,7 @@
 
 		/**
 		 * parse minify callback
-		 * @access  protected
+		 * @access protected
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
@@ -1026,7 +1026,7 @@
 
 		/**
 		 * "::" isn't well managed by the parser, we temporally disable it
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -1038,7 +1038,7 @@
 
 		/**
 		 * "::" isn't well managed by the parser, we put it back
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template
@@ -1050,7 +1050,7 @@
 
 		/**
 		 * parse exception
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Template

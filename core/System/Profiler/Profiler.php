@@ -14,6 +14,7 @@
 	use System\Config\Config;
 	use System\General\error;
 	use System\General\singleton;
+	use System\Request\Data;
 
 	/**
 	 * Class Profiler
@@ -132,6 +133,9 @@
 				$dataProfiler['sql'] = $this->_sql;
 				$dataProfiler['get'] = $_GET;
 				$dataProfiler['post'] = $_POST;
+				$dataProfiler['put'] = Data::instance()->put;
+				$dataProfiler['patch'] = Data::instance()->patch;
+				$dataProfiler['delete'] = Data::instance()->delete;
 				$dataProfiler['session'] = $_SESSION;
 				$dataProfiler['cookie'] = $_COOKIE;
 				$dataProfiler['files'] = $_FILES;
@@ -264,7 +268,7 @@
 
 		/**
 		 * stop the timer
-		 * @access  protected
+		 * @access protected
 		 * @return void
 		 * @since 3.0
 		 * @package System\Profiler

@@ -51,7 +51,7 @@
 
 		/**
 		 * check if the library can be included
-		 * @access  protected
+		 * @access protected
 		 * @param $include string
 		 * @return boolean
 		 * @since 3.0

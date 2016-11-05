@@ -100,7 +100,7 @@
 
 		/**
 		 * replace vars in the query
-		 * @access  protected
+		 * @access protected
 		 * @param $m array
 		 * @return string
 		 * @since 3.0

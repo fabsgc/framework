@@ -217,7 +217,7 @@
 
 		/**
 		 * get the trace of execution. it's used to give an explicit name to the caching file
-		 * @access  protected
+		 * @access protected
 		 * @param $stack array
 		 * @return string
 		 * @since 3.0
