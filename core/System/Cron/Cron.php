@@ -49,9 +49,9 @@
 
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @throws \System\Exception\MissingConfigException
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cron
 		 */
 
@@ -113,7 +113,7 @@
 		 * return if the current page which calls crons is an exception
 		 * @access  protected
 		 * @return  boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cron
 		 */
 
@@ -132,8 +132,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Cron
 		 */
 

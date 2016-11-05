@@ -54,9 +54,9 @@
 
 		/**
 		 * init Spam class
-		 * @access  public
+		 * @access public
 		 * @throws \System\Exception\MissingConfigException
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -79,9 +79,9 @@
 
 		/**
 		 * check authorization to allow to a visitor to load a page
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -119,9 +119,9 @@
 
 		/**
 		 * check if the url is a spam exception
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -137,9 +137,9 @@
 
 		/**
 		 * get the the list of IPs
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -159,11 +159,11 @@
 
 		/**
 		 * update time and number attribute from IP
-		 * @access  public
+		 * @access public
 		 * @param int $time
 		 * @param int $number
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -179,8 +179,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Security
 		 */
 

@@ -135,8 +135,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Response
 		 */
 
@@ -167,8 +167,8 @@
 
 		/**
 		 * singleton
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -183,10 +183,10 @@
 		/**
 		 * add header to the stack
 		 * get headers
-		 * @access  public
+		 * @access public
 		 * @param $header string
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Response
 		 */
 
@@ -202,10 +202,10 @@
 		/**
 		 * set the status code. If you use 404, 403 or 500, the framework will display an error page
 		 * get the status code
-		 * @access  public
+		 * @access public
 		 * @param $status string
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Response
 		 */
 
@@ -223,10 +223,10 @@
 		/**
 		 * set Content-Type without Content-Type
 		 * get Content-Type
-		 * @access  public
+		 * @access public
 		 * @param $contentType string
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Response
 		 */
 
@@ -241,9 +241,9 @@
 
 		/**
 		 * execute all the headers
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Response
 		 */
 
@@ -273,10 +273,10 @@
 
 		/**
 		 * return the page content
-		 * @access  public
+		 * @access public
 		 * @param $page string
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Response
 		 */
 
@@ -291,9 +291,9 @@
 
 		/**
 		 * destructor
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Response
 		 */
 

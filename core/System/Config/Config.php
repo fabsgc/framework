@@ -74,8 +74,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Config
 		 * @param array $data
 		 * @throws Exception
@@ -103,8 +103,8 @@
 
 		/**
 		 * singleton
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Request
 		 * @param array $data
 		 * @return object|Config
@@ -120,8 +120,8 @@
 
 		/**
 		 * provide direct access to the attribute $config
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Config\Config
 		 */
 
@@ -134,7 +134,7 @@
 		 * @access  protected
 		 * @throws Exception
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Config
 		 */
 
@@ -228,7 +228,7 @@
 		 * @access  protected
 		 * @param $src string
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @throws \System\Exception\MissingConfigException if route config file doesn't exist
 		 * @package System\Config
 		 */
@@ -282,7 +282,7 @@
 		 * @param $src  string
 		 * @param $lang string
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @throws \System\Exception\MissingConfigException if lang config file doesn't exist
 		 * @package System\Config
 		 */
@@ -340,7 +340,7 @@
 		 * @access  protected
 		 * @param $src string
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @throws \System\Exception\MissingConfigException if firewall config file doesn't exist
 		 * @package System\Config
 		 */
@@ -434,7 +434,7 @@
 		 * @param $data       string
 		 * @param $attributes array
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Config
 		 */
 
@@ -475,7 +475,7 @@
 		 * destructor
 		 * @access  protected
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Config
 		 */
 

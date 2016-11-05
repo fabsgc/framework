@@ -23,8 +23,8 @@
 
 		/**
 		 * Constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Controller\Injector
 		 */
 
@@ -33,8 +33,8 @@
 
 		/**
 		 * singleton
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Controller\Injector
 		 */
 
@@ -48,10 +48,10 @@
 
 		/**
 		 * Return a fully completed Request Object
-		 * @access  public
+		 * @access public
 		 * @param \ReflectionClass $object
 		 * @return \System\Orm\Entity\Entity
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Controller\Injector
 		 */
 
@@ -99,8 +99,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Controller\Injector
 		 */
 

@@ -111,10 +111,10 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @param string $name
 		 * @param string $entity
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -126,9 +126,9 @@
 
 		/**
 		 * Set type
-		 * @access  public
+		 * @access public
 		 * @param integer $type
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -140,9 +140,9 @@
 
 		/**
 		 * Set name
-		 * @access  public
+		 * @access public
 		 * @param string $name
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -154,9 +154,9 @@
 
 		/**
 		 * Set primary key
-		 * @access  public
+		 * @access public
 		 * @param boolean $primary
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -168,9 +168,9 @@
 
 		/**
 		 * Set primary key
-		 * @access  public
+		 * @access public
 		 * @param $size integer
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -182,10 +182,10 @@
 
 		/**
 		 * Set foreigns key
-		 * @access  public
+		 * @access public
 		 * @param $datas array
 		 * @throws MissingEntityException
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -222,9 +222,9 @@
 
 		/**
 		 * Set unique
-		 * @access  public
+		 * @access public
 		 * @param boolean $unique
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -236,9 +236,9 @@
 
 		/**
 		 * Set precision
-		 * @access  public
+		 * @access public
 		 * @param $precision string
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -250,9 +250,9 @@
 
 		/**
 		 * Set precision
-		 * @access  public
+		 * @access public
 		 * @param $enum string[]
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -264,9 +264,9 @@
 
 		/**
 		 * Set beNull
-		 * @access  public
+		 * @access public
 		 * @param $beNull boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -278,9 +278,9 @@
 
 		/**
 		 * Set default value
-		 * @access  public
+		 * @access public
 		 * @param $default String
-		 * @since   3.0
+		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
 		 * @package System\Orm\Entity
 		 */
@@ -292,8 +292,8 @@
 
 		/**
 		 * Destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 

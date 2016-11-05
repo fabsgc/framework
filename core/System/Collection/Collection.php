@@ -25,9 +25,9 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @param $data array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -37,9 +37,9 @@
 
 		/**
 		 * Get iterator
-		 * @access  public
+		 * @access public
 		 * @return \System\Collection\Iterator
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -49,9 +49,9 @@
 
 		/**
 		 * First value
-		 * @access  public
+		 * @access public
 		 * @return \System\Orm\Entity\Entity
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -66,9 +66,9 @@
 
 		/**
 		 * Count
-		 * @access  public
+		 * @access public
 		 * @return integer
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -78,9 +78,9 @@
 
 		/**
 		 * Count
-		 * @access  public
+		 * @access public
 		 * @return array[]
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Collecion
 		 */
 
@@ -90,10 +90,10 @@
 
 		/**
 		 * Delete one element from the collection
-		 * @access  public
+		 * @access public
 		 * @param $key mixed
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Collecion
 		 */
 
@@ -104,11 +104,11 @@
 
 		/**
 		 * Delete between 2 keys
-		 * @access  public
+		 * @access public
 		 * @param $key    int
 		 * @param $length int
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Collecion
 		 */
 
@@ -125,11 +125,11 @@
 
 		/**
 		 * Get between 2 keys
-		 * @access  public
+		 * @access public
 		 * @param $key    int
 		 * @param $length int
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Collecion
 		 */
 
@@ -149,10 +149,10 @@
 
 		/**
 		 * Filter the collection with a closure
-		 * @access  public
+		 * @access public
 		 * @param $closure callable
 		 * @return Collection
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Collecion
 		 */
 
@@ -170,10 +170,10 @@
 
 		/**
 		 * Add elements to the collection
-		 * @access  public
+		 * @access public
 		 * @param $data mixed array[], Collection
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Collecion
 		 */
 
@@ -197,8 +197,8 @@
 
 		/**
 		 * Destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Collecion
 		 */
 

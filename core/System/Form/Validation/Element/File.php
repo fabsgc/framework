@@ -21,11 +21,11 @@
 	class File extends Element {
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $field string
 		 * @param $label string
 		 * @return \System\Form\Validation\Element\File
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -48,9 +48,9 @@
 
 		/**
 		 * check validity
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -221,11 +221,11 @@
 
 		/**
 		 * mime type accepted
-		 * @access  public
+		 * @access public
 		 * @param $accept string[]
 		 * @param $error  string
 		 * @return \System\Form\Validation\Element\File
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -243,11 +243,11 @@
 
 		/**
 		 * extension accepted
-		 * @access  public
+		 * @access public
 		 * @param $extension string[]
 		 * @param $error     string
 		 * @return \System\Form\Validation\Element\File
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -265,11 +265,11 @@
 
 		/**
 		 * file size min (in byte)
-		 * @access  public
+		 * @access public
 		 * @param $sizeMin integer
 		 * @param $error   string
 		 * @return \System\Form\Validation\Element\File
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -287,11 +287,11 @@
 
 		/**
 		 * file size min (in byte)
-		 * @access  public
+		 * @access public
 		 * @param $sizeMax integer
 		 * @param $error   string
 		 * @return \System\Form\Validation\Element\File
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -309,11 +309,11 @@
 
 		/**
 		 * file size min (in byte)
-		 * @access  public
+		 * @access public
 		 * @param $sizeBetween integer[]
 		 * @param $error       string
 		 * @return \System\Form\Validation\Element\File
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -331,8 +331,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 

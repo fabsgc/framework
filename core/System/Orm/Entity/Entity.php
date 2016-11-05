@@ -80,10 +80,10 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @throws MissingEntityException
 		 * @return \System\Orm\Entity\Entity
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -113,7 +113,7 @@
 				break;
 
 				case 'patch' :
-					$this->_data = $requestData->patch;
+					$this->_data = $requestData->post;
 				break;
 
 				case 'delete' :
@@ -126,9 +126,9 @@
 
 		/**
 		 * Creation of the table
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -137,10 +137,10 @@
 
 		/**
 		 * Set form name
-		 * @access  public
+		 * @access public
 		 * @param $form string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -150,9 +150,9 @@
 
 		/**
 		 * Get form name
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -162,9 +162,9 @@
 
 		/**
 		 * Get primary key name
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -179,10 +179,10 @@
 
 		/**
 		 * set or get name
-		 * @access  public
+		 * @access public
 		 * @param $name string
 		 * @return mixed void,string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -199,9 +199,9 @@
 
 		/**
 		 * get fields
-		 * @access  public
+		 * @access public
 		 * @return \System\Orm\Entity\Field[]
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -211,9 +211,9 @@
 
 		/**
 		 * get primary
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -223,10 +223,10 @@
 
 		/**
 		 * add a field
-		 * @access  public
+		 * @access public
 		 * @param $name string
 		 * @return \System\Orm\Entity\Field
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -237,11 +237,11 @@
 
 		/**
 		 * permit to set a column value
-		 * @access  public
+		 * @access public
 		 * @param $key   string
 		 * @param $value integer,boolean,string,\System\Orm\Entity\Type\Type
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -251,12 +251,12 @@
 
 		/**
 		 * permit to set a column value
-		 * @access  public
+		 * @access public
 		 * @param $key   string
 		 * @throws MissingEntityException
 		 * @param $value mixed integer,boolean,string,\System\Orm\Entity\Type\Type
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -276,11 +276,11 @@
 
 		/**
 		 * permit to set a column
-		 * @access  public
+		 * @access public
 		 * @param string $key
 		 * @param        $value \System\Orm\Entity\Field
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -292,10 +292,10 @@
 
 		/**
 		 * return a field value
-		 * @access  public
+		 * @access public
 		 * @param $key string
 		 * @return mixed integer,boolean,string,\System\Orm\Entity\Type\Type,\System\Collection\Collection
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -305,11 +305,11 @@
 
 		/**
 		 * return a field value
-		 * @access  public
+		 * @access public
 		 * @param $key string
 		 * @throws MissingEntityException
 		 * @return mixed integer,boolean,string,\System\Orm\Entity\Type\Type
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -329,10 +329,10 @@
 
 		/**
 		 * isset
-		 * @access  public
+		 * @access public
 		 * @param $key string
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -342,10 +342,10 @@
 
 		/**
 		 * return a field
-		 * @access  public
+		 * @access public
 		 * @param $key string
 		 * @return \System\Orm\Entity\Field
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -359,9 +359,9 @@
 
 		/**
 		 * find a list of model
-		 * @access  public
+		 * @access public
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -374,10 +374,10 @@
 
 		/**
 		 * find raw no (sql completion)
-		 * @access  public
+		 * @access public
 		 * @param $query string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -390,10 +390,10 @@
 
 		/**
 		 * select distinct
-		 * @access  public
+		 * @access public
 		 * @param $distinct string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -406,9 +406,9 @@
 
 		/**
 		 * count number of line
-		 * @access  public
+		 * @access public
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -421,10 +421,10 @@
 
 		/**
 		 * insert a new line in the database
-		 * @access  public
+		 * @access public
 		 * @throws
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -701,10 +701,10 @@
 
 		/**
 		 * update a line
-		 * @access  public
+		 * @access public
 		 * @throws MissingEntityException
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -972,10 +972,10 @@
 
 		/**
 		 * delete a line
-		 * @access  public
+		 * @access public
 		 * @throws MissingEntityException
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -1103,9 +1103,9 @@
 
 		/**
 		 * We can check the validity of a GET or POST request thanks to this method that you can override
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -1114,9 +1114,9 @@
 
 		/**
 		 * We can check the validity of a PUT request thanks to this method that you can override
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -1125,9 +1125,9 @@
 
 		/**
 		 * We can check the validity of a PATCH request thanks to this method that you can override
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -1136,9 +1136,9 @@
 
 		/**
 		 * We can check the validity of a DELETE request thanks to this method that you can override
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -1147,9 +1147,9 @@
 
 		/**
 		 * Check
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -1160,9 +1160,9 @@
 
 		/**
 		 * Is the entity valid ?
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -1172,9 +1172,9 @@
 
 		/**
 		 * Is the form sent ?
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -1184,9 +1184,9 @@
 
 		/**
 		 * get errors list
-		 * @access  public
+		 * @access public
 		 * @return string[]
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -1196,10 +1196,10 @@
 
 		/**
 		 * Before validation, we must inserting all the data
-		 * @access  public
+		 * @access public
 		 * @param $prefix string : If we want to hydrate a sub Entity (from a relation), we need to know the name of the parent
 		 * @throws MissingFieldException
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -1379,8 +1379,8 @@
 
 		/**
 		 * Destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 

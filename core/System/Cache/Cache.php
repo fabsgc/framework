@@ -53,10 +53,10 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @param $name string : name of the cache file
 		 * @param $time int : cache time, default value is 0
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 
@@ -84,10 +84,10 @@
 
 		/**
 		 * set content of the cache
-		 * @access  public
+		 * @access public
 		 * @param mixed $content
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 
@@ -97,9 +97,9 @@
 
 		/**
 		 * destroy a cache file
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 
@@ -119,9 +119,9 @@
 
 		/**
 		 * get cache content
-		 * @access  public
+		 * @access public
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 
@@ -135,10 +135,10 @@
 
 		/**
 		 * uncompress the content
-		 * @access  public
+		 * @access public
 		 * @param string $val
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 
@@ -148,9 +148,9 @@
 
 		/**
 		 * create the file cache
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 
@@ -168,10 +168,10 @@
 
 		/**
 		 * compress the content
-		 * @access  public
+		 * @access public
 		 * @param string $content
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 
@@ -181,9 +181,9 @@
 
 		/**
 		 * return true if the cache is too old
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 
@@ -209,9 +209,9 @@
 
 		/**
 		 * return true if the file exists
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 
@@ -226,8 +226,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Cache
 		 */
 

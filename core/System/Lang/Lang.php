@@ -29,8 +29,8 @@
 
 		/**
 		 * init Lang class
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Lang
 		 */
 
@@ -39,8 +39,8 @@
 
 		/**
 		 * singleton
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -54,12 +54,12 @@
 
 		/**
 		 * load a sentence from config instance
-		 * @access  public
+		 * @access public
 		 * @param $name     string : name of the sentence
 		 * @param $vars     array : vars
 		 * @param $template bool|int : use template syntax or not
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Lang
 		 */
 
@@ -98,8 +98,8 @@
 
 		/**
 		 * Destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Lang
 		 */
 

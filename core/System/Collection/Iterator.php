@@ -32,8 +32,8 @@
 		/**
 		 * Constructor
 		 * @param string $data
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Iterator
 		 * @param        $data
 		 */
@@ -45,9 +45,9 @@
 
 		/**
 		 * Initialization
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Collecion
 		 */
 
@@ -57,9 +57,9 @@
 
 		/**
 		 * Current
-		 * @access  public
+		 * @access public
 		 * @return object[]
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Iterator
 		 */
 
@@ -69,9 +69,9 @@
 
 		/**
 		 * Get current key
-		 * @access  public
+		 * @access public
 		 * @return integer
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Iterator
 		 */
 
@@ -81,9 +81,9 @@
 
 		/**
 		 * Get next key
-		 * @access  public
+		 * @access public
 		 * @return integer
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Iterator
 		 */
 
@@ -93,9 +93,9 @@
 
 		/**
 		 * key is valid ?
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Iterator
 		 */
 
@@ -105,8 +105,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Controller
 		 */
 

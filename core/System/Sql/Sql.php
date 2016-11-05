@@ -24,6 +24,10 @@
 	use System\Profiler\Profiler;
 	use System\Request\Request;
 
+	/**
+	 * Class Sql
+	 * @package System\Sql
+	 */
 	class Sql {
 		use error, facades, facadesEntity;
 
@@ -86,8 +90,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 
@@ -107,7 +111,7 @@
 		 * @access  protected
 		 * @param $stack string
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 
@@ -122,12 +126,12 @@
 
 		/**
 		 * Add a new query to the instance
-		 * @access  public
+		 * @access public
 		 * @param $name  string : the name of the query. If the name already exists, the old query will be erased
 		 * @param $query string : the query with the Pdo syntax
 		 * @param $time  int : time cache
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 
@@ -138,7 +142,7 @@
 
 		/**
 		 * add variables to the instance
-		 * @access  public
+		 * @access public
 		 * @param $var  mixed : contain the list of the variable that will be used in the queries.
 		 *              first syntax  : array('id' => array(31, Sql::PARAM_INT), 'pass' => array("fuck", sql::PARAM_STR))
 		 *              second syntax : array('id' => 31, 'pass' => "fuck"). If you don't define the type of the variable, the class will assign itself the correct type
@@ -146,7 +150,7 @@
 		 *              first syntax  : ('id', 'value')
 		 *              second syntax : ('id', 'value', Sql::PARAM_INT)
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 
@@ -170,11 +174,11 @@
 		/**
 		 * Execute the query. This method returns the pdo object like the real execute() PDO method.
 		 * It's useful if you want to use PDO method like lastInsertId()
-		 * @access  public
+		 * @access public
 		 * @param string $name : name of the query you want to execute
 		 * @throws \System\Exception\MissingSqlException
 		 * @return \System\Pdo\Pdo
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 
@@ -228,7 +232,7 @@
 
 		/**
 		 * Fetch a query. This method returns several values, depending on the fetching parameter
-		 * @access  public
+		 * @access public
 		 * @param $name  string : the name of the query you want to fetch
 		 * @param $fetch int : type of fetch. 5 values available
 		 *               sql::PARAM_FETCH         : correspond to the fetch of PDO. it's usefull for SELECT queries
@@ -239,7 +243,7 @@
 		 *               default value : sql::PARAM_FETCH
 		 * @throws MissingSqlException
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 
@@ -376,10 +380,10 @@
 
 		/**
 		 * return data as an array of entities
-		 * @access  public
+		 * @access public
 		 * @param $entity string
 		 * @return \System\Collection\Collection
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 
@@ -451,7 +455,7 @@
 		 * @param $foreign \System\Orm\Entity\ForeignKey
 		 * @param $parent  string
 		 * @return \System\Orm\Entity\Entity
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 
@@ -494,9 +498,9 @@
 
 		/**
 		 * return data as an array
-		 * @access  public
+		 * @access public
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 
@@ -506,8 +510,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Sql
 		 */
 

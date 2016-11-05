@@ -22,8 +22,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Exception
 		 */
 
@@ -34,13 +34,13 @@
 
 		/**
 		 * capture error
-		 * @access  public
+		 * @access public
 		 * @param $errno   integer
 		 * @param $errstr  string
 		 * @param $errfile string
 		 * @param $errline integer
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Exception
 		 */
 
@@ -72,10 +72,10 @@
 
 		/**
 		 * capture exception
-		 * @access  public
+		 * @access public
 		 * @param $e \Exception
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Exception
 		 */
 
@@ -90,8 +90,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Exception
 		 */
 

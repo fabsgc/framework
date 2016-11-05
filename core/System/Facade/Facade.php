@@ -53,7 +53,7 @@
 
 		/**
 		 * load a system or helper class. This static method use ReflectionClass to instantiate the class with alias $name
-		 * @access  public
+		 * @access public
 		 * @param $name   string : class alias name
 		 * @param $params array : list of parameters
 		 * @param $stack  array : execution pile

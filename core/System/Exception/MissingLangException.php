@@ -11,12 +11,12 @@
 	namespace System\Exception;
 
 	/**
-	 * Class MissingConfigException
+	 * Class MissingLangException
 	 * @package System\Exception
 	 */
 
-	class MissingConfigException extends Exception {
+	class MissingLangException extends Exception {
 		public function getType() {
-			return 'MissingConfigException';
+			return 'MissingLangException';
 		}
 	}

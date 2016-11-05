@@ -50,8 +50,8 @@
 
 		/**
 		 * Initialization of the application
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Controller
 		 */
 
@@ -66,9 +66,9 @@
 
 		/**
 		 * You can override this method. She is called before the action
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Controller
 		 */
 
@@ -77,9 +77,9 @@
 
 		/**
 		 * You can override this method. She is called after the action
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Controller
 		 */
 
@@ -88,9 +88,9 @@
 
 		/**
 		 * check firewall
-		 * @access  public
+		 * @access public
 		 * @return bool
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Controller
 		 */
 
@@ -107,9 +107,9 @@
 
 		/**
 		 * check spam
-		 * @access  public
+		 * @access public
 		 * @return bool
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Controller
 		 */
 
@@ -126,9 +126,9 @@
 
 		/**
 		 * display a default template
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Controller
 		 */
 
@@ -141,8 +141,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Controller
 		 */
 

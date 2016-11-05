@@ -56,10 +56,10 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @param $name string : name of the event
 		 * @param $data array : data given
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -70,9 +70,9 @@
 
 		/**
 		 * Override method
-		 * @access  public
+		 * @access public
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 		
@@ -82,9 +82,9 @@
 
 		/**
 		 * Return the name
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -94,10 +94,10 @@
 
 		/**
 		 * Set the name
-		 * @access  public
+		 * @access public
 		 * @param $name string
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -107,9 +107,9 @@
 
 		/**
 		 * Return the status : true if it's running and false otherwise
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -119,10 +119,10 @@
 
 		/**
 		 * Set the status
-		 * @access  public
+		 * @access public
 		 * @param $status
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -132,9 +132,9 @@
 
 		/**
 		 * Return data returned by the event after his call
-		 * @access  public
+		 * @access public
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -144,13 +144,13 @@
 
 		/**
 		 * Set the result returned by the event (function used by the framework at the end of the call)
-		 * @access  public
+		 * @access public
 		 * @param $result   string : result returned by the listener
 		 * @param $index    int : order of the event (0,1,2,3)
 		 * @param $class    string : name of the called class
 		 * @param $function string : name of the method called
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -160,10 +160,10 @@
 
 		/**
 		 * Set the name
-		 * @access  public
+		 * @access public
 		 * @param $parent \System\Controller\Controller
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -173,9 +173,9 @@
 
 		/**
 		 * Destructor
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 

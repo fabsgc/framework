@@ -226,10 +226,10 @@
 
 		/**
 		 * Create Entity
-		 * @access  public
+		 * @access public
 		 * @param $table string
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Terminal
 		 */
 

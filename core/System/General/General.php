@@ -48,12 +48,12 @@
 		/**
 		 * when you want to use a lang, route, image, template, this method is used to resolve the right path
 		 * the method use the instance of \system\config
-		 * @access  public
+		 * @access public
 		 * @param $type string : type of the config
 		 * @param $data string : ".gcs.lang" ".gcs/template/" "template"
 		 * @throws MissingConfigException
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\General
 		 */
 
@@ -64,12 +64,12 @@
 		/**
 		 * when you want to use a lang, route, image, template, this method is used to resolve the right path
 		 * the method use the instance of \system\config
-		 * @access  public
+		 * @access public
 		 * @param $type string : type of the config
 		 * @param $data string : ".gcs.lang" ".gcs/template/" "template"
 		 * @throws MissingConfigException
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\General
 		 */
 
@@ -118,12 +118,12 @@
 		/**
 		 * when you want to use an image, file only, this method is used to resolve the right path
 		 * the method override resolve()
-		 * @access  public
+		 * @access public
 		 * @param $type string : type of the config
 		 * @param $data string : ".gcs/template/" "template"
 		 * @param $php  boolean : because method return path, the framework wants to know if you want the html path or the php path
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\General
 		 */
 
@@ -172,11 +172,11 @@
 
 		/**
 		 * when you want to use a core or helper class, you can use the system of facades. It allow you tu instantiate
-		 * @access  public
+		 * @access public
 		 * @param $name      string : name of alias
 		 * @param $arguments array
 		 * @return object
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\General
 		 */
 

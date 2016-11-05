@@ -47,9 +47,9 @@
 
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $mode integer
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -69,9 +69,9 @@
 
 		/**
 		 * initialization of the engine
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -96,12 +96,12 @@
 
 		/**
 		 * initialization of the engine for cron
-		 * @access  public
+		 * @access public
 		 * @param $src        string
 		 * @param $controller string
 		 * @param $action     string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -118,9 +118,9 @@
 
 		/**
 		 * initialization of the console
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 		public function console() {
@@ -132,7 +132,7 @@
 		 * routing
 		 * @access  private
 		 * @return $this
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -156,7 +156,7 @@
 			$this->request->data->file = $_FILES;
 			$this->request->data->method = strtolower($_SERVER['REQUEST_METHOD']);
 
-			if (isset($_GET['request-get']) && $_SERVER['REQUEST_METHOD'] == 'get') {
+			if (isset($_GET['request-get']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
 				$this->request->data->form = true;
 				$this->request->data->method = 'get';
 			}
@@ -167,14 +167,30 @@
 			else if (isset($_POST['request-put'])) {
 				$this->request->data->form = true;
 				$this->request->data->method = 'put';
+				$this->request->data->put = $_POST;
 			}
 			else if (isset($_POST['request-patch'])) {
 				$this->request->data->form = true;
 				$this->request->data->method = 'patch';
+				$this->request->data->patch = $_POST;
 			}
 			else if (isset($_POST['request-delete'])) {
 				$this->request->data->form = true;
 				$this->request->data->method = 'delete';
+				$this->request->data->delete = $_POST;
+			}
+
+			if($_SERVER['REQUEST_METHOD'] == 'PUT'){
+				parse_str(file_get_contents("php://input"), $put_vars);
+				$this->request->data->put = $put_vars;
+			}
+			else if($_SERVER['REQUEST_METHOD'] == 'PATCH'){
+				parse_str(file_get_contents("php://input"), $patch_vars);
+				$this->request->data->patch = $patch_vars;
+			}
+			else if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+				parse_str(file_get_contents("php://input"), $delete_vars);
+				$this->request->data->delete = $delete_vars;
 			}
 
 			if ($matchedRoute = $router->getRoute(preg_replace('`\?' . preg_quote($_SERVER['QUERY_STRING']) . '`isU', '', $_SERVER['REQUEST_URI']), $this->config)) {
@@ -210,12 +226,12 @@
 
 		/**
 		 * routing with cron
-		 * @access  private
+		 * @access private
 		 * @param $src        string
 		 * @param $controller string
 		 * @param $action     string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -230,10 +246,10 @@
 
 		/**
 		 * init controller
-		 * @access  public
+		 * @access public
 		 * @return void
 		 * @throws Exception
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -285,9 +301,9 @@
 		 * call action from controller
 		 * @param &$class \system\Controller\Controller
 		 * @throws Exception
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -321,7 +337,7 @@
 		 * @param $src        string
 		 * @param $controller string
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -338,9 +354,9 @@
 
 		/**
 		 * display the page
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -376,9 +392,9 @@
 
 		/**
 		 * display the page for a cron
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -393,9 +409,9 @@
 
 		/**
 		 * get maintenance template
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -408,7 +424,7 @@
 		 * set error environment
 		 * @access  private
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -428,7 +444,7 @@
 		 * enable error handling
 		 * @access  private
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -440,7 +456,7 @@
 		 * set cron
 		 * @access  private
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -452,7 +468,7 @@
 		 * set library
 		 * @access  private
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -464,7 +480,7 @@
 		 * escape GET and POST (htmlentities)
 		 * @access  private
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -483,7 +499,7 @@
 		 * @access  private
 		 * @param $var array
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -505,7 +521,7 @@
 		 * @access  private
 		 * @param $src string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -550,7 +566,7 @@
 		 * @access  private
 		 * @param $src string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -567,7 +583,7 @@
 		 * set database
 		 * @access  private
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -582,7 +598,7 @@
 		 * @access  private
 		 * @param $message string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -597,7 +613,7 @@
 		 * create the log folder
 		 * @access  private
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -612,7 +628,7 @@
 		 * @access  private
 		 * @param string $buffer
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 
@@ -626,8 +642,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Engine
 		 */
 

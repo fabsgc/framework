@@ -124,14 +124,14 @@
 
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $file   string : file path or content
 		 * @param $name   string : template name
 		 * @param $cache  int : cache time
 		 * @param $stream int : use a file or a string
 		 * @throws \System\Exception\MissingTemplateException if the tpl file can't be read
 		 * @return \System\Template\Template
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -186,11 +186,11 @@
 
 		/**
 		 * permit to extend the template engine with custom functions
-		 * @access  public
+		 * @access public
 		 * @param $method mixed array,string
 		 * @throws MissingTemplateException
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -220,7 +220,7 @@
 		 * @access  protected
 		 * @param $stack array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -240,7 +240,7 @@
 		/**
 		 * initialize the parser instance reference
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -253,7 +253,7 @@
 		 * @param $name
 		 * @param $vars
 		 * @return \System\Template\Template
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -273,7 +273,7 @@
 		 * @param $content string
 		 * @param $type    int
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -299,7 +299,7 @@
 		 * save content in cache file
 		 * @param $content
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -311,7 +311,7 @@
 		 * @param     $returnType : make a include or eval the template
 		 * @param int $type
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -369,9 +369,9 @@
 
 		/**
 		 * get file path
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -381,9 +381,9 @@
 
 		/**
 		 * get file path cache
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -393,9 +393,9 @@
 
 		/**
 		 * get tpl name
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -405,9 +405,9 @@
 
 		/**
 		 * destructor
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 

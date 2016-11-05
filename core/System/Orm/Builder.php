@@ -86,10 +86,10 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @param $entity \System\Orm\Entity\Entity
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -102,7 +102,7 @@
 
 		/**
 		 * add variables to the instance
-		 * @access  public
+		 * @access public
 		 * @param $var  mixed : contain the list of the variable that will be used in the queries.
 		 *              first syntax  : array('id' => array(31, Sql::PARAM_INT), 'pass' => array("fuck", sql::PARAM_STR))
 		 *              second syntax : array('id' => 31, 'pass' => "fuck"). If you don't define the type of the variable, the class will assign itself the correct type
@@ -110,7 +110,7 @@
 		 *              first syntax  : ('id', 'value')
 		 *              second syntax : ('id', 'value', Sql::PARAM_INT)
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -135,9 +135,9 @@
 
 		/**
 		 * create a select query
-		 * @access  public
+		 * @access public
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -150,10 +150,10 @@
 
 		/**
 		 * create a select distinct query
-		 * @access  public
+		 * @access public
 		 * @param $distinct string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -168,10 +168,10 @@
 
 		/**
 		 * create a query without sql completion
-		 * @access  public
+		 * @access public
 		 * @param $query string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -184,9 +184,9 @@
 
 		/**
 		 * create a select count query
-		 * @access  public
+		 * @access public
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -199,10 +199,10 @@
 
 		/**
 		 * add where clause
-		 * @access  public
+		 * @access public
 		 * @param $where string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -215,10 +215,10 @@
 
 		/**
 		 * add and where clause
-		 * @access  public
+		 * @access public
 		 * @param $where string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -231,10 +231,10 @@
 
 		/**
 		 * add or where clause
-		 * @access  public
+		 * @access public
 		 * @param $where string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -247,14 +247,14 @@
 
 		/**
 		 * add join
-		 * @access  public
+		 * @access public
 		 * @param $type      string
 		 * @param $table     string
 		 * @param $on        string
 		 * @param $reference string : reference field
 		 * @throws MissingEntityException
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -278,10 +278,10 @@
 
 		/**
 		 * add order by
-		 * @access  public
+		 * @access public
 		 * @param $orderBy string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -294,10 +294,10 @@
 
 		/**
 		 * add group by
-		 * @access  public
+		 * @access public
 		 * @param $groupBy string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -310,10 +310,10 @@
 
 		/**
 		 * add having
-		 * @access  public
+		 * @access public
 		 * @param $having string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -326,11 +326,11 @@
 
 		/**
 		 * add limit
-		 * @access  public
+		 * @access public
 		 * @param $offset integer
 		 * @param $number integer
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -346,10 +346,10 @@
 
 		/**
 		 * add raw
-		 * @access  public
+		 * @access public
 		 * @param $raw string
 		 * @return \System\Orm\Builder
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -360,10 +360,10 @@
 
 		/**
 		 * detect new entity in the query
-		 * @access  public
+		 * @access public
 		 * @param $query string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -373,10 +373,10 @@
 
 		/**
 		 * detect new entity in the query [callback]
-		 * @access  public
+		 * @access public
 		 * @param $m string[]
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -388,10 +388,10 @@
 
 		/**
 		 * fetch the current query
-		 * @access  public
+		 * @access public
 		 * @param $return integer
 		 * @return \System\Collection\Collection
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -463,11 +463,11 @@
 
 		/**
 		 * If the entity has at least one to many relation, we had a collection to the right field
-		 * @access  public
+		 * @access public
 		 * @param $field      \System\Orm\Entity\Field : foreign key field
 		 * @param $collection \System\Collection\Collection
 		 * @return \System\Collection\Collection
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -539,11 +539,11 @@
 
 		/**
 		 * If the entity has at least many to many relation, we had a collection to the right field
-		 * @access  public
+		 * @access public
 		 * @param $field      \System\Orm\Entity\Field
 		 * @param $collection \System\Collection\Collection
 		 * @return \System\Collection\Collection
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -618,9 +618,9 @@
 
 		/**
 		 * When you use fetch, it generates the SELECT .....
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -762,7 +762,7 @@
 		 * @param $entity string
 		 * @throws MissingEntityException
 		 * @return \System\Orm\Entity\Entity
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -789,7 +789,7 @@
 		 * @param $entity string
 		 * @throws MissingEntityException
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 
@@ -812,8 +812,8 @@
 
 		/**
 		 * Destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Orm
 		 */
 

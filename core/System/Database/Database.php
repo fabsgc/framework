@@ -31,8 +31,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Response
 		 */
 
@@ -42,10 +42,10 @@
 
 		/**
 		 * singleton
-		 * @access  public
+		 * @access public
 		 * @param $db []
 		 * @return \System\Database\Database
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -64,11 +64,11 @@
 
 		/**
 		 * create the database connection
-		 * @access  public
+		 * @access public
 		 * @param $db []
 		 * @throws MissingDatabaseException
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Database
 		 */
 

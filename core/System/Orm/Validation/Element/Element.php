@@ -109,11 +109,11 @@
 
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $entity \System\Orm\Entity\Entity
 		 * @param $field  string
 		 * @param $label  string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -125,10 +125,10 @@
 
 		/**
 		 * Before validating the field, we need to get the correct field from the current entity or a linked entity
-		 * @access  public
+		 * @access public
 		 * @throws MissingEntityException
 		 * @return mixed array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -179,10 +179,10 @@
 
 		/**
 		 * The method _getField return the value of each field in the entity. This method is used to factorize the source code
-		 * @access  public
+		 * @access public
 		 * @param $field \System\Orm\Entity\Field
 		 * @return mixed array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -209,10 +209,10 @@
 
 		/**
 		 * check the validity of the field
-		 * @access  public
+		 * @access public
 		 * @throws MissingEntityException
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -564,9 +564,9 @@
 
 		/**
 		 * is valid
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation
 		 */
 
@@ -581,9 +581,9 @@
 
 		/**
 		 * get errors
-		 * @access  public
+		 * @access public
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation
 		 */
 
@@ -593,11 +593,11 @@
 
 		/**
 		 * the field must be equal to
-		 * @access  public
+		 * @access public
 		 * @param $equal string
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -615,11 +615,11 @@
 
 		/**
 		 * the field must be different from
-		 * @access  public
+		 * @access public
 		 * @param $different string
 		 * @param $error     string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -637,11 +637,11 @@
 
 		/**
 		 * the field value must be more than
-		 * @access  public
+		 * @access public
 		 * @param $moreThan integer
 		 * @param $error    string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -659,11 +659,11 @@
 
 		/**
 		 * the field value must be less than
-		 * @access  public
+		 * @access public
 		 * @param $lessThan integer
 		 * @param $error    string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -681,11 +681,11 @@
 
 		/**
 		 * the field value must be between
-		 * @access  public
+		 * @access public
 		 * @param $between integer[]
 		 * @param $error   string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -703,11 +703,11 @@
 
 		/**
 		 * the field value must be in
-		 * @access  public
+		 * @access public
 		 * @param $in    integer[]
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -725,11 +725,11 @@
 
 		/**
 		 * the field value must not be in
-		 * @access  public
+		 * @access public
 		 * @param $notIn integer[]
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -747,11 +747,11 @@
 
 		/**
 		 * the field size must be
-		 * @access  public
+		 * @access public
 		 * @param $length integer
 		 * @param $error  string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -769,11 +769,11 @@
 
 		/**
 		 * the field size must more than
-		 * @access  public
+		 * @access public
 		 * @param $lengthMin integer
 		 * @param $error     string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -791,11 +791,11 @@
 
 		/**
 		 * the field size must be less than
-		 * @access  public
+		 * @access public
 		 * @param $lengthMax integer
 		 * @param $error     string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -813,11 +813,11 @@
 
 		/**
 		 * the field size must be less than
-		 * @access  public
+		 * @access public
 		 * @param $lengthIn integer[]
 		 * @param $error    string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -835,11 +835,11 @@
 
 		/**
 		 * the field size must be less than
-		 * @access  public
+		 * @access public
 		 * @param $lengthBetween integer[]
 		 * @param $error         string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -857,11 +857,11 @@
 
 		/**
 		 * the field size must be less than
-		 * @access  public
+		 * @access public
 		 * @param $regex string
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -879,10 +879,10 @@
 
 		/**
 		 * the field must be an email address
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -899,10 +899,10 @@
 
 		/**
 		 * the field must be an int
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -919,10 +919,10 @@
 
 		/**
 		 * the field must be a float
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -939,10 +939,10 @@
 
 		/**
 		 * the field must contains only letters
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -959,10 +959,10 @@
 
 		/**
 		 * the field must contain only letters and numerics
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -979,10 +979,10 @@
 
 		/**
 		 * the field must contain only letters, numerics ans underscore
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -999,10 +999,10 @@
 
 		/**
 		 * the field must be an ip
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1019,7 +1019,7 @@
 
 		/**
 		 * the field must valid the query
-		 * @access  public
+		 * @access public
 		 * @param $sql   string[]
 		 *               query => string
 		 *               vars  => array (:value => field value directly added to vars)
@@ -1027,7 +1027,7 @@
 		 *               value => string
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1045,11 +1045,11 @@
 
 		/**
 		 * When the field value is an array, it must contain N lines
-		 * @access  public
+		 * @access public
 		 * @param $count integer
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1067,11 +1067,11 @@
 
 		/**
 		 * When the field value is an array, it must contain at least N lines
-		 * @access  public
+		 * @access public
 		 * @param $countMin integer
 		 * @param $error    string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1089,11 +1089,11 @@
 
 		/**
 		 * When the field value is an array, it must contain less than N+1 lines
-		 * @access  public
+		 * @access public
 		 * @param $countMax integer
 		 * @param $error    string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1111,11 +1111,11 @@
 
 		/**
 		 * When the field value is an array, its value must be in
-		 * @access  public
+		 * @access public
 		 * @param $countIn integer[]
 		 * @param $error   string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1133,11 +1133,11 @@
 
 		/**
 		 * When the field value is an array, its value must be between
-		 * @access  public
+		 * @access public
 		 * @param $countBetween integer[]
 		 * @param $error        string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1155,10 +1155,10 @@
 
 		/**
 		 * The field must exist
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1175,10 +1175,10 @@
 
 		/**
 		 * The field must not exist
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1195,11 +1195,11 @@
 
 		/**
 		 * custom filter made by the user
-		 * @access  public
+		 * @access public
 		 * @param $name string
 		 * @throws MissingClassException
 		 * @return \System\Orm\Validation\Element\Element
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -1223,8 +1223,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 

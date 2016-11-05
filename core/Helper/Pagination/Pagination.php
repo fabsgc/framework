@@ -168,7 +168,7 @@
 
 		/**
 		 * Initialization of the helper
-		 * @access  public
+		 * @access public
 		 * @param &$entry mixed : your data
 		 * @param $data  mixed array,\System\Collection\Collection
 		 *               buttonFl    : button first/last (true/false)
@@ -178,7 +178,7 @@
 		 *               currentPage : current page
 		 *               totalPage   : total page (true/false)
 		 *               cut         : how many links before and after the current link
-		 * @since   3.0
+		 * @since 3.0
 		 * @package helper\Pagination
 		 */
 
@@ -243,7 +243,7 @@
 		 * Initialization of the helper
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package helper\Pagination
 		 */
 
@@ -342,10 +342,10 @@
 
 		/**
 		 * display the pagination
-		 * @access  public
+		 * @access public
 		 * @return string
 		 * @param $template string : template path
-		 * @since   3.0
+		 * @since 3.0
 		 * @package helper\Pagination
 		 */
 
@@ -374,9 +374,9 @@
 
 		/**
 		 * get the current page
-		 * @access  public
+		 * @access public
 		 * @return int
-		 * @since   3.0
+		 * @since 3.0
 		 * @package helper\Pagination
 		 */
 
@@ -386,9 +386,9 @@
 
 		/**
 		 * get the number of pages
-		 * @access  public
+		 * @access public
 		 * @return int
-		 * @since   3.0
+		 * @since 3.0
 		 * @package helper\Pagination
 		 */
 
@@ -403,11 +403,11 @@
 
 		/**
 		 * get the data to be displayed from all data
-		 * @access  public
+		 * @access public
 		 * @return array
 		 * @param $data : array of data
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package helper\Pagination
 		 */
 
@@ -423,9 +423,9 @@
 
 		/**
 		 * for the LIMIT syntax, get the two parameters : first,number
-		 * @access  public
+		 * @access public
 		 * @return int
-		 * @since   3.0
+		 * @since 3.0
 		 * @package helper\Pagination
 		 */
 
@@ -435,8 +435,8 @@
 
 		/**
 		 * desctructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package helper\Pagination
 		 */
 		public function __destruct() {

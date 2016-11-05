@@ -78,12 +78,12 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @param $data []
 		 *              files array
 		 *              cache int
 		 *              type string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -107,9 +107,9 @@
 
 		/**
 		 * get the ID of the generated file
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -119,9 +119,9 @@
 
 		/**
 		 * get the type
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -134,7 +134,7 @@
 		 * @access  protected
 		 * @param $data array
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -164,10 +164,10 @@
 
 		/**
 		 * configure one file
-		 * @access  public
+		 * @access public
 		 * @param $path string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -184,10 +184,10 @@
 
 		/**
 		 * configure a directory
-		 * @access  public
+		 * @access public
 		 * @param $path string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -208,10 +208,10 @@
 
 		/**
 		 * parse url()
-		 * @access  public
+		 * @access public
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -221,10 +221,10 @@
 
 		/**
 		 * parse src=""
-		 * @access  public
+		 * @access public
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -234,10 +234,10 @@
 
 		/**
 		 * correct wrong links
-		 * @access  public
+		 * @access public
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -291,9 +291,9 @@
 
 		/**
 		 * concatenate parser content
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -315,9 +315,9 @@
 
 		/**
 		 * save content in cache
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 
@@ -328,8 +328,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\AssetManager
 		 */
 

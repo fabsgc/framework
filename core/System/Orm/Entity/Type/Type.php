@@ -18,8 +18,8 @@
 	abstract class Type {
 		/**
 		 * Constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 
@@ -28,10 +28,10 @@
 
 		/**
 		 * Hydrate object
-		 * @access  public
+		 * @access public
 		 * @param $field string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 
@@ -40,9 +40,9 @@
 
 		/**
 		 * Which value orm save in the database
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package string
 		 */
 
@@ -51,9 +51,9 @@
 
 		/**
 		 * Save the file on the HDD
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 
@@ -62,9 +62,9 @@
 
 		/**
 		 * Delete the file
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 
@@ -73,8 +73,8 @@
 
 		/**
 		 * Destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 

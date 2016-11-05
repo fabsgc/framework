@@ -167,8 +167,8 @@
 		/**
 		 * Initialization of the helper
 		 * @param $data array
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package Helper\Mail
 		 */
 
@@ -267,7 +267,7 @@
 		 * @param $mail string
 		 * @return string
 		 * @access  protected
-		 * @since   3.0
+		 * @since 3.0
 		 * @package Helper\Mail
 		 */
 
@@ -288,9 +288,9 @@
 		 * You can use a template
 		 * @param $template string : template path
 		 * @param $vars     array
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package Helper\Mail
 		 */
 
@@ -310,9 +310,9 @@
 		 * @param $file string
 		 * @param $name string
 		 * @param $mime string
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package Helper\Mail
 		 */
 
@@ -338,9 +338,9 @@
 		/**
 		 * You can add receivers
 		 * @param $receiver mixed
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package Helper\Mail
 		 */
 
@@ -351,9 +351,9 @@
 		/**
 		 * You can add cc
 		 * @param $cc mixed
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package Helper\Mail
 		 */
 
@@ -364,9 +364,9 @@
 		/**
 		 * You can add bcc
 		 * @param $bcc mixed
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package Helper\Mail
 		 */
 
@@ -377,8 +377,8 @@
 		/**
 		 * Send the mail
 		 * @return void
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package Helper\Mail
 		 */
 
@@ -448,8 +448,8 @@
 
 		/**
 		 * desctructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package Helper\Mail
 		 */
 

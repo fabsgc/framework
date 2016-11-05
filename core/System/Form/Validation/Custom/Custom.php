@@ -39,11 +39,11 @@
 
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $field string
 		 * @param $label string
 		 * @param $value mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Custom
 		 */
 
@@ -55,9 +55,9 @@
 
 		/**
 		 * you can define your own form filter here
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Custom
 		 */
 
@@ -67,9 +67,9 @@
 
 		/**
 		 * if the filter return false, the framework call this method to get the
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Custom
 		 */
 

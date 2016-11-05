@@ -27,8 +27,8 @@
 
 		/**
 		 * init terminal
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Terminal
 		 */
 
@@ -42,10 +42,10 @@
 
 		/**
 		 * Parse terminal parameters to allow user to use spaces
-		 * @access  public
+		 * @access public
 		 * @param $argv string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Terminal
 		 */
 
@@ -110,12 +110,12 @@
 
 		/**
 		 * Remove directory content
-		 * @access  public
+		 * @access public
 		 * @param $dir       string : path
 		 * @param $removeDir : remove subdirectories too
 		 * @param $except    : files you don't want to delete
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Terminal
 		 */
 
@@ -144,8 +144,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Terminal
 		 */
 
@@ -163,9 +163,9 @@
 
 		/**
 		 * init terminal command
-		 * @access  public
+		 * @access public
 		 * @param $argv
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Terminal
 		 */
 

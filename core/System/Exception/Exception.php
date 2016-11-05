@@ -18,11 +18,11 @@
 	class Exception extends \Exception {
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $message  string
 		 * @param $code     int
 		 * @param $previous Exception
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Exception
 		 */
 
@@ -32,8 +32,8 @@
 
 		/**
 		 * toString
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Exception
 		 */
 
@@ -52,8 +52,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package system
 		 */
 

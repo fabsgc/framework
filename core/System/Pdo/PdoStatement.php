@@ -25,8 +25,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 
@@ -35,12 +35,12 @@
 
 		/**
 		 * override binvalue to keep in memory the vars
-		 * @access  public
+		 * @access public
 		 * @param $parameter string
 		 * @param $value     string
 		 * @param $data_type int
 		 * @return bool|void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 
@@ -51,9 +51,9 @@
 
 		/**
 		 * return the query string
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 
@@ -63,9 +63,9 @@
 
 		/**
 		 * return vars
-		 * @access  public
+		 * @access public
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 
@@ -75,10 +75,10 @@
 
 		/**
 		 * return query with vars or not
-		 * @access  public
+		 * @access public
 		 * @param $replaced boolean
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 
@@ -103,7 +103,7 @@
 		 * @access  protected
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 

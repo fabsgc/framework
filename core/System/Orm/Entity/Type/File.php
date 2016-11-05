@@ -49,11 +49,11 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @param string $file
 		 * @param string $content
 		 * @param string $contentType
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 
@@ -67,10 +67,10 @@
 
 		/**
 		 * Hydrate object
-		 * @access  public
+		 * @access public
 		 * @param $field string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 
@@ -95,9 +95,9 @@
 
 		/**
 		 * Which value orm save in the database
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package string
 		 */
 
@@ -107,9 +107,9 @@
 
 		/**
 		 * Save the file on the HDD
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 
@@ -123,9 +123,9 @@
 
 		/**
 		 * Delete the file
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 
@@ -139,8 +139,8 @@
 
 		/**
 		 * get extension
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package string
 		 */
 
@@ -150,8 +150,8 @@
 
 		/**
 		 * Destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Orm\Entity\Type
 		 */
 

@@ -59,9 +59,9 @@
 
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param string $src
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -82,11 +82,11 @@
 
 		/**
 		 * Magic get method allows access to logged and role session variable values
-		 * @access  public
+		 * @access public
 		 * @param $name string : name of the attribute
 		 * @return mixed
 		 * @throws \System\Exception\AttributeNotAllowedException
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -101,12 +101,12 @@
 
 		/**
 		 * Magic get method allows access to logged and role variable session value
-		 * @access  public
+		 * @access public
 		 * @param $name  string : name of the attribute
 		 * @param $value string : new value
 		 * @throws \System\Exception\AttributeNotAllowedException
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -122,12 +122,12 @@
 
 		/**
 		 * Get and Set the value of any role attribute
-		 * @access  public
+		 * @access public
 		 * @param $src   string
 		 * @param $value string : new value
 		 * @throws \System\Exception\MissingConfigException
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -151,12 +151,12 @@
 
 		/**
 		 * Get and Set the value of any logged attribute
-		 * @access  public
+		 * @access public
 		 * @param $src   string
 		 * @param $value string : new value
 		 * @throws \System\Exception\MissingConfigException
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -188,10 +188,10 @@
 
 		/**
 		 * get logged and role value from environment
-		 * @access  public
+		 * @access public
 		 * @param $array array : "path" to the value in $in
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -218,11 +218,11 @@
 
 		/**
 		 * get logged and role value from environment
-		 * @access  public
+		 * @access public
 		 * @param $array array : "path" to the value in $in
 		 * @param $value string : new value
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -247,8 +247,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Request
 		 */
 

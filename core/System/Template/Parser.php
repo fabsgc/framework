@@ -120,9 +120,9 @@
 
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $tpl \System\Template\template
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -132,10 +132,10 @@
 
 		/**
 		 * classic parsing
-		 * @access  public
+		 * @access public
 		 * @param $content string
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -175,10 +175,10 @@
 
 		/**
 		 * parsing without block and template
-		 * @access  public
+		 * @access public
 		 * @param $content string
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -207,10 +207,10 @@
 
 		/**
 		 * parsing for langs
-		 * @access  public
+		 * @access public
 		 * @param $content string
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -235,9 +235,9 @@
 
 		/**
 		 * call functions which extend the template engine
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -257,7 +257,7 @@
 		 *        <gc:include file="" compile="false" cache="" />
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -275,7 +275,7 @@
 		 * @access  protected
 		 * @param $m
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -315,7 +315,7 @@
 		 * @access  protected
 		 * @param $m
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -348,7 +348,7 @@
 		 *        <gc:include file="" cache="" />
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -363,7 +363,7 @@
 		 * @access  protected
 		 * @param $m
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -394,7 +394,7 @@
 		 * if there is a parent template, we parse it
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -407,7 +407,7 @@
 		 * parse path (img)
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -420,7 +420,7 @@
 		 * parse gravatar {{gravatar:email:size}}
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -434,7 +434,7 @@
 		 * @access  protected
 		 * @param $m
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -476,7 +476,7 @@
 		 *        {_{url[absolute]:id:vars}_}
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -496,7 +496,7 @@
 		 * parse url for both url functions
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -523,7 +523,7 @@
 		 * parse url classic
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -546,7 +546,7 @@
 		 * parse url no echo
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -569,7 +569,7 @@
 		 * parse php {{php:code}}
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -585,7 +585,7 @@
 		 *        {_{lang[template]:id:vars}_}
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -600,7 +600,7 @@
 		 * parse lang classic
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -636,7 +636,7 @@
 		 * parse lang classic no echo
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -672,7 +672,7 @@
 		 * parse foreach <gc:foreach var="" as=""></gc:foreach>
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -691,7 +691,7 @@
 		 * parse for <gc:for condition=""></gc:for>
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -710,7 +710,7 @@
 		 * parse vars
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -723,7 +723,7 @@
 		 *        <gc:function call=""/>
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -739,7 +739,7 @@
 		 *        </gc:else>
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -763,7 +763,7 @@
 		 *        <gc:function call=""/>
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -775,7 +775,7 @@
 		 * parse block : <gc:block name="">
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -788,7 +788,7 @@
 		 * @access  protected
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -809,7 +809,7 @@
 		 * parse template : <gc:template name="name(*)">
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -822,7 +822,7 @@
 		 * @access  protected
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -871,7 +871,7 @@
 		 *        <gc:call block="name()">
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -885,7 +885,7 @@
 		 * @access  protected
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -898,7 +898,7 @@
 		 * @access  protected
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -934,7 +934,7 @@
 		 *        </gc:asset>
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -951,7 +951,7 @@
 		 * @access  protected
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -998,7 +998,7 @@
 		 * parse minify : <gc:minify>
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -1011,7 +1011,7 @@
 		 * @access  protected
 		 * @param $m array
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -1028,7 +1028,7 @@
 		 * "::" isn't well managed by the parser, we temporally disable it
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -1040,7 +1040,7 @@
 		 * "::" isn't well managed by the parser, we put it back
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -1052,7 +1052,7 @@
 		 * parse exception
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 
@@ -1082,9 +1082,9 @@
 
 		/**
 		 * destructor
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Template
 		 */
 

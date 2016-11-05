@@ -82,9 +82,9 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @param $datas array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -122,10 +122,10 @@
 
 		/**
 		 * set or get entity
-		 * @access  public
+		 * @access public
 		 * @param $entity string
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -141,10 +141,10 @@
 
 		/**
 		 * set or get field
-		 * @access  public
+		 * @access public
 		 * @param $field string
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -159,10 +159,10 @@
 
 		/**
 		 * set or get reference entity
-		 * @access  public
+		 * @access public
 		 * @param $entity string
 		 * @return mixed void,string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -177,10 +177,10 @@
 
 		/**
 		 * set or get reference entity
-		 * @access  public
+		 * @access public
 		 * @param $field string
 		 * @return mixed void,string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -195,10 +195,10 @@
 
 		/**
 		 * set or get field
-		 * @access  public
+		 * @access public
 		 * @param $type string
 		 * @return mixed void,integer
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -213,10 +213,10 @@
 
 		/**
 		 * belong
-		 * @access  public
+		 * @access public
 		 * @param $belong string
 		 * @return mixed void,integer
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -231,10 +231,10 @@
 
 		/**
 		 * join
-		 * @access  public
+		 * @access public
 		 * @param $join string
 		 * @return mixed integer
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -249,10 +249,10 @@
 
 		/**
 		 * value
-		 * @access  public
+		 * @access public
 		 * @param $value string
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -267,8 +267,8 @@
 
 		/**
 		 * Destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 

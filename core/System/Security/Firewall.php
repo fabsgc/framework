@@ -58,8 +58,8 @@
 
 		/**
 		 * init lang class
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -74,9 +74,9 @@
 
 		/**
 		 * set firewall configuration
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -94,11 +94,11 @@
 
 		/**
 		 * get token, logged and role value from environment
-		 * @access  public
+		 * @access public
 		 * @param $in    array : array which contain the value
 		 * @param $array array : "path" to the value in $in
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -125,9 +125,9 @@
 
 		/**
 		 * check authorization to allow to a visitor to load a page
-		 * @access  public
+		 * @access public
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -220,7 +220,7 @@
 		 * check csrf
 		 * @access  protected
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -247,7 +247,7 @@
 		 * check logged
 		 * @access  protected
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -259,7 +259,7 @@
 		 * check role
 		 * @access  protected
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Security
 		 */
 
@@ -274,8 +274,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Security
 		 */
 

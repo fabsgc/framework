@@ -18,12 +18,12 @@
 	class Radio extends Element {
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $entity \System\Orm\Entity\Entity
 		 * @param $field  string
 		 * @param $label  string
 		 * @return \System\Orm\Validation\Element\Radio
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Validation\Element
 		 */
 
@@ -34,9 +34,9 @@
 
 		/**
 		 * check validity
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -46,8 +46,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 

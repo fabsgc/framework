@@ -42,9 +42,9 @@
 
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $parent mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -55,10 +55,10 @@
 
 		/**
 		 * add an event to he pile
-		 * @access  public
+		 * @access public
 		 * @param \System\Event\Event $event
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -69,10 +69,10 @@
 
 		/**
 		 * destroy an event
-		 * @access  public
+		 * @access public
 		 * @param string $name
 		 * @return bool
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -85,9 +85,9 @@
 
 		/**
 		 * call listeners
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -113,10 +113,10 @@
 
 		/**
 		 * get result returned by the listener
-		 * @access  public
+		 * @access public
 		 * @param string $name : name of the event. If it's empty, get results of all events
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -142,11 +142,11 @@
 
 		/**
 		 * set the status
-		 * @access  public
+		 * @access public
 		 * @param string $name   : name of the event
 		 * @param        $status int
 		 * @return bool
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -168,10 +168,10 @@
 
 		/**
 		 * get the status of the event
-		 * @access  public
+		 * @access public
 		 * @param $name string : name of the event
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 
@@ -191,9 +191,9 @@
 
 		/**
 		 * Destructor
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Event
 		 */
 

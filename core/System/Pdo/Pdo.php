@@ -42,12 +42,12 @@
 
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $dsn           string
 		 * @param $username      string
 		 * @param $password      string
 		 * @param $driverOptions string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 
@@ -63,7 +63,7 @@
 		/**
 		 * get SQL host
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 
@@ -74,7 +74,7 @@
 		/**
 		 * get SQL username
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 
@@ -85,7 +85,7 @@
 		/**
 		 * get SQL password
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 
@@ -96,7 +96,7 @@
 		/**
 		 * get SQL database name
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Pdo
 		 */
 

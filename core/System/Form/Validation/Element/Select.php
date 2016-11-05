@@ -18,11 +18,11 @@
 	class Select extends Element {
 		/**
 		 * constructor
-		 * @access  public
+		 * @access public
 		 * @param $field string
 		 * @param $label string
 		 * @return \System\Form\Validation\Element\Select
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -33,9 +33,9 @@
 
 		/**
 		 * validity
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 
@@ -47,8 +47,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Form\Validation\Element
 		 */
 

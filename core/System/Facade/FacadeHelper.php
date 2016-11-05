@@ -31,8 +31,8 @@
 
 		/**
 		 * Constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Facade
 		 */
 
@@ -41,12 +41,12 @@
 
 		/**
 		 * instantiate the good helper
-		 * @access  public
+		 * @access public
 		 * @param $name      string : helper class name
 		 * @param $arguments array : helper class arguments
 		 * @return object
 		 * @throws \System\Exception\MissingHelperException when the helper doesn't exist
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Facade
 		 */
 
@@ -82,7 +82,7 @@
 		/**
 		 * @param $string
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Facade
 		 */
 
@@ -92,9 +92,9 @@
 
 		/**
 		 * Destructor
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Facade
 		 */
 

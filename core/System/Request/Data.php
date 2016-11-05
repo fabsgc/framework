@@ -15,12 +15,14 @@
 
 	/**
 	 * Class Data
+	 * @property string form
 	 * @property string method
 	 * @property array  get
 	 * @property array  post
 	 * @property array  put
+	 * @property array  patch
+	 * @property array  delete
 	 * @property array  file
-	 * @property bool   form
 	 * @package System\Request
 	 */
 
@@ -37,6 +39,9 @@
 			'method'  => '',
 			'get'     => [],
 			'post'    => [],
+			'put'     => [],
+			'patch'   => [],
+			'delete'  => [],
 			'cookie'  => [],
 			'file'    => [],
 			'session' => []
@@ -44,8 +49,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -54,9 +59,9 @@
 
 		/**
 		 * singleton
-		 * @access  public
+		 * @access public
 		 * @return \System\Request\Data
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -70,11 +75,11 @@
 
 		/**
 		 * Magic get method allows access to parsed routing parameters directly on the object.
-		 * @access  public
+		 * @access public
 		 * @param $name string : name of the attribute
 		 * @return mixed
 		 * @throws \System\Exception\AttributeNotAllowedException
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -89,12 +94,12 @@
 
 		/**
 		 * Magic get method allows access to parsed routing parameters directly on the object to modify it
-		 * @access  public
+		 * @access public
 		 * @param $name  string : name of the attribute
 		 * @param $value string : new value
 		 * @return void
 		 * @throws \System\Exception\AttributeNotAllowedException
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -109,10 +114,10 @@
 
 		/**
 		 * get server data
-		 * @access  public
+		 * @access public
 		 * @param $env
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -127,8 +132,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Request
 		 */
 

@@ -53,8 +53,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -65,9 +65,9 @@
 
 		/**
 		 * Initialization
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -76,9 +76,9 @@
 
 		/**
 		 * Get form name
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -88,9 +88,9 @@
 
 		/**
 		 * We can check the validity of a GET request thanks to this method that you can override
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -99,9 +99,9 @@
 
 		/**
 		 * We can check the validity of a POST request thanks to this method that you can override
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -110,9 +110,9 @@
 
 		/**
 		 * We can check the validity of a PUT request thanks to this method that you can override
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -121,9 +121,9 @@
 
 		/**
 		 * We can check the validity of a PATCH request thanks to this method that you can override
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -132,9 +132,9 @@
 
 		/**
 		 * We can check the validity of a DELETE request thanks to this method that you can override
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -143,9 +143,9 @@
 
 		/**
 		 * Check
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -156,9 +156,9 @@
 
 		/**
 		 * Is the request valid ?
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -168,9 +168,9 @@
 
 		/**
 		 * Is the form sent ?
-		 * @access  public
+		 * @access public
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -180,9 +180,9 @@
 
 		/**
 		 * get errors list
-		 * @access  public
+		 * @access public
 		 * @return string[]
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -192,8 +192,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Request
 		 */
 

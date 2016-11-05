@@ -53,8 +53,8 @@
 
 		/**
 		 * Constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Controller\Injector
 		 */
 
@@ -63,8 +63,8 @@
 
 		/**
 		 * singleton
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Controller\Injector
 		 */
 
@@ -78,11 +78,11 @@
 
 		/**
 		 * Initialization of the application
-		 * @access  public
+		 * @access public
 		 * @param &$class object
 		 * @param $method string
 		 * @return array mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Controller\Injector
 		 */
 
@@ -130,8 +130,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Controller\Injector
 		 */
 

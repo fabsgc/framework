@@ -25,8 +25,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @throws \System\Exception\MissingLibraryException
 		 * @package System\Library
 		 */
@@ -54,7 +54,7 @@
 		 * @access  protected
 		 * @param $include string
 		 * @return boolean
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Library
 		 */
 
@@ -95,8 +95,8 @@
 
 		/**
 		 * destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Library
 		 */
 

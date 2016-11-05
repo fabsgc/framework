@@ -82,8 +82,8 @@
 
 		/**
 		 * constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Profiler
 		 */
 
@@ -94,8 +94,8 @@
 
 		/**
 		 * singleton
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Request
 		 */
 
@@ -109,11 +109,11 @@
 
 		/**
 		 * at the end, put data in cache
-		 * @access  public
+		 * @access public
 		 * @param $request
 		 * @param $response
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Profiler
 		 */
 
@@ -152,10 +152,10 @@
 
 		/**
 		 * add an error
-		 * @access  public
+		 * @access public
 		 * @param $error string
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Profiler
 		 */
 
@@ -165,12 +165,12 @@
 
 		/**
 		 * add a template
-		 * @access  public
+		 * @access public
 		 * @param $name
 		 * @param $type
 		 * @param $file
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Profiler
 		 */
 
@@ -192,12 +192,12 @@
 
 		/**
 		 * add a sql query
-		 * @access  public
+		 * @access public
 		 * @param $name
 		 * @param $type
 		 * @param $value
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Profiler
 		 */
 
@@ -226,11 +226,11 @@
 
 		/**
 		 * add time to timer
-		 * @access  public
+		 * @access public
 		 * @param $name
 		 * @param $type
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Profiler
 		 */
 
@@ -251,10 +251,10 @@
 
 		/**
 		 * enable or disable the profiler
-		 * @access  public
+		 * @access public
 		 * @param $enabled boolean
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Profiler
 		 */
 
@@ -266,7 +266,7 @@
 		 * stop the timer
 		 * @access  protected
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Profiler
 		 */
 
@@ -276,9 +276,9 @@
 
 		/**
 		 * destructor
-		 * @access  public
+		 * @access public
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Profiler
 		 */
 

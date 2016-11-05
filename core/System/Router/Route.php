@@ -84,7 +84,7 @@
 
 		/**
 		 * each route from route.xml become an instance of this class
-		 * @access  public
+		 * @access public
 		 * @param $url        string
 		 * @param $controller string
 		 * @param $action     string
@@ -95,7 +95,7 @@
 		 * @param $logged
 		 * @param $access
 		 * @param $method
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -114,7 +114,7 @@
 
 		/**
 		 * @param $url
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -126,7 +126,7 @@
 
 		/**
 		 * @param $controller
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -138,7 +138,7 @@
 
 		/**
 		 * @param $action
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -150,7 +150,7 @@
 
 		/**
 		 * @param $name
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -162,7 +162,7 @@
 
 		/**
 		 * @param $cache
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -172,7 +172,7 @@
 
 		/**
 		 * @param array $varsNames
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -182,7 +182,7 @@
 
 		/**
 		 * @param $src
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -192,7 +192,7 @@
 
 		/**
 		 * @param $logged
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -202,7 +202,7 @@
 
 		/**
 		 * @param $access
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -212,7 +212,7 @@
 
 		/**
 		 * @param $method
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -222,7 +222,7 @@
 
 		/**
 		 * @return bool
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -233,7 +233,7 @@
 		/**
 		 * @param $url
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -248,7 +248,7 @@
 
 		/**
 		 * @param array $vars
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -258,7 +258,7 @@
 
 		/**
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -268,7 +268,7 @@
 
 		/**
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -278,7 +278,7 @@
 
 		/**
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -288,7 +288,7 @@
 
 		/**
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -298,7 +298,7 @@
 
 		/**
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -308,7 +308,7 @@
 
 		/**
 		 * @return array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -318,7 +318,7 @@
 
 		/**
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -328,7 +328,7 @@
 
 		/**
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -338,7 +338,7 @@
 
 		/**
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -348,7 +348,7 @@
 
 		/**
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -358,7 +358,7 @@
 
 		/**
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -367,7 +367,7 @@
 		}
 
 		/**
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 

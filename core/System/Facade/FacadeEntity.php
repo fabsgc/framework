@@ -20,8 +20,8 @@
 	class FacadeEntity {
 		/**
 		 * Constructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Facade
 		 */
 
@@ -30,12 +30,12 @@
 
 		/**
 		 * instantiate the good entity
-		 * @access  public
+		 * @access public
 		 * @param $name      string
 		 * @param $arguments array
 		 * @throws \System\Exception\MissingEntityException
 		 * @return \System\Orm\Entity\Entity
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Facade
 		 */
 
@@ -75,7 +75,7 @@
 		/**
 		 * @param $string
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Facade
 		 */
 
@@ -85,9 +85,9 @@
 
 		/**
 		 * Destructor
-		 * @access  public
+		 * @access public
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Facade
 		 */
 

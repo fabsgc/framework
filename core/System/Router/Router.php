@@ -31,10 +31,10 @@
 
 		/**
 		 * add route to the instance
-		 * @access  public
+		 * @access public
 		 * @param $route route : route instance
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -46,11 +46,11 @@
 
 		/**
 		 * after url rewriting, return the right route
-		 * @access  public
+		 * @access public
 		 * @param $url string
 		 * @param $config
 		 * @return \system\Router\Route
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 
@@ -118,11 +118,11 @@
 
 		/**
 		 * get token, logged and role value from environment
-		 * @access  public
+		 * @access public
 		 * @param $in    array : array which contain the value
 		 * @param $array array : "path" to the value in $in
 		 * @return mixed
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Router
 		 */
 

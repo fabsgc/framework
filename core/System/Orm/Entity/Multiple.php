@@ -24,9 +24,9 @@
 
 		/**
 		 * Constructor
-		 * @access  public
+		 * @access public
 		 * @param $data array
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -36,10 +36,10 @@
 
 		/**
 		 * get a column
-		 * @access  public
+		 * @access public
 		 * @param $key string
 		 * @return string
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -53,11 +53,11 @@
 
 		/**
 		 * edit the value of a column
-		 * @access  public
+		 * @access public
 		 * @param string $key
 		 * @param array  $value
 		 * @return void
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -69,10 +69,10 @@
 
 		/**
 		 * return data
-		 * @access  public
+		 * @access public
 		 * @param $data array
 		 * @return array,null
-		 * @since   3.0
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
@@ -89,8 +89,8 @@
 
 		/**
 		 * Destructor
-		 * @access  public
-		 * @since   3.0
+		 * @access public
+		 * @since 3.0
 		 * @package System\Orm\Entity
 		 */
 
