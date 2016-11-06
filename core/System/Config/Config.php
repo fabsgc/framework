@@ -218,6 +218,15 @@
 								$this->_parseAnnotationRoute($entrySrc, $controller, $annotation);
 							}
 						}
+
+						/* ## ENTITIES ## */
+						$entities = scandir(APP_RESOURCE_ENTITY_PATH);
+
+						foreach ($entities as $entity){
+							if(strlen($entity) > 2 && strstr($entity, '.')){
+								Annotation::getClass('Orm\\Entity\\' . basename($entity, '.php'));
+							}
+						}
 					}
 				}
 

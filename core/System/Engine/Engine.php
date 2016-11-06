@@ -10,13 +10,16 @@
 
 	namespace System\Engine;
 
+	use System\Annotation\Annotation;
 	use System\Cache\Cache;
 	use System\Config\Config;
+	use system\Controller\Controller;
 	use System\Controller\Injector\Injector;
 	use System\Cron\Cron;
 	use System\Database\Database;
 	use System\Exception\ErrorHandler;
 	use System\Exception\Exception;
+	use System\Exception\MissingMethodException;
 	use System\General\di;
 	use System\General\error;
 	use System\General\langs;
@@ -256,7 +259,7 @@
 		protected function _controller() {
 			if ($this->_setControllerFile($this->request->src, $this->request->controller) == true) {
 				$className = "\\" . $this->request->src . "\\" . ucfirst($this->request->controller);
-				/** @var \System\Controller\Controller $class */
+				/** @var Controller $class */
 				$class = new $className();
 
 				if ($this->config->config['user']['security']['firewall'] == false || ($this->request->logged == '*' && $this->request->access == '*') || $class->setFirewall() == true) {
@@ -299,7 +302,7 @@
 
 		/**
 		 * call action from controller
-		 * @param &$class \system\Controller\Controller
+		 * @param &$class Controller
 		 * @throws Exception
 		 * @access public
 		 * @return string
@@ -309,14 +312,19 @@
 
 		public function _action(&$class) {
 			ob_start();
-			$class->init();
+
+			$annotation = Annotation::getClass($class);
+
+			$this->_callAnnotation($class, $annotation, 'class', 'Before');
 
 			if (method_exists($class, 'action' . ucfirst($this->request->action))) {
+				$this->_callAnnotation($class, $annotation, 'methods', 'Before');
 				$action = 'action' . ucfirst($this->request->action);
 				$params = Injector::instance()->getArgsMethod($class, $action);
 
 				$reflectionMethod = new \ReflectionMethod($class, $action);
 				$output = $reflectionMethod->invokeArgs($class, $params);
+				$this->_callAnnotation($class, $annotation, 'methods', 'After');
 
 				$this->addError('Action "' . ucfirst($this->request->src) . '/' . ucfirst($this->request->controller) . '/action' . ucfirst($this->request->action) . '" called successfully', __FILE__, __LINE__, ERROR_INFORMATION);
 			}
@@ -324,11 +332,51 @@
 				throw new Exception('The requested "' . ucfirst($this->request->src) . '/' . ucfirst($this->request->controller) . '/action' . ucfirst($this->request->action) . '"  doesn\'t exist');
 			}
 
-			$class->end();
+			$this->_callAnnotation($class, $annotation, 'class', 'After');
 			$output = ob_get_contents() . $output;
 			ob_get_clean();
 
 			return $output;
+		}
+
+		/**
+		 * call all annotation methods required
+		 * @param Controller $class
+		 * @param array      $annotation
+		 * @param string     $type
+		 * @param string     $annotationType
+		 * @throws MissingMethodException
+		 * @access  protected
+		 * @since   3.0
+		 * @package System\Engine
+		 */
+
+		protected function _callAnnotation(Controller &$class, $annotation = [], $type = 'class', $annotationType = 'Before'){
+			foreach ($annotation[$type] as $action => $annotationClasses){
+				foreach($annotationClasses as $annotationClass) {
+					if ($annotationClass['annotation'] == $annotationType) {
+						/** @var \System\Annotation\Annotations\Common\Before $instance */
+						$instance = $annotationClass['instance'];
+
+						$className = $instance->class;
+						$methodName = $instance->method;
+
+						if(method_exists($className, $methodName)){
+							if ($className == get_class($class)) {
+								$class->$methodName();
+							}
+							else {
+								$reflectionMethod = new \ReflectionMethod($className, $methodName);
+								echo $reflectionMethod->invoke(new $className());
+							}
+						}
+						else{
+							throw new MissingMethodException('The method "' . $methodName . '" from the class "' . $className . '" does not exist');
+						}
+
+					}
+				}
+			}
 		}
 
 		/**

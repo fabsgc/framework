@@ -10,6 +10,7 @@
 
 	namespace System\Orm\Entity;
 
+	use System\Annotation\Annotation;
 	use System\Database\Database;
 	use System\Exception\MissingEntityException;
 	use System\Exception\MissingFieldException;
@@ -69,14 +70,14 @@
 		 * @var string
 		 */
 
-		protected $form = '';
+		protected $_form = '';
 
 		/**
 		 * the form is already sent and checked
 		 * @var bool
 		 */
 
-		protected $sent = false;
+		protected $_sent = false;
 
 		/**
 		 * Constructor
@@ -88,13 +89,14 @@
 		 */
 
 		final public function __construct() {
-			$this->tableDefinition();
+			$this->_tableDefinition();
 			$this->getPrimary();
+
 			$this->_token = rand(0, 10000);
 			$this->validation = new Validation($this);
 
 			if ($this->_primary == '') {
-				throw new MissingEntityException('The entity ' . $this->_name . ' does not have any primary key');
+				throw new MissingEntityException('The entity ' . get_class($this) . ' does not have any primary key');
 			}
 
 			$requestData = Data::instance();
@@ -132,7 +134,57 @@
 		 * @package System\Orm\Entity
 		 */
 
-		public function tableDefinition() {
+		final protected function _tableDefinition() {
+			$annotation = Annotation::getClass($this);
+
+			/** @var \ReflectionClass $fieldClass */
+			$fieldClass = new \ReflectionClass('\\System\\Orm\\Entity\\Field');
+			/** @var \ReflectionClass $foreignKeyClass */
+			$foreignKeyClass = new \ReflectionClass('\\System\\Orm\\Entity\\ForeignKey');
+			/** @var \ReflectionClass $builderClass */
+			$builderClass = new \ReflectionClass('\\System\\Orm\\Builder');
+
+			foreach ($annotation['class'] as $annotationClass){
+				$instance = $annotationClass[0]['instance'];
+
+				switch($annotationClass[0]['annotation']){
+					case 'Table':
+						$this->name($instance->name);
+					break;
+
+					case 'Form':
+						$this->form($instance->name);
+					break;
+				}
+			}
+
+			foreach ($annotation['properties'] as $name => $annotationProperties){
+				foreach ($annotationProperties as $annotationProperty){
+					$instance = $annotationProperty['instance'];
+
+					if($annotationProperty['annotation'] == 'Column'){
+						$this->field($name)
+							->type($fieldClass->getConstant($instance->type))
+							->size($instance->size)
+							->beNull($instance->null == 'true' ? true : false)
+							->primary($instance->primary == 'true' ? true : false)
+							->unique($instance->unique == 'true' ? true : false)
+							->precision($instance->precision)
+							->defaultValue($instance->default)
+							->enum($instance->enum != '' ? explode(',', $instance->enum) : []);
+					}
+					else{
+						$this->field($name)
+							->foreign([
+								'type'      => $foreignKeyClass->getConstant($instance->type),
+								'reference' => explode('.', $instance->to),
+								'current'   => explode('.', $instance->from),
+								'belong'    => $foreignKeyClass->getConstant($instance->belong),
+								'join'      => $builderClass->getConstant($instance->join),
+							]);
+					}
+				}
+			}
 		}
 
 		/**
@@ -145,7 +197,7 @@
 		 */
 
 		public function form($form = '') {
-			$this->form = $form;
+			$this->_form = $form;
 		}
 
 		/**
@@ -157,7 +209,7 @@
 		 */
 
 		public function getForm() {
-			return $this->form;
+			return $this->_form;
 		}
 
 		/**
@@ -268,6 +320,8 @@
 				else {
 					$this->_fields['' . $key . ''] = $value;
 				}
+
+				$this->$key = $value;
 			}
 			else {
 				throw new MissingEntityException('The field "' . $key . '" doesn\'t exist in ' . $this->_name);
@@ -287,6 +341,7 @@
 		public function setField($key, $value) {
 			if (array_key_exists($key, $this->_fields)) {
 				$this->_fields['' . $key . ''] = $value;
+				$this->$key = $value;
 			}
 		}
 
@@ -683,14 +738,16 @@
 					$fields->set($manyToMany->foreign->field(), $this);
 					$fields->insert();
 
-					$sql->query('orm-insert-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary] . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
+					$sql->query('orm-insert-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary]->value . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
 					$sql->fetch('orm-insert-many');
 				}
 
+
+
 				/** @var $fields \System\Orm\Entity\Entity */
 				foreach ($fieldsUpdateManyToMany as $fields) {
-					$sql->query('orm-update-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary] . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
-					$sql->fetch('orm-udpate-many');
+					$sql->query('orm-update-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary]->value . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
+					$sql->fetch('orm-update-many');
 				}
 			}
 
@@ -946,7 +1003,7 @@
 				$referencedEntity = new $class();
 
 				$sql = new Sql();
-				$sql->query('orm-delete-many', 'DELETE FROM ' . $table . ' WHERE ' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ' = ' . $this->_fields[$this->_primary]);
+				$sql->query('orm-delete-many', 'DELETE FROM ' . $table . ' WHERE ' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ' = ' . $this->_fields[$this->_primary]->value);
 				$sql->fetch('orm-delete-many');
 
 				/** @var $fields \System\Orm\Entity\Entity */
@@ -954,14 +1011,14 @@
 					$fields->set($manyToMany->foreign->field(), $this);
 					$fields->insert();
 
-					$sql->query('orm-insert-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary] . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
+					$sql->query('orm-insert-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary]->value . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
 					$sql->fetch('orm-insert-many');
 				}
 
 				/** @var $fields \System\Orm\Entity\Entity */
 				foreach ($fieldsUpdateManyToMany as $fields) {
-					$sql->query('orm-update-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary] . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
-					$sql->fetch('orm-udpate-many');
+					$sql->query('orm-update-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary]->value . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
+					$sql->fetch('orm-update-many');
 				}
 			}
 
@@ -1155,7 +1212,7 @@
 
 		public function check() {
 			$this->validation->check();
-			$this->sent = true;
+			$this->_sent = true;
 		}
 
 		/**
@@ -1179,7 +1236,7 @@
 		 */
 
 		public function sent() {
-			return $this->sent;
+			return $this->_sent;
 		}
 
 		/**
@@ -1347,17 +1404,17 @@
 				}
 				else if (in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])) {
 					if (isset($this->_data[$prefix . $field->name])) {
-						$field->value = $this->_data[$prefix . $field->name];
+						$this->set($field->name, $this->_data[$prefix . $field->name]);
 					}
 				}
 				else if (in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])) {
 					if (isset($this->_data[$prefix . $field->name])) {
-						$field->value = $this->_data[$prefix . $field->name];
+						$this->set($field->name, $this->_data[$prefix . $field->name]);
 					}
 				}
 				else if (in_array($field->type, [Field::BOOL])) {
 					if (isset($this->_data[$prefix . $field->name])) {
-						$field->value = true;
+						$this->set($field->name, true);
 					}
 				}
 				else if (in_array($field->type, [Field::FILE])) {
@@ -1367,12 +1424,12 @@
 						if (isset($data[$prefix . $field->name]) && $data[$prefix . $field->name]['error'] != 4) {
 							$tmp = $data[$prefix . $field->name];
 							$file = new File($tmp['name'], file_get_contents($tmp['tmp_name']), $tmp['type']);
-							$field->value = $file;
+							$this->set($field->name, $file);
 						}
 					}
 				}
 				else {
-					$field->value = null;
+					$this->set($field->name, null);
 				}
 			}
 		}

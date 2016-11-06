@@ -136,8 +136,8 @@
 		 */
 
 		public function query($name, $query, $time = 0) {
-			$this->_query['' . $name . ''] = $query;
-			$this->_time['' . $name . ''] = $time;
+			$this->_query[$name] = $query;
+			$this->_time[$name] = $time;
 		}
 
 		/**
@@ -249,18 +249,18 @@
 		 */
 
 		public function fetch($name, $fetch = self::PARAM_FETCH) {
-			if ($this->_time['' . $name . ''] > 0) {
-				$this->_cache = new Cache($this->_nameQuery . $name . '.sql', "", $this->_time['' . $name . '']);
+			if ($this->_time[$name] > 0) {
+				$this->_cache = new Cache($this->_nameQuery . $name . '.sql', "", $this->_time[$name]);
 			}
 
-			if ((isset($this->_cache) && $this->_cache->isDie() && $this->_time['' . $name . ''] > 0) ||
-				$this->_time['' . $name . ''] == 0 || $fetch == self::PARAM_FETCHINSERT ||
+			if ((isset($this->_cache) && $this->_cache->isDie() && $this->_time[$name] > 0) ||
+				$this->_time[$name] == 0 || $fetch == self::PARAM_FETCHINSERT ||
 				$fetch == self::PARAM_FETCHUPDATE || $fetch == self::PARAM_FETCHDELETE
 			) {
 
 				try {
 					/** @var \System\Pdo\PdoStatement $query */
-					$query = $this->_db->prepare('' . $this->_query['' . $name . ''] . '');
+					$query = $this->_db->prepare('' . $this->_query[$name] . '');
 					$this->profiler->addTime($this->_nameQuery . $name);
 					$this->profiler->addSql($this->_nameQuery . $name, Profiler::SQL_START);
 
@@ -434,7 +434,9 @@
 								}
 							}
 
-							$entityObject->getField(str_replace($parent, '', $key))->value = $value;
+							$fielName = str_replace($parent, '', $key);
+							$entityObject->set($fielName, $value);
+
 						}
 					}
 				}
@@ -486,7 +488,8 @@
 							}
 						}
 
-						$entity->getField(str_replace($foreign->field() . '_' . $entity->name() . '_', '', $key))->value = $value;
+						$fieldName = str_replace($foreign->field() . '_' . $entity->name() . '_', '', $key);
+						$entity->set($fieldName, $value);
 					}
 				}
 

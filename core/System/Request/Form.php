@@ -49,7 +49,7 @@
 		 * @var bool
 		 */
 
-		protected $sent = false;
+		protected $_sent = false;
 
 		/**
 		 * constructor
@@ -83,7 +83,7 @@
 		 */
 
 		public function getForm() {
-			return $this->form;
+			return $this->_form;
 		}
 
 		/**
@@ -151,7 +151,7 @@
 
 		public function check() {
 			$this->validation->check();
-			$this->sent = true;
+			$this->_sent = true;
 		}
 
 		/**
@@ -175,7 +175,7 @@
 		 */
 
 		public function sent() {
-			return $this->sent;
+			return $this->_sent;
 		}
 
 		/**

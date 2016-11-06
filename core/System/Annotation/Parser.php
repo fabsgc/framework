@@ -32,9 +32,16 @@
 		 */
 
 		public static $_annotations = [
-			'Before'  => '\System\Annotation\Annotations\Common\Before',
-			'After'   => '\System\Annotation\Annotations\Common\After',
-			'Routing' => '\System\Annotation\Annotations\Router\Routing'
+			'Routing'    =>           '\System\Annotation\Annotations\Router\Routing',
+			'Before'     =>            '\System\Annotation\Annotations\Common\Before',
+			'After'      =>             '\System\Annotation\Annotations\Common\After',
+			'Form'       =>                 '\System\Annotation\Annotations\Orm\Form',
+			'Table'      =>                '\System\Annotation\Annotations\Orm\Table',
+			'Column'     =>               '\System\Annotation\Annotations\Orm\Column',
+			'OneToOne'   =>   '\System\Annotation\Annotations\Orm\Relations\OneToOne',
+			'OneToMany'  =>  '\System\Annotation\Annotations\Orm\Relations\OneToMany',
+			'ManyToOne'  =>  '\System\Annotation\Annotations\Orm\Relations\ManyToOne',
+			'ManyToMany' =>  '\System\Annotation\Annotations\Orm\Relations\ManyToMany'
 		];
 
 		/**
@@ -61,20 +68,21 @@
 
 			preg_match_all('#@(.*?)\n#s', $this->_comments, $annotations);
 
-			foreach ($annotations[1] as $annotation){
-				if(preg_match('#([A-Za-z]+)\((.+)\)#is', $annotation)){
-					preg_match_all('#([A-Za-z]+)\((.+)\)#is', $annotation, $annotationData);
+			foreach ($annotations[1] as $key => $annotation){
+				if(preg_match('#([A-Za-z]+)\((.*)\)#is', $annotation)){
+					preg_match_all('#([A-Za-z]+)\((.*)\)#is', $annotation, $annotationData);
 					$annotationTitle = $annotationData[1][0];
 
 					if(isset(Parser::$_annotations[$annotationTitle])) {
 						$annotationContents = explode(", ", $annotationData[2][0]);
-						$data[$annotationTitle] = [];
+						$data[$key] = [];
 
 						foreach ($annotationContents as $annotationContent) {
-							preg_match_all('#(.+)="(.+)"#isU', trim($annotationContent), $annotationContentData);
+							preg_match_all('#(.+)="(.*)"#isU', trim($annotationContent), $annotationContentData);
 
-							$data[$annotationTitle]['class'] = Parser::$_annotations[$annotationTitle];
-							$data[$annotationTitle]['properties'][$annotationContentData[1][0]] = $annotationContentData[2][0];
+							$data[$key]['type'] = $annotationTitle;
+							$data[$key]['class'] = Parser::$_annotations[$annotationTitle];
+							$data[$key]['properties'][$annotationContentData[1][0]] = $annotationContentData[2][0];
 						}
 					}
 					else{

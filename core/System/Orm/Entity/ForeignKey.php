@@ -100,13 +100,17 @@
 					break;
 
 					case 'current' :
-						$this->_entity = $data[0];
-						$this->_field = $data[1];
+						if(count($data) == 2) {
+							$this->_entity = $data[0];
+							$this->_field = $data[1];
+						}
 					break;
 
 					case 'reference' :
-						$this->_referenceEntity = $data[0];
-						$this->_referenceField = $data[1];
+						if(count($data) == 2) {
+							$this->_referenceEntity = $data[0];
+							$this->_referenceField = $data[1];
+						}
 					break;
 
 					case 'value' :

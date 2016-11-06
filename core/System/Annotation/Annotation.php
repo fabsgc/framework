@@ -24,12 +24,19 @@
 
 		/**
 		 * Get annotations of a class
-		 * @param $class string
+		 * @param $class mixed string|Object
 		 * @return array
 		 * @throws \Exception
 		 */
 		public static function getClass($class) {
-			$cache = new Cache('gcs_cache_annotation_' . strtolower(str_replace('\\', '-', $class)), 0);
+			$cache = null;
+
+			if(is_object($class)){
+				$cache = new Cache('gcs_cache_annotation_' . strtolower(str_replace('\\', '-', get_class($class))), 0);
+			}
+			else{
+				$cache = new Cache('gcs_cache_annotation_' . strtolower(str_replace('\\', '-', $class)), 0);
+			}
 
 			if($cache->isExist() && Config::config()['user']['debug']['environment'] != 'development'){
 				return $cache->getCache();
@@ -50,8 +57,10 @@
 			foreach ($dataClasses as $key => $dataClass){
 				$processorClass = new Processor($dataClass);
 				array_push($data['class'], [
-					'annotation' => $key,
-					'instance' => $processorClass->process()
+					0 => [
+						'annotation' => $dataClass['type'],
+						'instance' => $processorClass->process()
+					]
 				]);
 			}
 
@@ -70,7 +79,7 @@
 					foreach ($dataMethods as $key => $dataMethod){
 						$processorMethods = new Processor($dataMethod);
 						array_push($data['methods'][$methodName->getName()], [
-							'annotation' => $key,
+							'annotation' => $dataMethod['type'],
 							'instance' => $processorMethods->process()
 						]);
 					}
@@ -92,7 +101,7 @@
 					foreach ($dataProperties as $key => $dataProperty){
 						$processorProperties = new Processor($dataProperty);
 						array_push($data['properties'][$propertyName->getName()], [
-							'annotation' => $key,
+							'annotation' => $dataProperty['type'],
 							'instance' => $processorProperties->process()
 						]);
 					}

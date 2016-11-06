@@ -24,6 +24,7 @@
 
 	class Builder {
 		use facades;
+
 		const QUERY_SELECT      = 0;
 		const QUERY_DISTINCT    = 1;
 		const QUERY_RAW         = 2;
@@ -683,7 +684,6 @@
 
 					//if some fields have a relation one to one or many to one, we had a join
 					foreach ($fields as $value) {
-
 						if ($value->foreign != null && in_array($value->foreign->type(), [ForeignKey::ONE_TO_ONE, ForeignKey::MANY_TO_ONE])) {
 							$this->_query .= ', ';
 
@@ -728,7 +728,7 @@
 
 			$this->_query .= ' FROM ' . $this->_entity->name();
 
-			/** If there are relations like one to one, many_to_one or many to many */
+			/** If there are relations like one to one, many to one or many to many */
 			foreach ($fields as $value) {
 				if ($value->foreign != null && in_array($value->foreign->type(), [ForeignKey::ONE_TO_ONE, ForeignKey::MANY_TO_ONE])) {
 					$entity = $value->foreign->entity();

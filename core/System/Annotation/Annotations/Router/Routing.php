@@ -9,10 +9,11 @@
 	\*/
 
 	namespace System\Annotation\Annotations\Router;
+
 	use System\Annotation\Annotations\Annotation;
 
 	/**
-	 * Class Before
+	 * Class Routing
 	 * @package System\Annotation\Annotations\Router
 	 */
 

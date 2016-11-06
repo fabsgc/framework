@@ -203,7 +203,7 @@
 				$datas['belong'] = ForeignKey::AGGREGATION;
 			}
 
-			if (!array_key_exists('current', $datas)) {
+			if (!array_key_exists('current', $datas) || count($datas['current']) < 2) {
 				$datas['current'] = [$this->entity, $this->name];
 			}
 
