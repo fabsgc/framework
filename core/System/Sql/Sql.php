@@ -405,14 +405,28 @@
 						$key = str_replace($entityObject->name() . '_', '', $key);
 
 						if ($entityObject->getField($key) != null) {
-							if (in_array($entityObject->getField($key)->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::FLOAT, Field::STRING, Field::CHAR, Field::BOOL, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP, Field::ENUM])) {
+							if (in_array($entityObject->getField($key)->type, [Field::INCREMENT, Field::INT, Field::TEXT, Field::FLOAT, Field::STRING, Field::CHAR, Field::BOOL, Field::DATE, Field::DATETIME, Field::TIMESTAMP, Field::ENUM])) {
 								if ($entityObject->getField($key)->foreign == null) {
-									$value = $field;
+									//If the field is a Datetime or Date or Timestamp we must convert it to \DateTime
+									switch($entityObject->getField($key)->type){
+										case Field::DATETIME:
+											$value = new \DateTime($field);
+										break;
+
+										case Field::DATE:
+											$value = new \DateTime($field);
+										break;
+
+										case Field::TIMESTAMP:
+											$value = new \DateTime($field);
+										break;
+
+										default:
+											$value = $field;
+										break;
+									}
 								}
-								else if ($entityObject->getField($key)->foreign->type() == ForeignKey::ONE_TO_MANY) {
-									$value = $field;
-								}
-								else if ($entityObject->getField($key)->foreign->type() == ForeignKey::MANY_TO_MANY) {
+								elseif(in_array($entityObject->getField($key)->foreign->type(), [ForeignKey::ONE_TO_MANY, ForeignKey::MANY_TO_MANY])){
 									$value = $field;
 								}
 								else {
@@ -436,7 +450,6 @@
 
 							$fielName = str_replace($parent, '', $key);
 							$entityObject->set($fielName, $value);
-
 						}
 					}
 				}
@@ -475,7 +488,7 @@
 					$key = str_replace($foreign->field() . '_' . $entity->name() . '_', '', $key);
 
 					if ($entity->getField(str_replace($foreign->field() . '_' . $entity->name() . '_', '', $key)) != null) {
-						if (in_array($entity->getField(str_replace($foreign->field() . '_' . $entity->name() . '_', '', $key))->type, [Field::INCREMENT, Field::INT, Field::FLOAT, Field::TEXT, Field::STRING, Field::CHAR, Field::BOOL, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP, Field::ENUM])) {
+						if (in_array($entity->getField(str_replace($foreign->field() . '_' . $entity->name() . '_', '', $key))->type, [Field::INCREMENT, Field::INT, Field::FLOAT, Field::TEXT, Field::STRING, Field::CHAR, Field::BOOL, Field::DATE, Field::DATETIME, Field::TIMESTAMP, Field::ENUM])) {
 							$value = $field;
 						}
 						else {

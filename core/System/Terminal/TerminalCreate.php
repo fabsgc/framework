@@ -326,10 +326,6 @@
 					$field .= '				->type(Field::TIMESTAMP)' . "\n";
 					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
 				}
-				else if (preg_match('#(time)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::TIME)' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
-				}
 				else if (preg_match('#(binary)#isU', $value['DATA_TYPE'])) {
 					$field .= '				->type(Field::STRING)' . "\n";
 					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";

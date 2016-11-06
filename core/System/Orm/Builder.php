@@ -266,13 +266,11 @@
 				$table = $class->name();
 			}
 
-			//if($class->name() != $this->_entity->name()){
 			$this->_detectEntity($on);
 
 			if ($reference != '') {
 				$this->_query .= ' ' . $type . ' ' . $table . ' AS ' . $reference . '_' . $table . ' ON ' . $on;
 			}
-			//}
 
 			return $this;
 		}
@@ -549,7 +547,6 @@
 		 */
 
 		protected function _dataManyToMany($field, $collection) {
-			Profiler::instance()->addTime('test-many');
 			/**
 			 * Instead of making only one query by line, we assemble all the lines IDs and we make a big query (time saving)
 			 * First, we make the query, using IN()
@@ -611,8 +608,6 @@
 
 				$line->set($field->name, $data);
 			}
-
-			Profiler::instance()->addTime('test-many', Profiler::USER_END);
 
 			return $collection;
 		}

@@ -11,6 +11,7 @@
 	namespace System\Orm\Entity;
 
 	use System\Annotation\Annotation;
+	use System\Collection\Collection;
 	use System\Database\Database;
 	use System\Exception\MissingEntityException;
 	use System\Exception\MissingFieldException;
@@ -172,6 +173,12 @@
 							->precision($instance->precision)
 							->defaultValue($instance->default)
 							->enum($instance->enum != '' ? explode(',', $instance->enum) : []);
+
+						$fieldType = $fieldClass->getConstant($instance->type);
+
+						if(in_array($fieldType, [Field::DATETIME, Field::DATE, Field::TIMESTAMP])){
+							$this->set($name, new \DateTime());
+						}
 					}
 					else{
 						$this->field($name)
@@ -182,6 +189,12 @@
 								'belong'    => $foreignKeyClass->getConstant($instance->belong),
 								'join'      => $builderClass->getConstant($instance->join),
 							]);
+
+						$foreignType = $foreignKeyClass->getConstant($instance->type);
+
+						if(in_array($foreignType, [ForeignKey::MANY_TO_MANY, ForeignKey::ONE_TO_MANY])){
+							$this->set($name, new Collection());
+						}
 					}
 				}
 			}
@@ -325,23 +338,6 @@
 			}
 			else {
 				throw new MissingEntityException('The field "' . $key . '" doesn\'t exist in ' . $this->_name);
-			}
-		}
-
-		/**
-		 * permit to set a column
-		 * @access public
-		 * @param string $key
-		 * @param        $value \System\Orm\Entity\Field
-		 * @return void
-		 * @since 3.0
-		 * @package System\Orm\Entity
-		 */
-
-		public function setField($key, $value) {
-			if (array_key_exists($key, $this->_fields)) {
-				$this->_fields['' . $key . ''] = $value;
-				$this->$key = $value;
 			}
 		}
 
@@ -644,7 +640,7 @@
 							if (in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])) {
 								$sql->vars($field->name, [$field->value, Sql::PARAM_INT]);
 							}
-							else if (in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])) {
+							else if (in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIMESTAMP])) {
 								$sql->vars($field->name, [$field->value, Sql::PARAM_STR]);
 							}
 							else if (in_array($field->type, [Field::BOOL])) {
@@ -653,6 +649,12 @@
 							else {
 								$sql->vars($field->name, $field->value);
 							}
+						}
+						elseif (in_array($field->type, [Field::DATETIME, Field::TIMESTAMP])){
+							$sql->vars($field->name, [$field->value->format("Y-m-d H:i:s"), Sql::PARAM_STR]);
+						}
+						elseif (in_array($field->type, [Field::DATE])){
+							$sql->vars($field->name, [$field->value->format("Y-m-d"), Sql::PARAM_STR]);
 						}
 						else if (in_array($field->type, [Field::FILE])) {
 							$sql->vars($field->name, $field->value->value());
@@ -675,7 +677,7 @@
 			$sql->fetch('insert_' . $this->_name . '_' . $this->_token, Sql::PARAM_FETCHINSERT);
 
 			/** Update primary key */
-			$this->_fields[$this->_primary] = Database::instance()->db()->lastInsertId();
+			$this->_fields[$this->_primary]->value = Database::instance()->db()->lastInsertId();
 
 			/** ######################################################################## */
 			/** One to many and many to many need more queries after the principal query */
@@ -730,7 +732,7 @@
 				$referencedEntity = new $class();
 
 				$sql = new Sql();
-				$sql->query('orm-delete-many', 'DELETE FROM ' . $table . ' WHERE ' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ' = ' . $this->_fields[$this->_primary]);
+				$sql->query('orm-delete-many', 'DELETE FROM ' . $table . ' WHERE ' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ' = ' . $this->_fields[$this->_primary]->value);
 				$sql->fetch('orm-delete-many');
 
 				/** @var $fields \System\Orm\Entity\Entity */
@@ -742,11 +744,17 @@
 					$sql->fetch('orm-insert-many');
 				}
 
-
-
 				/** @var $fields \System\Orm\Entity\Entity */
 				foreach ($fieldsUpdateManyToMany as $fields) {
-					$sql->query('orm-update-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary]->value . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
+					$sql->query('orm-update-many',
+						'INSERT INTO ' .
+						$table . '(' .
+						$this->name() . '_' .
+						$manyToMany->foreign->referenceField() . ', ' .
+						$referencedEntity->name() . '_' .
+						$manyToMany->foreign->field() . ') VALUES (\'' .
+						$this->_fields[$this->_primary]->value . '\', \'' .
+						$fields->get($manyToMany->foreign->field()) . '\')');
 					$sql->fetch('orm-update-many');
 				}
 			}
@@ -923,7 +931,7 @@
 							if (in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])) {
 								$sql->vars($field->name, [$field->value, Sql::PARAM_INT]);
 							}
-							else if (in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])) {
+							else if (in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIMESTAMP])) {
 								$sql->vars($field->name, [$field->value, Sql::PARAM_STR]);
 							}
 							else if (in_array($field->type, [Field::BOOL])) {
@@ -932,6 +940,12 @@
 							else {
 								$sql->vars($field->name, $field->value);
 							}
+						}
+						elseif (in_array($field->type, [Field::DATETIME, Field::TIMESTAMP])){
+							$sql->vars($field->name, [$field->value->format("Y-m-d H:i:s"), Sql::PARAM_STR]);
+						}
+						elseif (in_array($field->type, [Field::DATE])){
+							$sql->vars($field->name, [$field->value->format("Y-m-d"), Sql::PARAM_STR]);
 						}
 						else if (in_array($field->type, [Field::FILE])) {
 							$sql->vars($field->name, $field->value->value());
@@ -1407,7 +1421,7 @@
 						$this->set($field->name, $this->_data[$prefix . $field->name]);
 					}
 				}
-				else if (in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIME, Field::TIMESTAMP])) {
+				else if (in_array($field->type, [Field::CHAR, Field::TEXT, Field::STRING, Field::DATE, Field::DATETIME, Field::TIMESTAMP])) {
 					if (isset($this->_data[$prefix . $field->name])) {
 						$this->set($field->name, $this->_data[$prefix . $field->name]);
 					}

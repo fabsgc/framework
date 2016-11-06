@@ -29,9 +29,8 @@
 		const FLOAT     = 8;
 		const DATE      = 9;
 		const DATETIME  = 10;
-		const TIME      = 11;
-		const TIMESTAMP = 12;
-		const ENUM      = 14;
+		const TIMESTAMP = 11;
+		const ENUM      = 12;
 
 		/**
 		 * @var string
@@ -104,7 +103,7 @@
 		public $default = '';
 
 		/**
-		 * @var mixed string|\System\Orm\Entity\Field|\System\Orm\Entity\Field[]|\System\Orm\Entity\Type
+		 * @var mixed int|string|bool|\System\Orm\Entity\Field|\System\Orm\Entity\Field[]|\System\Orm\Entity\Type|\System\Collection\Collection
 		 */
 
 		public $value = null;
