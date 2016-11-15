@@ -12,7 +12,6 @@
 
 	use System\Database\Database;
 	use System\Event\EventManager;
-	use System\Exception\MissingModelException;
 	use System\General\error;
 	use System\General\facades;
 	use System\General\facadesEntity;

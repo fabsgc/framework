@@ -31,6 +31,7 @@
 			'Helper'         => '\System\Facade\FacadeHelper',
 			'Entity'         => '\System\Facade\FacadeEntity',
 			'Library'        => '\System\Library\Library',
+            'Session'        => '\System\Session\Session',
 			'Firewall'       => '\System\Security\Firewall',
 			'Template'       => '\System\Template\Template',
 			'Terminal'       => '\System\Terminal\Terminal',

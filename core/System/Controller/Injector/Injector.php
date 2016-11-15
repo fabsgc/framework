@@ -49,6 +49,7 @@
 			'System\Database\Database'          => 'Database',
 			'System\Response\Response'          => 'Response',
 			'System\Profiler\Profiler'          => 'Profiler',
+			'System\Session\Session'            => 'Session',
 		];
 
 		/**

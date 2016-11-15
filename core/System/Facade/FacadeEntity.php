@@ -52,7 +52,10 @@
 				}
 
 				$reflect = new \ReflectionClass($class);
-				return $reflect->newInstanceArgs($params);
+
+                /** @var \System\Orm\Entity\Entity $instance */
+				$instance = $reflect->newInstanceArgs($params);
+                return $instance;
 			}
 			else {
 				$file = '';

@@ -12,7 +12,6 @@
 
 	use System\Cache\Cache;
 	use System\Config\Config;
-	use System\Database\Database;
 	use System\Engine\Engine;
 	use System\Exception\MissingConfigException;
 	use System\General\di;
