@@ -35,6 +35,7 @@
 			'Routing'    =>           '\System\Annotation\Annotations\Router\Routing',
 			'Before'     =>            '\System\Annotation\Annotations\Common\Before',
 			'After'      =>             '\System\Annotation\Annotations\Common\After',
+			'Cron'       =>                '\System\Annotation\Annotations\Cron\Cron',
 			'Form'       =>                 '\System\Annotation\Annotations\Orm\Form',
 			'Table'      =>                '\System\Annotation\Annotations\Orm\Table',
 			'Column'     =>               '\System\Annotation\Annotations\Orm\Column',
@@ -42,6 +43,7 @@
 			'OneToMany'  =>  '\System\Annotation\Annotations\Orm\Relations\OneToMany',
 			'ManyToOne'  =>  '\System\Annotation\Annotations\Orm\Relations\ManyToOne',
 			'ManyToMany' =>  '\System\Annotation\Annotations\Orm\Relations\ManyToMany'
+
 		];
 
 		/**
@@ -86,7 +88,7 @@
 						}
 					}
 					else{
-						throw new AnnotationNotExistingException('The annotaton "' . $annotationTitle . '" does not exist');
+						throw new AnnotationNotExistingException('The annotation "' . $annotationTitle . '" does not exist');
 					}
 				}
 			}

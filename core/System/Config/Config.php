@@ -216,6 +216,7 @@
 							if(strlen($controller) > 2){
 								$annotation = Annotation::getClass(strtolower($entrySrc . '\\' . basename($controller, '.php')));
 								$this->_parseAnnotationRoute($entrySrc, $controller, $annotation);
+								$this->_parseAnnotationCron($entrySrc, $controller, $annotation);
 							}
 						}
 
@@ -272,6 +273,30 @@
 					}
 
 					$this->config['route'][$src][$data['name']] = $data;
+				}
+			}
+		}
+
+		/**
+		 * parse route file and put data in an array
+		 * @access protected
+		 * @param $src string
+		 * @param $controller string
+		 * @param $annotation array
+		 * @since 3.0
+		 * @package System\Config
+		 */
+
+		protected function _parseAnnotationCron($src, $controller, $annotation){
+			foreach ($annotation['methods'] as $action => $annotationMethods){
+				foreach ($annotationMethods as $annotationMethod){
+					if($annotationMethod['annotation'] == 'Cron'){
+						/** @var \System\Annotation\Annotations\Cron\Cron $annotation */
+						$annotation = $annotationMethod['instance'];
+
+						$key = '.' . $src . '.' . lcfirst(basename($controller, '.php')) . '.' . lcfirst(str_replace('action', '', $action));
+						$this->config['user']['cron']['task'][$key] = $annotation->time;
+					}
 				}
 			}
 		}

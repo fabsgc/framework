@@ -48,7 +48,7 @@
 			//choose the number of controllers
 			while (1 == 1) {
 				echo ' - add a controller (keep empty to stop) : ';
-				$controller = argvInput::get();
+				$controller = ArgvInput::get();
 
 				if ($controller != '') {
 					if (!in_array($controller, $controllers)) {
@@ -69,9 +69,9 @@
 			}
 
 			//load all template to fill the new files
-			$tpl['lang'] = new Template('.app/system/module/lang', 'terminalCreateLang');
-			$tpl['route'] = new Template('.app/system/module/route', 'terminalCreateRoute');
-			$tpl['firewall'] = new Template('.app/system/module/firewall', 'terminalCreateFirewall');
+			$tpl['lang'] = new Template('.app/system/module/lang', 'terminal-create-lang');
+			$tpl['route'] = new Template('.app/system/module/route', 'terminal-create-route');
+			$tpl['firewall'] = new Template('.app/system/module/firewall', 'terminal-create-firewall');
 			$tpl['firewall']->assign('src', $src);
 
 			//creation of directories and files
@@ -91,18 +91,15 @@
 			mkdir(DOCUMENT_ROOT . WEB_PATH . $src . '/' . WEB_IMAGE_PATH);
 			mkdir(DOCUMENT_ROOT . WEB_PATH . $src . '/' . WEB_JS_PATH);
 
-			$gitignore = "# Ignore everything in this directory\n*\n# Except this file\n!.gitignore";
-
 			file_put_contents(DOCUMENT_ROOT . WEB_PATH . $src . '/' . WEB_CSS_PATH . '/index.html', '');
 			file_put_contents(DOCUMENT_ROOT . WEB_PATH . $src . '/' . WEB_FILE_PATH . '/index.html', '');
 			file_put_contents(DOCUMENT_ROOT . WEB_PATH . $src . '/' . WEB_IMAGE_PATH . '/index.html', '');
 			file_put_contents(DOCUMENT_ROOT . WEB_PATH . $src . '/' . WEB_JS_PATH . '/index.html', '');
 
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/.gitignore', $gitignore);
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_EVENT_PATH . '.gitignore', $gitignore);
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '.gitignore', $gitignore);
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '/Custom/.gitignore', $gitignore);
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_TEMPLATE_PATH . '.gitignore', $gitignore);
+			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_EVENT_PATH . '.gitkeep', '');
+			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '.gitkeep', '');
+			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '/Custom/.gitkeep', '');
+			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_TEMPLATE_PATH . '.gitkeep', '');
 
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'firewall.xml', $tpl['firewall']->show());
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'route.xml', '');
@@ -111,21 +108,13 @@
 
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_FUNCTION_PATH, '');
 
-			$routeGroup = '';
+			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'route.xml', $tpl['route']->show());
 
 			foreach ($controllers as $value) {
-				$tpl['routeGroup'] = new Template('.app/system/module/routeGroup', 'terminalCreateRouteGroup' . $value);
-				$tpl['routeGroup']->assign(['src' => $src, 'controller' => $value]);
-				$routeGroup .= $tpl['routeGroup']->show();
-
 				$tpl['controller'] = new Template('.app/system/module/controller', 'terminalCreateController' . $value);
-				$tpl['controller']->assign(['src' => $src, 'controller' => ucfirst($value)]);
-
+				$tpl['controller']->assign(['php' => '<?php', 'src' => $src, 'controller' => ucfirst($value)]);
 				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . '.php', $tpl['controller']->show());
 			}
-
-			$tpl['route']->assign('route', $routeGroup);
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'route.xml', $tpl['route']->show());
 
 			echo ' - the module has been successfully created';
 		}
@@ -155,7 +144,7 @@
 			//choose the controllers
 			while (1 == 1) {
 				echo ' - add a controller (keep empty to stop) : ';
-				$controller = argvInput::get();
+				$controller = ArgvInput::get();
 
 				if ($controller != '') {
 					if (!in_array($controller, $controllers) AND !file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . '/' . ucfirst($controller) . '.php')) {
@@ -177,7 +166,7 @@
 
 			foreach ($controllers as $value) {
 				$tpl['controller'] = new Template('.app/system/module/controller', 'terminalCreateController' . $value);
-				$tpl['controller']->assign(['src' => $src, 'controller' => ucfirst($value)]);
+				$tpl['controller']->assign(['php' => '<?php', 'src' => $src, 'controller' => ucfirst($value)]);
 
 				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . '.php', $tpl['controller']->show());
 
@@ -236,7 +225,7 @@
 		private function addEntity($table) {
 			//the entity must have a primary key
 			$primary = false;
-			$property = '';
+			$collection = false;
 
 			$class = ucfirst(preg_replace_callback("/(?:^|_)([a-z])/", function ($matches) {
 				return strtoupper($matches[1]);
@@ -251,107 +240,132 @@
 			$sql->vars(['db' => Database::instance()->db()->getDatabase()]);
 			$sql->vars(['table' => $table]);
 
-			$field = '';
+			$fields = [];
 
 			foreach ($sql->fetch('add-entity', Sql::PARAM_FETCH) as $value) {
 				/** @var $fieldUnique boolean : we want to know if a field is unique to add the correct relation "one to one" OR "many_to_one" */
 				$fieldUnique = false;
 
-				$field .= '			$this->field(\'' . $value['COLUMN_NAME'] . '\')' . "\n";
+				$fieldData = [
+					'name' => $value['COLUMN_NAME'],
+					'type-php' => '',
+					'type-orm' => '',
+					'unique' => false,
+					'primary' => false,
+					'size' => 0,
+					'beNull' => true,
+					'defaultValue' => '',
+					'precision' => '',
+					'enum' => '',
+					'collection' => false,
+					'foreign' => [
+						'enabled' => false,
+						'type' => '',
+						'to' => ''
+					]
+				];
 
 				if (preg_match('#(PRI)#isU', $value['COLUMN_KEY'])) {
-					$field .= '				->primary(true)' . "\n";
-					$field .= '				->unique(true)' . "\n";
+					$fieldData['primary'] = true;
+					$fieldData['unique'] = true;
 					$primary = true;
 					$fieldUnique = true;
 				}
 				else if (preg_match('#(UNI)#isU', $value['COLUMN_KEY'])) {
-					$field .= '				->unique(true)' . "\n";
+					$fieldData['unique'] = true;
 					$fieldUnique = true;
 				}
 
 				$columnType = $value['COLUMN_TYPE'];
 
 				if (preg_match('#(auto_increment)#isU', $value['EXTRA'])) {
-					$field .= '				->type(Field::INCREMENT)' . "\n";
-					$property .= '	 * @property integer ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'INCREMENT';
+					$fieldData['type-php'] = 'integer';
 					$primary = true;
 				}
 				else if (preg_match('#(int)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::INT)' . "\n";
-					$property .= '	 * @property integer ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'INT';
+					$fieldData['type-php'] = 'integer';
 				}
 				else if (preg_match('#(char)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::STRING)' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'STRING';
+					$fieldData['type-php'] = 'string';
 				}
 				else if (preg_match('#(text)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::TEXT)' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'TEXT';
+					$fieldData['type-php'] = 'string';
 				}
 				else if (preg_match('#(binary)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::STRING)' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'STRING';
+					$fieldData['type-php'] = 'string';
 				}
 				else if (preg_match('#(decimal)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::FLOAT)' . "\n";
+					$fieldData['type-orm'] = 'FLOAT';
+					$fieldData['type-php'] = 'float';
+
 					$columnType = str_replace('decimal(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
-					$field .= '				->precision(array(\'' . $columnType . '\'))' . "\n";
-					$property .= '	 * @property float ' . $value['COLUMN_NAME'] . "\n";
+
+					$fieldData['precision'] = $columnType;
 				}
 				else if (preg_match('#(float)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::FLOAT)' . "\n";
+					$fieldData['type-orm'] = 'FLOAT';
+					$fieldData['type-php'] = 'float';
+
 					$columnType = str_replace('float(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
-					$field .= '				->precision(array(\'' . $columnType . '\'))' . "\n";
-					$property .= '	 * @property float ' . $value['COLUMN_NAME'] . "\n";
+
+					$fieldData['precision'] = $columnType;
 				}
 				else if (preg_match('#(double)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::FLOAT)' . "\n";
+					$fieldData['type-orm'] = 'FLOAT';
+					$fieldData['type-php'] = 'float';
+
 					$columnType = str_replace('double(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
-					$field .= '				->precision(array(\'' . $columnType . '\'))' . "\n";
-					$property .= '	 * @property float ' . $value['COLUMN_NAME'] . "\n";
+
+					$fieldData['precision'] = $columnType;
 				}
 				else if (preg_match('#(datetime)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::DATETIME)' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'DATETIME';
+					$fieldData['type-php'] = '\DateTime';
 				}
 				else if (preg_match('#(date)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::DATE)' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'DATETIME';
+					$fieldData['type-php'] = '\DateTime';
 				}
 				else if (preg_match('#(timestamp)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::TIMESTAMP)' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'DATETIME';
+					$fieldData['type-php'] = '\DateTime';
 				}
 				else if (preg_match('#(binary)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::STRING)' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'STRING';
+					$fieldData['type-php'] = 'string';
 				}
 				else if (preg_match('#(enum)#isU', $value['DATA_TYPE'])) {
-					$field .= '				->type(Field::ENUM)' . "\n";
+					$fieldData['type-orm'] = 'ORM';
+					$fieldData['type-php'] = 'string';
+
 					$columnType = str_replace('enum(', '', $columnType);
 					$columnType = str_replace(')', '', $columnType);
-					$field .= '				->enum(array(' . $columnType . '))' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
+
+					$fieldData['enum'] = $columnType;
 				}
 				else {
-					$field .= '				->type(Field::STRING)' . "\n";
-					$property .= '	 * @property string ' . $value['COLUMN_NAME'] . "\n";
+					$fieldData['type-orm'] = 'STRING';
+					$fieldData['type-php'] = 'string';
 				}
 
 				if ($value['CHARACTER_MAXIMUM_LENGTH'] != '') {
-					$field .= '				->size(' . $value['CHARACTER_MAXIMUM_LENGTH'] . ')' . "\n";
+					$fieldData['size'] = $value['CHARACTER_MAXIMUM_LENGTH'];
 				}
 
 				if ($value['IS_NULLABLE'] == "NO") {
-					$field .= '				->beNull(false)' . "\n";
+					$fieldData['beNull'] = false;
 				}
 
 				if ($value['COLUMN_DEFAULT'] != "") {
-					$field .= '				->defaultValue(\'' . addslashes($value['COLUMN_DEFAULT']) . '\')' . "\n";
+					$fieldData['defaultValue'] = $value['COLUMN_DEFAULT'];
 				}
 
 				$sql->query('add-entity-unique-key', 'SELECT COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table AND COLUMN_NAME = :field AND CONSTRAINT_NAME = :primary');
@@ -360,7 +374,7 @@
 				$data = $sql->fetch('add-entity-unique-key');
 
 				if (count($data) == 1 && $fieldUnique == false) {
-					$field .= '				->unique(true)' . "\n";
+					$fieldData['unique'] = true;
 					$fieldUnique = true;
 				}
 
@@ -372,29 +386,36 @@
 				if (count($data) == 1) {
 					switch ($fieldUnique) {
 						case true :
-							$field .= '				->foreign([' . "\n";
-							$field .= '					\'type\' => ForeignKey::ONE_TO_ONE,' . "\n";
-							$field .= '					\'reference\' => [\'' . ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])) . '\', \'' . $data[0]['REFERENCED_COLUMN_NAME'] . '\']' . "\n";
-							$field .= '				])' . "\n";
+							$fieldData['type-php'] = ucfirst(preg_replace_callback("/(?:^|_)([a-z])/", function ($matches) {
+								return strtoupper($matches[1]);
+							}, $data[0]['REFERENCED_TABLE_NAME']));
+
+							$fieldData['foreign'] = [
+								'enabled' => true,
+								'type' => 'OneToOne',
+								'to' => ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'.'.$data[0]['REFERENCED_COLUMN_NAME']
+							];
 						break;
 
 						case false :
-							$field .= '				->foreign([' . "\n";
-							$field .= '					\'type\' => ForeignKey::MANY_TO_ONE,' . "\n";
-							$field .= '					\'reference\' => [\'' . ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])) . '\', \'' . $data[0]['REFERENCED_COLUMN_NAME'] . '\']' . "\n";
-							$field .= '				])' . "\n";
+							$fieldData['type-php'] = 'Collection';
+							$collection = true;
+
+							$fieldData['foreign'] = [
+								'enabled' => true,
+								'type' => 'ManyToOne',
+								'to' => ucfirst(strtolower($data[0]['REFERENCED_TABLE_NAME'])).'.'.$data[0]['REFERENCED_COLUMN_NAME']
+							];
 						break;
 					}
 				}
 
-				$field .= ";\n";
+				$fields[$value['COLUMN_NAME']] = $fieldData;
 			}
-
-			$field = str_replace("\n;", ';', $field);
 
 			if ($primary == true) {
 				$t = new Template('.app/system/module/orm/entity', 'gcsEntity_' . $table, '0');
-				$t->assign(['class' => $class, 'table' => $table, 'field' => $field, 'property' => $property]);
+				$t->assign(['php' => '<?php', 'class' => $class, 'collection' => $collection, 'table' => $table, 'form' => 'form-'.$table, 'fields' => $fields]);
 				file_put_contents(APP_RESOURCE_ENTITY_PATH . ucfirst($class) . '.php', $t->show());
 
 				echo ' - the entity "' . $class . '" has been successfully created';

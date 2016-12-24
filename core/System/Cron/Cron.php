@@ -44,8 +44,6 @@
 
 		private $_crons = [];
 
-		private $auth = null;
-
 		/**
 		 * constructor
 		 * @access public
