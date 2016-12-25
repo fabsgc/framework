@@ -83,6 +83,7 @@
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_LANG_PATH);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH);
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '/Custom/');
+			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '/Plugin/');
 			mkdir(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_TEMPLATE_PATH);
 
 			mkdir(DOCUMENT_ROOT . WEB_PATH . $src);
@@ -97,8 +98,8 @@
 			file_put_contents(DOCUMENT_ROOT . WEB_PATH . $src . '/' . WEB_JS_PATH . '/index.html', '');
 
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_EVENT_PATH . '.gitkeep', '');
-			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '.gitkeep', '');
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '/Custom/.gitkeep', '');
+			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_REQUEST_PATH . '/Plugin/.gitkeep', '');
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_TEMPLATE_PATH . '.gitkeep', '');
 
 			file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_RESOURCE_CONFIG_PATH . 'firewall.xml', $tpl['firewall']->show());
