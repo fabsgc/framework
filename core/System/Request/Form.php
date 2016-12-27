@@ -83,7 +83,7 @@
 		 */
 
 		public function getForm() {
-			return $this->_form;
+			return $this->form;
 		}
 
 		/**

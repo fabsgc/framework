@@ -50,7 +50,7 @@
 		 * Return a fully completed Request Object
 		 * @access public
 		 * @param \ReflectionClass $object
-		 * @return \System\Request\Request
+		 * @return \System\Request\Form
 		 * @since 3.0
 		 * @package System\Controller\Injector
 		 */
