@@ -399,8 +399,9 @@
 						break;
 
 						case false :
-							$fieldData['type-php'] = 'Collection';
-							$collection = true;
+							$fieldData['type-php'] = ucfirst(preg_replace_callback("/(?:^|_)([a-z])/", function ($matches) {
+                                return strtoupper($matches[1]);
+                            }, $data[0]['REFERENCED_TABLE_NAME']));
 
 							$fieldData['foreign'] = [
 								'enabled' => true,

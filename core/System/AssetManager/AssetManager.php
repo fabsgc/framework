@@ -251,42 +251,49 @@
 
 			$pathReplace = '';
 
-			//we clear the '/' at the beginning
-			$m[1] = preg_replace("#^/#isU", '', $m[1]);
-			$m[1] = str_replace('"', '', $m[1]);
-			$m[1] = str_replace("'", '', $m[1]);
-			$this->_currentPath = preg_replace("#^/#isU", '', $this->_currentPath);
+			if(!preg_match('~(?:f|ht)tps?://~i', $m[1]) && !preg_match('~(data)~i', $m[1])) {
+				//we clear the '/' at the beginning
+				$m[1] = preg_replace("#^/#isU", '', $m[1]);
+				$m[1] = str_replace('"', '', $m[1]);
+				$m[1] = str_replace("'", '', $m[1]);
+				$this->_currentPath = preg_replace("#^/#isU", '', $this->_currentPath);
 
-			//on count the number of '../'
-			$numberParentDir = substr_count($m[1], '../');
+				//on count the number of '../'
+				$numberParentDir = substr_count($m[1], '../');
 
-			if ($numberParentDir > 0) {
-				for ($i = 0; $i < $numberParentDir; $i++) {
-					$pathReplace .= '(.[^\/]+)\/';
-				}
+				if ($numberParentDir > 0) {
+					for ($i = 0; $i < $numberParentDir; $i++) {
+						$pathReplace .= '(.[^\/]+)\/';
+					}
 
-				$pathReplace .= '$';
-				$newCurrentPath = preg_replace('#' . $pathReplace . '#isU', '/', $this->_currentPath);
-				$m[1] = preg_replace('#\.\./#isU', '', $m[1]);
+					$pathReplace .= '$';
+					$newCurrentPath = preg_replace('#' . $pathReplace . '#isU', '/', $this->_currentPath);
+					$m[1] = preg_replace('#\.\./#isU', '', $m[1]);
 
-				if ($newCurrentPath != $this->_currentPath) {
-					$m[1] = $newCurrentPath . $m[1];
-				}
-				else if (!preg_match('#^' . preg_quote($newCurrentPath) . '#isU', $m[1])) {
-					if (!preg_match('#^/asset#isU', $m[1]) && !preg_match('#^asset#isU', $m[1])) {
+					if ($newCurrentPath != $this->_currentPath) {
 						$m[1] = $newCurrentPath . $m[1];
 					}
+					else if (!preg_match('#^' . preg_quote($newCurrentPath) . '#isU', $m[1])) {
+						if (!preg_match('#^/asset#isU', $m[1]) && !preg_match('#^asset#isU', $m[1])) {
+							$m[1] = $newCurrentPath . $m[1];
+						}
+					}
+				}
+
+				if (!preg_match('#^/#isU', $m[1])) {
+					$m[1] = '/' . $m[1];
+				}
+
+				if (Config::config()['user']['output']['https']) {
+					return 'https://' . $_SERVER['HTTP_HOST'] . '/' . str_replace('//', '/', Config::config()['user']['framework']['folder'] . $m[1]);
+				}
+				else {
+					return 'http://' . $_SERVER['HTTP_HOST'] . '/' . str_replace('//', '/', Config::config()['user']['framework']['folder'] . $m[1]);
 				}
 			}
-
-			if (!preg_match('#^/#isU', $m[1])) {
-				$m[1] = '/' . $m[1];
+			else{
+				return $m[1];
 			}
-
-			if(Config::config()['user']['output']['https'])
-				return 'https://' . $_SERVER['HTTP_HOST'] . '/' . str_replace('//', '/', Config::config()['user']['framework']['folder'] . $m[1]);
-			else
-				return 'http://' . $_SERVER['HTTP_HOST'] . '/' . str_replace('//', '/', Config::config()['user']['framework']['folder'] . $m[1]);
 		}
 
 		/**

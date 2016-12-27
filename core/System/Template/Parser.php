@@ -715,7 +715,7 @@
 		 */
 
 		protected function _parseVar() {
-			$this->_content = preg_replace('`' . preg_quote($this->markup['vars'][0]) . $this->_space . '([\[\]\(\)A-Za-z0-9\$\'._>\+-]+)' . $this->_space . preg_quote($this->markup['vars'][1]) . '`', '<?php echo ($1); ?>', $this->_content);
+			$this->_content = preg_replace('`' . preg_quote($this->markup['vars'][0]) . $this->_space . '([\\\[\]\(\)A-Za-z0-9\$\'"_\>\+\-]+)' . $this->_space . preg_quote($this->markup['vars'][1]) . '`ism', '<?php echo ($1); ?>', $this->_content);
 		}
 
 		/**
@@ -1033,7 +1033,7 @@
 		 */
 
 		protected function _parseDebugStart() {
-			$this->_content = preg_replace('`::`isU', '[debug||]', $this->_content);
+			//$this->_content = preg_replace('`::`isU', '[debug||]', $this->_content);
 		}
 
 		/**
@@ -1045,7 +1045,7 @@
 		 */
 
 		protected function _parseDebugEnd() {
-			$this->_content = preg_replace('`\[debug\|\|\]`isU', '::', $this->_content);
+			//$this->_content = preg_replace('`\[debug\|\|\]`isU', '::', $this->_content);
 		}
 
 		/**
