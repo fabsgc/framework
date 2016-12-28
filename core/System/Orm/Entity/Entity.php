@@ -632,7 +632,7 @@
 							throw new MissingEntityException('The field "' . $field->name . '" in "' . $this->_name . '" can\'t be null');
 						}
 
-						if ($field->value == null && $field->default != '') {
+						if ($field->value == null) {
 							$field->value = $field->default;
 						}
 
@@ -926,6 +926,10 @@
 						if ($field->value == null && $field->beNull == false) {
 							throw new MissingEntityException('The field "' . $field->name . '" in "' . $this->_name . '" can\'t be null');
 						}
+
+                        if ($field->value == null) {
+                            $field->value = $field->default;
+                        }
 
 						if (gettype($field->value) != 'object') {
 							if (in_array($field->type, [Field::INCREMENT, Field::INT, Field::FLOAT])) {
