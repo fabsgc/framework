@@ -47,8 +47,8 @@
 				return;
 			}
 
-			if (file_exists(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', '$1/' . SRC_CONTROLLER_PATH . '$2', $class) . '.php')) {
-				include_once(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', '$1/' . SRC_CONTROLLER_PATH . '$2', $class) . '.php');
+			if (file_exists(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', lcfirst('$1/') . SRC_CONTROLLER_PATH . '$2', $class) . '.php')) {
+				include_once(SRC_PATH . preg_replace('#(.*)\/(.*)#isU', lcfirst('$1/') . SRC_CONTROLLER_PATH . '$2', $class) . '.php');
 				return;
 			}
 
