@@ -214,7 +214,7 @@
 
 						foreach ($controllers as $controller){
 							if(strlen($controller) > 2){
-								$annotation = Annotation::getClass(strtolower($entrySrc . '\\' . basename($controller, '.php')));
+								$annotation = Annotation::getClass(ucfirst($entrySrc) . '\\' . basename($controller, '.php'));
 								$this->_parseAnnotationRoute($entrySrc, $controller, $annotation);
 								$this->_parseAnnotationCron($entrySrc, $controller, $annotation);
 							}
