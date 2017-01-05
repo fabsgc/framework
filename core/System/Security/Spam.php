@@ -86,6 +86,11 @@
 		 */
 
 		public function check() {
+            if(empty($this->_ips[$this->_ip])) {
+                $this->_ips[$this->_ip] = array();
+                $this->_ips[$this->_ip]['time'] = 0;
+            }
+
 			if ($this->_exception == false) {
 				if (intval($this->_ips[$this->_ip]['time']) + intval($this->config['user']['security']['spam']['config']['query']['duration']) < time()) {
 					$this->_updateIp(time(), 1);
