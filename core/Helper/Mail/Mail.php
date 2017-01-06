@@ -174,7 +174,7 @@
 
 		public function __construct($data = []) {
 			parent::__construct();
-			$this->_charset = Config::config()['output']['charset'];
+			$this->_charset = Config::config()['user']['output']['charset'];
 
 			foreach ($data as $key => $value) {
 				switch ($key) {
