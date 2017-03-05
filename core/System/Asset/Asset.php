@@ -1,25 +1,25 @@
 <?php
 	/*\
 	 | ------------------------------------------------------
-	 | @file : AssetManager.php
+	 | @file : Asset.php
 	 | @author : fab@c++
 	 | @description : css and js manager system (minify, compress, put in cache file)
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
 
-	namespace System\AssetManager;
+	namespace System\Asset;
 
 	use System\Cache\Cache;
 	use System\Config\Config;
 	use System\General;
 
 	/**
-	 * Class AssetManager
-	 * @package System\AssetManager
+	 * Class Asset
+	 * @package System\Asset
 	 */
 
-	class AssetManager {
+	class Asset {
 
 		/**
 		 * concatenated name files
@@ -84,7 +84,7 @@
 		 *              cache int
 		 *              type string
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		public function __construct($data = []) {
@@ -110,7 +110,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		public function getId() {
@@ -122,7 +122,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		public function getType() {
@@ -135,7 +135,7 @@
 		 * @param $data array
 		 * @return void
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		protected function _setFiles($data = []) {
@@ -168,7 +168,7 @@
 		 * @param $path string
 		 * @return void
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		protected function _setFile($path) {
@@ -177,8 +177,8 @@
 
 			if ($this->_type == 'css') {
 				$this->_currentPath = dirname($path) . '/';
-				$this->_data['' . $path . ''] = preg_replace_callback('`url\((.*)\)`isU', ['System\AssetManager\AssetManager', '_parseRelativePathCssUrl'], $this->_data['' . $path . '']);
-				$this->_data['' . $path . ''] = preg_replace_callback('`src=\'(.*)\'`isU', ['System\AssetManager\AssetManager', '_parseRelativePathCssSrc'], $this->_data['' . $path . '']);
+				$this->_data['' . $path . ''] = preg_replace_callback('`url\((.*)\)`isU', ['System\Asset\Asset', '_parseRelativePathCssUrl'], $this->_data['' . $path . '']);
+				$this->_data['' . $path . ''] = preg_replace_callback('`src=\'(.*)\'`isU', ['System\Asset\Asset', '_parseRelativePathCssSrc'], $this->_data['' . $path . '']);
 			}
 		}
 
@@ -188,7 +188,7 @@
 		 * @param $path string
 		 * @return void
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		protected function _setDir($path) {
@@ -212,7 +212,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		protected function _parseRelativePathCssUrl($m) {
@@ -225,7 +225,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		protected function _parseRelativePathCssSrc($m) {
@@ -238,7 +238,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		protected function _parseRelativePathCss($m) {
@@ -301,7 +301,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		protected function _compress() {
@@ -325,7 +325,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		protected function _save() {
@@ -337,7 +337,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\AssetManager
+		 * @package System\Asset
 		 */
 
 		public function __destruct() {

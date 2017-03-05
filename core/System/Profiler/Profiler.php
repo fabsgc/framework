@@ -142,7 +142,7 @@
 				$dataProfiler['server'] = $_SERVER;
 				$dataProfiler['url'] = $_SERVER['REQUEST_URI'];
 
-				if ($request->controller != 'assetManager' && $request->controller != 'profiler') {
+				if ($request->controller != 'asset' && $request->controller != 'profiler') {
 					$cache = new Cache('core-profiler', 0);
 					$cache->setContent($dataProfiler);
 					$cache->setCache();

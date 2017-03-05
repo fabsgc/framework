@@ -10,7 +10,7 @@
 
 	namespace System\Template;
 
-	use System\AssetManager\AssetManager;
+	use System\Asset\Asset;
 	use System\Config\Config;
 	use System\General\error;
 	use System\General\langs;
@@ -112,7 +112,7 @@
 			'block'        => ['block', 'name'],                                // block (function)
 			'template'     => ['template', 'name', 'vars'],                     // template (class)
 			'call'         => ['call', 'block', 'template'],                    // call block or template
-			'assetManager' => ['asset', 'type', 'files', 'cache'],              // css/js manger
+			'asset'        => ['asset', 'type', 'files', 'cache'],              // css/js manger
 			'minify'       => ['minify'],                                       // minify part of code
 			'extends'      => ['extends', 'file', 'cache', 'child'],            // add a parent
 			'section'      => ['section', 'yield', 'name']                      // you can make sections in your template
@@ -153,7 +153,7 @@
 			$this->_parseInclude();
 			$this->_parsePath();
 			$this->_parseGravatar();
-			$this->_parseAssetManager();
+			$this->_parseAsset();
 			$this->_parseUrl();
 			$this->_parsePhp();
 			$this->_parseLang();
@@ -189,7 +189,7 @@
 			$this->_parseInclude();
 			$this->_parsePath();
 			$this->_parseGravatar();
-			$this->_parseAssetManager();
+			$this->_parseAsset();
 			$this->_parseUrl();
 			$this->_parsePhp();
 			$this->_parseLang();
@@ -938,16 +938,16 @@
 		 * @package System\Template
 		 */
 
-		protected function _parseAssetManager() {
-			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['assetManager'][0]) .
-				$this->_spaceR . preg_quote($this->markup['assetManager'][1]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(.+)' . $this->_space . '"' .
-				$this->_spaceR . preg_quote($this->markup['assetManager'][2]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(.+)' . $this->_space . '"' .
-				$this->_spaceR . preg_quote($this->markup['assetManager'][3]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(.+)' . $this->_space . '"' .
-				$this->_space . '/' . $this->_closeTag . '`isU', ['System\Template\Parser', '_parseAssetManagerCallback'], $this->_content);
+		protected function _parseAsset() {
+			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['asset'][0]) .
+				$this->_spaceR . preg_quote($this->markup['asset'][1]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(.+)' . $this->_space . '"' .
+				$this->_spaceR . preg_quote($this->markup['asset'][2]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(.+)' . $this->_space . '"' .
+				$this->_spaceR . preg_quote($this->markup['asset'][3]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(.+)' . $this->_space . '"' .
+				$this->_space . '/' . $this->_closeTag . '`isU', ['System\Template\Parser', '_parseAssetCallback'], $this->_content);
 		}
 
 		/**
-		 * parse assetManager callback
+		 * parse asset callback
 		 * @access protected
 		 * @param $m array
 		 * @return string
@@ -955,20 +955,20 @@
 		 * @package System\Template
 		 */
 
-		protected function _parseAssetManagerCallback($m) {
+		protected function _parseAssetCallback($m) {
 			if (Config::config()['user']['output']['asset']['enabled']) {
 				$data = [
 					'type'  => $m[1],
 					'cache' => $m[3],
 					'files' => explode(',', $m[2])];
 
-				$asset = new AssetManager($data);
+				$asset = new Asset($data);
 
 				if ($m[1] == 'css') {
-					return '<link href="{{url:.gcs.gcs.assetManager.default:\'' . $asset->getId() . '\',\'' . $asset->getType() . '\'}}" rel="stylesheet" media="screen" type="text/css" />';
+					return '<link href="{{url:.gcs.gcs.asset.default:\'' . $asset->getId() . '\',\'' . $asset->getType() . '\'}}" rel="stylesheet" media="screen" type="text/css" />';
 				}
 				else if ($m[1] == 'js') {
-					return '<script type="text/javascript" defer src="{{url:.gcs.gcs.assetManager.default:\'' . $asset->getId() . '\',\'' . $asset->getType() . '\'}}" ></script>';
+					return '<script type="text/javascript" defer src="{{url:.gcs.gcs.asset.default:\'' . $asset->getId() . '\',\'' . $asset->getType() . '\'}}" ></script>';
 				}
 			}
 			else {

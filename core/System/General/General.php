@@ -10,7 +10,7 @@
 
 	namespace System\General;
 
-	use System\AssetManager\AssetManager;
+	use System\Asset\Asset;
 	use System\Cache\Cache;
 	use System\Collection\Collection;
 	use System\Config\Config;
@@ -156,7 +156,7 @@
 	 * @method Firewall Firewall
 	 * @method Template Template
 	 * @method Terminal Terminal
-	 * @method AssetManager AssetManager
+	 * @method Asset Asset
 	 * @method Validation OrmValidation
 	 * @method Multiple EntityMultiple
 	 * @method Parser Parser
