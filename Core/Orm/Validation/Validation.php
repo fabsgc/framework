@@ -1,195 +1,199 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Validation.php
-	 | @author : Fabien Beaujean
-	 | @description : Entity validation
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Validation.php
+ | @author : Fabien Beaujean
+ | @description : Entity validation
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Orm\Validation;
+namespace Gcs\Framework\Core\Orm\Validation;
 
-	use Gcs\Framework\Core\Orm\Validation\Element\Checkbox;
-	use Gcs\Framework\Core\Orm\Validation\Element\File;
-	use Gcs\Framework\Core\Orm\Validation\Element\Radio;
-	use Gcs\Framework\Core\Orm\Validation\Element\Select;
-	use Gcs\Framework\Core\Orm\Validation\Element\Text;
+use Gcs\Framework\Core\Orm\Validation\Element\Checkbox;
+use Gcs\Framework\Core\Orm\Validation\Element\File;
+use Gcs\Framework\Core\Orm\Validation\Element\Radio;
+use Gcs\Framework\Core\Orm\Validation\Element\Select;
+use Gcs\Framework\Core\Orm\Validation\Element\Text;
 
-	/**
-	 * Class Validation
-	 * @package Gcs\Framework\Core\Orm\Validation
-	 */
+/**
+ * Class Validation
+ * @package Gcs\Framework\Core\Orm\Validation
+ */
+class Validation {
+    /**
+     * Entity name
+     * @var $_entity \Gcs\Framework\Core\Orm\Entity\Entity
+     */
 
-	class Validation {
-		/**
-		 * Entity name
-		 * @var $_entity \Gcs\Framework\Core\Orm\Entity\Entity
-		 */
+    protected $_entity;
 
-		protected $_entity;
+    /**
+     * @var array
+     */
 
-		/**
-		 * @var array
-		 */
+    protected $_errors = [];
 
-		protected $_errors = [];
+    /**
+     * @var \Gcs\Framework\Core\Orm\Validation\Element\Element[]
+     */
 
-		/**
-		 * @var \Gcs\Framework\Core\Orm\Validation\Element\Element[]
-		 */
+    protected $_elements = [];
 
-		protected $_elements = [];
+    /**
+     * constructor
+     * @access public
+     * @param $entity \Gcs\Framework\Core\Orm\Entity\Entity
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
 
-		/**
-		 * constructor
-		 * @access public
-		 * @param $entity \Gcs\Framework\Core\Orm\Entity\Entity
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+    public function __construct($entity) {
+        $this->_entity = $entity;
+    }
 
-		public function __construct($entity) {
-			$this->_entity = $entity;
-		}
+    /**
+     * check a form request
+     * @access public
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
 
-		/**
-		 * check a form request
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+    public function check() {
+        $this->_errors = [];
 
-		public function check() {
-			$this->_errors = [];
+        /** @var $element \Gcs\Framework\Core\Orm\Validation\Element\Element */
+        foreach ($this->_elements as $element) {
+            $element->check();
 
-			/** @var $element \Gcs\Framework\Core\Orm\Validation\Element\Element */
-			foreach ($this->_elements as $element) {
-				$element->check();
+            if ($element->valid() == false) {
+                $this->_errors = array_merge($this->_errors, $element->errors());
+            }
+        }
+    }
 
-				if ($element->valid() == false) {
-					$this->_errors = array_merge($this->_errors, $element->errors());
-				}
-			}
-		}
+    /**
+     * is valid
+     * @access public
+     * @return boolean
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
 
-		/**
-		 * is valid
-		 * @access public
-		 * @return boolean
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+    public function valid() {
+        if (count($this->_errors) > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
-		public function valid() {
-			if (count($this->_errors) > 0) {
-				return false;
-			}
-			else {
-				return true;
-			}
-		}
+    /**
+     * get errors
+     * @access public
+     * @return array
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
 
-		/**
-		 * get errors
-		 * @access public
-		 * @return array
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+    public function errors() {
+        return $this->_errors;
+    }
 
-		public function errors() {
-			return $this->_errors;
-		}
+    /**
+     * add text element
+     * @access public
+     * @param $field string
+     * @param $label string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\Text
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
 
-		/**
-		 * add text element
-		 * @access public
-		 * @param $field string
-		 * @param $label string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Text
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+    public function text($field, $label) {
+        $element = new Text($this->_entity, $field, $label);
+        array_push($this->_elements, $element);
 
-		public function text($field, $label) {
-			$element = new Text($this->_entity, $field, $label);
-			array_push($this->_elements, $element);
-			return $element;
-		}
+        return $element;
+    }
 
-		/**
-		 * add checkbox element
-		 * @access public
-		 * @param $field string
-		 * @param $label string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Checkbox
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+    /**
+     * add checkbox element
+     * @access public
+     * @param $field string
+     * @param $label string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\Checkbox
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
 
-		public function checkbox($field, $label) {
-			$checkbox = new Checkbox($this->_entity, $field, $label);
-			array_push($this->_elements, $checkbox);
-			return $checkbox;
-		}
+    public function checkbox($field, $label) {
+        $checkbox = new Checkbox($this->_entity, $field, $label);
+        array_push($this->_elements, $checkbox);
 
-		/**
-		 * add radio element
-		 * @access public
-		 * @param $field string
-		 * @param $label string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Radio
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+        return $checkbox;
+    }
 
-		public function radio($field, $label) {
-			$radio = new Radio($this->_entity, $field, $label);
-			array_push($this->_elements, $radio);
-			return $radio;
-		}
+    /**
+     * add radio element
+     * @access public
+     * @param $field string
+     * @param $label string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\Radio
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
 
-		/**
-		 * add select element
-		 * @access public
-		 * @param $field string
-		 * @param $label string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Select
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+    public function radio($field, $label) {
+        $radio = new Radio($this->_entity, $field, $label);
+        array_push($this->_elements, $radio);
 
-		public function select($field, $label) {
-			$select = new Select($this->_entity, $field, $label);
-			array_push($this->_elements, $select);
-			return $select;
-		}
+        return $radio;
+    }
 
-		/**
-		 * add file element
-		 * @access public
-		 * @param $field string
-		 * @param $label string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+    /**
+     * add select element
+     * @access public
+     * @param $field string
+     * @param $label string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\Select
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
 
-		public function file($field, $label) {
-			$file = new File($this->_entity, $field, $label);
-			array_push($this->_elements, $file);
-			return $file;
-		}
+    public function select($field, $label) {
+        $select = new Select($this->_entity, $field, $label);
+        array_push($this->_elements, $select);
 
-		/**
-		 * destructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation
-		 */
+        return $select;
+    }
 
-		public function __destruct() {
-		}
-	}
+    /**
+     * add file element
+     * @access public
+     * @param $field string
+     * @param $label string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\File
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
+
+    public function file($field, $label) {
+        $file = new File($this->_entity, $field, $label);
+        array_push($this->_elements, $file);
+
+        return $file;
+    }
+
+    /**
+     * destructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation
+     */
+
+    public function __destruct() {
+    }
+}

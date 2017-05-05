@@ -1,79 +1,79 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Custom.php
-	 | @author : Fabien Beaujean
-	 | @description : custom validation
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Custom.php
+ | @author : Fabien Beaujean
+ | @description : custom validation
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Form\Validation\Custom;
+namespace Gcs\Framework\Core\Form\Validation\Custom;
 
-	/**
-	 * Class Custom
-	 * @package Gcs\Framework\Core\Form\Validation\Custom
-	 */
+/**
+ * Class Custom
+ * @package Gcs\Framework\Core\Form\Validation\Custom
+ */
 
-	abstract class Custom {
-		/**
-		 * the field name
-		 * @var string $field
-		 */
+abstract class Custom {
+    /**
+     * the field name
+     * @var string $field
+     */
 
-		protected $field;
+    protected $field;
 
-		/**
-		 * the field label
-		 * @var string $label
-		 */
+    /**
+     * the field label
+     * @var string $label
+     */
 
-		protected $label;
+    protected $label;
 
-		/**
-		 * the field value
-		 * @var mixed $value
-		 */
+    /**
+     * the field value
+     * @var mixed $value
+     */
 
-		protected $value;
+    protected $value;
 
-		/**
-		 * constructor
-		 * @access public
-		 * @param $field string
-		 * @param $label string
-		 * @param $value mixed
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Custom
-		 */
+    /**
+     * constructor
+     * @access public
+     * @param $field string
+     * @param $label string
+     * @param $value mixed
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Custom
+     */
 
-		final public function __construct($field, $label, $value) {
-			$this->field = $field;
-			$this->label = $label;
-			$this->value = $value;
-		}
+    final public function __construct($field, $label, $value) {
+        $this->field = $field;
+        $this->label = $label;
+        $this->value = $value;
+    }
 
-		/**
-		 * you can define your own form filter here
-		 * @access public
-		 * @return boolean
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Custom
-		 */
+    /**
+     * you can define your own form filter here
+     * @access public
+     * @return boolean
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Custom
+     */
 
-		public function filter() {
-			return true;
-		}
+    public function filter() {
+        return true;
+    }
 
-		/**
-		 * if the filter return false, the framework call this method to get the
-		 * @access public
-		 * @return string
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Custom
-		 */
+    /**
+     * if the filter return false, the framework call this method to get the
+     * @access public
+     * @return string
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Custom
+     */
 
-		public function error() {
-			return '';
-		}
-	}
+    public function error() {
+        return '';
+    }
+}

@@ -1,301 +1,303 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Field.php
-	 | @author : Fabien Beaujean
-	 | @description : represent a field of an Entity
-	 | @version : 3.0 bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Field.php
+ | @author : Fabien Beaujean
+ | @description : represent a field of an Entity
+ | @version : 3.0 bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Orm\Entity;
+namespace Gcs\Framework\Core\Orm\Entity;
 
-	use Gcs\Framework\Core\Exception\MissingEntityException;
-	use Gcs\Framework\Core\Orm\Builder;
+use Gcs\Framework\Core\Exception\MissingEntityException;
+use Gcs\Framework\Core\Orm\Builder;
 
-	/**
-	 * Class Field
-	 * @package Gcs\Framework\Core\Orm\Entity
-	 */
+/**
+ * Class Field
+ * @package Gcs\Framework\Core\Orm\Entity
+ */
+class Field {
+    const INCREMENT = 0;
+    const INT       = 1;
+    const CHAR      = 2;
+    const TEXT      = 3;
+    const STRING    = 4;
+    const BOOL      = 5;
+    const FILE      = 6;
+    const FLOAT     = 8;
+    const DATE      = 9;
+    const DATETIME  = 10;
+    const TIMESTAMP = 11;
+    const ENUM      = 12;
 
-	class Field {
-		const INCREMENT = 0;
-		const INT       = 1;
-		const CHAR      = 2;
-		const TEXT      = 3;
-		const STRING    = 4;
-		const BOOL      = 5;
-		const FILE      = 6;
-		const FLOAT     = 8;
-		const DATE      = 9;
-		const DATETIME  = 10;
-		const TIMESTAMP = 11;
-		const ENUM      = 12;
+    /**
+     * @var string
+     */
 
-		/**
-		 * @var string
-		 */
+    public $type = self::INT;
 
-		public $type = self::INT;
+    /**
+     * @var string
+     */
 
-		/**
-		 * @var string
-		 */
+    public $name = null;
 
-		public $name = null;
+    /**
+     * @var string
+     */
 
-		/**
-		 * @var string
-		 */
+    public $entity = null;
 
-		public $entity = null;
+    /**
+     * @var boolean
+     */
 
-		/**
-		 * @var boolean
-		 */
+    public $primary = false;
+    /**
+     * @var \Gcs\Framework\Core\Orm\Entity\ForeignKey
+     */
 
-		public $primary = false;
+    public $foreign = null;
+    /**
+     * @var boolean
+     */
 
-		/**
-		 * @var integer
-		 */
+    public $unique = false;
+    /**
+     * if the field is INT,FLOAT etc.
+     * @var integer[]
+     */
 
-		protected $size = 0;
+    public $precision = [];
+    /**
+     * if the field is INT,FLOAT etc.
+     * @var string[]
+     */
 
-		/**
-		 * @var \Gcs\Framework\Core\Orm\Entity\ForeignKey
-		 */
+    public $enum = [];
+    /**
+     * the field can be null ?
+     * @var boolean
+     */
 
-		public $foreign = null;
+    public $beNull = true;
+    /**
+     * the default value of the field
+     * @var String
+     */
 
-		/**
-		 * @var boolean
-		 */
+    public $default = '';
+    /**
+     * @var mixed int|string|bool|\Gcs\Framework\Core\Orm\Entity\Field|\Gcs\Framework\Core\Orm\Entity\Field[]|
+     * \Gcs\Framework\Core\Orm\Entity\Type|\Gcs\Framework\Core\Collection\Collection
+     */
 
-		public $unique = false;
+    public $value = null;
+    /**
+     * @var integer
+     */
 
-		/**
-		 * if the field is INT,FLOAT etc.
-		 * @var integer[]
-		 */
+    protected $size = 0;
 
-		public $precision = [];
+    /**
+     * Constructor
+     * @access public
+     * @param string $name
+     * @param string $entity
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		/**
-		 * if the field is INT,FLOAT etc.
-		 * @var string[]
-		 */
+    public function __construct($name, $entity) {
+        $this->name = $name;
+        $this->entity = $entity;
 
-		public $enum = [];
+        return $this;
+    }
 
-		/**
-		 * the field can be null ?
-		 * @var boolean
-		 */
+    /**
+     * Set type
+     * @access public
+     * @param integer $type
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		public $beNull = true;
+    public function type($type = self::BOOL) {
+        $this->type = $type;
 
-		/**
-		 * the default value of the field
-		 * @var String
-		 */
+        return $this;
+    }
 
-		public $default = '';
+    /**
+     * Set name
+     * @access public
+     * @param string $name
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		/**
-		 * @var mixed int|string|bool|\Gcs\Framework\Core\Orm\Entity\Field|\Gcs\Framework\Core\Orm\Entity\Field[]|\Gcs\Framework\Core\Orm\Entity\Type|\Gcs\Framework\Core\Collection\Collection
-		 */
+    public function name($name = '') {
+        $this->name = $name;
 
-		public $value = null;
+        return $this;
+    }
 
-		/**
-		 * Constructor
-		 * @access public
-		 * @param string $name
-		 * @param string $entity
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+    /**
+     * Set primary key
+     * @access public
+     * @param boolean $primary
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		public function __construct($name, $entity) {
-			$this->name = $name;
-			$this->entity = $entity;
-			return $this;
-		}
+    public function primary($primary = false) {
+        $this->primary = $primary;
 
-		/**
-		 * Set type
-		 * @access public
-		 * @param integer $type
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+        return $this;
+    }
 
-		public function type($type = self::BOOL) {
-			$this->type = $type;
-			return $this;
-		}
+    /**
+     * Set primary key
+     * @access public
+     * @param $size integer
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		/**
-		 * Set name
-		 * @access public
-		 * @param string $name
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+    public function size($size = 255) {
+        $this->size = $size;
 
-		public function name($name = '') {
-			$this->name = $name;
-			return $this;
-		}
+        return $this;
+    }
 
-		/**
-		 * Set primary key
-		 * @access public
-		 * @param boolean $primary
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+    /**
+     * Set foreigns key
+     * @access public
+     * @param $datas array
+     * @throws MissingEntityException
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		public function primary($primary = false) {
-			$this->primary = $primary;
-			return $this;
-		}
+    public function foreign($datas = []) {
+        if (!array_key_exists('type', $datas)) {
+            throw new MissingEntityException('The parameter "type" is missing for the foreign key');
+        }
 
-		/**
-		 * Set primary key
-		 * @access public
-		 * @param $size integer
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+        if (!array_key_exists('reference', $datas)) {
+            throw new MissingEntityException('The parameter "reference" is missing for the foreign key');
+        }
 
-		public function size($size = 255) {
-			$this->size = $size;
-			return $this;
-		}
+        if (!array_key_exists('belong', $datas)) {
+            $datas['belong'] = ForeignKey::AGGREGATION;
+        }
 
-		/**
-		 * Set foreigns key
-		 * @access public
-		 * @param $datas array
-		 * @throws MissingEntityException
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+        if (!array_key_exists('current', $datas) || count($datas['current']) < 2) {
+            $datas['current'] = [$this->entity, $this->name];
+        }
 
-		public function foreign($datas = []) {
-			if (!array_key_exists('type', $datas)) {
-				throw new MissingEntityException('The parameter "type" is missing for the foreign key');
-			}
+        if (!array_key_exists('value', $datas)) {
+            $datas['value'] = '';
+        }
 
-			if (!array_key_exists('reference', $datas)) {
-				throw new MissingEntityException('The parameter "reference" is missing for the foreign key');
-			}
+        if (!array_key_exists('join', $datas)) {
+            $datas['join'] = Builder::JOIN_INNER;
+        }
 
-			if (!array_key_exists('belong', $datas)) {
-				$datas['belong'] = ForeignKey::AGGREGATION;
-			}
+        $this->foreign = new ForeignKey($datas);
 
-			if (!array_key_exists('current', $datas) || count($datas['current']) < 2) {
-				$datas['current'] = [$this->entity, $this->name];
-			}
+        return $this;
+    }
 
-			if (!array_key_exists('value', $datas)) {
-				$datas['value'] = '';
-			}
+    /**
+     * Set unique
+     * @access public
+     * @param boolean $unique
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-			if (!array_key_exists('join', $datas)) {
-				$datas['join'] = Builder::JOIN_INNER;
-			}
+    public function unique($unique = false) {
+        $this->unique = $unique;
 
-			$this->foreign = new ForeignKey($datas);
+        return $this;
+    }
 
-			return $this;
-		}
+    /**
+     * Set precision
+     * @access public
+     * @param $precision string
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		/**
-		 * Set unique
-		 * @access public
-		 * @param boolean $unique
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+    public function precision($precision) {
+        $this->precision = $precision;
 
-		public function unique($unique = false) {
-			$this->unique = $unique;
-			return $this;
-		}
+        return $this;
+    }
 
-		/**
-		 * Set precision
-		 * @access public
-		 * @param $precision string
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+    /**
+     * Set precision
+     * @access public
+     * @param $enum string[]
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		public function precision($precision) {
-			$this->precision = $precision;
-			return $this;
-		}
+    public function enum($enum = []) {
+        $this->enum = $enum;
 
-		/**
-		 * Set precision
-		 * @access public
-		 * @param $enum string[]
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+        return $this;
+    }
 
-		public function enum($enum = []) {
-			$this->enum = $enum;
-			return $this;
-		}
+    /**
+     * Set beNull
+     * @access public
+     * @param $beNull boolean
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		/**
-		 * Set beNull
-		 * @access public
-		 * @param $beNull boolean
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+    public function beNull($beNull) {
+        $this->beNull = $beNull;
 
-		public function beNull($beNull) {
-			$this->beNull = $beNull;
-			return $this;
-		}
+        return $this;
+    }
 
-		/**
-		 * Set default value
-		 * @access public
-		 * @param $default String
-		 * @since 3.0
-		 * @return \Gcs\Framework\Core\Orm\Entity\Field
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+    /**
+     * Set default value
+     * @access public
+     * @param $default String
+     * @since 3.0
+     * @return \Gcs\Framework\Core\Orm\Entity\Field
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
 
-		public function defaultValue($default) {
-			$this->default = $default;
-			return $this;
-		}
+    public function defaultValue($default) {
+        $this->default = $default;
 
-		/**
-		 * Destructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity
-		 */
+        return $this;
+    }
 
-		public function __destruct() {
-		}
-	}
+    /**
+     * Destructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity
+     */
+
+    public function __destruct() {
+    }
+}

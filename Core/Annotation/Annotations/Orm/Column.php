@@ -1,77 +1,76 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Table.php
-	 | @author : Fabien Beaujean
-	 | @description : annotation orm table
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Table.php
+ | @author : Fabien Beaujean
+ | @description : annotation orm table
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Annotation\Annotations\Orm;
+namespace Gcs\Framework\Core\Annotation\Annotations\Orm;
 
-	use Gcs\Framework\Core\Annotation\Annotation;
+use Gcs\Framework\Core\Annotation\Annotation;
 
-	/**
-	 * Class Column
-	 * @package Gcs\Framework\Core\Annotation\Annotations\Orm
-	 */
+/**
+ * Class Column
+ * @package Gcs\Framework\Core\Annotation\Annotations\Orm
+ */
+class Column extends Annotation {
 
-	class Column extends Annotation {
+    /**
+     * Parameter type
+     * @var string
+     */
 
-		/**
-		 * Parameter type
-		 * @var string
-		 */
+    public $type = 'INT';
 
-		public $type = 'INT';
+    /**
+     * Parameter size
+     * @var string
+     */
 
-		/**
-		 * Parameter size
-		 * @var string
-		 */
+    public $size = '11';
 
-		public $size = '11';
+    /**
+     * Parameter null
+     * @var string
+     */
 
-		/**
-		 * Parameter null
-		 * @var string
-		 */
+    public $null = 'false';
 
-		public $null = 'false';
+    /**
+     * Parameter type
+     * @var string
+     */
 
-		/**
-		 * Parameter type
-		 * @var string
-		 */
+    public $primary = 'false';
 
-		public $primary = 'false';
+    /**
+     * Parameter unique
+     * @var string
+     */
 
-		/**
-		 * Parameter unique
-		 * @var string
-		 */
+    public $unique = 'false';
 
-		public $unique = 'false';
+    /**
+     * Parameter precision
+     * @var string
+     */
 
-		/**
-		 * Parameter precision
-		 * @var string
-		 */
+    public $precision = 'false';
 
-		public $precision = 'false';
+    /**
+     * Parameter defaultValue
+     * @var string
+     */
 
-		/**
-		 * Parameter defaultValue
-		 * @var string
-		 */
+    public $default = '';
 
-		public $default = '';
+    /**
+     * Parameter enum
+     * @var string
+     */
 
-		/**
-		 * Parameter enum
-		 * @var string
-		 */
-
-		public $enum = '';
-	}
+    public $enum = '';
+}

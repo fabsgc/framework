@@ -1,70 +1,69 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Routing.php
-	 | @author : Fabien Beaujean
-	 | @description : annotation routing
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Routing.php
+ | @author : Fabien Beaujean
+ | @description : annotation routing
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Annotation\Annotations\Router;
+namespace Gcs\Framework\Core\Annotation\Annotations\Router;
 
-	use Gcs\Framework\Core\Annotation\Annotation;
+use Gcs\Framework\Core\Annotation\Annotation;
 
-	/**
-	 * Class Routing
-	 * @package Gcs\Framework\Core\Annotation\Router
-	 */
+/**
+ * Class Routing
+ * @package Gcs\Framework\Core\Annotation\Router
+ */
+class Routing extends Annotation {
 
-	class Routing extends Annotation {
+    /**
+     * Parameter name
+     * @var string
+     */
 
-		/**
-		 * Parameter name
-		 * @var string
-		 */
+    public $name;
 
-		public $name;
+    /**
+     * Parameter url
+     * @var string
+     */
 
-		/**
-		 * Parameter url
-		 * @var string
-		 */
+    public $url = '/';
 
-		public $url = '/';
+    /**
+     * Parameter vars
+     * @var string
+     */
 
-		/**
-		 * Parameter vars
-		 * @var string
-		 */
+    public $vars = '';
 
-		public $vars = '';
+    /**
+     * Parameter url
+     * @var string
+     */
 
-		/**
-		 * Parameter url
-		 * @var string
-		 */
+    public $method = '*';
 
-		public $method = '*';
+    /**
+     * Parameter access
+     * @var string
+     */
 
-		/**
-		 * Parameter access
-		 * @var string
-		 */
+    public $access = '*';
 
-		public $access = '*';
+    /**
+     * Parameter cache
+     * @var string
+     */
 
-		/**
-		 * Parameter cache
-		 * @var string
-		 */
+    public $cache = '0';
 
-		public $cache = '0';
+    /**
+     * Parameter logged
+     * @var string
+     */
 
-		/**
-		 * Parameter logged
-		 * @var string
-		 */
-
-		public $logged = '*';
-	}
+    public $logged = '*';
+}

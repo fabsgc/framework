@@ -1,26 +1,26 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : ManyToMany.php
-	 | @author : Fabien Beaujean
-	 | @description : annotation orm relation many to many
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : ManyToMany.php
+ | @author : Fabien Beaujean
+ | @description : annotation orm relation many to many
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Annotation\Annotations\Orm\Relations;
+namespace Gcs\Framework\Core\Annotation\Annotations\Orm\Relations;
 
-	/**
-	 * Class ManyToMany
-	 * @package Gcs\Framework\Core\Annotation\Annotations\Orm\Relations
-	 */
+/**
+ * Class ManyToMany
+ * @package Gcs\Framework\Core\Annotation\Annotations\Orm\Relations
+ */
 
-	class ManyToMany extends Relation  {
+class ManyToMany extends Relation {
 
-		/**
-		 * Parameter type
-		 * @var string
-		 */
+    /**
+     * Parameter type
+     * @var string
+     */
 
-		public $type = 'MANY_TO_MANY';
-	}
+    public $type = 'MANY_TO_MANY';
+}

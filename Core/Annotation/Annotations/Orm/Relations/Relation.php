@@ -1,57 +1,56 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Table.php
-	 | @author : Fabien Beaujean
-	 | @description : annotation orm table
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Table.php
+ | @author : Fabien Beaujean
+ | @description : annotation orm table
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Annotation\Annotations\Orm\Relations;
+namespace Gcs\Framework\Core\Annotation\Annotations\Orm\Relations;
 
-	use Gcs\Framework\Core\Annotation\Annotation;
+use Gcs\Framework\Core\Annotation\Annotation;
 
-	/**
-	 * Class Relation
-	 * @package Gcs\Framework\Core\Annotation\Annotations\Orm\Relations
-	 */
+/**
+ * Class Relation
+ * @package Gcs\Framework\Core\Annotation\Annotations\Orm\Relations
+ */
+abstract class Relation extends Annotation {
 
-	abstract class Relation extends Annotation {
+    /**
+     * Parameter type
+     * @var string
+     */
 
-		/**
-		 * Parameter type
-		 * @var string
-		 */
-
-		public $type = 'ONE_TO_ONE';
+    public $type = 'ONE_TO_ONE';
 
 
-		/**
-		 * Parameter from
-		 * @var string
-		 */
+    /**
+     * Parameter from
+     * @var string
+     */
 
-		public $from;
+    public $from;
 
-		/**
-		 * Parameter to
-		 * @var string
-		 */
+    /**
+     * Parameter to
+     * @var string
+     */
 
-		public $to;
+    public $to;
 
-		/**
-		 * Parameter belong
-		 * @var string
-		 */
+    /**
+     * Parameter belong
+     * @var string
+     */
 
-		public $belong = 'AGGREGATION';
+    public $belong = 'AGGREGATION';
 
-		/**
-		 * Parameter join
-		 * @var string
-		 */
+    /**
+     * Parameter join
+     * @var string
+     */
 
-		public $join = 'JOIN_INNER';
-	}
+    public $join = 'JOIN_INNER';
+}

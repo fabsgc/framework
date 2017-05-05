@@ -1,207 +1,207 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Builder.php
-	 | @author : Fabien Beaujean
-	 | @description : Query Builder
-	 | @version : 3.0 bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Builder.php
+ | @author : Fabien Beaujean
+ | @description : Query Builder
+ | @version : 3.0 bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Collection;
+namespace Gcs\Framework\Core\Collection;
 
-	/**
-	 * Class Collection
-	 * @package Gcs\Framework\Core\Collection
-	 */
+/**
+ * Class Collection
+ * @package Gcs\Framework\Core\Collection
+ */
 
-	class Collection implements \IteratorAggregate {
-		
-		/**
-		 * @var array[]
-		 */
+class Collection implements \IteratorAggregate {
 
-		private $_datas = [];
+    /**
+     * @var array[]
+     */
 
-		/**
-		 * Constructor
-		 * @access public
-		 * @param $data array
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm
-		 */
+    private $_datas = [];
 
-		public function __construct($data = []) {
-			$this->_datas = $data;
-		}
+    /**
+     * Constructor
+     * @access public
+     * @param $data array
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm
+     */
 
-		/**
-		 * Get iterator
-		 * @access public
-		 * @return \Gcs\Framework\Core\Collection\Iterator
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm
-		 */
+    public function __construct($data = []) {
+        $this->_datas = $data;
+    }
 
-		public function getIterator() {
-			return new Iterator($this->_datas);
-		}
+    /**
+     * Get iterator
+     * @access public
+     * @return \Gcs\Framework\Core\Collection\Iterator
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm
+     */
 
-		/**
-		 * First value
-		 * @access public
-		 * @return \Gcs\Framework\Core\Orm\Entity\Entity
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm
-		 */
+    public function getIterator() {
+        return new Iterator($this->_datas);
+    }
 
-		public function first() {
-			if (isset($this->_datas[0])) {
-				return $this->_datas[0];
-			}
-			else {
-				return null;
-			}
-		}
+    /**
+     * First value
+     * @access public
+     * @return \Gcs\Framework\Core\Orm\Entity\Entity
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm
+     */
 
-		/**
-		 * Count
-		 * @access public
-		 * @return integer
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm
-		 */
+    public function first() {
+        if (isset($this->_datas[0])) {
+            return $this->_datas[0];
+        }
+        else {
+            return null;
+        }
+    }
 
-		public function count() {
-			return count($this->_datas);
-		}
+    /**
+     * Count
+     * @access public
+     * @return integer
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm
+     */
 
-		/**
-		 * Count
-		 * @access public
-		 * @return array[]
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Collecion
-		 */
+    public function count() {
+        return count($this->_datas);
+    }
 
-		public function data() {
-			return $this->_datas;
-		}
+    /**
+     * Count
+     * @access public
+     * @return array[]
+     * @since 3.0
+     * @package Gcs\Framework\Core\Collecion
+     */
 
-		/**
-		 * Delete one element from the collection
-		 * @access public
-		 * @param $key mixed
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Collecion
-		 */
+    public function data() {
+        return $this->_datas;
+    }
 
-		public function delete($key) {
-			unset($this->_datas[$key]);
-			$this->_datas = array_values($this->_datas);
-		}
+    /**
+     * Delete one element from the collection
+     * @access public
+     * @param $key mixed
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Collecion
+     */
 
-		/**
-		 * Delete between 2 keys
-		 * @access public
-		 * @param $key    int
-		 * @param $length int
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Collecion
-		 */
+    public function delete($key) {
+        unset($this->_datas[$key]);
+        $this->_datas = array_values($this->_datas);
+    }
 
-		public function deleteRange($key, $length) {
-			$badKeys = [];
+    /**
+     * Delete between 2 keys
+     * @access public
+     * @param $key    int
+     * @param $length int
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Collecion
+     */
 
-			for ($i = $key; $i < $key + $length; $i++) {
-				array_push($badKeys, $i);
-			}
+    public function deleteRange($key, $length) {
+        $badKeys = [];
 
-			$this->_datas = array_diff_key($this->_datas, array_flip($badKeys));
-			$this->_datas = array_values($this->_datas);
-		}
+        for ($i = $key; $i < $key + $length; $i++) {
+            array_push($badKeys, $i);
+        }
 
-		/**
-		 * Get between 2 keys
-		 * @access public
-		 * @param $key    int
-		 * @param $length int
-		 * @return array
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Collecion
-		 */
+        $this->_datas = array_diff_key($this->_datas, array_flip($badKeys));
+        $this->_datas = array_values($this->_datas);
+    }
 
-		public function getRange($key, $length) {
-			$badKeys = [];
+    /**
+     * Get between 2 keys
+     * @access public
+     * @param $key    int
+     * @param $length int
+     * @return array
+     * @since 3.0
+     * @package Gcs\Framework\Core\Collecion
+     */
 
-			for ($i = 0; $i < $key; $i++) {
-				array_push($badKeys, $i);
-			}
+    public function getRange($key, $length) {
+        $badKeys = [];
 
-			for ($i = $key + $length; $i < count($this->_datas); $i++) {
-				array_push($badKeys, $i);
-			}
+        for ($i = 0; $i < $key; $i++) {
+            array_push($badKeys, $i);
+        }
 
-			return array_diff_key($this->_datas, array_flip($badKeys));
-		}
+        for ($i = $key + $length; $i < count($this->_datas); $i++) {
+            array_push($badKeys, $i);
+        }
 
-		/**
-		 * Filter the collection with a closure
-		 * @access public
-		 * @param $closure callable
-		 * @return Collection
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Collecion
-		 */
+        return array_diff_key($this->_datas, array_flip($badKeys));
+    }
 
-		public function filter($closure) {
-			$collection = new Collection();
+    /**
+     * Filter the collection with a closure
+     * @access public
+     * @param $closure callable
+     * @return Collection
+     * @since 3.0
+     * @package Gcs\Framework\Core\Collecion
+     */
 
-			foreach ($this->_datas as $data) {
-				if ($closure($data)) {
-					$collection->add($data);
-				}
-			}
+    public function filter($closure) {
+        $collection = new Collection();
 
-			return $collection;
-		}
+        foreach ($this->_datas as $data) {
+            if ($closure($data)) {
+                $collection->add($data);
+            }
+        }
 
-		/**
-		 * Add elements to the collection
-		 * @access public
-		 * @param $data mixed array[], Collection
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Collecion
-		 */
+        return $collection;
+    }
 
-		public function add($data) {
-			if (!array_search($data, $this->_datas, true) && is_object($data)) {
-				$data = clone $data;
-			}
+    /**
+     * Add elements to the collection
+     * @access public
+     * @param $data mixed array[], Collection
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Collecion
+     */
 
-			if (is_array($data)) {
-				$this->_datas = array_merge($this->_datas, $data);
-			}
-			else {
-				if (get_class($data) != 'Gcs\Framework\Core\Collection\Collection') {
-					array_push($this->_datas, $data);
-				}
-				else {
-					array_merge($this->_datas, $data->data());
-				}
-			}
-		}
+    public function add($data) {
+        if (!array_search($data, $this->_datas, true) && is_object($data)) {
+            $data = clone $data;
+        }
 
-		/**
-		 * Destructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Collecion
-		 */
+        if (is_array($data)) {
+            $this->_datas = array_merge($this->_datas, $data);
+        }
+        else {
+            if (get_class($data) != 'Gcs\Framework\Core\Collection\Collection') {
+                array_push($this->_datas, $data);
+            }
+            else {
+                array_merge($this->_datas, $data->data());
+            }
+        }
+    }
 
-		public function __destruct() {
-		}
-	}
+    /**
+     * Destructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Collecion
+     */
+
+    public function __destruct() {
+    }
+}

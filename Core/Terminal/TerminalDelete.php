@@ -1,94 +1,94 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : TerminalDelete.php
-	 | @author : Fabien Beaujean
-	 | @description : terminal command delete
-	 | @version : 3.0 bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : TerminalDelete.php
+ | @author : Fabien Beaujean
+ | @description : terminal command delete
+ | @version : 3.0 bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Terminal;
+namespace Gcs\Framework\Core\Terminal;
 
-	/**
-	 * Class TerminalDelete
-	 * @package Gcs\Framework\Core\Terminal
-	 */
+/**
+ * Class TerminalDelete
+ * @package Gcs\Framework\Core\Terminal
+ */
 
-	class TerminalDelete extends TerminalCommand {
-		public function module() {
-			$src = '';
+class TerminalDelete extends TerminalCommand {
+    public function module() {
+        $src = '';
 
-			//choose the module name
-			while (1 == 1) {
-				echo ' - choose the module you want to delete : ';
-				$src = ArgvInput::get();
+        //choose the module name
+        while (1 == 1) {
+            echo ' - choose the module you want to delete : ';
+            $src = ArgvInput::get();
 
-				if (file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/')) {
-					break;
-				}
-				else {
-					echo " - [ERROR] this module doesn't exist\n";
-				}
-			}
-			
-			Terminal::rrmdir(SRC_PATH . $src, true);
-			Terminal::rrmdir(WEB_PATH . $src, true);
-			rmdir(SRC_PATH . $src);
-			rmdir(WEB_PATH . $src);
+            if (file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/')) {
+                break;
+            }
+            else {
+                echo " - [ERROR] this module doesn't exist\n";
+            }
+        }
 
-			echo ' - the module has been successfully delete';
-		}
+        Terminal::rrmdir(SRC_PATH . $src, true);
+        Terminal::rrmdir(WEB_PATH . $src, true);
+        rmdir(SRC_PATH . $src);
+        rmdir(WEB_PATH . $src);
 
-		/**
-		 * return void
-		 * @access public
-		 */
+        echo ' - the module has been successfully delete';
+    }
 
-		public function controller() {
-			$src = '';
-			$controllers = [];
+    /**
+     * return void
+     * @access public
+     */
 
-			//choose the module name
-			while (1 == 1) {
-				echo ' - choose module : ';
-				$src = ArgvInput::get();
+    public function controller() {
+        $src = '';
+        $controllers = [];
 
-				if (file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/')) {
-					break;
-				}
-				else {
-					echo " - [ERROR] this module doesn't exist\n";
-				}
-			}
+        //choose the module name
+        while (1 == 1) {
+            echo ' - choose module : ';
+            $src = ArgvInput::get();
 
-			//choose the controllers
-			while (1 == 1) {
-				echo ' - choose a controller (keep empty to stop) : ';
-				$controller = ArgvInput::get();
+            if (file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/')) {
+                break;
+            }
+            else {
+                echo " - [ERROR] this module doesn't exist\n";
+            }
+        }
 
-				if ($controller != '') {
-					if (!in_array($controller, $controllers) AND file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . '/' . ucfirst($controller) . '.php')) {
-						array_push($controllers, $controller);
-					}
-					else {
-						echo " - [ERROR] you have already chosen this controller or it isn't created.\n";
-					}
-				}
-				else {
-					if (count($controllers) > 0) {
-						break;
-					}
-					else {
-						echo " - [ERROR] you must add at least one controller\n";
-					}
-				}
-			}
+        //choose the controllers
+        while (1 == 1) {
+            echo ' - choose a controller (keep empty to stop) : ';
+            $controller = ArgvInput::get();
 
-			foreach ($controllers as $value) {
-				unlink(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . '.php');
+            if ($controller != '') {
+                if (!in_array($controller, $controllers) AND file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . '/' . ucfirst($controller) . '.php')) {
+                    array_push($controllers, $controller);
+                }
+                else {
+                    echo " - [ERROR] you have already chosen this controller or it isn't created.\n";
+                }
+            }
+            else {
+                if (count($controllers) > 0) {
+                    break;
+                }
+                else {
+                    echo " - [ERROR] you must add at least one controller\n";
+                }
+            }
+        }
 
-				echo " - the controller " . $value . " have been successfully deleted";
-			}
-		}
-	}
+        foreach ($controllers as $value) {
+            unlink(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . '.php');
+
+            echo " - the controller " . $value . " have been successfully deleted";
+        }
+    }
+}

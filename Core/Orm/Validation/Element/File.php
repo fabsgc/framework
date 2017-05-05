@@ -1,265 +1,215 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : File.php
-	 | @author : Fabien Beaujean
-	 | @description : file validation
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : File.php
+ | @author : Fabien Beaujean
+ | @description : file validation
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Orm\Validation\Element;
+namespace Gcs\Framework\Core\Orm\Validation\Element;
 
-	/**
-	 * Class File
-	 * @package Gcs\Framework\Core\Orm\Validation\Element
-	 */
+/**
+ * Class File
+ * @package Gcs\Framework\Core\Orm\Validation\Element
+ */
 
-	class File extends Element {
-		/**
-		 * constructor
-		 * @access public
-		 * @param $entity \Gcs\Framework\Core\Orm\Entity\Entity
-		 * @param $field  string
-		 * @param $label  string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Validation\Element
-		 */
+class File extends Element {
+    /**
+     * constructor
+     * @access public
+     * @param $entity \Gcs\Framework\Core\Orm\Entity\Entity
+     * @param $field  string
+     * @param $label  string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\File
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Validation\Element
+     */
 
-		public function __construct($entity, $field, $label) {
-			parent::__construct($entity, $field, $label);
-			return $this;
-		}
+    public function __construct($entity, $field, $label) {
+        parent::__construct($entity, $field, $label);
 
-		/**
-		 * check validity
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+        return $this;
+    }
 
-		public function check() {
-			$field = null;
-			$this->_errors = [];
-			$fields = $this->_getField();
+    /**
+     * check validity
+     * @access public
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
 
-			foreach ($this->_constraints as $constraints) {
-				/** @var \Gcs\Framework\Core\Orm\Entity\Type\File $value */
-				foreach ($fields as $value) {
-					if ($value != null) {
-						switch ($constraints['type']) {
-							case self::ACCEPT:
-								if (!in_array($value->contentType, $constraints['value'])) {
-									array_push($this->_errors, [
-										'name'    => $this->_field,
-										'field'   => $this->_label,
-										'message' => $constraints['message']
-									]);
-								}
-							break;
+    public function check() {
+        $field = null;
+        $this->_errors = [];
+        $fields = $this->_getField();
 
-							case self::EXTENSION:
-								if (!in_array($value->extension(), $constraints['value'])) {
-									array_push($this->_errors, [
-										'name'    => $this->_field,
-										'field'   => $this->_label,
-										'message' => $constraints['message']
-									]);
-								}
-							break;
+        foreach ($this->_constraints as $constraints) {
+            /** @var \Gcs\Framework\Core\Orm\Entity\Type\File $value */
+            foreach ($fields as $value) {
+                if ($value != null) {
+                    switch ($constraints['type']) {
+                        case self::ACCEPT:
+                            if (!in_array($value->contentType, $constraints['value'])) {
+                                array_push($this->_errors, ['name' => $this->_field, 'field' => $this->_label, 'message' => $constraints['message']]);
+                            }
+                            break;
 
-							case self::SIZE:
-								if (strlen($value->content) != $constraints['value']) {
-									array_push($this->_errors, [
-										'name'    => $this->_field,
-										'field'   => $this->_label,
-										'message' => $constraints['message']
-									]);
-								}
-							break;
+                        case self::EXTENSION:
+                            if (!in_array($value->extension(), $constraints['value'])) {
+                                array_push($this->_errors, ['name' => $this->_field, 'field' => $this->_label, 'message' => $constraints['message']]);
+                            }
+                            break;
 
-							case self::SIZEMIN:
-								if (strlen($value->content) < $constraints['value']) {
-									array_push($this->_errors, [
-										'name'    => $this->_field,
-										'field'   => $this->_label,
-										'message' => $constraints['message']
-									]);
-								}
-							break;
+                        case self::SIZE:
+                            if (strlen($value->content) != $constraints['value']) {
+                                array_push($this->_errors, ['name' => $this->_field, 'field' => $this->_label, 'message' => $constraints['message']]);
+                            }
+                            break;
 
-							case self::SIZEMAX:
-								if (strlen($value->content) > $constraints['value']) {
-									array_push($this->_errors, [
-										'name'    => $this->_field,
-										'field'   => $this->_label,
-										'message' => $constraints['message']
-									]);
-								}
-							break;
+                        case self::SIZEMIN:
+                            if (strlen($value->content) < $constraints['value']) {
+                                array_push($this->_errors, ['name' => $this->_field, 'field' => $this->_label, 'message' => $constraints['message']]);
+                            }
+                            break;
 
-							case self::SIZEBETWEEN:
-								if (!in_array(strlen($value->content), $constraints['value'])) {
-									array_push($this->_errors, [
-										'name'    => $this->_field,
-										'field'   => $this->_label,
-										'message' => $constraints['message']
-									]);
-								}
-							break;
-						}
-					}
-					else {
-						array_push($this->_errors, [
-							'field'   => $this->_label,
-							'message' => $constraints['message']
-						]);
-					}
-				}
-			}
-		}
+                        case self::SIZEMAX:
+                            if (strlen($value->content) > $constraints['value']) {
+                                array_push($this->_errors, ['name' => $this->_field, 'field' => $this->_label, 'message' => $constraints['message']]);
+                            }
+                            break;
 
-		/**
-		 * file types accepted
-		 * @access public
-		 * @param $accept string[]
-		 * @param $error  string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+                        case self::SIZEBETWEEN:
+                            if (!in_array(strlen($value->content), $constraints['value'])) {
+                                array_push($this->_errors, ['name' => $this->_field, 'field' => $this->_label, 'message' => $constraints['message']]);
+                            }
+                            break;
+                    }
+                }
+                else {
+                    array_push($this->_errors, ['field' => $this->_label, 'message' => $constraints['message']]);
+                }
+            }
+        }
+    }
 
-		public function accept($accept, $error) {
-			if ($this->_exist) {
-				array_push($this->_constraints, [
-					'type'    => self::ACCEPT,
-					'value'   => $accept,
-					'message' => $error
-				]);
-			}
+    /**
+     * file types accepted
+     * @access public
+     * @param $accept string[]
+     * @param $error  string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\File
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
 
-			return $this;
-		}
+    public function accept($accept, $error) {
+        if ($this->_exist) {
+            array_push($this->_constraints, ['type' => self::ACCEPT, 'value' => $accept, 'message' => $error]);
+        }
 
-		/**
-		 * file extensions accepted
-		 * @access public
-		 * @param $extension string[]
-		 * @param $error     string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+        return $this;
+    }
 
-		public function extension($extension, $error) {
-			if ($this->_exist) {
-				array_push($this->_constraints, [
-					'type'    => self::EXTENSION,
-					'value'   => $extension,
-					'message' => $error
-				]);
-			}
+    /**
+     * file extensions accepted
+     * @access public
+     * @param $extension string[]
+     * @param $error     string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\File
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
 
-			return $this;
-		}
+    public function extension($extension, $error) {
+        if ($this->_exist) {
+            array_push($this->_constraints, ['type' => self::EXTENSION, 'value' => $extension, 'message' => $error]);
+        }
 
-		/**
-		 * exact file size accepted (bytes)
-		 * @access public
-		 * @param $size  int
-		 * @param $error string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+        return $this;
+    }
 
-		public function size($size = 1048576, $error) {
-			if ($this->_exist) {
-				array_push($this->_constraints, [
-					'type'    => self::SIZE,
-					'value'   => $size,
-					'message' => $error
-				]);
-			}
+    /**
+     * exact file size accepted (bytes)
+     * @access public
+     * @param $size  int
+     * @param $error string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\File
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
 
-			return $this;
-		}
+    public function size($size = 1048576, $error) {
+        if ($this->_exist) {
+            array_push($this->_constraints, ['type' => self::SIZE, 'value' => $size, 'message' => $error]);
+        }
 
-		/**
-		 * minimal file size accepted (bytes)
-		 * @access public
-		 * @param $sizeMin int
-		 * @param $error   string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+        return $this;
+    }
 
-		public function sizeMin($sizeMin = 1048576, $error) {
-			if ($this->_exist) {
-				array_push($this->_constraints, [
-					'type'    => self::SIZEMIN,
-					'value'   => $sizeMin,
-					'message' => $error
-				]);
-			}
+    /**
+     * minimal file size accepted (bytes)
+     * @access public
+     * @param $sizeMin int
+     * @param $error   string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\File
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
 
-			return $this;
-		}
+    public function sizeMin($sizeMin = 1048576, $error) {
+        if ($this->_exist) {
+            array_push($this->_constraints, ['type' => self::SIZEMIN, 'value' => $sizeMin, 'message' => $error]);
+        }
 
-		/**
-		 * max file size accepted (bytes)
-		 * @access public
-		 * @param $sizeMax int
-		 * @param $error   string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+        return $this;
+    }
 
-		public function sizeMax($sizeMax = 1048576, $error) {
-			if ($this->_exist) {
-				array_push($this->_constraints, [
-					'type'    => self::SIZEMAX,
-					'value'   => $sizeMax,
-					'message' => $error
-				]);
-			}
+    /**
+     * max file size accepted (bytes)
+     * @access public
+     * @param $sizeMax int
+     * @param $error   string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\File
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
 
-			return $this;
-		}
+    public function sizeMax($sizeMax = 1048576, $error) {
+        if ($this->_exist) {
+            array_push($this->_constraints, ['type' => self::SIZEMAX, 'value' => $sizeMax, 'message' => $error]);
+        }
 
-		/**
-		 * max file size accepted (bytes)
-		 * @access public
-		 * @param $sizeBetween int[]
-		 * @param $error       string
-		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+        return $this;
+    }
 
-		public function sizeBetween($sizeBetween = [0, 1048576], $error) {
-			if ($this->_exist) {
-				array_push($this->_constraints, [
-					'type'    => self::SIZEBETWEEN,
-					'value'   => $sizeBetween,
-					'message' => $error
-				]);
-			}
+    /**
+     * max file size accepted (bytes)
+     * @access public
+     * @param $sizeBetween int[]
+     * @param $error       string
+     * @return \Gcs\Framework\Core\Orm\Validation\Element\File
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
 
-			return $this;
-		}
+    public function sizeBetween($sizeBetween = [0, 1048576], $error) {
+        if ($this->_exist) {
+            array_push($this->_constraints, ['type' => self::SIZEBETWEEN, 'value' => $sizeBetween, 'message' => $error]);
+        }
 
-		/**
-		 * destructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+        return $this;
+    }
 
-		public function __destruct() {
-		}
-	}
+    /**
+     * destructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
+
+    public function __destruct() {
+    }
+}

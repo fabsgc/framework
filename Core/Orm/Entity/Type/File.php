@@ -1,160 +1,160 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : File.php
-	 | @author : Fabien Beaujean
-	 | @description : permit to store a file in a db
-	 | @version : 3.0 bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : File.php
+ | @author : Fabien Beaujean
+ | @description : permit to store a file in a db
+ | @version : 3.0 bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Orm\Entity\Type;
+namespace Gcs\Framework\Core\Orm\Entity\Type;
 
-	/**
-	 * Class File
-	 * @package Gcs\Framework\Core\Orm\Entity\Type
-	 */
+/**
+ * Class File
+ * @package Gcs\Framework\Core\Orm\Entity\Type
+ */
 
-	class File extends Type {
-		/**
-		 * @var string
-		 */
+class File extends Type {
+    /**
+     * @var string
+     */
 
-		public $name = '';
+    public $name = '';
 
-		/**
-		 * @var string
-		 */
+    /**
+     * @var string
+     */
 
-		public $path = '';
+    public $path = '';
 
-		/**
-		 * @var string
-		 */
+    /**
+     * @var string
+     */
 
-		public $content = '';
+    public $content = '';
 
-		/**
-		 * @var string
-		 */
+    /**
+     * @var string
+     */
 
-		public $contentType = '';
+    public $contentType = '';
 
-		/**
-		 * if you edit the file name, we use oldFile to delete the original file
-		 * @var string
-		 */
+    /**
+     * if you edit the file name, we use oldFile to delete the original file
+     * @var string
+     */
 
-		protected $_oldFile = '';
+    protected $_oldFile = '';
 
-		/**
-		 * Constructor
-		 * @access public
-		 * @param string $file
-		 * @param string $content
-		 * @param string $contentType
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+    /**
+     * Constructor
+     * @access public
+     * @param string $file
+     * @param string $content
+     * @param string $contentType
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function __construct($file, $content, $contentType) {
-			$this->path = dirname($file) . '/';
-			$this->name = basename($file);
-			$this->_oldFile = $file;
-			$this->contentType = $contentType;
-			$this->content = $content;
-		}
+    public function __construct($file, $content, $contentType) {
+        $this->path = dirname($file) . '/';
+        $this->name = basename($file);
+        $this->_oldFile = $file;
+        $this->contentType = $contentType;
+        $this->content = $content;
+    }
 
-		/**
-		 * Hydrate object
-		 * @access public
-		 * @param $field string
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+    /**
+     * Hydrate object
+     * @access public
+     * @param $field string
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function hydrate($field) {
-			$this->path = preg_replace('#^([^\|]*)\|([^\|]+)\|([^\|]+)$#', '$1', $field);
-			$this->name = preg_replace('#^([^\|]*)\|([^|]+)\|([^\|]+)$#', '$2', $field);
-			$this->contentType = preg_replace('#^([^\|]*)\|([^\|]+)\|([^\|]+)$#', '$3', $field);
+    public function hydrate($field) {
+        $this->path = preg_replace('#^([^\|]*)\|([^\|]+)\|([^\|]+)$#', '$1', $field);
+        $this->name = preg_replace('#^([^\|]*)\|([^|]+)\|([^\|]+)$#', '$2', $field);
+        $this->contentType = preg_replace('#^([^\|]*)\|([^\|]+)\|([^\|]+)$#', '$3', $field);
 
-			if (!in_array(substr($this->path, strlen($this->path) - 1, strlen($this->path)), ['/', '\\']) && $this->path != '') {
-				$this->path .= '/';
-			}
+        if (!in_array(substr($this->path, strlen($this->path) - 1, strlen($this->path)), ['/', '\\']) && $this->path != '') {
+            $this->path .= '/';
+        }
 
-			if ($this->path != '/') {
-				$this->_oldFile = $this->path . $this->name;
-			}
-			else {
-				$this->_oldFile = $this->name;
-			}
+        if ($this->path != '/') {
+            $this->_oldFile = $this->path . $this->name;
+        }
+        else {
+            $this->_oldFile = $this->name;
+        }
 
-			$this->content = file_get_contents($this->_oldFile);
-		}
+        $this->content = file_get_contents($this->_oldFile);
+    }
 
-		/**
-		 * Which value orm save in the database
-		 * @access public
-		 * @return string
-		 * @since 3.0
-		 * @package string
-		 */
+    /**
+     * Which value orm save in the database
+     * @access public
+     * @return string
+     * @since 3.0
+     * @package string
+     */
 
-		public function value() {
-			return substr($this->path, strlen($this->path) - 1, 1) . '|' . $this->name . '|' . $this->contentType;
-		}
+    public function value() {
+        return substr($this->path, strlen($this->path) - 1, 1) . '|' . $this->name . '|' . $this->contentType;
+    }
 
-		/**
-		 * Save the file on the HDD
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+    /**
+     * Save the file on the HDD
+     * @access public
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function save() {
-			if ($this->_oldFile != $this->path . $this->name) {
-				unlink($this->_oldFile);
-			}
+    public function save() {
+        if ($this->_oldFile != $this->path . $this->name) {
+            unlink($this->_oldFile);
+        }
 
-			file_put_contents($this->path . $this->name, $this->content);
-		}
+        file_put_contents($this->path . $this->name, $this->content);
+    }
 
-		/**
-		 * Delete the file
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+    /**
+     * Delete the file
+     * @access public
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function delete() {
-			if ($this->_oldFile != $this->path . $this->name) {
-				unlink($this->_oldFile);
-			}
+    public function delete() {
+        if ($this->_oldFile != $this->path . $this->name) {
+            unlink($this->_oldFile);
+        }
 
-			unlink($this->path . $this->name);
-		}
+        unlink($this->path . $this->name);
+    }
 
-		/**
-		 * get extension
-		 * @access public
-		 * @since 3.0
-		 * @package string
-		 */
+    /**
+     * get extension
+     * @access public
+     * @since 3.0
+     * @package string
+     */
 
-		public function extension() {
-			return substr(strrchr($this->name, '.'), 1);
-		}
+    public function extension() {
+        return substr(strrchr($this->name, '.'), 1);
+    }
 
-		/**
-		 * Destructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+    /**
+     * Destructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function __destruct() {
-		}
-	}
+    public function __destruct() {
+    }
+}

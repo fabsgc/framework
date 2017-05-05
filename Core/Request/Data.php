@@ -11,9 +11,9 @@
 	namespace Gcs\Framework\Core\Request;
 
 	use Gcs\Framework\Core\Exception\AttributeNotAllowedException;
-	use Gcs\Framework\Core\General\Singleton;
+    use Gcs\Framework\Core\General\Singleton;
 
-	/**
+    /**
 	 * Class Data
 	 * @property string form
 	 * @property string method
@@ -34,18 +34,18 @@
 		 * @var array
 		 */
 
-		public $param = [
-			'form'    => false,
-			'method'  => '',
-			'get'     => [],
-			'post'    => [],
-			'put'     => [],
-			'patch'   => [],
-			'delete'  => [],
-			'cookie'  => [],
-			'file'    => [],
-			'session' => []
-		];
+        public $param = [
+            'form'    => false,
+            'method'  => '',
+            'get'     => [],
+            'post'    => [],
+            'put'     => [],
+            'patch'   => [],
+            'delete'  => [],
+            'cookie'  => [],
+            'file'    => [],
+            'session' => []
+        ];
 
 		/**
 		 * constructor

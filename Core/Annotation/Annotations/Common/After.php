@@ -1,35 +1,34 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : After.php
-	 | @author : Fabien Beaujean
-	 | @description : annotation after
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : After.php
+ | @author : Fabien Beaujean
+ | @description : annotation after
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Annotation\Annotations\Common;
+namespace Gcs\Framework\Core\Annotation\Annotations\Common;
 
-	use Gcs\Framework\Core\Annotation\Annotation;
+use Gcs\Framework\Core\Annotation\Annotation;
 
-	/**
-	 * Class After
-	 * @package Gcs\Framework\Core\Annotation\Annotations
-	 */
+/**
+ * Class After
+ * @package Gcs\Framework\Core\Annotation\Annotations
+ */
+class After extends Annotation {
 
-	class After extends Annotation {
+    /**
+     * Parameter class
+     * @var string
+     */
 
-		/**
-		 * Parameter class
-		 * @var string
-		 */
+    public $class;
 
-		public $class;
+    /**
+     * Parameter class
+     * @var string
+     */
 
-		/**
-		 * Parameter class
-		 * @var string
-		 */
-
-		public $method;
-	}
+    public $method;
+}

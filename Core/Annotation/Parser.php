@@ -12,7 +12,7 @@
 
 	use Gcs\Framework\Core\Exception\AnnotationNotExistingException;
 
-	/**
+    /**
 	 * Class Parser
 	 * @package Gcs\Framework\Core\Annotation
 	 */
@@ -26,25 +26,24 @@
 
 		protected $_comments;
 
-		/**
+        /**
 		 * annotation classes list
 		 * @var array
 		 */
 
-		public static $_annotations = [
-			'Routing'    =>           '\Gcs\Framework\Core\Annotation\Annotations\Router\Routing',
-			'Before'     =>            '\Gcs\Framework\Core\Annotation\Annotations\Common\Before',
-			'After'      =>             '\Gcs\Framework\Core\Annotation\Annotations\Common\After',
-			'Cron'       =>                '\Gcs\Framework\Core\Annotation\Annotations\Cron\Cron',
-			'Form'       =>                 '\Gcs\Framework\Core\Annotation\Annotations\Orm\Form',
-			'Table'      =>                '\Gcs\Framework\Core\Annotation\Annotations\Orm\Table',
-			'Column'     =>               '\Gcs\Framework\Core\Annotation\Annotations\Orm\Column',
-			'OneToOne'   =>   '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\OneToOne',
-			'OneToMany'  =>  '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\OneToMany',
-			'ManyToOne'  =>  '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\ManyToOne',
-			'ManyToMany' =>  '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\ManyToMany'
-
-		];
+        public static $_annotations = [
+            'Routing'    =>           '\Gcs\Framework\Core\Annotation\Annotations\Router\Routing',
+            'Before'     =>            '\Gcs\Framework\Core\Annotation\Annotations\Common\Before',
+            'After'      =>             '\Gcs\Framework\Core\Annotation\Annotations\Common\After',
+            'Cron'       =>                '\Gcs\Framework\Core\Annotation\Annotations\Cron\Cron',
+            'Form'       =>                 '\Gcs\Framework\Core\Annotation\Annotations\Orm\Form',
+            'Table'      =>                '\Gcs\Framework\Core\Annotation\Annotations\Orm\Table',
+            'Column'     =>               '\Gcs\Framework\Core\Annotation\Annotations\Orm\Column',
+            'OneToOne'   =>   '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\OneToOne',
+            'OneToMany'  =>  '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\OneToMany',
+            'ManyToOne'  =>  '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\ManyToOne',
+            'ManyToMany' =>  '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\ManyToMany'
+        ];
 
 		/**
 		 * constructor

@@ -1,58 +1,57 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Session.php
-	 | @author : Fabien Beaujean
-	 | @description : Session handler
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Session.php
+ | @author : Fabien Beaujean
+ | @description : Session handler
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Session;
+namespace Gcs\Framework\Core\Session;
 
-	use Gcs\Framework\Core\General\Singleton;
+use Gcs\Framework\Core\General\Singleton;
 
-	/**
-	 * Class Session
-	 * @package Gcs\Framework\Core\Request
-	 */
+/**
+ * Class Session
+ * @package Gcs\Framework\Core\Request
+ */
+class Session {
+    use singleton;
 
-	class Session {
-		use singleton;
+    /**
+     * constructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Request
+     */
 
-		/**
-		 * constructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
-		 */
+    private function __construct() {
+    }
 
-		private function __construct() {
-		}
+    /**
+     * singleton
+     * @access public
+     * @return \Gcs\Framework\Core\Session\Session
+     * @since 3.0
+     * @package Gcs\Framework\Core\Session
+     */
 
-		/**
-		 * singleton
-		 * @access public
-		 * @return \Gcs\Framework\Core\Session\Session
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Session
-		 */
+    public static function instance() {
+        if (is_null(self::$_instance)) {
+            self::$_instance = new Session();
+        }
 
-		public static function instance() {
-			if (is_null(self::$_instance)) {
-				self::$_instance = new Session();
-			}
+        return self::$_instance;
+    }
 
-			return self::$_instance;
-		}
+    /**
+     * destructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Session
+     */
 
-		/**
-		 * destructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Session
-		 */
-
-		public function __destruct() {
-		}
-	}
+    public function __destruct() {
+    }
+}

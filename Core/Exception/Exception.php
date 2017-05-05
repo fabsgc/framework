@@ -1,62 +1,62 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Exception.php
-	 | @author : Fabien Beaujean
-	 | @description : overriding of php exceptions
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Exception.php
+ | @author : Fabien Beaujean
+ | @description : overriding of php exceptions
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Exception;
+namespace Gcs\Framework\Core\Exception;
 
-	/**
-	 * Class Exception
-	 * @package Gcs\Framework\Core\Exception
-	 */
+/**
+ * Class Exception
+ * @package Gcs\Framework\Core\Exception
+ */
 
-	class Exception extends \Exception {
-		/**
-		 * constructor
-		 * @access public
-		 * @param $message  string
-		 * @param $code     int
-		 * @param $previous Exception
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Exception
-		 */
+class Exception extends \Exception {
+    /**
+     * constructor
+     * @access public
+     * @param $message  string
+     * @param $code     int
+     * @param $previous Exception
+     * @since 3.0
+     * @package Gcs\Framework\Core\Exception
+     */
 
-		public function __construct($message, $code = 0, Exception $previous = null) {
-			parent::__construct($message, $code, $previous);
-		}
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
 
-		/**
-		 * toString
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Exception
-		 */
+    /**
+     * toString
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Exception
+     */
 
-		public function __toString() {
-			return $this->message;
-		}
+    public function __toString() {
+        return $this->message;
+    }
 
-		/**
-		 * @return string
-		 * @package Gcs\Framework\Core\Exception
-		 */
+    /**
+     * @return string
+     * @package Gcs\Framework\Core\Exception
+     */
 
-		public function getType() {
-			return ERROR_EXCEPTION;
-		}
+    public function getType() {
+        return ERROR_EXCEPTION;
+    }
 
-		/**
-		 * destructor
-		 * @access public
-		 * @since 3.0
-		 * @package system
-		 */
+    /**
+     * destructor
+     * @access public
+     * @since 3.0
+     * @package system
+     */
 
-		public function __destruct() {
-		}
-	}
+    public function __destruct() {
+    }
+}

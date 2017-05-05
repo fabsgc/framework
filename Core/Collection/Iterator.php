@@ -1,115 +1,115 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Iterator.php
-	 | @author : Fabien Beaujean
-	 | @description : iterator
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Iterator.php
+ | @author : Fabien Beaujean
+ | @description : iterator
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Collection;
+namespace Gcs\Framework\Core\Collection;
 
-	/**
-	 * Class Iterator
-	 * @package Gcs\Framework\Core\Collection
-	 */
+/**
+ * Class Iterator
+ * @package Gcs\Framework\Core\Collection
+ */
 
-	class Iterator implements \Iterator {
-		
-		/**
-		 * @var integer
-		 */
+class Iterator implements \Iterator {
 
-		private $_position = 0;
+    /**
+     * @var integer
+     */
 
-		/**
-		 * @var object[]
-		 */
+    private $_position = 0;
 
-		private $_datas = [];
+    /**
+     * @var object[]
+     */
 
-		/**
-		 * Constructor
-		 * @param string $data
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Iterator
-		 * @param        $data
-		 */
+    private $_datas = [];
 
-		public function __construct($data) {
-			$this->_datas = $data;
-			$this->_position = 0;
-		}
+    /**
+     * Constructor
+     * @param string $data
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Iterator
+     * @param        $data
+     */
 
-		/**
-		 * Initialization
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Collecion
-		 */
+    public function __construct($data) {
+        $this->_datas = $data;
+        $this->_position = 0;
+    }
 
-		function rewind() {
-			$this->_position = 0;
-		}
+    /**
+     * Initialization
+     * @access public
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Collecion
+     */
 
-		/**
-		 * Current
-		 * @access public
-		 * @return object[]
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Iterator
-		 */
+    function rewind() {
+        $this->_position = 0;
+    }
 
-		function current() {
-			return $this->_datas[$this->_position];
-		}
+    /**
+     * Current
+     * @access public
+     * @return object[]
+     * @since 3.0
+     * @package Gcs\Framework\Core\Iterator
+     */
 
-		/**
-		 * Get current key
-		 * @access public
-		 * @return integer
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Iterator
-		 */
+    function current() {
+        return $this->_datas[$this->_position];
+    }
 
-		function key() {
-			return $this->_position;
-		}
+    /**
+     * Get current key
+     * @access public
+     * @return integer
+     * @since 3.0
+     * @package Gcs\Framework\Core\Iterator
+     */
 
-		/**
-		 * Get next key
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Iterator
-		 */
+    function key() {
+        return $this->_position;
+    }
 
-		function next() {
-			++$this->_position;
-		}
+    /**
+     * Get next key
+     * @access public
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Iterator
+     */
 
-		/**
-		 * key is valid ?
-		 * @access public
-		 * @return boolean
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Iterator
-		 */
+    function next() {
+        ++$this->_position;
+    }
 
-		function valid() {
-			return isset($this->_datas[$this->_position]);
-		}
+    /**
+     * key is valid ?
+     * @access public
+     * @return boolean
+     * @since 3.0
+     * @package Gcs\Framework\Core\Iterator
+     */
 
-		/**
-		 * destructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Controller
-		 */
+    function valid() {
+        return isset($this->_datas[$this->_position]);
+    }
 
-		public function __desctuct() {
-		}
-	}
+    /**
+     * destructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Controller
+     */
+
+    public function __desctuct() {
+    }
+}

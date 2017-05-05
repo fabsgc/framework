@@ -1,28 +1,27 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Table.php
-	 | @author : Fabien Beaujean
-	 | @description : annotation orm table
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Table.php
+ | @author : Fabien Beaujean
+ | @description : annotation orm table
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Annotation\Annotations\Orm;
+namespace Gcs\Framework\Core\Annotation\Annotations\Orm;
 
-	use Gcs\Framework\Core\Annotation\Annotation;
+use Gcs\Framework\Core\Annotation\Annotation;
 
-	/**
-	 * Class Form
-	 * @package Gcs\Framework\Core\Annotation\Annotations\Orm
-	 */
+/**
+ * Class Form
+ * @package Gcs\Framework\Core\Annotation\Annotations\Orm
+ */
+class Form extends Annotation {
 
-	class Form extends Annotation {
+    /**
+     * Parameter name
+     * @var string
+     */
 
-		/**
-		 * Parameter name
-		 * @var string
-		 */
-
-		public $name;
-	}
+    public $name;
+}

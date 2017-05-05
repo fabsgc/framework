@@ -1,57 +1,58 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Select.php
-	 | @author : Fabien Beaujean
-	 | @description : select validation
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Select.php
+ | @author : Fabien Beaujean
+ | @description : select validation
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Form\Validation\Element;
+namespace Gcs\Framework\Core\Form\Validation\Element;
 
-	/**
-	 * Class Select
-	 * @package Gcs\Framework\Core\Form\Validation\Element
-	 */
+/**
+ * Class Select
+ * @package Gcs\Framework\Core\Form\Validation\Element
+ */
 
-	class Select extends Element {
-		/**
-		 * constructor
-		 * @access public
-		 * @param $field string
-		 * @param $label string
-		 * @return \Gcs\Framework\Core\Form\Validation\Element\Select
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+class Select extends Element {
+    /**
+     * constructor
+     * @access public
+     * @param $field string
+     * @param $label string
+     * @return \Gcs\Framework\Core\Form\Validation\Element\Select
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
 
-		public function __construct($field, $label) {
-			parent::__construct($field, $label);
-			return $this;
-		}
+    public function __construct($field, $label) {
+        parent::__construct($field, $label);
 
-		/**
-		 * validity
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+        return $this;
+    }
 
-		public function check() {
-			if ($this->_exist) {
-				parent::check();
-			}
-		}
+    /**
+     * validity
+     * @access public
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
 
-		/**
-		 * destructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation\Element
-		 */
+    public function check() {
+        if ($this->_exist) {
+            parent::check();
+        }
+    }
 
-		public function __destruct() {
-		}
-	}
+    /**
+     * destructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Form\Validation\Element
+     */
+
+    public function __destruct() {
+    }
+}

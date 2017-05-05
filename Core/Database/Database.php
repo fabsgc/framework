@@ -1,127 +1,124 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Database.php
-	 | @author : Fabien Beaujean
-	 | @description : enable database connection
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Database.php
+ | @author : Fabien Beaujean
+ | @description : enable database connection
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Database;
+namespace Gcs\Framework\Core\Database;
 
-	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\Exception\MissingDatabaseException;
-	use Gcs\Framework\Core\General\Singleton;
-	use Gcs\Framework\Core\Pdo\Pdo;
+use Gcs\Framework\Core\Config\Config;
+use Gcs\Framework\Core\Exception\MissingDatabaseException;
+use Gcs\Framework\Core\General\Singleton;
+use Gcs\Framework\Core\Pdo\Pdo;
 
-	/**
-	 * Class Database
-	 * @package Gcs\Framework\Core\Database
-	 */
+/**
+ * Class Database
+ * @package Gcs\Framework\Core\Database
+ */
+class Database {
+    use Singleton;
 
-	class Database {
-		use Singleton;
+    /**
+     * @var \Gcs\Framework\Core\Pdo\Pdo
+     */
 
-		/**
-		 * @var \Gcs\Framework\Core\Pdo\Pdo
-		 */
+    protected $db;
 
-		protected $db;
+    /**
+     * constructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Response
+     */
 
-		/**
-		 * constructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Response
-		 */
+    private function __construct() {
+        $this->connect();
+    }
 
-		private function __construct() {
-			$this->connect();
-		}
+    /**
+     * create the database connection
+     * @access public
+     * @throws MissingDatabaseException
+     * @return mixed
+     * @since 3.0
+     * @package Gcs\Framework\Core\Database
+     */
 
-		/**
-		 * singleton
-		 * @access public
-		 * @return \Gcs\Framework\Core\Database\Database
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
-		 */
+    protected function connect() {
+        $db = Config::config()['user']['database'];
 
-		public static function instance() {
-			if (is_null(self::$_instance)) {
-				if (Config::config()['user']['database']['enabled']) {
-					self::$_instance = new Database();
-				}
-				else {
-					self::$_instance = new Database();
-				}
-			}
+        if ($db['enabled']) {
+            switch ($db['driver']) {
+                case 'pdo' :
+                    $options = [Pdo::ATTR_STATEMENT_CLASS => ['\Gcs\Framework\Core\Pdo\PdoStatement', []]];
 
-			return self::$_instance;
-		}
+                    switch ($db['type']) {
+                        case 'mysql':
+                            try {
+                                $this->db = new Pdo('mysql:host=' . $db['hostname'] . ';dbname=' . $db['database'], $db['username'], $db['password'], $options);
+                                //self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                $this->db->exec('SET NAMES ' . strtoupper($db['charset']));
+                            }
+                            catch (\PDOException $e) {
+                                throw new MissingDatabaseException($e->getMessage() . ' / ' . $e->getCode() . ' / ' . $e->getFile());
+                            }
+                            break;
 
-		/**
-		 * create the database connection
-		 * @access public
-		 * @throws MissingDatabaseException
-		 * @return mixed
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Database
-		 */
+                        case 'pgsql':
+                            try {
+                                $this->db = new Pdo('mysql:host=' . $db['hostname'] . ';dbname=' . $db['database'], $db['username'], $db['password'], $options);
+                                //self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                $this->db->exec('SET NAMES ' . strtoupper($db['charset']));
+                            }
+                            catch (\PDOException $e) {
+                                throw new MissingDatabaseException($e->getMessage() . ' / ' . $e->getCode());
+                            }
+                            break;
 
-		protected function connect() {
-			$db = Config::config()['user']['database'];
+                        default :
+                            throw new MissingDatabaseException("Can't connect to SQL Database because the driver is not supported");
+                            break;
+                    }
+                    break;
 
-			if ($db['enabled']) {
-				switch ($db['driver']) {
-					case 'pdo' :
-						$options = [
-							Pdo::ATTR_STATEMENT_CLASS => ['\Gcs\Framework\Core\Pdo\PdoStatement', []]
-						];
+                default :
+                    throw new MissingDatabaseException("Can't connect to SQL Database because the API is unrecognized");
+                    break;
+            }
 
-						switch ($db['type']) {
-							case 'mysql':
-								try {
-									$this->db = new Pdo('mysql:host=' . $db['hostname'] . ';dbname=' . $db['database'], $db['username'], $db['password'], $options);
-									//self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									$this->db->exec('SET NAMES ' . strtoupper($db['charset']));
-								}
-								catch (\PDOException $e) {
-									throw new MissingDatabaseException($e->getMessage() . ' / ' . $e->getCode() . ' / ' . $e->getFile());
-								}
-							break;
+            return $this->db;
+        }
+        else {
+            return null;
+        }
+    }
 
-							case 'pgsql':
-								try {
-									$this->db = new Pdo('mysql:host=' . $db['hostname'] . ';dbname=' . $db['database'], $db['username'], $db['password'], $options);
-									//self::$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									$this->db->exec('SET NAMES ' . strtoupper($db['charset']));
-								}
-								catch (\PDOException $e) {
-									throw new MissingDatabaseException($e->getMessage() . ' / ' . $e->getCode());
-								}
-							break;
+    /**
+     * singleton
+     * @access public
+     * @return \Gcs\Framework\Core\Database\Database
+     * @since 3.0
+     * @package Gcs\Framework\Core\Request
+     */
 
-							default :
-								throw new MissingDatabaseException("Can't connect to SQL Database because the driver is not supported");
-							break;
-						}
-					break;
+    public static function instance() {
+        if (is_null(self::$_instance)) {
+            if (Config::config()['user']['database']['enabled']) {
+                self::$_instance = new Database();
+            }
+            else {
+                self::$_instance = new Database();
+            }
+        }
 
-					default :
-						throw new MissingDatabaseException("Can't connect to SQL Database because the API is unrecognized");
-					break;
-				}
+        return self::$_instance;
+    }
 
-				return $this->db;
-			}
-			else {
-				return null;
-			}
-		}
-
-		public function db() {
-			return $this->db;
-		}
-	}
+    public function db() {
+        return $this->db;
+    }
+}

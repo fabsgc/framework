@@ -11,11 +11,11 @@
 	namespace Gcs\Framework\Core\Response;
 
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\Singleton;
-	use Gcs\Framework\Core\Request\Request;
-	use Gcs\Framework\Core\Template\Template;
+    use Gcs\Framework\Core\General\Singleton;
+    use Gcs\Framework\Core\Request\Request;
+    use Gcs\Framework\Core\Template\Template;
 
-	/**
+    /**
 	 * Class Response
 	 * @package Gcs\Framework\Core\Response
 	 */
@@ -28,82 +28,82 @@
 		 * @var array
 		 */
 
-		protected $_statusCode = [
-			100 => 'Continue',
-			101 => 'Switching Protocols',
-			200 => 'OK',
-			201 => 'Created',
-			202 => 'Accepted',
-			203 => 'Non-Authoritative Information',
-			204 => 'No Content',
-			205 => 'Reset Content',
-			206 => 'Partial Content',
-			300 => 'Multiple Choices',
-			301 => 'Moved Permanently',
-			302 => 'Found',
-			303 => 'See Other',
-			304 => 'Not Modified',
-			305 => 'Use Proxy',
-			307 => 'Temporary Redirect',
-			400 => 'Bad Request',
-			401 => 'Unauthorized',
-			402 => 'Payment Required',
-			403 => 'Forbidden',
-			404 => 'Not Found',
-			405 => 'Method Not Allowed',
-			406 => 'Not Acceptable',
-			407 => 'Proxy Authentication Required',
-			408 => 'Request Time-out',
-			409 => 'Conflict',
-			410 => 'Gone',
-			411 => 'Length Required',
-			412 => 'Precondition Failed',
-			413 => 'Request Entity Too Large',
-			414 => 'Request-URI Too Large',
-			415 => 'Unsupported Media Type',
-			416 => 'Requested range not satisfiable',
-			417 => 'Expectation Failed',
-			418 => 'You\'re speaking with a teapot',
-			500 => 'Internal Server Error',
-			501 => 'Not Implemented',
-			502 => 'Bad Gateway',
-			503 => 'Service Unavailable',
-			504 => 'Gateway Time-out',
-			505 => 'Unsupported Version'
-		];
+        protected $_statusCode = [
+            100 => 'Continue',
+            101 => 'Switching Protocols',
+            200 => 'OK',
+            201 => 'Created',
+            202 => 'Accepted',
+            203 => 'Non-Authoritative Information',
+            204 => 'No Content',
+            205 => 'Reset Content',
+            206 => 'Partial Content',
+            300 => 'Multiple Choices',
+            301 => 'Moved Permanently',
+            302 => 'Found',
+            303 => 'See Other',
+            304 => 'Not Modified',
+            305 => 'Use Proxy',
+            307 => 'Temporary Redirect',
+            400 => 'Bad Request',
+            401 => 'Unauthorized',
+            402 => 'Payment Required',
+            403 => 'Forbidden',
+            404 => 'Not Found',
+            405 => 'Method Not Allowed',
+            406 => 'Not Acceptable',
+            407 => 'Proxy Authentication Required',
+            408 => 'Request Time-out',
+            409 => 'Conflict',
+            410 => 'Gone',
+            411 => 'Length Required',
+            412 => 'Precondition Failed',
+            413 => 'Request Entity Too Large',
+            414 => 'Request-URI Too Large',
+            415 => 'Unsupported Media Type',
+            416 => 'Requested range not satisfiable',
+            417 => 'Expectation Failed',
+            418 => 'You\'re speaking with a teapot',
+            500 => 'Internal Server Error',
+            501 => 'Not Implemented',
+            502 => 'Bad Gateway',
+            503 => 'Service Unavailable',
+            504 => 'Gateway Time-out',
+            505 => 'Unsupported Version'
+        ];
 
-		/**
-		 * status code which display an error page
-		 * @var array
-		 */
+        /**
+         * status code which display an error page
+         * @var array
+         */
 
-		protected $_statusErrorPage = [
-			400 => ['error.http.400', ''],
-			401 => ['error.http.401', ''],
-			402 => ['error.http.402', ''],
-			403 => ['error.http.403', ''],
-			404 => ['error.http.404', ''],
-			405 => ['error.http.405', ''],
-			406 => ['error.http.406', ''],
-			407 => ['error.http.407', ''],
-			408 => ['error.http.408', ''],
-			409 => ['error.http.409', ''],
-			410 => ['error.http.410', ''],
-			411 => ['error.http.411', ''],
-			412 => ['error.http.412', ''],
-			413 => ['error.http.413', ''],
-			414 => ['error.http.414', ''],
-			415 => ['error.http.415', ''],
-			416 => ['error.http.416', ''],
-			417 => ['error.http.417', ''],
-			418 => ['error.http.418', ''],
-			500 => ['error.http.500', ''],
-			501 => ['error.http.501', ''],
-			502 => ['error.http.502', ''],
-			503 => ['error.http.503', ''],
-			504 => ['error.http.504', ''],
-			505 => ['error.http.505', '']
-		];
+        protected $_statusErrorPage = [
+            400 => ['error.http.400', ''],
+            401 => ['error.http.401', ''],
+            402 => ['error.http.402', ''],
+            403 => ['error.http.403', ''],
+            404 => ['error.http.404', ''],
+            405 => ['error.http.405', ''],
+            406 => ['error.http.406', ''],
+            407 => ['error.http.407', ''],
+            408 => ['error.http.408', ''],
+            409 => ['error.http.409', ''],
+            410 => ['error.http.410', ''],
+            411 => ['error.http.411', ''],
+            412 => ['error.http.412', ''],
+            413 => ['error.http.413', ''],
+            414 => ['error.http.414', ''],
+            415 => ['error.http.415', ''],
+            416 => ['error.http.416', ''],
+            417 => ['error.http.417', ''],
+            418 => ['error.http.418', ''],
+            500 => ['error.http.500', ''],
+            501 => ['error.http.501', ''],
+            502 => ['error.http.502', ''],
+            503 => ['error.http.503', ''],
+            504 => ['error.http.504', ''],
+            505 => ['error.http.505', '']
+        ];
 
 		/**
 		 * @var int $_status

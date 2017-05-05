@@ -1,84 +1,84 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : Type.php
-	 | @author : Fabien Beaujean
-	 | @description : abstract class type
-	 | @version : 3.0 bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : Type.php
+ | @author : Fabien Beaujean
+ | @description : abstract class type
+ | @version : 3.0 bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Orm\Entity\Type;
+namespace Gcs\Framework\Core\Orm\Entity\Type;
 
-	/**
-	 * Class Type
-	 * @package Gcs\Framework\Core\Orm\Entity\Type
-	 */
+/**
+ * Class Type
+ * @package Gcs\Framework\Core\Orm\Entity\Type
+ */
 
-	abstract class Type {
-		/**
-		 * Constructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+abstract class Type {
+    /**
+     * Constructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function __construct() {
-		}
+    public function __construct() {
+    }
 
-		/**
-		 * Hydrate object
-		 * @access public
-		 * @param $field string
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+    /**
+     * Hydrate object
+     * @access public
+     * @param $field string
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function hydrate($field) {
-		}
+    public function hydrate($field) {
+    }
 
-		/**
-		 * Which value orm save in the database
-		 * @access public
-		 * @return string
-		 * @since 3.0
-		 * @package string
-		 */
+    /**
+     * Which value orm save in the database
+     * @access public
+     * @return string
+     * @since 3.0
+     * @package string
+     */
 
-		public function value() {
-		    return '';
-		}
+    public function value() {
+        return '';
+    }
 
-		/**
-		 * Save the file on the HDD
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+    /**
+     * Save the file on the HDD
+     * @access public
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function save() {
-		}
+    public function save() {
+    }
 
-		/**
-		 * Delete the file
-		 * @access public
-		 * @return void
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+    /**
+     * Delete the file
+     * @access public
+     * @return void
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function delete() {
-		}
+    public function delete() {
+    }
 
-		/**
-		 * Destructor
-		 * @access public
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Orm\Entity\Type
-		 */
+    /**
+     * Destructor
+     * @access public
+     * @since 3.0
+     * @package Gcs\Framework\Core\Orm\Entity\Type
+     */
 
-		public function __destruct() {
-		}
-	}
+    public function __destruct() {
+    }
+}

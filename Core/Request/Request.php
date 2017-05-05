@@ -11,10 +11,10 @@
 	namespace Gcs\Framework\Core\Request;
 
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\Exception\AttributeNotAllowedException;
-	use Gcs\Framework\Core\General\Singleton;
+    use Gcs\Framework\Core\Exception\AttributeNotAllowedException;
+    use Gcs\Framework\Core\General\Singleton;
 
-	/**
+    /**
 	 * Class Request
 	 * @property string name
 	 * @property string controller
@@ -38,19 +38,19 @@
 		 * @var array
 		 */
 
-		public $param = [
-			'name'       => '',
-			'src'        => '',
-			'controller' => '',
-			'action'     => '',
-			'cache'      => 0,
-			'logged'     => '*',
-			'access'     => '*',
-			'method'     => '*',
-			'lang'       => 'fr',
-			'auth'       => '',
-			'data'       => null
-		];
+        public $param = [
+            'name'       => '',
+            'src'        => '',
+            'controller' => '',
+            'action'     => '',
+            'cache'      => 0,
+            'logged'     => '*',
+            'access'     => '*',
+            'method'     => '*',
+            'lang'       => 'fr',
+            'auth'       => '',
+            'data'       => null
+        ];
 
 		/**
 		 * constructor

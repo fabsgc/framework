@@ -1,22 +1,22 @@
 <?php
-	/*\
-	 | ------------------------------------------------------
-	 | @file : MethodNotAllowedException.php
-	 | @author : Fabien Beaujean
-	 | @description : overriding of php exceptions
-	 | @version : 3.0 Bêta
-	 | ------------------------------------------------------
-	\*/
+/*\
+ | ------------------------------------------------------
+ | @file : MethodNotAllowedException.php
+ | @author : Fabien Beaujean
+ | @description : overriding of php exceptions
+ | @version : 3.0 Bêta
+ | ------------------------------------------------------
+\*/
 
-	namespace Gcs\Framework\Core\Exception;
+namespace Gcs\Framework\Core\Exception;
 
-	/**
-	 * Class AttributeNotAllowedException
-	 * @package Gcs\Framework\Core\Exception
-	 */
+/**
+ * Class AttributeNotAllowedException
+ * @package Gcs\Framework\Core\Exception
+ */
 
-	class AttributeNotAllowedException extends Exception {
-		public function getType() {
-			return 'AttributeNotAllowedException';
-		}
-	}
+class AttributeNotAllowedException extends Exception {
+    public function getType() {
+        return 'AttributeNotAllowedException';
+    }
+}
