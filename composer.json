@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Gcs\\Framework\\" : "src"
+            "Gcs\\Framework\\Core\\" : "Core"
         }
     },
     "extra": {
