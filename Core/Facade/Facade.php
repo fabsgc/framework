@@ -11,8 +11,9 @@
 	namespace Gcs\Framework\Core\Facade;
 
 	use Gcs\Framework\Core\Exception\Exception;
+    use Gcs\Framework\Core\Exception\MissingMethodException;
 
-	/**
+    /**
 	 * Class Facade
 	 * @package Gcs\Framework\Core\Facade
 	 */
@@ -86,7 +87,7 @@
 					}
 				}
 
-				throw new Exception('undefined method "' . $name . '" in "' . $file . '" line ' . $line);
+				throw new MissingMethodException('Undefined method "' . $name . '" in "' . $file . '" line ' . $line);
 			}
 		}
 	}

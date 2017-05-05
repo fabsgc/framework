@@ -11,7 +11,7 @@
 	namespace Helper\Mail;
 
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\Facades;
+	use Gcs\Framework\Core\Facade\Facades;
 	use Gcs\Framework\Core\Helper\Helper;
 	use Gcs\Framework\Core\Mime\Mime;
 	use Gcs\Framework\Core\Template\Template;
@@ -25,7 +25,7 @@
 		use Facades;
 
 		/**
-		 * name and e-mail of the sendere
+		 * name and e-mail of the sender
 		 * @var string[] $_sender
 		 * @access protected
 		 */

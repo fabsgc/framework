@@ -52,7 +52,7 @@
 		/**
 		 * check if the library can be included
 		 * @access protected
-		 * @param $include string
+		 * @param $include []
 		 * @return boolean
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Library

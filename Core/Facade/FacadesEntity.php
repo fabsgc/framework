@@ -8,9 +8,7 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace Gcs\Framework\Core\General;
-
-	use Gcs\Framework\Core\Facade\FacadeEntity;
+	namespace Gcs\Framework\Core\Facade;
 
 	trait FacadesEntity {
 		/**

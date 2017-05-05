@@ -138,9 +138,7 @@
 				$this->_entity = $entity;
 			}
 
-			else {
-				return $this->_entity;
-			}
+			return $this->_entity;
 		}
 
 		/**
@@ -156,9 +154,8 @@
 			if ($field != '') {
 				$this->_field = $field;
 			}
-			else {
-				return $this->_field;
-			}
+
+            return $this->_field;
 		}
 
 		/**
@@ -174,9 +171,8 @@
 			if ($entity != '') {
 				$this->_referenceEntity = $entity;
 			}
-			else {
-				return $this->_referenceEntity;
-			}
+
+            return $this->_referenceEntity;
 		}
 
 		/**
@@ -192,9 +188,8 @@
 			if ($field != '') {
 				$this->_referenceField = $field;
 			}
-			else {
-				return $this->_referenceField;
-			}
+
+            return $this->_referenceField;
 		}
 
 		/**
@@ -210,9 +205,8 @@
 			if ($type != '') {
 				$this->_type = $type;
 			}
-			else {
-				return $this->_type;
-			}
+
+            return $this->_type;
 		}
 
 		/**
@@ -228,9 +222,8 @@
 			if ($belong != '') {
 				$this->_belong = $belong;
 			}
-			else {
-				return $this->_belong;
-			}
+
+            return $this->_belong;
 		}
 
 		/**
@@ -246,9 +239,8 @@
 			if ($join != '') {
 				$this->_join = $join;
 			}
-			else {
-				return $this->_join;
-			}
+
+            return $this->_join;
 		}
 
 		/**
@@ -264,9 +256,8 @@
 			if ($value != '') {
 				$this->_value = $value;
 			}
-			else {
-				return $this->_value;
-			}
+
+			return $this->_value;
 		}
 
 		/**

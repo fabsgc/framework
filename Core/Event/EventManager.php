@@ -72,7 +72,7 @@
 		 * destroy an event
 		 * @access public
 		 * @param string $name
-		 * @return bool
+		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Event
 		 */

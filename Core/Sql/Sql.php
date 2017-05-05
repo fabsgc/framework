@@ -14,9 +14,10 @@
 	use Gcs\Framework\Core\Collection\Collection;
 	use Gcs\Framework\Core\Database\Database;
 	use Gcs\Framework\Core\Exception\MissingSqlException;
-	use Gcs\Framework\Core\General\Errors;
-	use Gcs\Framework\Core\General\Facades;
-	use Gcs\Framework\Core\General\FacadesEntity;
+    use Gcs\Framework\Core\General\Di;
+    use Gcs\Framework\Core\General\Errors;
+	use Gcs\Framework\Core\Facade\Facades;
+	use Gcs\Framework\Core\Facade\FacadesEntity;
 	use Gcs\Framework\Core\Orm\Entity\Field;
 	use Gcs\Framework\Core\Orm\Entity\ForeignKey;
 	use Gcs\Framework\Core\Orm\Entity\Multiple;
@@ -26,10 +27,11 @@
 
 	/**
 	 * Class Sql
+     * @method Entity
 	 * @package Gcs\Framework\Core\Sql
 	 */
 	class Sql {
-		use Errors, Facades, FacadesEntity;
+		use Errors, Facades, FacadesEntity, Di;
 
 		/**
 		 * @var array
@@ -448,8 +450,8 @@
 								}
 							}
 
-							$fielName = str_replace($parent, '', $key);
-							$entityObject->set($fielName, $value);
+							$fieldName = str_replace($parent, '', $key);
+							$entityObject->set($fieldName, $value);
 						}
 					}
 				}

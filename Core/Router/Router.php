@@ -11,7 +11,7 @@
 	namespace Gcs\Framework\Core\Router;
 
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\Facades;
+	use Gcs\Framework\Core\Facade\Facades;
 	use Gcs\Framework\Core\Request\Request;
 
 	/**

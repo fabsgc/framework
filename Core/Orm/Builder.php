@@ -12,12 +12,13 @@
 
 	use Gcs\Framework\Core\Collection\Collection;
 	use Gcs\Framework\Core\Exception\MissingEntityException;
-	use Gcs\Framework\Core\General\Facades;
+	use Gcs\Framework\Core\Facade\Facades;
 	use Gcs\Framework\Core\Orm\Entity\ForeignKey;
 	use Gcs\Framework\Core\Sql\Sql;
 
 	/**
 	 * Class Builder
+     * @method Entity
 	 * @package Gcs\Framework\Core\Orm
 	 */
 
@@ -388,7 +389,7 @@
 		 * fetch the current query
 		 * @access public
 		 * @param $return integer
-		 * @return \Gcs\Framework\Core\Collection\Collection
+		 * @return \Gcs\Framework\Core\Collection\Collection|\Gcs\Framework\Core\Orm\Entity\
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */

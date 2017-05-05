@@ -12,9 +12,9 @@
 
 	use Gcs\Framework\Core\Asset\Asset;
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\Errors;
-    use Gcs\Framework\Core\General\langs;
-	use Gcs\Framework\Core\General\facades;
+    use Gcs\Framework\Core\Facade\Facades;
+    use Gcs\Framework\Core\General\Errors;
+    use Gcs\Framework\Core\Lang\Langs;
 	use Gcs\Framework\Core\General\Resolver;
     use Gcs\Framework\Core\Request\Request;
 
@@ -965,10 +965,10 @@
 				$asset = new Asset($data);
 
 				if ($m[1] == 'css') {
-					return '<link href="{{url:.gcs.gcs.asset.default:\'' . $asset->getId() . '\',\'' . $asset->getType() . '\'}}" rel="stylesheet" media="screen" type="text/css" />';
+					return '<link href="{{url:.Gcs.gcs.asset.default:\'' . $asset->getId() . '\',\'' . $asset->getType() . '\'}}" rel="stylesheet" media="screen" type="text/css" />';
 				}
 				else if ($m[1] == 'js') {
-					return '<script type="text/javascript" defer src="{{url:.gcs.gcs.asset.default:\'' . $asset->getId() . '\',\'' . $asset->getType() . '\'}}" ></script>';
+					return '<script type="text/javascript" defer src="{{url:.Gcs.gcs.asset.default:\'' . $asset->getId() . '\',\'' . $asset->getType() . '\'}}" ></script>';
 				}
 			}
 			else {
@@ -1083,7 +1083,6 @@
 		/**
 		 * destructor
 		 * @access public
-		 * @return string
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Template
 		 */

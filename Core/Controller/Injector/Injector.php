@@ -10,7 +10,7 @@
 
 	namespace Gcs\Framework\Core\Controller\Injector;
 
-	use Gcs\Framework\Core\General\facades;
+	use Gcs\Framework\Core\Facade\Facades;
 	use Gcs\Framework\Core\General\Singleton;
 
 	/**

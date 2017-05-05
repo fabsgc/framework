@@ -40,7 +40,7 @@
 
 		public function __construct($data) {
 			$this->_datas = $data;
-			$this->position = 0;
+			$this->_position = 0;
 		}
 
 		/**
@@ -52,7 +52,7 @@
 		 */
 
 		function rewind() {
-			$this->position = 0;
+			$this->_position = 0;
 		}
 
 		/**
@@ -82,7 +82,7 @@
 		/**
 		 * Get next key
 		 * @access public
-		 * @return integer
+		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Iterator
 		 */

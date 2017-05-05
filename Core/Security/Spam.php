@@ -15,7 +15,7 @@
 	use Gcs\Framework\Core\Exception\MissingConfigException;
 	use Gcs\Framework\Core\General\di;
 	use Gcs\Framework\Core\General\Errors;
-	use Gcs\Framework\Core\General\Langs;
+	use Gcs\Framework\Core\Lang\Langs;
 	use Gcs\Framework\Core\General\Resolver;
 	use Gcs\Framework\Core\Request\Request;
 	use Gcs\Framework\Core\Template\Template;
@@ -167,7 +167,7 @@
 		 * @access public
 		 * @param int $time
 		 * @param int $number
-		 * @return array
+		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Security
 		 */

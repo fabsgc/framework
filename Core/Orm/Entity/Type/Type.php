@@ -47,6 +47,7 @@
 		 */
 
 		public function value() {
+		    return '';
 		}
 
 		/**

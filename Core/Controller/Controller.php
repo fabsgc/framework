@@ -13,10 +13,10 @@
 	use Gcs\Framework\Core\Database\Database;
 	use Gcs\Framework\Core\Event\EventManager;
 	use Gcs\Framework\Core\General\Errors;
-	use Gcs\Framework\Core\General\Facades;
-	use Gcs\Framework\Core\General\FacadesEntity;
-	use Gcs\Framework\Core\General\FacadesHelper;
-	use Gcs\Framework\Core\General\Langs;
+	use Gcs\Framework\Core\Facade\Facades;
+	use Gcs\Framework\Core\Facade\FacadesEntity;
+	use Gcs\Framework\Core\Facade\FacadesHelper;
+	use Gcs\Framework\Core\Lang\Langs;
 	use Gcs\Framework\Core\General\OrmFunctions;
 	use Gcs\Framework\Core\General\Resolver;
 	use Gcs\Framework\Core\Orm\Entity\Entity;

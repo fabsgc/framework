@@ -10,7 +10,7 @@
 
 	namespace Helper\Pagination;
 
-	use Gcs\Framework\Core\General\Facades;
+	use Gcs\Framework\Core\Facade\Facades;
 	use Gcs\Framework\Core\Helper\Helper;
 	use Gcs\Framework\Core\Template\Template;
 

@@ -13,8 +13,8 @@
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Exception\MissingTemplateException;
 	use Gcs\Framework\Core\General\Errors;
-	use Gcs\Framework\Core\General\facades;
-	use Gcs\Framework\Core\General\langs;
+	use Gcs\Framework\Core\Facade\facades;
+	use Gcs\Framework\Core\Lang\Langs;
 	use Gcs\Framework\Core\General\Resolver;
 	use Gcs\Framework\Core\Profiler\Profiler;
 
@@ -24,7 +24,7 @@
 	 */
 
 	class Template {
-		use Errors, langs, facades, Resolver;
+		use Errors, Langs, Facades, Resolver;
 
 		/**
 		 * path to the .tpl file
@@ -308,7 +308,7 @@
 		}
 
 		/**
-		 * @param     $returnType : make a include or eval the template
+		 * @param $returnType : make a include or eval the template
 		 * @param int $type
 		 * @return mixed
 		 * @since 3.0

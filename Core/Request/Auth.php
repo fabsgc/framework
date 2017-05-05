@@ -69,8 +69,8 @@
 			$this->_config = Config::instance();
 			$this->_src = $src;
 
-			$this->_path['logged'] = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['logged']['name']);
-			$this->_path['role'] = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['roles']['name']);
+			$this->_path['logged'] = explode('.', $this->_config->config['firewall']['' . $src . '']['logged']['name']);
+			$this->_path['role'] = explode('.', $this->_config->config['firewall']['' . $src . '']['roles']['name']);
 			$this->_param['role'] = $this->_getSession($this->_path['role']);
 
 			$data = $this->_getSession($this->_path['logged']);
@@ -132,18 +132,18 @@
          */
 
 		public function role($src, $value = '') {
-			if (isset($this->_config->config['firewall']['' . lcfirst($src) . ''])) {
+			if (isset($this->_config->config['firewall']['' . $src . ''])) {
 				if ($value == '') {
-					$role = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['roles']['name']);
+					$role = explode('.', $this->_config->config['firewall']['' . $src . '']['roles']['name']);
 					return $this->_getSession($role);
 				}
 				else {
-					$role = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['roles']['name']);
+					$role = explode('.', $this->_config->config['firewall']['' . $src . '']['roles']['name']);
 					$this->_setSession($role, $value);
 				}
 			}
 			else {
-				throw new MissingConfigException('the module ' . lcfirst($src) . ' doesn\'t exist');
+				throw new MissingConfigException('the module ' . $src . ' doesn\'t exist');
 			}
 
 			return false;
@@ -161,9 +161,9 @@
 		 */
 
 		public function logged($src, $value = '') {
-			if (isset($this->_config->config['firewall']['' . lcfirst($src) . ''])) {
+			if (isset($this->_config->config['firewall']['' . $src . ''])) {
 				if ($value == '') {
-					$logged = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['logged']['name']);
+					$logged = explode('.', $this->_config->config['firewall']['' . $src . '']['logged']['name']);
 
 					$data = $this->_getSession($logged);
 
@@ -175,7 +175,7 @@
 					}
 				}
 				else {
-					$logged = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['logged']['name']);
+					$logged = explode('.', $this->_config->config['firewall']['' . $src . '']['logged']['name']);
 					$this->_setSession($logged, $value);
 				}
 			}

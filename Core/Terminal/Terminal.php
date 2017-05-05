@@ -43,7 +43,7 @@
 		/**
 		 * Parse terminal parameters to allow user to use spaces
 		 * @access public
-		 * @param $argv string
+		 * @param $argv []
 		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Terminal

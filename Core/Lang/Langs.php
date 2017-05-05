@@ -8,15 +8,14 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace Gcs\Framework\Core\General;
+	namespace Gcs\Framework\Core\Lang;
 
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Request\Request;
-	use Gcs\Framework\Core\Lang\Lang;
 
 	/**
 	 * Langs trait
-	 * @package Gcs\Framework\Core\General
+	 * @package Gcs\Framework\Core\Lang
 	 */
 
 	trait Langs {
@@ -32,6 +31,7 @@
 		 * @access public
 		 * @return string
 		 * @since  3.0
+         * @package Gcs\Framework\Core\Lang
 		 */
 
 		public function getLangClient() {
@@ -53,6 +53,7 @@
 		 * @param string lang
 		 * @return void
 		 * @since  3.0
+         * @package Gcs\Framework\Core\Lang
 		 */
 
 		public function setLang($lang = '') {
@@ -64,6 +65,7 @@
 		 * @access public
 		 * @return string
 		 * @since  3.0
+         * @package Gcs\Framework\Core\Lang
 		 */
 
 		public function getLang() {
@@ -77,6 +79,7 @@
 		 * @param int $template : use template syntax or not
 		 * @return string
 		 * @since  3.0
+         * @package Gcs\Framework\Core\Lang
 		 */
 
 		final public function useLang($lang, $vars = [], $template = Lang::USE_NOT_TPL) {

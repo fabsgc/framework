@@ -193,6 +193,7 @@
 		public function header($header = null) {
 			if ($this->_status != null) {
 				array_push($this->_headers, $header);
+				return true;
 			}
 			else {
 				return $this->_headers;
@@ -214,6 +215,8 @@
 				if (array_key_exists($status, $this->_statusCode)) {
 					$this->_status = $status;
 				}
+
+				return true;
 			}
 			else {
 				return $this->_status;
@@ -233,6 +236,7 @@
 		public function contentType($contentType = null) {
 			if ($contentType != null) {
 				$this->_contentType = $contentType;
+				return true;
 			}
 			else {
 				return $this->_contentType;
@@ -242,7 +246,7 @@
 		/**
 		 * execute all the headers
 		 * @access public
-		 * @return string
+		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Response
 		 */
@@ -283,6 +287,7 @@
 		public function page($page = null) {
 			if ($page != null) {
 				$this->_page = $page;
+				return true;
 			}
 			else {
 				return $this->_page;
@@ -292,7 +297,6 @@
 		/**
 		 * destructor
 		 * @access public
-		 * @return string
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Response
 		 */

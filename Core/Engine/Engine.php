@@ -22,7 +22,7 @@
 	use Gcs\Framework\Core\Exception\MissingMethodException;
 	use Gcs\Framework\Core\General\Di;
 	use Gcs\Framework\Core\General\Errors;
-	use Gcs\Framework\Core\General\Langs;
+	use Gcs\Framework\Core\Lang\Langs;
 	use Gcs\Framework\Core\General\Resolver;
 	use Gcs\Framework\Core\Library\Library;
 	use Gcs\Framework\Core\Profiler\Profiler;
@@ -258,7 +258,7 @@
 
 		protected function _controller() {
 			if ($this->_setControllerFile($this->request->src, $this->request->controller) == true) {
-				$className = "\\Src\\" . ucfirst($this->request->src) . "\\Controller\\" . ucfirst($this->request->controller);
+				$className = "\\Src\\" . $this->request->src . "\\Controller\\" . ucfirst($this->request->controller);
 				/** @var Controller $class */
 				$class = new $className();
 
@@ -326,10 +326,10 @@
 				$output = $reflectionMethod->invokeArgs($class, $params);
 				$this->_callAnnotation($class, $annotation, 'methods', 'After');
 
-				$this->addError('Action "' . ucfirst($this->request->src) . '/' . ucfirst($this->request->controller) . '/action' . ucfirst($this->request->action) . '" called successfully', __FILE__, __LINE__, ERROR_INFORMATION);
+				$this->addError('Action "' . $this->request->src . '/' . ucfirst($this->request->controller) . '/action' . ucfirst($this->request->action) . '" called successfully', __FILE__, __LINE__, ERROR_INFORMATION);
 			}
 			else {
-				throw new Exception('The requested "' . ucfirst($this->request->src) . '/' . ucfirst($this->request->controller) . '/action' . ucfirst($this->request->action) . '"  doesn\'t exist');
+				throw new Exception('The requested "' . $this->request->src . '/' . ucfirst($this->request->controller) . '/action' . ucfirst($this->request->action) . '"  doesn\'t exist');
 			}
 
 			$this->_callAnnotation($class, $annotation, 'class', 'After');
@@ -389,7 +389,7 @@
 		 */
 
 		protected function _setControllerFile($src, $controller) {
-			$controllerPath = SRC_PATH . ucfirst($src) . '/' . SRC_CONTROLLER_PATH . ucfirst($controller) . '.php';
+			$controllerPath = SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($controller) . '.php';
 
 			if (file_exists($controllerPath)) {
 				require_once($controllerPath);
@@ -544,7 +544,7 @@
 		/**
 		 * escape array (htmlentities)
 		 * @access  private
-		 * @param $var array
+		 * @param $var array|string
 		 * @return mixed
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Engine
@@ -578,7 +578,7 @@
 			}
 
 			if ($src != null) {
-				$path = SRC_PATH . ucfirst($src) . '/' . SRC_RESOURCE_EVENT_PATH;
+				$path = SRC_PATH . $src . '/' . SRC_RESOURCE_EVENT_PATH;
 			}
 			else {
 				$path = APP_RESOURCE_EVENT_PATH;
@@ -591,7 +591,7 @@
 							include_once($path . $entry);
 
 							if ($src != null) {
-								$event = '\Event\\' . ucfirst($src) . '\\' . preg_replace('#(.+)' . preg_quote('.php') . '#', '$1', $entry);
+								$event = '\Event\\' . $src . '\\' . preg_replace('#(.+)' . preg_quote('.php') . '#', '$1', $entry);
 								$event = preg_replace('#' . preg_quote('/') . '#', '\\', $event);
 							}
 							else {
@@ -622,7 +622,7 @@
 				require_once(APP_FUNCTION);
 			}
 			else {
-				require_once(SRC_PATH . ucfirst($src) . '/' . SRC_CONTROLLER_FUNCTION_PATH);
+				require_once(SRC_PATH . $src . '/' . SRC_CONTROLLER_FUNCTION_PATH);
 			}
 		}
 

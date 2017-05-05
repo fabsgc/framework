@@ -170,7 +170,7 @@
 		/**
 		 * add a template
 		 * @access public
-		 * @param $name
+		 * @param $name string
 		 * @param $type
 		 * @param $file
 		 * @return void
@@ -182,7 +182,6 @@
 			if ($this->_enabled == true) {
 				switch ($type) {
 					case self::TEMPLATE_START:
-						$this->_template[$file] = [];
 						$this->_template[$file]['name'] = $name;
 						$this->_template[$file]['time'] = microtime(true);
 					break;
@@ -281,7 +280,6 @@
 		/**
 		 * destructor
 		 * @access public
-		 * @return string
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Profiler
 		 */

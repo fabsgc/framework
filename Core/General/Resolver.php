@@ -21,7 +21,7 @@
 		 * the method use the instance of \Gcs\Framework\Core\Config\Config
 		 * @access public
 		 * @param $type string : type of the config
-		 * @param $data string : ".gcs.lang" ".gcs/template/" "template"
+		 * @param $data string : ".Gcs.lang" ".Gcs/template/" "template"
 		 * @throws MissingConfigException
 		 * @return mixed
 		 * @since 3.0
@@ -57,7 +57,7 @@
 					$src = $request->src;
 				}
 
-				return [$config->config[$type][lcfirst($src)], $data];
+				return [$config->config[$type][$src], $data];
 			}
 			else {
 				if (preg_match('#^((\.)([^(\/)]+)([(\/)]*)(.*))#', $data, $matches)) {
@@ -77,12 +77,12 @@
 					return VENDOR_PATH . $data;
 				}
 				else {
-					if (!isset($config->config[$type][ucfirst($src)])) {
-						throw new MissingConfigException('The section "' . $type . '/'. ucfirst($src) . '" does not exist in configuration');
+					if (!isset($config->config[$type][$src])) {
+						throw new MissingConfigException('The section "' . $type . '/'. $src . '" does not exist in configuration');
 					}
 				}
 
-				return $config->config[$type][ucfirst($src)] . $data;
+				return $config->config[$type][$src] . $data;
 			}
 		}
 

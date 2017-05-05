@@ -10,7 +10,7 @@
 
 	namespace Gcs\Framework\Core\Helper;
 
-	use Gcs\Framework\Core\General\Langs;
+	use Gcs\Framework\Core\Lang\Langs;
 
 	/**
 	 * Class Helper

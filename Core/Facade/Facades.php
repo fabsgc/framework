@@ -8,7 +8,7 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace Gcs\Framework\Core\General;
+	namespace Gcs\Framework\Core\Facade;
 	
 	use Gcs\Framework\Core\Asset\Asset;
 	use Gcs\Framework\Core\Cache\Cache;
@@ -19,9 +19,6 @@
 	use Gcs\Framework\Core\Controller\Injector\Orm;
 	use Gcs\Framework\Core\Cron\Cron;
 	use Gcs\Framework\Core\Database\Database;
-	use Gcs\Framework\Core\Facade\Facade;
-	use Gcs\Framework\Core\Facade\FacadeEntity;
-	use Gcs\Framework\Core\Facade\FacadeHelper;
 	use Gcs\Framework\Core\Form\Validation\Validation;
 	use Gcs\Framework\Core\Lang\Lang;
 	use Gcs\Framework\Core\Library\Library;
@@ -77,7 +74,7 @@
 		 * @param $arguments array
 		 * @return object
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\General
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		public function __call($name, $arguments = []) {

@@ -8,9 +8,7 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace Gcs\Framework\Core\General;
-
-	use Gcs\Framework\Core\Facade\FacadeHelper;
+	namespace Gcs\Framework\Core\Facade;
 
 	trait FacadesHelper {
 		/**

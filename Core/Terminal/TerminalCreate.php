@@ -113,8 +113,8 @@
 
 			foreach ($controllers as $value) {
 				$tpl['controller'] = new Template('.app/system/module/controller', 'terminalCreateController' . $value);
-				$tpl['controller']->assign(['php' => '<?php', 'src' => $src, 'controller' => ucfirst($value)]);
-				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . '.php', $tpl['controller']->show());
+				$tpl['controller']->assign(['php' => '<?php', 'src' => $src, 'controller' => $value]);
+				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . $value . '.php', $tpl['controller']->show());
 			}
 
 			echo ' - the module has been successfully created';
@@ -148,7 +148,7 @@
 				$controller = ArgvInput::get();
 
 				if ($controller != '') {
-					if (!in_array($controller, $controllers) AND !file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . '/' . ucfirst($controller) . '.php')) {
+					if (!in_array($controller, $controllers) AND !file_exists(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . '/' . $controller . '.php')) {
 						array_push($controllers, $controller);
 					}
 					else {
@@ -167,9 +167,9 @@
 
 			foreach ($controllers as $value) {
 				$tpl['controller'] = new Template('.app/system/module/controller', 'terminalCreateController' . $value);
-				$tpl['controller']->assign(['php' => '<?php', 'src' => $src, 'controller' => ucfirst($value)]);
+				$tpl['controller']->assign(['php' => '<?php', 'src' => $src, 'controller' => $value]);
 
-				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($value) . '.php', $tpl['controller']->show());
+				file_put_contents(DOCUMENT_ROOT . SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . $value . '.php', $tpl['controller']->show());
 
 				echo "\n - the controller " . $value . " have been successfully created";
 			}
@@ -218,7 +218,7 @@
 		 * Create Entity
 		 * @access public
 		 * @param $table string
-		 * @return string
+		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Terminal
 		 */

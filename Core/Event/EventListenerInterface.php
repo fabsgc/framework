@@ -1,7 +1,7 @@
 <?php
 	/*\
 	 | ------------------------------------------------------
-	 | @file : EventListener.php
+	 | @file : EventListenerInterface.php
 	 | @author : Fabien Beaujean
 	 | @description : EventListener interface
 	 | @version : 3.0
@@ -15,6 +15,6 @@
 	 * @package Gcs\Framework\Core\Event
 	 */
 
-	interface EventListener {
+	interface EventListenerInterface {
 		public function implementedEvents();
 	}

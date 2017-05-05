@@ -96,7 +96,7 @@
 		 * Set the name
 		 * @access public
 		 * @param $name string
-		 * @return array
+		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Event
 		 */
@@ -162,7 +162,7 @@
 		 * Set the name
 		 * @access public
 		 * @param $parent \Gcs\Framework\Core\Controller\Controller
-		 * @return array
+		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Event
 		 */
@@ -174,7 +174,6 @@
 		/**
 		 * Destructor
 		 * @access public
-		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Event
 		 */
