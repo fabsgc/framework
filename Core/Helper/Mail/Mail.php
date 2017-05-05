@@ -10,11 +10,11 @@
 
 	namespace Helper\Mail;
 
-	use System\Config\Config;
-	use System\General\facades;
-	use System\Helper\Helper;
-	use System\Mime\Mime;
-	use System\Template\Template;
+	use Gcs\Framework\Core\Config\Config;
+	use Gcs\Framework\Core\General\facades;
+	use Gcs\Framework\Core\Helper\Helper;
+	use Gcs\Framework\Core\Mime\Mime;
+	use Gcs\Framework\Core\Template\Template;
 
 	/**
 	 * Class Mail

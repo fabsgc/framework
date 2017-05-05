@@ -8,12 +8,9 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace System;
+	namespace Gcs\Framework;
 
-	use System\General\facades;
-
-	require_once(APP_FUNCTION);
-	require_once(CLASS_GENERAL);
+	use Gcs\Framework\Core\General\facades;
 
 	/**
 	 * Class Autoload

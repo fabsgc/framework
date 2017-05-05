@@ -2,10 +2,10 @@
 
 	namespace Helper\Alert;
 
-	use System\General\error;
-	use System\General\facades;
-	use System\Helper\Helper;
-	use System\Template\Template;
+	use Gcs\Framework\Core\General\error;
+	use Gcs\Framework\Core\General\facades;
+	use Gcs\Framework\Core\Helper\Helper;
+	use Gcs\Framework\Core\Template\Template;
 
 	/**
 	 * Class Alert

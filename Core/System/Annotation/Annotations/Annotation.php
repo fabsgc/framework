@@ -8,7 +8,7 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace System\Annotation\Annotations;
+	namespace Gcs\Framework\Core\Annotation\Annotations;
 
 	/**
 	 * Class Annotation

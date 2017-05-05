@@ -8,12 +8,11 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace System\Annotation;
+	namespace Gcs\Framework\Core\Annotation;
 
-	use Doctrine\Common\Annotations\AnnotationReader;
-	use System\Cache\Cache;
-	use System\Config\Config;
-	use System\Sql\Sql;
+	use Gcs\Framework\Core\Cache\Cache;
+	use Gcs\Framework\Core\Config\Config;
+	use Gcs\Framework\Core\Sql\Sql;
 
 	/**
 	 * Class Annotation
