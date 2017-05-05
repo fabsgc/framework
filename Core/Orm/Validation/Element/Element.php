@@ -64,8 +64,8 @@
 		const DATEDIFFERENT = 40;
 
 		/**
-		 * entity name
-		 * @var $_entity \System\Orm\Entity\Entity
+		 * Entity name
+		 * @var $_entity \Gcs\Framework\Core\Orm\Entity\Entity
 		 */
 
 		protected $_entity;
@@ -110,7 +110,7 @@
 		/**
 		 * constructor
 		 * @access public
-		 * @param $entity \System\Orm\Entity\Entity
+		 * @param $entity \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @param $field  string
 		 * @param $label  string
 		 * @since 3.0
@@ -124,7 +124,7 @@
 		}
 
 		/**
-		 * Before validating the field, we need to get the correct field from the current entity or a linked entity
+		 * Before validating the field, we need to get the correct field from the current Entity or a linked Entity
 		 * @access public
 		 * @throws MissingEntityException
 		 * @return mixed array
@@ -133,31 +133,31 @@
 		 */
 
 		protected function _getField() {
-			//We can access to a field of the current entity or a linked entity (foreign key)
+			//We can access to a field of the current Entity or a linked Entity (foreign key)
 			//If the field name contain a "." it's the second case
 			$fields = [];
 			$fieldsData = $this->_entity->fields();
 
-			//We have to analyze a classic field without linked entity
+			//We have to analyze a classic field without linked Entity
 			if (!preg_match('#\.#isU', $this->_field)) {
 				if (isset($fieldsData[$this->_field])) {
 					$fields = [$fieldsData[$this->_field]->value];
 				}
 				else {
-					throw new MissingEntityException('The field "' . $this->_field . '" in the entity "' . $this->_entity->name() . '" does\'nt exist');
+					throw new MissingEntityException('The field "' . $this->_field . '" in the Entity "' . $this->_entity->name() . '" does\'nt exist');
 				}
 			}
 			else {
-				//Here it's sure that we have a linked entity. But we don't compute "One to One and One to Many" in the same way than the 2 other
+				//Here it's sure that we have a linked Entity. But we don't compute "One to One and One to Many" in the same way than the 2 other
 				//because in the two first the field value is an Entity object and in the two other, the field value is a Collection
-				//To know which type of linked entity it's, we just split the name on the "." and we take the index 0 of the generated array
+				//To know which type of linked Entity it's, we just split the name on the "." and we take the index 0 of the generated array
 
 				$entityName = explode('.', $this->_field);
 
 				if (array_key_exists($entityName[0], $fieldsData) && $fieldsData[$entityName[0]]->foreign != null) {
 					/** @var int $foreignType : the type of the foreign key */
 					$foreignType = $fieldsData[$entityName[0]]->foreign->type();
-					/** @var mixed $fieldValue : the value of the sub-field from the entity (post.article.content->value) */
+					/** @var mixed $fieldValue : the value of the sub-field from the Entity (post.article.content->value) */
 					$fieldValue = $fieldsData[$entityName[0]]->value->fields()[$entityName[1]];
 
 					if ($foreignType == ForeignKey::ONE_TO_MANY || $foreignType == ForeignKey::MANY_TO_ONE) {
@@ -170,7 +170,7 @@
 					}
 				}
 				else {
-					throw new MissingEntityException('The field "' . $this->_field . '" in the entity "' . $this->_entity->name() . '" does\'nt exist');
+					throw new MissingEntityException('The field "' . $this->_field . '" in the Entity "' . $this->_entity->name() . '" does\'nt exist');
 				}
 			}
 
@@ -178,9 +178,9 @@
 		}
 
 		/**
-		 * The method _getField return the value of each field in the entity. This method is used to factorize the source code
+		 * The method _getField return the value of each field in the Entity. This method is used to factorize the source code
 		 * @access public
-		 * @param $field \System\Orm\Entity\Field
+		 * @param $field \Gcs\Framework\Core\Orm\Entity\Field
 		 * @return mixed array
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
@@ -435,7 +435,7 @@
 						break;
 
 						case self::SQL:
-							/** @var $value \System\Orm\Entity\Entity */
+							/** @var $value \Gcs\Framework\Core\Orm\Entity\Entity */
 
 							$sql = new Sql();
 							$sql->query('query-form-validation', $constraints['value']['query']);
@@ -596,7 +596,7 @@
 		 * @access public
 		 * @param $equal string
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -618,7 +618,7 @@
 		 * @access public
 		 * @param $different string
 		 * @param $error     string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -640,7 +640,7 @@
 		 * @access public
 		 * @param $moreThan integer
 		 * @param $error    string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -662,7 +662,7 @@
 		 * @access public
 		 * @param $lessThan integer
 		 * @param $error    string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -684,7 +684,7 @@
 		 * @access public
 		 * @param $between integer[]
 		 * @param $error   string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -706,7 +706,7 @@
 		 * @access public
 		 * @param $in    integer[]
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -728,7 +728,7 @@
 		 * @access public
 		 * @param $notIn integer[]
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -750,7 +750,7 @@
 		 * @access public
 		 * @param $length integer
 		 * @param $error  string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -772,7 +772,7 @@
 		 * @access public
 		 * @param $lengthMin integer
 		 * @param $error     string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -794,7 +794,7 @@
 		 * @access public
 		 * @param $lengthMax integer
 		 * @param $error     string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -816,7 +816,7 @@
 		 * @access public
 		 * @param $lengthIn integer[]
 		 * @param $error    string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -838,7 +838,7 @@
 		 * @access public
 		 * @param $lengthBetween integer[]
 		 * @param $error         string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -860,7 +860,7 @@
 		 * @access public
 		 * @param $regex string
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -881,7 +881,7 @@
 		 * the field must be an email address
 		 * @access public
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -901,7 +901,7 @@
 		 * the field must be an int
 		 * @access public
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -921,7 +921,7 @@
 		 * the field must be a float
 		 * @access public
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -941,7 +941,7 @@
 		 * the field must contains only letters
 		 * @access public
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -961,7 +961,7 @@
 		 * the field must contain only letters and numerics
 		 * @access public
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -981,7 +981,7 @@
 		 * the field must contain only letters, numerics ans underscore
 		 * @access public
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1001,7 +1001,7 @@
 		 * the field must be an ip
 		 * @access public
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1026,7 +1026,7 @@
 		 *               constraint => (>,<,==,!=)
 		 *               value => string
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1048,7 +1048,7 @@
 		 * @access public
 		 * @param $count integer
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1070,7 +1070,7 @@
 		 * @access public
 		 * @param $countMin integer
 		 * @param $error    string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1092,7 +1092,7 @@
 		 * @access public
 		 * @param $countMax integer
 		 * @param $error    string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1114,7 +1114,7 @@
 		 * @access public
 		 * @param $countIn integer[]
 		 * @param $error   string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1136,7 +1136,7 @@
 		 * @access public
 		 * @param $countBetween integer[]
 		 * @param $error        string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1157,7 +1157,7 @@
 		 * The field must exist
 		 * @access public
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1177,7 +1177,7 @@
 		 * The field must not exist
 		 * @access public
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1198,7 +1198,7 @@
 		 * @access public
 		 * @param $name string
 		 * @throws MissingClassException
-		 * @return \System\Orm\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */

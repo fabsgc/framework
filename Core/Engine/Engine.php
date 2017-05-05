@@ -20,10 +20,10 @@
 	use Gcs\Framework\Core\Exception\ErrorHandler;
 	use Gcs\Framework\Core\Exception\Exception;
 	use Gcs\Framework\Core\Exception\MissingMethodException;
-	use Gcs\Framework\Core\General\di;
-	use Gcs\Framework\Core\General\error;
-	use Gcs\Framework\Core\General\langs;
-	use Gcs\Framework\Core\General\resolve;
+	use Gcs\Framework\Core\General\Di;
+	use Gcs\Framework\Core\General\Errors;
+	use Gcs\Framework\Core\General\Langs;
+	use Gcs\Framework\Core\General\Resolver;
 	use Gcs\Framework\Core\Library\Library;
 	use Gcs\Framework\Core\Profiler\Profiler;
 	use Gcs\Framework\Core\Request\Auth;
@@ -40,10 +40,10 @@
 	 */
 
 	class Engine {
-		use error, langs, resolve, di;
+		use Errors, Langs, Resolver, Di;
 
 		/**
-		 * @var \System\Router\Route
+		 * @var \Gcs\Framework\Core\Router\Route
 		 */
 
 		private $_route = false;
@@ -258,7 +258,7 @@
 
 		protected function _controller() {
 			if ($this->_setControllerFile($this->request->src, $this->request->controller) == true) {
-				$className = "\\" . $this->request->src . "\\" . ucfirst($this->request->controller);
+				$className = "\\Src\\" . ucfirst($this->request->src) . "\\Controller\\" . ucfirst($this->request->controller);
 				/** @var Controller $class */
 				$class = new $className();
 
@@ -355,7 +355,7 @@
 			foreach ($annotation[$type] as $action => $annotationClasses){
 				foreach($annotationClasses as $annotationClass) {
 					if ($annotationClass['annotation'] == $annotationType) {
-						/** @var \System\Annotation\Annotations\Common\Before $instance */
+						/** @var \Gcs\Framework\Core\Annotation\Annotations\Common\Before $instance */
 						$instance = $annotationClass['instance'];
 
 						$className = $instance->class;
@@ -373,7 +373,6 @@
 						else{
 							throw new MissingMethodException('The method "' . $methodName . '" from the class "' . $className . '" does not exist');
 						}
-
 					}
 				}
 			}
@@ -390,7 +389,7 @@
 		 */
 
 		protected function _setControllerFile($src, $controller) {
-			$controllerPath = SRC_PATH . $src . '/' . SRC_CONTROLLER_PATH . ucfirst($controller) . '.php';
+			$controllerPath = SRC_PATH . ucfirst($src) . '/' . SRC_CONTROLLER_PATH . ucfirst($controller) . '.php';
 
 			if (file_exists($controllerPath)) {
 				require_once($controllerPath);
@@ -579,7 +578,7 @@
 			}
 
 			if ($src != null) {
-				$path = SRC_PATH . $src . '/' . SRC_RESOURCE_EVENT_PATH;
+				$path = SRC_PATH . ucfirst($src) . '/' . SRC_RESOURCE_EVENT_PATH;
 			}
 			else {
 				$path = APP_RESOURCE_EVENT_PATH;
@@ -623,7 +622,7 @@
 				require_once(APP_FUNCTION);
 			}
 			else {
-				require_once(SRC_PATH . $src . '/' . SRC_CONTROLLER_FUNCTION_PATH);
+				require_once(SRC_PATH . ucfirst($src) . '/' . SRC_CONTROLLER_FUNCTION_PATH);
 			}
 		}
 

@@ -12,11 +12,11 @@
 
 	use Gcs\Framework\Core\Asset\Asset;
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\error;
-	use Gcs\Framework\Core\General\langs;
+	use Gcs\Framework\Core\General\Errors;
+    use Gcs\Framework\Core\General\langs;
 	use Gcs\Framework\Core\General\facades;
-	use Gcs\Framework\Core\General\resolve;
-	use Gcs\Framework\Core\Request\Request;
+	use Gcs\Framework\Core\General\Resolver;
+    use Gcs\Framework\Core\Request\Request;
 
 	/**
 	 * Class Parser
@@ -24,10 +24,10 @@
 	 */
 
 	class Parser {
-		use error, langs, resolve, facades;
+		use Errors, Langs, Resolver, Facades;
 
 		/**
-		 * @var \System\Template\Template $_template
+		 * @var \Gcs\Framework\Core\Template\Template $_template
 		 * @access protected
 		 */
 
@@ -83,7 +83,7 @@
 		protected $_includeI = 0;
 
 		/**
-		 * @var \System\Template\Template $_parent
+		 * @var \Gcs\Framework\Core\Template\Template $_parent
 		 * @access protected
 		 */
 
@@ -121,7 +121,7 @@
 		/**
 		 * constructor
 		 * @access public
-		 * @param $tpl \System\Template\template
+		 * @param $tpl \Gcs\Framework\Core\Template\template
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Template
 		 */
@@ -264,10 +264,10 @@
 		protected function _parseInclude() {
 			$this->_content = preg_replace_callback(
 				'`' . $this->_openTag . $this->_name . preg_quote($this->markup['include'][0]) . $this->_spaceR . preg_quote($this->markup['include'][1]) . $this->_space . '=' . $this->_space . '"([A-Za-z0-9_\-\$/]+)"' . $this->_space . '((' . preg_quote($this->markup['include'][2]) . $this->_space . '=' . $this->_space . '"([0-9]*)"' . $this->_space . ')*)' . $this->_space . '/' . $this->_closeTag . '`isU',
-				['System\Template\Parser', '_parseIncludeCallback'], $this->_content);
+				['Gcs\Framework\Core\Template\Parser', '_parseIncludeCallback'], $this->_content);
 			$this->_content = preg_replace_callback(
 				'`' . $this->_openTag . $this->_name . preg_quote($this->markup['include'][0]) . $this->_spaceR . preg_quote($this->markup['include'][1]) . $this->_space . '=' . $this->_space . '"([A-Za-z0-9_\-\$/]+)"' . $this->_space . preg_quote($this->markup['include'][3]) . $this->_space . '=' . $this->_space . '"' . preg_quote($this->markup['include'][4]) . '"' . $this->_space . '((' . preg_quote($this->markup['include'][2]) . $this->_space . '=' . $this->_space . '"([0-9]*)"' . $this->_space . ')*)' . $this->_space . '/' . $this->_closeTag . '`isU',
-				['System\Template\Parser', '_parseIncludeCompileCallback'], $this->_content);
+				['Gcs\Framework\Core\Template\Parser', '_parseIncludeCompileCallback'], $this->_content);
 		}
 
 		/**
@@ -355,7 +355,7 @@
 		protected function _parseExtends() {
 			$this->_content = preg_replace_callback(
 				'`' . $this->_openTag . $this->_name . preg_quote($this->markup['extends'][0]) . $this->_spaceR . preg_quote($this->markup['extends'][1]) . $this->_space . '=' . $this->_space . '"([\.A-Za-z0-9_\->\$\/\{\}:\(\)\[\]\'\\\\]+)"' . $this->_space . '((' . preg_quote($this->markup['extends'][2]) . $this->_space . '=' . $this->_space . '"([0-9]*)"' . $this->_space . ')*)' . $this->_space . '/' . $this->_closeTag . '`isU',
-				['System\Template\Parser', '_parseExtendsCallback'], $this->_content);
+				['Gcs\Framework\Core\Template\Parser', '_parseExtendsCallback'], $this->_content);
 		}
 
 		/**
@@ -425,8 +425,8 @@
 		 */
 
 		protected function _parseGravatar() {
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][4]) . '(.+):(.+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['System\Template\Parser', '_parseGravatarCallback'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][4]) . '(.+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['System\Template\Parser', '_parseGravatarCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][4]) . '(.+):(.+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseGravatarCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][4]) . '(.+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseGravatarCallback'], $this->_content);
 		}
 
 		/**
@@ -481,21 +481,21 @@
 		 */
 
 		protected function _parseUrl() {
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][6]) . '(\:)([^\{\}]+):([^\{\}]+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['System\Template\Parser', '_parseUrlCallback'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][6]) . '(\:)([^\{\}]+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['System\Template\Parser', '_parseUrlCallback'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][8]) . '(\:)([^\{\}]+):([^\{\}]+)' . preg_quote($this->markup['vars'][3]) . '`sU', ['System\Template\Parser', '_parseUrlCallbackNoEcho'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][8]) . '(\:)([^\{\}]+)' . preg_quote($this->markup['vars'][3]) . '`sU', ['System\Template\Parser', '_parseUrlCallbackNoEcho'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][6]) . '(\:)([^\{\}]+):([^\{\}]+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseUrlCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][6]) . '(\:)([^\{\}]+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseUrlCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][8]) . '(\:)([^\{\}]+):([^\{\}]+)' . preg_quote($this->markup['vars'][3]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseUrlCallbackNoEcho'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][8]) . '(\:)([^\{\}]+)' . preg_quote($this->markup['vars'][3]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseUrlCallbackNoEcho'], $this->_content);
 
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][6]) . '(\[absolute\]\:)([^\{\}]+):([^\{\}]+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['System\Template\Parser', '_parseUrlCallback'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][6]) . '(\[absolute\]\:)([^\{\}]+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['System\Template\Parser', '_parseUrlCallback'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][8]) . '(\[absolute\]\:)([^\{\}]+):([^\{\}]+)' . preg_quote($this->markup['vars'][3]) . '`sU', ['System\Template\Parser', '_parseUrlCallbackNoEcho'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][8]) . '(\[absolute\]\:)([^\{\}]+)' . preg_quote($this->markup['vars'][3]) . '`sU', ['System\Template\Parser', '_parseUrlCallbackNoEcho'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][6]) . '(\[absolute\]\:)([^\{\}]+):([^\{\}]+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseUrlCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][6]) . '(\[absolute\]\:)([^\{\}]+)' . preg_quote($this->markup['vars'][2]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseUrlCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][8]) . '(\[absolute\]\:)([^\{\}]+):([^\{\}]+)' . preg_quote($this->markup['vars'][3]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseUrlCallbackNoEcho'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][8]) . '(\[absolute\]\:)([^\{\}]+)' . preg_quote($this->markup['vars'][3]) . '`sU', ['Gcs\Framework\Core\Template\Parser', '_parseUrlCallbackNoEcho'], $this->_content);
 		}
 
 		/**
 		 * parse url for both url functions
 		 * @param $m array
-		 * @return string
+		 * @return string[]
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Template
 		 */
@@ -539,7 +539,7 @@
 			}
 
 			$data = $this->_parseUrlCallbackNormal($m);
-			return '<?php echo ' . $type . 'System\Url\Url::get(\'' . $data[0] . '\', ' . $data[1] . '); ?>';
+			return '<?php echo ' . $type . 'Gcs\Framework\Core\Url\Url::get(\'' . $data[0] . '\', ' . $data[1] . '); ?>';
 		}
 
 		/**
@@ -562,7 +562,7 @@
 			}
 
 			$data = $this->_parseUrlCallbackNormal($m);
-			return $type . 'System\Url\Url::get(\'' . $data[0] . '\', ' . $data[1] . ')';
+			return $type . 'Gcs\Framework\Core\Url\Url::get(\'' . $data[0] . '\', ' . $data[1] . ')';
 		}
 
 		/**
@@ -590,10 +590,10 @@
 		 */
 
 		protected function _parseLang() {
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][7]) . '(\:)(.*)' . preg_quote($this->markup['vars'][2]) . '`isU', ['System\Template\Parser', '_parseLangCallBack'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][7]) . '(\[template\]\:)(.+)' . preg_quote($this->markup['vars'][2]) . '`isU', ['System\Template\Parser', '_parseLangCallBack'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][9]) . '(\:)(.*)' . preg_quote($this->markup['vars'][3]) . '`isU', ['System\Template\Parser', '_parseLangCallBackNoEcho'], $this->_content);
-			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][9]) . '(\[template\]\:)(.+)' . preg_quote($this->markup['vars'][3]) . '`isU', ['System\Template\Parser', '_parseLangCallBackNoEcho'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][7]) . '(\:)(.*)' . preg_quote($this->markup['vars'][2]) . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseLangCallBack'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][7]) . '(\[template\]\:)(.+)' . preg_quote($this->markup['vars'][2]) . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseLangCallBack'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][9]) . '(\:)(.*)' . preg_quote($this->markup['vars'][3]) . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseLangCallBackNoEcho'], $this->_content);
+			$this->_content = preg_replace_callback('`' . preg_quote($this->markup['vars'][9]) . '(\[template\]\:)(.+)' . preg_quote($this->markup['vars'][3]) . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseLangCallBackNoEcho'], $this->_content);
 		}
 
 		/**
@@ -611,7 +611,7 @@
 				$type = '';
 			}
 			else {
-				$type = ', \System\Lang\Lang::USE_TPL';
+				$type = ', \Gcs\Framework\Core\Lang\Lang::USE_TPL';
 			}
 
 			if (isset($a[1])) {
@@ -647,7 +647,7 @@
 				$type = '';
 			}
 			else {
-				$type = ', \System\Lang\Lang::USE_TPL';
+				$type = ', \Gcs\Framework\Core\Lang\Lang::USE_TPL';
 			}
 
 			if (isset($a[1])) {
@@ -780,7 +780,7 @@
 		 */
 
 		protected function _parseBlock() {
-			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['block'][0]) . $this->_spaceR . preg_quote($this->markup['block'][1]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(\w+)\(\)' . $this->_space . '"' . $this->_space . $this->_closeTag . '(.*)' . $this->_openTag . '/' . $this->_name . $this->markup['block'][0] . $this->_space . $this->_closeTag . '`isU', ['System\Template\Parser', '_parseBlockCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['block'][0]) . $this->_spaceR . preg_quote($this->markup['block'][1]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(\w+)\(\)' . $this->_space . '"' . $this->_space . $this->_closeTag . '(.*)' . $this->_openTag . '/' . $this->_name . $this->markup['block'][0] . $this->_space . $this->_closeTag . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseBlockCallback'], $this->_content);
 		}
 
 		/**
@@ -794,7 +794,7 @@
 
 		protected function _parseBlockCallback($m) {
 			if (!class_exists('block' . $m[1])) {
-				$blockFunction = '<?php class block' . $m[1] . ' extends \System\Template\Template { public static function ' . $m[1] . '(){ ?> ';
+				$blockFunction = '<?php class block' . $m[1] . ' extends \Gcs\Framework\Core\Gcs\Framework\Core\Template\Template { public static function ' . $m[1] . '(){ ?> ';
 				$blockFunction .= $m[2];
 				$blockFunction .= ' <?php } } ?>';
 				return $blockFunction;
@@ -814,7 +814,7 @@
 		 */
 
 		protected function _parseTemplate() {
-			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['template'][0]) . $this->_spaceR . preg_quote($this->markup['template'][1]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(\w+)\((.*)\)' . $this->_space . '"' . $this->_space . $this->_closeTag . '(.*)' . $this->_openTag . '/' . $this->_name . $this->markup['template'][0] . $this->_space . $this->_closeTag . '`isU', ['System\Template\Parser', '_parseTemplateCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['template'][0]) . $this->_spaceR . preg_quote($this->markup['template'][1]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(\w+)\((.*)\)' . $this->_space . '"' . $this->_space . $this->_closeTag . '(.*)' . $this->_openTag . '/' . $this->_name . $this->markup['template'][0] . $this->_space . $this->_closeTag . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseTemplateCallback'], $this->_content);
 		}
 
 		/**
@@ -850,7 +850,7 @@
 
 				$varList = trim($varList, ',');
 
-				$blockFunction = '<?php class template' . $m[1] . ' extends System\Template\Template{  ' . "\n";
+				$blockFunction = '<?php class template' . $m[1] . ' extends Gcs\Framework\Core\Template\Template{  ' . "\n";
 				$blockFunction .= '		public function __construct(){' . "\n";
 				$blockFunction .= '		}' . "\n";
 				$blockFunction .= '		public function ' . $m[1] . '(' . $varList . '){ ?> ' . "\n";
@@ -876,8 +876,8 @@
 		 */
 
 		protected function _parseCall() {
-			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['call'][0]) . $this->_spaceR . preg_quote($this->markup['call'][1]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(\w+)\(\)' . $this->_space . '"' . $this->_space . '/' . $this->_closeTag . '`isU', ['System\Template\Parser', '_parseCallBlockCallback'], $this->_content);
-			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['call'][0]) . $this->_spaceR . preg_quote($this->markup['call'][2]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(\w+)\((.*)\)' . $this->_space . '"' . $this->_space . '/' . $this->_closeTag . '`isU', ['System\Template\Parser', '_parseCallTemplateCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['call'][0]) . $this->_spaceR . preg_quote($this->markup['call'][1]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(\w+)\(\)' . $this->_space . '"' . $this->_space . '/' . $this->_closeTag . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseCallBlockCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['call'][0]) . $this->_spaceR . preg_quote($this->markup['call'][2]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(\w+)\((.*)\)' . $this->_space . '"' . $this->_space . '/' . $this->_closeTag . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseCallTemplateCallback'], $this->_content);
 		}
 
 		/**
@@ -943,7 +943,7 @@
 				$this->_spaceR . preg_quote($this->markup['asset'][1]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(.+)' . $this->_space . '"' .
 				$this->_spaceR . preg_quote($this->markup['asset'][2]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(.+)' . $this->_space . '"' .
 				$this->_spaceR . preg_quote($this->markup['asset'][3]) . $this->_space . '=' . $this->_space . '"' . $this->_space . '(.+)' . $this->_space . '"' .
-				$this->_space . '/' . $this->_closeTag . '`isU', ['System\Template\Parser', '_parseAssetCallback'], $this->_content);
+				$this->_space . '/' . $this->_closeTag . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseAssetCallback'], $this->_content);
 		}
 
 		/**
@@ -1003,7 +1003,7 @@
 		 */
 
 		protected function _parseMinify() {
-			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['minify'][0]) . $this->_space . $this->_closeTag . '(.*)' . $this->_openTag . '/' . $this->_name . preg_quote($this->markup['minify'][0]) . $this->_space . $this->_closeTag . '`isU', ['System\Template\Parser', '_parseMinifyCallback'], $this->_content);
+			$this->_content = preg_replace_callback('`' . $this->_openTag . $this->_name . preg_quote($this->markup['minify'][0]) . $this->_space . $this->_closeTag . '(.*)' . $this->_openTag . '/' . $this->_name . preg_quote($this->markup['minify'][0]) . $this->_space . $this->_closeTag . '`isU', ['Gcs\Framework\Core\Template\Parser', '_parseMinifyCallback'], $this->_content);
 		}
 
 		/**
@@ -1068,7 +1068,7 @@
 		 */
 
 		protected function _parseVariableInParameters($parameter){
-			return preg_replace_callback('`' . preg_quote($this->markup['vars'][0]) . $this->_space . '([\[\]\(\)A-Za-z0-9\$\'._>\+-:\\\\]+)' . $this->_space . preg_quote($this->markup['vars'][1]) . '`', ['System\Template\Parser', '_parseVariableInParametersCallback'], $parameter);
+			return preg_replace_callback('`' . preg_quote($this->markup['vars'][0]) . $this->_space . '([\[\]\(\)A-Za-z0-9\$\'._>\+-:\\\\]+)' . $this->_space . preg_quote($this->markup['vars'][1]) . '`', ['Gcs\Framework\Core\Template\Parser', '_parseVariableInParametersCallback'], $parameter);
 		}
 
 		protected function _parseVariableInParametersCallback($m){

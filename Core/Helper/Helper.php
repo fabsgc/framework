@@ -18,7 +18,7 @@
 	 */
 
 	class Helper {
-		use langs;
+		use Langs;
 
 		/**
 		 * Initialization of a helper

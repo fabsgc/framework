@@ -21,7 +21,7 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Form\Validation\Element\Select
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Select
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */

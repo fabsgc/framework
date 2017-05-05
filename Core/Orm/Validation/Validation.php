@@ -3,7 +3,7 @@
 	 | ------------------------------------------------------
 	 | @file : Validation.php
 	 | @author : Fabien Beaujean
-	 | @description : entity validation
+	 | @description : Entity validation
 	 | @version : 3.0 Bêta
 	 | ------------------------------------------------------
 	\*/
@@ -23,8 +23,8 @@
 
 	class Validation {
 		/**
-		 * entity name
-		 * @var $_entity \System\Orm\Entity\Entity
+		 * Entity name
+		 * @var $_entity \Gcs\Framework\Core\Orm\Entity\Entity
 		 */
 
 		protected $_entity;
@@ -36,7 +36,7 @@
 		protected $_errors = [];
 
 		/**
-		 * @var \System\Orm\Validation\Element\Element[]
+		 * @var \Gcs\Framework\Core\Orm\Validation\Element\Element[]
 		 */
 
 		protected $_elements = [];
@@ -44,9 +44,9 @@
 		/**
 		 * constructor
 		 * @access public
-		 * @param $entity \System\Orm\Entity\Entity
+		 * @param $entity \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation
+		 * @package Gcs\Framework\Core\Orm\Validation
 		 */
 
 		public function __construct($entity) {
@@ -58,13 +58,13 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation
+		 * @package Gcs\Framework\Core\Orm\Validation
 		 */
 
 		public function check() {
 			$this->_errors = [];
 
-			/** @var $element \System\Orm\Validation\Element\Element */
+			/** @var $element \Gcs\Framework\Core\Orm\Validation\Element\Element */
 			foreach ($this->_elements as $element) {
 				$element->check();
 
@@ -96,7 +96,7 @@
 		 * @access public
 		 * @return array
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation
+		 * @package Gcs\Framework\Core\Orm\Validation
 		 */
 
 		public function errors() {
@@ -108,9 +108,9 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Orm\Validation\Element\Text
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Text
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation
+		 * @package Gcs\Framework\Core\Orm\Validation
 		 */
 
 		public function text($field, $label) {
@@ -124,9 +124,9 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Form\Validation\Element\Checkbox
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Checkbox
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation
+		 * @package Gcs\Framework\Core\Orm\Validation
 		 */
 
 		public function checkbox($field, $label) {
@@ -140,9 +140,9 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Form\Validation\Element\Radio
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Radio
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation
+		 * @package Gcs\Framework\Core\Orm\Validation
 		 */
 
 		public function radio($field, $label) {
@@ -156,9 +156,9 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Form\Validation\Element\Select
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Select
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation
+		 * @package Gcs\Framework\Core\Orm\Validation
 		 */
 
 		public function select($field, $label) {
@@ -172,9 +172,9 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Orm\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation
+		 * @package Gcs\Framework\Core\Orm\Validation
 		 */
 
 		public function file($field, $label) {
@@ -187,7 +187,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Form\Validation
+		 * @package Gcs\Framework\Core\Orm\Validation
 		 */
 
 		public function __destruct() {

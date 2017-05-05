@@ -12,7 +12,6 @@
 
 	use Gcs\Framework\Core\Cache\Cache;
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General;
 
 	/**
 	 * Class Asset
@@ -44,7 +43,7 @@
 
 		/**
 		 * cache file
-		 * @var \System\Cache\Cache
+		 * @var \Gcs\Framework\Core\Cache\Cache
 		 */
 
 		protected $_cache;
@@ -70,11 +69,11 @@
 		protected $_currentPath;
 
 		/**
-		 * concatened content, corrected and compressed
+		 * Concat content, corrected and compressed
 		 * @var string
 		 */
 
-		protected $_concatenedContent;
+		protected $_concatContent;
 
 		/**
 		 * Constructor
@@ -177,8 +176,8 @@
 
 			if ($this->_type == 'css') {
 				$this->_currentPath = dirname($path) . '/';
-				$this->_data['' . $path . ''] = preg_replace_callback('`url\((.*)\)`isU', ['System\Asset\Asset', '_parseRelativePathCssUrl'], $this->_data['' . $path . '']);
-				$this->_data['' . $path . ''] = preg_replace_callback('`src=\'(.*)\'`isU', ['System\Asset\Asset', '_parseRelativePathCssSrc'], $this->_data['' . $path . '']);
+				$this->_data['' . $path . ''] = preg_replace_callback('`url\((.*)\)`isU', ['Gcs\Framework\Core\Asset\Asset', '_parseRelativePathCssUrl'], $this->_data['' . $path . '']);
+				$this->_data['' . $path . ''] = preg_replace_callback('`src=\'(.*)\'`isU', ['Gcs\Framework\Core\Asset\Asset', '_parseRelativePathCssSrc'], $this->_data['' . $path . '']);
 			}
 		}
 
@@ -310,13 +309,13 @@
 			//$units = '(em|ex|%|px|cm|mm|in|pt|pc|ch|rem|vh|vw|vmin|vmax|vm)';
 
 			foreach ($this->_data as $value) {
-				$this->_concatenedContent .= $value;
+				$this->_concatContent .= $value;
 			}
 
 			if ($this->_type == 'css') {
-				$this->_concatenedContent = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->_concatenedContent);
-				$this->_concatenedContent = str_replace(': ', ':', $this->_concatenedContent);
-				$this->_concatenedContent = str_replace(["\r\n", "\r", "\n", "\t", '  ', '    ', '    '], '', $this->_concatenedContent);
+				$this->_concatContent = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->_concatContent);
+				$this->_concatContent = str_replace(': ', ':', $this->_concatContent);
+				$this->_concatContent = str_replace(["\r\n", "\r", "\n", "\t", '  ', '    ', '    '], '', $this->_concatContent);
 			}
 		}
 
@@ -329,7 +328,7 @@
 		 */
 
 		protected function _save() {
-			$this->_cache->setContent($this->_concatenedContent);
+			$this->_cache->setContent($this->_concatContent);
 			$this->_cache->setCache();
 		}
 

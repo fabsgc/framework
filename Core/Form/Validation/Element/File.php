@@ -24,7 +24,7 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Form\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -224,7 +224,7 @@
 		 * @access public
 		 * @param $accept string[]
 		 * @param $error  string
-		 * @return \System\Form\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -246,7 +246,7 @@
 		 * @access public
 		 * @param $extension string[]
 		 * @param $error     string
-		 * @return \System\Form\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -268,7 +268,7 @@
 		 * @access public
 		 * @param $sizeMin integer
 		 * @param $error   string
-		 * @return \System\Form\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -290,7 +290,7 @@
 		 * @access public
 		 * @param $sizeMax integer
 		 * @param $error   string
-		 * @return \System\Form\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -312,7 +312,7 @@
 		 * @access public
 		 * @param $sizeBetween integer[]
 		 * @param $error       string
-		 * @return \System\Form\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */

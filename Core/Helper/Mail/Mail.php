@@ -11,7 +11,7 @@
 	namespace Helper\Mail;
 
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\facades;
+	use Gcs\Framework\Core\General\Facades;
 	use Gcs\Framework\Core\Helper\Helper;
 	use Gcs\Framework\Core\Mime\Mime;
 	use Gcs\Framework\Core\Template\Template;
@@ -22,7 +22,7 @@
 	 */
 	
 	class Mail extends Helper {
-		use facades;
+		use Facades;
 
 		/**
 		 * name and e-mail of the sendere

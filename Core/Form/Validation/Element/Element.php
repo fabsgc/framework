@@ -16,10 +16,10 @@
 
 	/**
 	 * Class Element
-	 * @method accept
-	 * @method extension
-	 * @method sizeMin
-	 * @method sizeMax
+	 * @method accept($accept, $error)
+	 * @method extension($extension, $error)
+	 * @method sizeMin($sizeMin, $error)
+	 * @method sizeMax($sizeMax, $error)
 	 * @method sizeIn
 	 * @package Gcs\Framework\Core\Form\Validation\Element
 	 */
@@ -537,7 +537,7 @@
 		 * @access public
 		 * @param $equal string
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -559,7 +559,7 @@
 		 * @access public
 		 * @param $different string
 		 * @param $error     string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -581,7 +581,7 @@
 		 * @access public
 		 * @param $moreThan integer
 		 * @param $error    string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -603,7 +603,7 @@
 		 * @access public
 		 * @param $lessThan integer
 		 * @param $error    string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -625,7 +625,7 @@
 		 * @access public
 		 * @param $between integer[]
 		 * @param $error   string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -647,7 +647,7 @@
 		 * @access public
 		 * @param $in    integer[]
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -669,7 +669,7 @@
 		 * @access public
 		 * @param $notIn integer[]
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -691,7 +691,7 @@
 		 * @access public
 		 * @param $length integer
 		 * @param $error  string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -713,7 +713,7 @@
 		 * @access public
 		 * @param $lengthMin integer
 		 * @param $error     string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -735,7 +735,7 @@
 		 * @access public
 		 * @param $lengthMax integer
 		 * @param $error     string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -757,7 +757,7 @@
 		 * @access public
 		 * @param $lengthIn integer[]
 		 * @param $error    string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -779,7 +779,7 @@
 		 * @access public
 		 * @param $lengthBetween integer[]
 		 * @param $error         string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -801,7 +801,7 @@
 		 * @access public
 		 * @param $regex string
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -822,7 +822,7 @@
 		 * the field must be an email address
 		 * @access public
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -842,7 +842,7 @@
 		 * the field must be an int
 		 * @access public
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -862,7 +862,7 @@
 		 * the field must be a float
 		 * @access public
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -882,7 +882,7 @@
 		 * the field must contains only letters
 		 * @access public
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -902,7 +902,7 @@
 		 * the field must contain only letters and numerics
 		 * @access public
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -922,7 +922,7 @@
 		 * the field must contain only letters, numerics ans underscore
 		 * @access public
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -942,7 +942,7 @@
 		 * the field must be an ip
 		 * @access public
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -967,7 +967,7 @@
 		 *               constraint => (>,<,==,!=)
 		 *               value => string
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -989,7 +989,7 @@
 		 * @access public
 		 * @param $count integer
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1011,7 +1011,7 @@
 		 * @access public
 		 * @param $countMin integer
 		 * @param $error    string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1033,7 +1033,7 @@
 		 * @access public
 		 * @param $countMax integer
 		 * @param $error    string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1055,7 +1055,7 @@
 		 * @access public
 		 * @param $countIn integer[]
 		 * @param $error   string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1077,7 +1077,7 @@
 		 * @access public
 		 * @param $countBetween integer[]
 		 * @param $error        string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1098,7 +1098,7 @@
 		 * The field must exist
 		 * @access public
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1118,7 +1118,7 @@
 		 * The field must not exist
 		 * @access public
 		 * @param $error string
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -1139,7 +1139,7 @@
 		 * @access public
 		 * @param $name string
 		 * @throws MissingClassException
-		 * @return \System\Form\Validation\Element\Element
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Element
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */

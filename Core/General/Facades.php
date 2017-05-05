@@ -19,7 +19,6 @@
 	use Gcs\Framework\Core\Controller\Injector\Orm;
 	use Gcs\Framework\Core\Cron\Cron;
 	use Gcs\Framework\Core\Database\Database;
-	use Gcs\Framework\Core\Exception\MissingConfigException;
 	use Gcs\Framework\Core\Facade\Facade;
 	use Gcs\Framework\Core\Facade\FacadeEntity;
 	use Gcs\Framework\Core\Facade\FacadeHelper;

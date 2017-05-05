@@ -24,7 +24,7 @@
 		use Singleton;
 
 		/**
-		 * @var \System\Pdo\Pdo
+		 * @var \Gcs\Framework\Core\Pdo\Pdo
 		 */
 
 		protected $db;
@@ -43,8 +43,7 @@
 		/**
 		 * singleton
 		 * @access public
-		 * @param $db []
-		 * @return \System\Database\Database
+		 * @return \Gcs\Framework\Core\Database\Database
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Request
 		 */
@@ -65,21 +64,20 @@
 		/**
 		 * create the database connection
 		 * @access public
-		 * @param $db []
 		 * @throws MissingDatabaseException
 		 * @return mixed
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Database
 		 */
 
-		protected function connect($db = []) {
+		protected function connect() {
 			$db = Config::config()['user']['database'];
 
 			if ($db['enabled']) {
 				switch ($db['driver']) {
 					case 'pdo' :
 						$options = [
-							Pdo::ATTR_STATEMENT_CLASS => ['\System\Pdo\PdoStatement', []]
+							Pdo::ATTR_STATEMENT_CLASS => ['\Gcs\Framework\Core\Pdo\PdoStatement', []]
 						];
 
 						switch ($db['type']) {
@@ -90,7 +88,7 @@
 									$this->db->exec('SET NAMES ' . strtoupper($db['charset']));
 								}
 								catch (\PDOException $e) {
-									throw new MissingDatabaseException($e->getMessage() . ' / ' . $e->getCode());
+									throw new MissingDatabaseException($e->getMessage() . ' / ' . $e->getCode() . ' / ' . $e->getFile());
 								}
 							break;
 

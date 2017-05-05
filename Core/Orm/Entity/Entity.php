@@ -34,7 +34,7 @@
 		protected $_name = '';
 
 		/**
-		 * @var \System\Orm\Entity\Field[]
+		 * @var \Gcs\Framework\Core\Orm\Entity\Field[]
 		 */
 
 		protected $_fields = [];
@@ -54,7 +54,7 @@
 
 		/**
 		 * We put errors inside
-		 * @var \System\Orm\Validation\Validation
+		 * @var \Gcs\Framework\Core\Orm\Validation\Validation
 		 */
 
 		protected $validation = null;
@@ -84,7 +84,7 @@
 		 * Constructor
 		 * @access public
 		 * @throws MissingEntityException
-		 * @return \System\Orm\Entity\Entity
+		 * @return \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
@@ -97,7 +97,7 @@
 			$this->validation = new Validation($this);
 
 			if ($this->_primary == '') {
-				throw new MissingEntityException('The entity ' . get_class($this) . ' does not have any primary key');
+				throw new MissingEntityException('The Entity ' . get_class($this) . ' does not have any primary key');
 			}
 
 			$requestData = Data::instance();
@@ -139,11 +139,11 @@
 			$annotation = Annotation::getClass($this);
 
 			/** @var \ReflectionClass $fieldClass */
-			$fieldClass = new \ReflectionClass('\\System\\Orm\\Entity\\Field');
+			$fieldClass = new \ReflectionClass('\\Gcs\Framework\Core\\Orm\\Entity\\Field');
 			/** @var \ReflectionClass $foreignKeyClass */
-			$foreignKeyClass = new \ReflectionClass('\\System\\Orm\\Entity\\ForeignKey');
+			$foreignKeyClass = new \ReflectionClass('\\Gcs\Framework\Core\\Orm\\Entity\\ForeignKey');
 			/** @var \ReflectionClass $builderClass */
-			$builderClass = new \ReflectionClass('\\System\\Orm\\Builder');
+			$builderClass = new \ReflectionClass('\\Gcs\Framework\Core\\Orm\\Builder');
 
 			foreach ($annotation['class'] as $annotationClass){
 				$instance = $annotationClass[0]['instance'];
@@ -265,7 +265,7 @@
 		/**
 		 * get fields
 		 * @access public
-		 * @return \System\Orm\Entity\Field[]
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field[]
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
@@ -290,7 +290,7 @@
 		 * add a field
 		 * @access public
 		 * @param $name string
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
@@ -304,7 +304,7 @@
 		 * permit to set a column value
 		 * @access public
 		 * @param $key   string
-		 * @param $value integer,boolean,string,\System\Orm\Entity\Type\Type
+		 * @param $value integer,boolean,string,\Gcs\Framework\Core\Orm\Entity\Type\Type
 		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
@@ -319,7 +319,7 @@
 		 * @access public
 		 * @param $key   string
 		 * @throws MissingEntityException
-		 * @param $value mixed integer,boolean,string,\System\Orm\Entity\Type\Type
+		 * @param $value mixed integer,boolean,string,\Gcs\Framework\Core\Orm\Entity\Type\Type
 		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
@@ -345,7 +345,7 @@
 		 * return a field value
 		 * @access public
 		 * @param $key string
-		 * @return mixed integer,boolean,string,\System\Orm\Entity\Type\Type,\System\Collection\Collection
+		 * @return mixed integer,boolean,string,\Gcs\Framework\Core\Orm\Entity\Type\Type,\Gcs\Framework\Core\Collection\Collection
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
@@ -359,7 +359,7 @@
 		 * @access public
 		 * @param $key string
 		 * @throws MissingEntityException
-		 * @return mixed integer,boolean,string,\System\Orm\Entity\Type\Type
+		 * @return mixed integer,boolean,string,\Gcs\Framework\Core\Orm\Entity\Type\Type
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
@@ -395,7 +395,7 @@
 		 * return a field
 		 * @access public
 		 * @param $key string
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
@@ -411,13 +411,13 @@
 		/**
 		 * find a list of model
 		 * @access public
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public static function find() {
-			/** @var \System\Orm\Entity\Entity $obj */
+			/** @var \Gcs\Framework\Core\Orm\Entity\Entity $obj */
 			$obj = new static();
 			$builder = new Builder($obj);
 			return $builder->find();
@@ -427,13 +427,13 @@
 		 * find raw no (sql completion)
 		 * @access public
 		 * @param $query string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public static function raw($query) {
-			/** @var \System\Orm\Entity\Entity $obj */
+			/** @var \Gcs\Framework\Core\Orm\Entity\Entity $obj */
 			$obj = new static();
 			$builder = new Builder($obj);
 			return $builder->findRaw($query);
@@ -443,13 +443,13 @@
 		 * select distinct
 		 * @access public
 		 * @param $distinct string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public static function distinct($distinct) {
-			/** @var \System\Orm\Entity\Entity $obj */
+			/** @var \Gcs\Framework\Core\Orm\Entity\Entity $obj */
 			$obj = new static();
 			$builder = new Builder($obj);
 			return $builder->findDistinct($distinct);
@@ -458,13 +458,13 @@
 		/**
 		 * count number of line
 		 * @access public
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public static function count() {
-			/** @var \System\Orm\Entity\Entity $obj */
+			/** @var \Gcs\Framework\Core\Orm\Entity\Entity $obj */
 			$obj = new static();
 			$builder = new Builder($obj);
 			return $builder->findCount();
@@ -490,17 +490,17 @@
 				Database::instance()->db()->beginTransaction();
 			}
 
-			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
+			/** @var $fieldsInsertOneToMany \Gcs\Framework\Core\Orm\Entity\Entity[] */
 			$fieldsInsertOneToMany = [];
-			/** @var $fieldsUpdateOneToMany \System\Orm\Entity\Entity[] */
+			/** @var $fieldsUpdateOneToMany \Gcs\Framework\Core\Orm\Entity\Entity[] */
 			$fieldsUpdateOneToMany = [];
 
-			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
+			/** @var $fieldsInsertOneToMany \Gcs\Framework\Core\Orm\Entity\Entity[] */
 			$fieldsInsertManyToMany = [];
-			/** @var $fieldsUpdateOneToMany \System\Orm\Entity\Entity[] */
+			/** @var $fieldsUpdateOneToMany \Gcs\Framework\Core\Orm\Entity\Entity[] */
 			$fieldsUpdateManyToMany = [];
 
-			/** @var $field \System\Orm\Entity\Field */
+			/** @var $field \Gcs\Framework\Core\Orm\Entity\Field */
 			foreach ($this->_fields as $field) {
 				if ($field->primary == false) {
 					if ($field->foreign != null) {
@@ -508,7 +508,7 @@
 							case ForeignKey::ONE_TO_ONE :
 								if (gettype($field->value) != 'object') {
 									if ($field->foreign->belong() == ForeignKey::COMPOSITION) {
-										throw new MissingEntityException('The field "' . $field->name . '" in "' . $this->_name . '" must be an entity');
+										throw new MissingEntityException('The field "' . $field->name . '" in "' . $this->_name . '" must be an Entity');
 									}
 								}
 								if (!preg_match('#Orm\\\Entity\\\#isU', get_class($field->value))) {
@@ -533,7 +533,7 @@
 									}
 								}
 								if (!preg_match('#Orm\\\Entity\\\#isU', get_class($field->value))) {
-									//throw new MissingEntityException('The foreign key "'.$field->name.'" in "'.$this->_name.'" must be an entity object');
+									//throw new MissingEntityException('The foreign key "'.$field->name.'" in "'.$this->_name.'" must be an Entity object');
 								}
 
 								if ($field->value == null) {
@@ -569,14 +569,14 @@
 										throw new MissingEntityException('The field "' . $field->name . '" in "' . $this->_name . '" must be a Collection');
 									}
 
-									/** @var $entity \System\Orm\Entity\Entity */
+									/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 									foreach ($field->value as $entity) {
 										if ($entity != null) {
-											/** the field is not in database yet, so after the insert of the entity, we will do an insert for it */
+											/** the field is not in database yet, so after the insert of the Entity, we will do an insert for it */
 											if ($entity->get($entity->primary()) == null) {
 												array_push($fieldsInsertOneToMany, $entity);
 											}
-											/** the field is already in database, so after the insert of the entity, we will do an update for it */
+											/** the field is already in database, so after the insert of the Entity, we will do an update for it */
 											else if ($entity->get($entity->primary()) != null) {
 												array_push($fieldsUpdateOneToMany, $entity);
 											}
@@ -605,10 +605,10 @@
 
 									$manyToMany = $field;
 
-									/** @var $entity \System\Orm\Entity\Entity */
+									/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 									foreach ($field->value as $entity) {
 										if ($entity != null) {
-											/** the field is not in database yet, so after the insert of the entity, we will do an insert for it */
+											/** the field is not in database yet, so after the insert of the Entity, we will do an insert for it */
 											if ($entity->get($entity->primary()) == null) {
 												array_push($fieldsInsertManyToMany, $entity);
 											}
@@ -617,7 +617,7 @@
 											}
 										}
 										else {
-											throw new MissingEntityException('The entity "' . get_class($entity) . '" in "' . $this->_name . '" can\'t be null');
+											throw new MissingEntityException('The Entity "' . get_class($entity) . '" in "' . $this->_name . '" can\'t be null');
 										}
 									}
 								}
@@ -682,11 +682,11 @@
 			/** ######################################################################## */
 			/** One to many and many to many need more queries after the principal query */
 
-			/** @var $field \System\Orm\Entity\Field */
+			/** @var $field \Gcs\Framework\Core\Orm\Entity\Field */
 			foreach ($fieldsInsertOneToMany as $fields) {
 				$relation = '';
 
-				/** @var $relationFields \System\Orm\Entity\Field */
+				/** @var $relationFields \Gcs\Framework\Core\Orm\Entity\Field */
 				foreach ($fields->fields() as $relationFields) {
 					if ($relationFields->foreign != null) {
 						if ($relationFields->foreign->referenceEntity() == ucfirst(strtolower($this->_name))) {
@@ -702,7 +702,7 @@
 			foreach ($fieldsUpdateOneToMany as $fields) {
 				$relation = '';
 
-				/** @var $relationFields \System\Orm\Entity\Field */
+				/** @var $relationFields \Gcs\Framework\Core\Orm\Entity\Field */
 				foreach ($fields->fields() as $relationFields) {
 					if ($relationFields->foreign != null) {
 						if ($relationFields->foreign->referenceEntity() == ucfirst(strtolower($this->_name))) {
@@ -728,14 +728,14 @@
 				$table = ucfirst($table[0] . $table[1]);
 
 				$class = '\Orm\Entity\\' . $manyToMany->foreign->referenceEntity();
-				/** @var $referencedEntity \System\Orm\Entity\Entity */
+				/** @var $referencedEntity \Gcs\Framework\Core\Orm\Entity\Entity */
 				$referencedEntity = new $class();
 
 				$sql = new Sql();
 				$sql->query('orm-delete-many', 'DELETE FROM ' . $table . ' WHERE ' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ' = ' . $this->_fields[$this->_primary]->value);
 				$sql->fetch('orm-delete-many');
 
-				/** @var $fields \System\Orm\Entity\Entity */
+				/** @var $fields \Gcs\Framework\Core\Orm\Entity\Entity */
 				foreach ($fieldsInsertManyToMany as $fields) {
 					$fields->set($manyToMany->foreign->field(), $this);
 					$fields->insert();
@@ -744,7 +744,7 @@
 					$sql->fetch('orm-insert-many');
 				}
 
-				/** @var $fields \System\Orm\Entity\Entity */
+				/** @var $fields \Gcs\Framework\Core\Orm\Entity\Entity */
 				foreach ($fieldsUpdateManyToMany as $fields) {
 					$sql->query('orm-update-many',
 						'INSERT INTO ' .
@@ -775,7 +775,7 @@
 
 		public function update() {
 			if ($this->get($this->primary()) == null) {
-				throw new MissingEntityException('The primary key of the entity "' . get_class($this) . '" is null, you can\'t update it');
+				throw new MissingEntityException('The primary key of the Entity "' . get_class($this) . '" is null, you can\'t update it');
 			}
 
 			$sql = new Sql();
@@ -787,17 +787,17 @@
 				Database::instance()->db()->beginTransaction();
 			}
 
-			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
+			/** @var $fieldsInsertOneToMany \Gcs\Framework\Core\Orm\Entity\Entity[] */
 			$fieldsInsertOneToMany = [];
-			/** @var $fieldsUpdateOneToMany \System\Orm\Entity\Entity[] */
+			/** @var $fieldsUpdateOneToMany \Gcs\Framework\Core\Orm\Entity\Entity[] */
 			$fieldsUpdateOneToMany = [];
 
-			/** @var $fieldsInsertOneToMany \System\Orm\Entity\Entity[] */
+			/** @var $fieldsInsertOneToMany \Gcs\Framework\Core\Orm\Entity\Entity[] */
 			$fieldsInsertManyToMany = [];
-			/** @var $fieldsUpdateOneToMany \System\Orm\Entity\Entity[] */
+			/** @var $fieldsUpdateOneToMany \Gcs\Framework\Core\Orm\Entity\Entity[] */
 			$fieldsUpdateManyToMany = [];
 
-			/** @var $field \System\Orm\Entity\Field */
+			/** @var $field \Gcs\Framework\Core\Orm\Entity\Field */
 			foreach ($this->_fields as $field) {
 				if ($field->primary == false) {
 					if ($field->foreign != null) {
@@ -805,7 +805,7 @@
 							case ForeignKey::ONE_TO_ONE :
 								if (gettype($field->value) != 'object') {
 									if ($field->foreign->belong() == ForeignKey::COMPOSITION) {
-										throw new MissingEntityException('The field "' . $field->name . '" in "' . $this->_name . '" must be an entity');
+										throw new MissingEntityException('The field "' . $field->name . '" in "' . $this->_name . '" must be an Entity');
 									}
 								}
 								if (!preg_match('#Orm\\\Entity\\\#isU', get_class($field->value))) {
@@ -829,7 +829,7 @@
 									}
 								}
 								if (!preg_match('#Orm\\\Entity\\\#isU', get_class($field->value))) {
-									throw new MissingEntityException('The foreign key "' . $field->name . '" in "' . $this->_name . '" must be an entity object');
+									throw new MissingEntityException('The foreign key "' . $field->name . '" in "' . $this->_name . '" must be an Entity object');
 								}
 
 								if ($field->value == null) {
@@ -863,14 +863,14 @@
 										throw new MissingEntityException('The field "' . $field->name . '" in "' . $this->_name . '" must be a Collection');
 									}
 
-									/** @var $entity \System\Orm\Entity\Entity */
+									/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 									foreach ($field->value as $entity) {
 										if ($entity != null) {
-											/** the field is not in database yet, so after the insert of the entity, we will do an insert for it */
+											/** the field is not in database yet, so after the insert of the Entity, we will do an insert for it */
 											if ($entity->get($entity->primary()) == null) {
 												array_push($fieldsInsertOneToMany, $entity);
 											}
-											/** the field is already in database, so after the insert of the entity, we will do an update for it */
+											/** the field is already in database, so after the insert of the Entity, we will do an update for it */
 											else if ($entity->get($entity->primary()) != null) {
 												array_push($fieldsUpdateOneToMany, $entity);
 											}
@@ -899,10 +899,10 @@
 
 									$manyToMany = $field;
 
-									/** @var $entity \System\Orm\Entity\Entity */
+									/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 									foreach ($field->value as $entity) {
 										if ($entity != null) {
-											/** the field is not in database yet, so after the insert of the entity, we will do an insert for it */
+											/** the field is not in database yet, so after the insert of the Entity, we will do an insert for it */
 											if ($entity->get($entity->primary()) == null) {
 												array_push($fieldsInsertManyToMany, $entity);
 											}
@@ -912,7 +912,7 @@
 											}
 										}
 										else {
-											throw new MissingEntityException('The entity "' . get_class($entity) . '" in "' . $this->_name . '" can\'t be null');
+											throw new MissingEntityException('The Entity "' . get_class($entity) . '" in "' . $this->_name . '" can\'t be null');
 										}
 									}
 								}
@@ -971,11 +971,11 @@
 			/** ######################################################################## */
 			/** One to many and many to many need more queries after the principal query */
 
-			/** @var $field \System\Orm\Entity\Field */
+			/** @var $field \Gcs\Framework\Core\Orm\Entity\Field */
 			foreach ($fieldsInsertOneToMany as $fields) {
 				$relation = '';
 
-				/** @var $relationFields \System\Orm\Entity\Field */
+				/** @var $relationFields \Gcs\Framework\Core\Orm\Entity\Field */
 				foreach ($fields->fields() as $relationFields) {
 					if ($relationFields->foreign != null) {
 						if ($relationFields->foreign->referenceEntity() == ucfirst(strtolower($this->_name))) {
@@ -991,7 +991,7 @@
 			foreach ($fieldsUpdateOneToMany as $fields) {
 				$relation = '';
 
-				/** @var $relationFields \System\Orm\Entity\Field */
+				/** @var $relationFields \Gcs\Framework\Core\Orm\Entity\Field */
 				foreach ($fields->fields() as $relationFields) {
 					if ($relationFields->foreign != null) {
 						if ($relationFields->foreign->referenceEntity() == ucfirst(strtolower($this->_name))) {
@@ -1017,14 +1017,14 @@
 				$table = ucfirst($table[0] . $table[1]);
 
 				$class = '\Orm\Entity\\' . $manyToMany->foreign->referenceEntity();
-				/** @var $referencedEntity \System\Orm\Entity\Entity */
+				/** @var $referencedEntity \Gcs\Framework\Core\Orm\Entity\Entity */
 				$referencedEntity = new $class();
 
 				$sql = new Sql();
 				$sql->query('orm-delete-many', 'DELETE FROM ' . $table . ' WHERE ' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ' = ' . $this->_fields[$this->_primary]->value);
 				$sql->fetch('orm-delete-many');
 
-				/** @var $fields \System\Orm\Entity\Entity */
+				/** @var $fields \Gcs\Framework\Core\Orm\Entity\Entity */
 				foreach ($fieldsInsertManyToMany as $fields) {
 					$fields->set($manyToMany->foreign->field(), $this);
 					$fields->insert();
@@ -1033,7 +1033,7 @@
 					$sql->fetch('orm-insert-many');
 				}
 
-				/** @var $fields \System\Orm\Entity\Entity */
+				/** @var $fields \Gcs\Framework\Core\Orm\Entity\Entity */
 				foreach ($fieldsUpdateManyToMany as $fields) {
 					$sql->query('orm-update-many', 'INSERT INTO ' . $table . '(' . $this->name() . '_' . $manyToMany->foreign->referenceField() . ', ' . $referencedEntity->name() . '_' . $manyToMany->foreign->field() . ') VALUES (\'' . $this->_fields[$this->_primary]->value . '\', \'' . $fields->get($manyToMany->foreign->field()) . '\')');
 					$sql->fetch('orm-update-many');
@@ -1067,7 +1067,7 @@
 					if ($field->foreign != null) {
 						switch ($field->foreign->type()) {
 							case ForeignKey::ONE_TO_ONE :
-								/** if it's a one to one relation, we delete the linked entity */
+								/** if it's a one to one relation, we delete the linked Entity */
 								if ($field->value != null) {
 									if (gettype($field->value) != 'object') {
 										if ($field->foreign->type() == Builder::JOIN_INNER) {
@@ -1107,7 +1107,7 @@
 									}
 
 									if ($field->foreign->belong() == ForeignKey::COMPOSITION) {
-										/** @var $entity \System\Orm\Entity\Entity */
+										/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 										foreach ($field->value as $entity) {
 											if ($entity != null) {
 												$field->value->delete();
@@ -1143,7 +1143,7 @@
 										$sql->query('orm-delete-many', 'DELETE FROM ' . $table . ' WHERE ' . $this->name() . '_' . $field->foreign->referenceField() . ' = ' . $this->_fields[$this->_primary]);
 										$sql->fetch('orm-delete-many');
 
-										/** @var $entity \System\Orm\Entity\Entity */
+										/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 										foreach ($field->value as $entity) {
 											if ($entity != null) {
 												$field->value->delete();
@@ -1234,7 +1234,7 @@
 		}
 
 		/**
-		 * Is the entity valid ?
+		 * Is the Entity valid ?
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
@@ -1282,13 +1282,13 @@
 			$table = strtolower($this->_name);
 
 			/** First, we check if the primary key is specified or not */
-			/** It's possible to have a sub entity with an existing primary key and to override its field values */
+			/** It's possible to have a sub Entity with an existing primary key and to override its field values */
 
 			if (isset($this->_data[$prefix . $this->primary()])) {
 				$entityName = '\Orm\Entity\\' . lcfirst($table);
 				$field = lcfirst($table) . '.' . $this->primary();
 
-				/** @var \System\Orm\Entity\Entity $entityName */
+				/** @var \Gcs\Framework\Core\Orm\Entity\Entity $entityName */
 				$data = $entityName::find()
 					->where($field . ' = :id')
 					->vars(['id' => $this->_data[$table . '_' . $this->primary()]])
@@ -1329,14 +1329,14 @@
 							else { //if it doesn't exist, we try to get data from the form and check if it exists input values
 								$entity = $field->foreign->referenceEntity();
 
-								/** @var $entity \System\Orm\Entity\Entity */
+								/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 								$entity = new $entity();
 								$canHydrate = true;
 
 								foreach ($entity->fields() as $fieldName) {
 									if (empty($this->_data[$prefix . $table . '_' . $entity->name() . '_' . $fieldName->name]) && $fieldName->primary == false && $fieldName->beNull == false) {
 										$canHydrate = false;
-										//throw new MissingFieldException('The field "' . $prefix . $entity->name() . '_' . $fieldName->name . '" can\'t be hydrated from the form because it miss one or several input');
+										//throw new MissingFieldException('The field "' . $prefix . $Entity->name() . '_' . $fieldName->name . '" can\'t be hydrated from the form because it miss one or several input');
 									}
 								}
 
@@ -1367,14 +1367,14 @@
 							else { //if it doesn't exist, we try to get data from the form and check if it exists input values
 								$entity = 'Orm\Entity\\' . $field->foreign->referenceEntity();
 
-								/** @var $entity \System\Orm\Entity\Entity */
+								/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 								$entity = new $entity();
 								$canHydrate = true;
 
 								foreach ($entity->fields() as $fieldName) {
 									if (empty($this->_data[$prefix . $table . '_' . $entity->name() . '_' . $fieldName->name]) && $fieldName->primary == false && $fieldName->beNull == false) {
 										$canHydrate = false;
-										//throw new MissingFieldException('The field "' . $prefix.$entity->name().'_'.$fieldName->name . '" can\'t be hydrated from the form because it miss one or several input');
+										//throw new MissingFieldException('The field "' . $prefix.$Entity->name().'_'.$fieldName->name . '" can\'t be hydrated from the form because it miss one or several input');
 									}
 								}
 

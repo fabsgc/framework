@@ -10,7 +10,7 @@
 
 	namespace Helper\Pagination;
 
-	use Gcs\Framework\Core\General\facades;
+	use Gcs\Framework\Core\General\Facades;
 	use Gcs\Framework\Core\Helper\Helper;
 	use Gcs\Framework\Core\Template\Template;
 
@@ -20,7 +20,7 @@
 	 */
 
 	class Pagination extends Helper {
-		use facades;
+		use Facades;
 
 		/**
 		 * items by page
@@ -170,11 +170,11 @@
 		 * Initialization of the helper
 		 * @access public
 		 * @param &$entry mixed : your data
-		 * @param $data  mixed array,\System\Collection\Collection
+		 * @param $data  mixed array,\Gcs\Framework\Core\Collection\Collection
 		 *               buttonFl    : button first/last (true/false)
 		 *               buttonBa    : button previous/after (true/false)
 		 *               url         : url of each page. Replace the page number by "{page}"
-		 *               bypage      : entity by page
+		 *               bypage      : Entity by page
 		 *               currentPage : current page
 		 *               totalPage   : total page (true/false)
 		 *               cut         : how many links before and after the current link

@@ -3,7 +3,7 @@
 	 | ------------------------------------------------------
 	 | @file : Field.php
 	 | @author : Fabien Beaujean
-	 | @description : represent a field of an entity
+	 | @description : represent a field of an Entity
 	 | @version : 3.0 bêta
 	 | ------------------------------------------------------
 	\*/
@@ -63,7 +63,7 @@
 		protected $size = 0;
 
 		/**
-		 * @var \System\Orm\Entity\ForeignKey
+		 * @var \Gcs\Framework\Core\Orm\Entity\ForeignKey
 		 */
 
 		public $foreign = null;
@@ -103,7 +103,7 @@
 		public $default = '';
 
 		/**
-		 * @var mixed int|string|bool|\System\Orm\Entity\Field|\System\Orm\Entity\Field[]|\System\Orm\Entity\Type|\System\Collection\Collection
+		 * @var mixed int|string|bool|\Gcs\Framework\Core\Orm\Entity\Field|\Gcs\Framework\Core\Orm\Entity\Field[]|\Gcs\Framework\Core\Orm\Entity\Type|\Gcs\Framework\Core\Collection\Collection
 		 */
 
 		public $value = null;
@@ -128,7 +128,7 @@
 		 * @access public
 		 * @param integer $type
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
@@ -142,7 +142,7 @@
 		 * @access public
 		 * @param string $name
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
@@ -156,7 +156,7 @@
 		 * @access public
 		 * @param boolean $primary
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
@@ -170,7 +170,7 @@
 		 * @access public
 		 * @param $size integer
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
@@ -185,7 +185,7 @@
 		 * @param $datas array
 		 * @throws MissingEntityException
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
@@ -224,7 +224,7 @@
 		 * @access public
 		 * @param boolean $unique
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
@@ -238,7 +238,7 @@
 		 * @access public
 		 * @param $precision string
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
@@ -252,7 +252,7 @@
 		 * @access public
 		 * @param $enum string[]
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
@@ -266,7 +266,7 @@
 		 * @access public
 		 * @param $beNull boolean
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
@@ -280,7 +280,7 @@
 		 * @access public
 		 * @param $default String
 		 * @since 3.0
-		 * @return \System\Orm\Entity\Field
+		 * @return \Gcs\Framework\Core\Orm\Entity\Field
 		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 

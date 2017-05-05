@@ -2,8 +2,8 @@
 
 	namespace Helper\Alert;
 
-	use Gcs\Framework\Core\General\error;
-	use Gcs\Framework\Core\General\facades;
+	use Gcs\Framework\Core\General\Errors;
+	use Gcs\Framework\Core\General\Facades;
 	use Gcs\Framework\Core\Helper\Helper;
 	use Gcs\Framework\Core\Template\Template;
 
@@ -13,7 +13,7 @@
 	 */
 
 	class Alert extends Helper {
-		use error, facades;
+		use Errors, Facades;
 
 		/**
 		 * @var string[]

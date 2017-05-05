@@ -31,15 +31,15 @@
 		protected $label;
 
 		/**
-		 * the entity
-		 * @var $value \System\Orm\Entity\Entity
+		 * the Entity
+		 * @var $value \Gcs\Framework\Core\Orm\Entity\Entity
 		 */
 
 		protected $entity;
 
 		/**
 		 * only the concerned field
-		 * @var $value \System\Orm\Entity\Field
+		 * @var $value \Gcs\Framework\Core\Orm\Entity\Field
 		 */
 
 		protected $value;
@@ -49,7 +49,7 @@
 		 * @access public
 		 * @param                           $field string
 		 * @param                           $label string
-		 * @param \System\Orm\Entity\Entity $entity
+		 * @param \Gcs\Framework\Core\Orm\Entity\Entity $entity
 		 * @param mixed                     $value
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Validation\Custom

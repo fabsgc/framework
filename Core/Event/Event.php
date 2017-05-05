@@ -161,7 +161,7 @@
 		/**
 		 * Set the name
 		 * @access public
-		 * @param $parent \System\Controller\Controller
+		 * @param $parent \Gcs\Framework\Core\Controller\Controller
 		 * @return array
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Event

@@ -10,7 +10,7 @@
 
 	namespace Gcs\Framework\Core\Event;
 
-	use Gcs\Framework\Core\General\error;
+	use Gcs\Framework\Core\General\Errors;
 
 	/**
 	 * Class EventManager
@@ -18,24 +18,25 @@
 	 */
 
 	class EventManager {
-		use error;
+		use Errors;
+
 		const START = 0;
 		const STOP  = 1;
 
 		/**
-		 * @var \System\Event\Event[]
+		 * @var \Gcs\Framework\Core\Event\Event[]
 		 */
 
 		protected $_listeners = [];
 
 		/**
-		 * @var \System\Event\Event[]
+		 * @var \Gcs\Framework\Core\Event\Event[]
 		 */
 
 		protected $_events = [];
 
 		/**
-		 * @var \System\Controller\Controller
+		 * @var \Gcs\Framework\Core\Controller\Controller
 		 */
 
 		protected $_parent = null;
@@ -56,7 +57,7 @@
 		/**
 		 * add an event to he pile
 		 * @access public
-		 * @param \System\Event\Event $event
+		 * @param \Gcs\Framework\Core\Event\Event $event
 		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Event
@@ -111,14 +112,14 @@
 			}
 		}
 
-		/**
-		 * get result returned by the listener
-		 * @access public
-		 * @param string $name : name of the event. If it's empty, get results of all events
-		 * @return array
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Event
-		 */
+        /**
+         * get result returned by the listener
+         * @access public
+         * @param string $name : name of the event. If it's empty, get results of all events
+         * @since 3.0
+         * @package Gcs\Framework\Core\Event
+         * @return array|bool
+         */
 
 		public function getResult($name = '') {
 			$result = [];

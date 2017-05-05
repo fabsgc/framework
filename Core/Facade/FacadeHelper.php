@@ -45,7 +45,7 @@
 		 * @param $name      string : helper class name
 		 * @param $arguments array : helper class arguments
 		 * @return object
-		 * @throws \System\Exception\MissingHelperException when the helper doesn't exist
+		 * @throws \Gcs\Framework\Core\Exception\MissingHelperException when the helper doesn't exist
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Facade
 		 */

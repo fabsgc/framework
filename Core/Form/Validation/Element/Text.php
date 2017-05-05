@@ -23,7 +23,7 @@
 		 * @access public
 		 * @param $field string
 		 * @param $label string
-		 * @return \System\Form\Validation\Element\Text
+		 * @return \Gcs\Framework\Core\Form\Validation\Element\Text
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */

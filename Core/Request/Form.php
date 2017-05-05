@@ -25,14 +25,14 @@
 	abstract class Form {
 		/**
 		 * parameters of each action
-		 * @var \System\Request\Data
+		 * @var \Gcs\Framework\Core\Request\Data
 		 */
 
 		public $data = null;
 
 		/**
 		 * We put errors inside
-		 * @var \System\Form\Validation\Validation
+		 * @var \Gcs\Framework\Core\Form\Validation\Validation
 		 */
 
 		protected $validation = null;

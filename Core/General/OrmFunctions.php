@@ -20,7 +20,7 @@
 
 	trait OrmFunctions {
 		/**
-		 * transform sql data in entity
+		 * transform sql data in Entity
 		 * @access public
 		 * @param $data   array
 		 * @param $entity string

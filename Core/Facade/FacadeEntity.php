@@ -29,12 +29,12 @@
 		}
 
 		/**
-		 * instantiate the good entity
+		 * instantiate the good Entity
 		 * @access public
 		 * @param $name      string
 		 * @param $arguments array
-		 * @throws \System\Exception\MissingEntityException
-		 * @return \System\Orm\Entity\Entity
+		 * @throws \Gcs\Framework\Core\Exception\MissingEntityException
+		 * @return \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Facade
 		 */
@@ -53,7 +53,7 @@
 
 				$reflect = new \ReflectionClass($class);
 
-                /** @var \System\Orm\Entity\Entity $instance */
+                /** @var \Gcs\Framework\Core\Orm\Entity\Entity $instance */
 				$instance = $reflect->newInstanceArgs($params);
                 return $instance;
 			}
@@ -71,7 +71,7 @@
 					}
 				}
 
-				throw new MissingEntityException('undefined entity "' . $name . '" in "' . $file . '" line ' . $line);
+				throw new MissingEntityException('undefined Entity "' . $name . '" in "' . $file . '" line ' . $line);
 			}
 		}
 

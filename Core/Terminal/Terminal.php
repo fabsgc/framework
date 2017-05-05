@@ -82,7 +82,7 @@
 		 */
 
 		protected function _command() {
-			$class = '\System\Terminal\Terminal' . ucfirst($this->_argv[0]);
+			$class = '\Gcs\Framework\Core\Terminal\Terminal' . ucfirst($this->_argv[0]);
 
 			if (isset($this->_argv[1])) {
 				$method = $this->_argv[1];

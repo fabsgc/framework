@@ -10,7 +10,7 @@
 
 	namespace Gcs\Framework\Core\Annotation\Annotations\Orm\Relations;
 
-	use Gcs\Framework\Core\Annotation\Annotations\Annotation;
+	use Gcs\Framework\Core\Annotation\Annotation;
 
 	/**
 	 * Class Relation

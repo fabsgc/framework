@@ -35,7 +35,7 @@
 		protected $name;
 
 		/**
-		 * @var \System\Cache\Cache
+		 * @var \Gcs\Framework\Core\Cache\Cache
 		 */
 
 		protected $cache;

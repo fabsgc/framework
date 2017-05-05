@@ -14,9 +14,9 @@
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Exception\MissingConfigException;
 	use Gcs\Framework\Core\General\di;
-	use Gcs\Framework\Core\General\error;
-	use Gcs\Framework\Core\General\langs;
-	use Gcs\Framework\Core\General\resolve;
+	use Gcs\Framework\Core\General\Errors;
+	use Gcs\Framework\Core\General\Langs;
+	use Gcs\Framework\Core\General\Resolver;
 	use Gcs\Framework\Core\Request\Request;
 	use Gcs\Framework\Core\Template\Template;
 
@@ -26,7 +26,7 @@
 	 */
 
 	class Spam {
-		use error, langs, resolve, di;
+		use Errors, Langs, Resolver, di;
 
 		/**
 		 * @var string[] $_ip
@@ -35,7 +35,7 @@
 		protected $_ips = [];
 
 		/**
-		 * @var \System\Cache\Cache $_cache
+		 * @var \Gcs\Framework\Core\Cache\Cache $_cache
 		 */
 
 		protected $_cache = null;
@@ -55,7 +55,7 @@
 		/**
 		 * init Spam class
 		 * @access public
-		 * @throws \System\Exception\MissingConfigException
+		 * @throws \Gcs\Framework\Core\Exception\MissingConfigException
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Security
 		 */

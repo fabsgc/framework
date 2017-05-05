@@ -33,7 +33,7 @@
 		/**
 		 * singleton
 		 * @access public
-		 * @return \System\Session\Session
+		 * @return \Gcs\Framework\Core\Session\Session
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Session
 		 */

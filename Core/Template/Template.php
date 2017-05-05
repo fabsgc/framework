@@ -12,10 +12,10 @@
 
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Exception\MissingTemplateException;
-	use Gcs\Framework\Core\General\error;
+	use Gcs\Framework\Core\General\Errors;
 	use Gcs\Framework\Core\General\facades;
 	use Gcs\Framework\Core\General\langs;
-	use Gcs\Framework\Core\General\resolve;
+	use Gcs\Framework\Core\General\Resolver;
 	use Gcs\Framework\Core\Profiler\Profiler;
 
 	/**
@@ -24,7 +24,7 @@
 	 */
 
 	class Template {
-		use error, langs, facades, resolve;
+		use Errors, langs, facades, Resolver;
 
 		/**
 		 * path to the .tpl file
@@ -100,7 +100,7 @@
 
 		/**
 		 * reference to the parser instance
-		 * @var \System\Template\Parser $_parser
+		 * @var \Gcs\Framework\Core\Template\Parser $_parser
 		 * @access protected
 		 */
 
@@ -129,8 +129,8 @@
 		 * @param $name   string : template name
 		 * @param $cache  int : cache time
 		 * @param $stream int : use a file or a string
-		 * @throws \System\Exception\MissingTemplateException if the tpl file can't be read
-		 * @return \System\Template\Template
+		 * @throws \Gcs\Framework\Core\Exception\MissingTemplateException if the tpl file can't be read
+		 * @return \Gcs\Framework\Core\Template\Template
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Template
 		 */
@@ -252,7 +252,7 @@
 		 * insert variable
 		 * @param $name
 		 * @param $vars
-		 * @return \System\Template\Template
+		 * @return \Gcs\Framework\Core\Template\Template
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Template
 		 */
@@ -406,7 +406,6 @@
 		/**
 		 * destructor
 		 * @access public
-		 * @return string
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Template
 		 */

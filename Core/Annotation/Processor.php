@@ -39,7 +39,7 @@
 		/**
 		 * parse comments to retrieve annotations
 		 * @access public
-		 * @return \System\Annotation\Annotations\Annotation;
+		 * @return \Gcs\Framework\Core\Annotation\Annotation;
 		 */
 	
 		public function process(){

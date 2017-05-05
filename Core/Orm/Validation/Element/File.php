@@ -19,10 +19,10 @@
 		/**
 		 * constructor
 		 * @access public
-		 * @param $entity \System\Orm\Entity\Entity
+		 * @param $entity \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @param $field  string
 		 * @param $label  string
-		 * @return \System\Orm\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Validation\Element
 		 */
@@ -46,7 +46,7 @@
 			$fields = $this->_getField();
 
 			foreach ($this->_constraints as $constraints) {
-				/** @var \System\Orm\Entity\Type\File $value */
+				/** @var \Gcs\Framework\Core\Orm\Entity\Type\File $value */
 				foreach ($fields as $value) {
 					if ($value != null) {
 						switch ($constraints['type']) {
@@ -126,7 +126,7 @@
 		 * @access public
 		 * @param $accept string[]
 		 * @param $error  string
-		 * @return \System\Orm\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -148,7 +148,7 @@
 		 * @access public
 		 * @param $extension string[]
 		 * @param $error     string
-		 * @return \System\Orm\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -170,7 +170,7 @@
 		 * @access public
 		 * @param $size  int
 		 * @param $error string
-		 * @return \System\Orm\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -192,7 +192,7 @@
 		 * @access public
 		 * @param $sizeMin int
 		 * @param $error   string
-		 * @return \System\Orm\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -214,7 +214,7 @@
 		 * @access public
 		 * @param $sizeMax int
 		 * @param $error   string
-		 * @return \System\Orm\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
@@ -236,7 +236,7 @@
 		 * @access public
 		 * @param $sizeBetween int[]
 		 * @param $error       string
-		 * @return \System\Orm\Validation\Element\File
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\File
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */

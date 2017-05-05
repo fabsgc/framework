@@ -10,15 +10,15 @@
 
 	namespace Gcs\Framework\Core\General;
 
-	use Gcs\Framework\Core\Cache\Cache;
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Exception\MissingConfigException;
+    use Gcs\Framework\Core\Request\Request;
 
-	trait Resolver {
+    trait Resolver {
 
 		/**
 		 * when you want to use a lang, route, image, template, this method is used to resolve the right path
-		 * the method use the instance of \system\config
+		 * the method use the instance of \Gcs\Framework\Core\Config\Config
 		 * @access public
 		 * @param $type string : type of the config
 		 * @param $data string : ".gcs.lang" ".gcs/template/" "template"
@@ -34,7 +34,7 @@
 
 		/**
 		 * when you want to use a lang, route, image, template, this method is used to resolve the right path
-		 * the method use the instance of \system\config
+		 * the method use the instance of \Gcs\Framework\Core\Config\Config
 		 * @access public
 		 * @param $type string : type of the config
 		 * @param $data string : ".gcs.lang" ".gcs/template/" "template"
@@ -57,7 +57,7 @@
 					$src = $request->src;
 				}
 
-				return [$config->config[$type][$src], $data];
+				return [$config->config[$type][lcfirst($src)], $data];
 			}
 			else {
 				if (preg_match('#^((\.)([^(\/)]+)([(\/)]*)(.*))#', $data, $matches)) {
@@ -77,12 +77,12 @@
 					return VENDOR_PATH . $data;
 				}
 				else {
-					if (!isset($config->config[$type][$src])) {
-						throw new MissingConfigException('The section "' . $type . '"/"'.$src.'" does not exist in configuration');
+					if (!isset($config->config[$type][ucfirst($src)])) {
+						throw new MissingConfigException('The section "' . $type . '/'. ucfirst($src) . '" does not exist in configuration');
 					}
 				}
 
-				return $config->config[$type][$src] . $data;
+				return $config->config[$type][ucfirst($src)] . $data;
 			}
 		}
 

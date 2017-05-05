@@ -14,9 +14,9 @@
 	use Gcs\Framework\Core\Collection\Collection;
 	use Gcs\Framework\Core\Database\Database;
 	use Gcs\Framework\Core\Exception\MissingSqlException;
-	use Gcs\Framework\Core\General\error;
-	use Gcs\Framework\Core\General\facades;
-	use Gcs\Framework\Core\General\facadesEntity;
+	use Gcs\Framework\Core\General\Errors;
+	use Gcs\Framework\Core\General\Facades;
+	use Gcs\Framework\Core\General\FacadesEntity;
 	use Gcs\Framework\Core\Orm\Entity\Field;
 	use Gcs\Framework\Core\Orm\Entity\ForeignKey;
 	use Gcs\Framework\Core\Orm\Entity\Multiple;
@@ -29,7 +29,7 @@
 	 * @package Gcs\Framework\Core\Sql
 	 */
 	class Sql {
-		use error, facades, facadesEntity;
+		use Errors, Facades, FacadesEntity;
 
 		/**
 		 * @var array
@@ -44,7 +44,7 @@
 		protected $_query = [];
 
 		/**
-		 * @var \System\Pdo\Pdo
+		 * @var \Gcs\Framework\Core\Pdo\Pdo
 		 */
 
 		protected $_db;
@@ -71,7 +71,7 @@
 		protected $_nameQuery = '';
 
 		/**
-		 * @var \System\Cache\Cache
+		 * @var \Gcs\Framework\Core\Cache\Cache
 		 */
 
 		protected $_cache;
@@ -176,15 +176,15 @@
 		 * It's useful if you want to use PDO method like lastInsertId()
 		 * @access public
 		 * @param string $name : name of the query you want to execute
-		 * @throws \System\Exception\MissingSqlException
-		 * @return \System\Pdo\PdoStatement
+		 * @throws \Gcs\Framework\Core\Exception\MissingSqlException
+		 * @return \Gcs\Framework\Core\Pdo\PdoStatement
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		public function execute($name) {
 			try {
-				/** @var \System\Pdo\PdoStatement $query */
+				/** @var \Gcs\Framework\Core\Pdo\PdoStatement $query */
 				$query = $this->_db->prepare('' . $this->_query['' . $name . ''] . '');
 
 				foreach ($this->_var as $key => $value) {
@@ -259,7 +259,7 @@
 			) {
 
 				try {
-					/** @var \System\Pdo\PdoStatement $query */
+					/** @var \Gcs\Framework\Core\Pdo\PdoStatement $query */
 					$query = $this->_db->prepare('' . $this->_query[$name] . '');
 					$this->profiler->addTime($this->_nameQuery . $name);
 					$this->profiler->addSql($this->_nameQuery . $name, Profiler::SQL_START);
@@ -383,7 +383,7 @@
 		 * return data as an array of entities
 		 * @access public
 		 * @param $entity string
-		 * @return \System\Collection\Collection
+		 * @return \Gcs\Framework\Core\Collection\Collection
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Sql
 		 */
@@ -393,7 +393,7 @@
 
 			foreach ($this->_data as $line) {
 				if ($entity != '') {
-					/** @var  $entityObject \System\Orm\Entity\Entity */
+					/** @var  $entityObject \Gcs\Framework\Core\Orm\Entity\Entity */
 					$entityObject = self::Entity()->$entity();
 
 					foreach ($line as $key => $field) {
@@ -464,19 +464,19 @@
 		}
 
 		/**
-		 * If the entity used has at least one relation, we have
+		 * If the Entity used has at least one relation, we have
 		 * to get an Entity object instead of the foreign key
 		 * @access protected
-		 * @param $line    \System\Collection\Collection
-		 * @param $foreign \System\Orm\Entity\ForeignKey
+		 * @param $line    \Gcs\Framework\Core\Collection\Collection
+		 * @param $foreign \Gcs\Framework\Core\Orm\Entity\ForeignKey
 		 * @param $parent  string
-		 * @return \System\Orm\Entity\Entity
+		 * @return \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		protected function _getDataRelation($line, $foreign, $parent) {
-			/** @var $entity \System\Orm\Entity\Entity */
+			/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 
 			$class = $foreign->referenceEntity();
 			$entity = self::Entity()->$class();

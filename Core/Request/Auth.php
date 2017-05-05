@@ -13,7 +13,7 @@
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Exception\AttributeNotAllowedException;
 	use Gcs\Framework\Core\Exception\MissingConfigException;
-	use Gcs\Framework\Core\General\error;
+	use Gcs\Framework\Core\General\Errors;
 
 	/**
 	 * Class Auth
@@ -21,7 +21,7 @@
 	 */
 
 	class Auth {
-		use error;
+		use Errors;
 
 		/**
 		 * parameters
@@ -69,8 +69,8 @@
 			$this->_config = Config::instance();
 			$this->_src = $src;
 
-			$this->_path['logged'] = explode('.', $this->_config->config['firewall']['' . $src . '']['logged']['name']);
-			$this->_path['role'] = explode('.', $this->_config->config['firewall']['' . $src . '']['roles']['name']);
+			$this->_path['logged'] = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['logged']['name']);
+			$this->_path['role'] = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['roles']['name']);
 			$this->_param['role'] = $this->_getSession($this->_path['role']);
 
 			$data = $this->_getSession($this->_path['logged']);
@@ -85,7 +85,7 @@
 		 * @access public
 		 * @param $name string : name of the attribute
 		 * @return mixed
-		 * @throws \System\Exception\AttributeNotAllowedException
+		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Request
 		 */
@@ -104,7 +104,7 @@
 		 * @access public
 		 * @param $name  string : name of the attribute
 		 * @param $value string : new value
-		 * @throws \System\Exception\AttributeNotAllowedException
+		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @return void
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Request
@@ -120,30 +120,30 @@
 			}
 		}
 
-		/**
-		 * Get and Set the value of any role attribute
-		 * @access public
-		 * @param $src   string
-		 * @param $value string : new value
-		 * @throws \System\Exception\MissingConfigException
-		 * @return mixed
-		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
-		 */
+        /**
+         * Get and Set the value of any role attribute
+         * @access public
+         * @param $src   string
+         * @param $value string : new value
+         * @return mixed
+         * @throws \Gcs\Framework\Core\Exception\MissingConfigException
+         * @since 3.0
+         * @package Gcs\Framework\Core\Request
+         */
 
 		public function role($src, $value = '') {
-			if (isset($this->_config->config['firewall']['' . $src . ''])) {
+			if (isset($this->_config->config['firewall']['' . lcfirst($src) . ''])) {
 				if ($value == '') {
-					$role = explode('.', $this->_config->config['firewall']['' . $src . '']['roles']['name']);
+					$role = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['roles']['name']);
 					return $this->_getSession($role);
 				}
 				else {
-					$role = explode('.', $this->_config->config['firewall']['' . $src . '']['roles']['name']);
+					$role = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['roles']['name']);
 					$this->_setSession($role, $value);
 				}
 			}
 			else {
-				throw new MissingConfigException('the module ' . $src . ' doesn\'t exist');
+				throw new MissingConfigException('the module ' . lcfirst($src) . ' doesn\'t exist');
 			}
 
 			return false;
@@ -154,16 +154,16 @@
 		 * @access public
 		 * @param $src   string
 		 * @param $value string : new value
-		 * @throws \System\Exception\MissingConfigException
+		 * @throws \Gcs\Framework\Core\Exception\MissingConfigException
 		 * @return mixed
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function logged($src, $value = '') {
-			if (isset($this->_config->config['firewall']['' . $src . ''])) {
+			if (isset($this->_config->config['firewall']['' . lcfirst($src) . ''])) {
 				if ($value == '') {
-					$logged = explode('.', $this->_config->config['firewall']['' . $src . '']['logged']['name']);
+					$logged = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['logged']['name']);
 
 					$data = $this->_getSession($logged);
 
@@ -175,7 +175,7 @@
 					}
 				}
 				else {
-					$logged = explode('.', $this->_config->config['firewall']['' . $src . '']['logged']['name']);
+					$logged = explode('.', $this->_config->config['firewall']['' . lcfirst($src) . '']['logged']['name']);
 					$this->_setSession($logged, $value);
 				}
 			}

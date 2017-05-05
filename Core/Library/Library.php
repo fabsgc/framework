@@ -12,7 +12,7 @@
 
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Exception\MissingLibraryException;
-	use Gcs\Framework\Core\General\error;
+	use Gcs\Framework\Core\General\Errors;
 	use Gcs\Framework\Core\Request\Request;
 
 	/**
@@ -21,13 +21,13 @@
 	 */
 
 	class Library {
-		use error;
+		use Errors;
 
 		/**
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @throws \System\Exception\MissingLibraryException
+		 * @throws \Gcs\Framework\Core\Exception\MissingLibraryException
 		 * @package Gcs\Framework\Core\Library
 		 */
 

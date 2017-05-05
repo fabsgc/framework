@@ -12,9 +12,8 @@
 
 	use Gcs\Framework\Core\Collection\Collection;
 	use Gcs\Framework\Core\Exception\MissingEntityException;
-	use Gcs\Framework\Core\General\facades;
+	use Gcs\Framework\Core\General\Facades;
 	use Gcs\Framework\Core\Orm\Entity\ForeignKey;
-	use Gcs\Framework\Core\Profiler\Profiler;
 	use Gcs\Framework\Core\Sql\Sql;
 
 	/**
@@ -23,7 +22,7 @@
 	 */
 
 	class Builder {
-		use facades;
+		use Facades;
 
 		const QUERY_SELECT      = 0;
 		const QUERY_DISTINCT    = 1;
@@ -58,8 +57,8 @@
 		protected $_distinct;
 
 		/**
-		 * the entity used to make the query
-		 * @var \System\Orm\Entity\Entity
+		 * the Entity used to make the query
+		 * @var \Gcs\Framework\Core\Orm\Entity\Entity
 		 */
 
 		protected $_entity;
@@ -88,8 +87,8 @@
 		/**
 		 * Constructor
 		 * @access public
-		 * @param $entity \System\Orm\Entity\Entity
-		 * @return \System\Orm\Builder
+		 * @param $entity \Gcs\Framework\Core\Orm\Entity\Entity
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -110,7 +109,7 @@
 		 *              If you have only one variable to pass, you can use the 2/3 parameters form
 		 *              first syntax  : ('id', 'value')
 		 *              second syntax : ('id', 'value', Sql::PARAM_INT)
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -137,7 +136,7 @@
 		/**
 		 * create a select query
 		 * @access public
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -153,7 +152,7 @@
 		 * create a select distinct query
 		 * @access public
 		 * @param $distinct string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -171,7 +170,7 @@
 		 * create a query without sql completion
 		 * @access public
 		 * @param $query string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -186,7 +185,7 @@
 		/**
 		 * create a select count query
 		 * @access public
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -202,7 +201,7 @@
 		 * add where clause
 		 * @access public
 		 * @param $where string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -218,7 +217,7 @@
 		 * add and where clause
 		 * @access public
 		 * @param $where string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -234,7 +233,7 @@
 		 * add or where clause
 		 * @access public
 		 * @param $where string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -254,7 +253,7 @@
 		 * @param $on        string
 		 * @param $reference string : reference field
 		 * @throws MissingEntityException
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -279,7 +278,7 @@
 		 * add order by
 		 * @access public
 		 * @param $orderBy string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -295,7 +294,7 @@
 		 * add group by
 		 * @access public
 		 * @param $groupBy string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -311,7 +310,7 @@
 		 * add having
 		 * @access public
 		 * @param $having string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -328,7 +327,7 @@
 		 * @access public
 		 * @param $offset integer
 		 * @param $number integer
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -347,7 +346,7 @@
 		 * add raw
 		 * @access public
 		 * @param $raw string
-		 * @return \System\Orm\Builder
+		 * @return \Gcs\Framework\Core\Orm\Builder
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -358,7 +357,7 @@
 		}
 
 		/**
-		 * detect new entity in the query
+		 * detect new Entity in the query
 		 * @access public
 		 * @param $query string
 		 * @return void
@@ -371,7 +370,7 @@
 		}
 
 		/**
-		 * detect new entity in the query [callback]
+		 * detect new Entity in the query [callback]
 		 * @access public
 		 * @param $m string[]
 		 * @return void
@@ -389,7 +388,7 @@
 		 * fetch the current query
 		 * @access public
 		 * @param $return integer
-		 * @return \System\Collection\Collection
+		 * @return \Gcs\Framework\Core\Collection\Collection
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -423,7 +422,7 @@
 				$nLines = $collection->count();
 				$in = '';
 
-				/** @var $value \System\Orm\Entity\Entity */
+				/** @var $value \Gcs\Framework\Core\Orm\Entity\Entity */
 				foreach ($collection as $key => $value) {
 					$in .= $value->fields()[$value->primary()]->value;
 
@@ -461,11 +460,11 @@
 		}
 
 		/**
-		 * If the entity has at least one to many relation, we had a collection to the right field
+		 * If the Entity has at least one to many relation, we had a collection to the right field
 		 * @access public
-		 * @param $field      \System\Orm\Entity\Field : foreign key field
-		 * @param $collection \System\Collection\Collection
-		 * @return \System\Collection\Collection
+		 * @param $field \Gcs\Framework\Core\Orm\Entity\Field : foreign key field
+		 * @param $collection \Gcs\Framework\Core\Collection\Collection
+		 * @return \Gcs\Framework\Core\Collection\Collection
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -484,7 +483,7 @@
 			$referenceField = $field->foreign->referenceField();
 			$fieldFormName = lcfirst($referenceEntity) . '.' . lcfirst($referenceField);
 
-			/** @var $line \System\Orm\Entity\Entity */
+			/** @var $line \Gcs\Framework\Core\Orm\Entity\Entity */
 			foreach ($collection as $key => $line) {
 				$in .= ' :join' . $key . ',';
 				$inVars['join' . $key] = $line->get($currentField);
@@ -492,7 +491,7 @@
 
 			$in = trim($in, ',');
 
-			/** @var $datasJoin \System\Collection\Collection */
+			/** @var $datasJoin \Gcs\Framework\Core\Collection\Collection */
 			$datasJoin = self::Entity()->$referenceEntity()->find()
 				->where($fieldFormName . ' IN(' . $in . ')')
 				->orderBy($fieldFormName . ' ASC')
@@ -501,15 +500,15 @@
 
 			$data = null;
 
-			/** @var $line \System\Orm\Entity\Entity */
+			/** @var $line \Gcs\Framework\Core\Orm\Entity\Entity */
 			foreach ($collection as $line) {
 				$count = $line->get($field->name);
 				$data = new Collection();
 
-				/** @var $dataJoin \System\Orm\Entity\Entity */
+				/** @var $dataJoin \Gcs\Framework\Core\Orm\Entity\Entity */
 				foreach ($datasJoin as $key2 => $dataJoin) {
 					/**
-					 * The lines are ordered by reference entity ID, so when we find the first line, we have just to
+					 * The lines are ordered by reference Entity ID, so when we find the first line, we have just to
 					 * get the following lines thanks to $count
 					 */
 					if ($count > 0 && $dataJoin->get($referenceField)->get($currentField) == $line->get($currentField)) {
@@ -522,9 +521,9 @@
 				$line->set($field->name, $data);
 			}
 
-			/** @var $line \System\Orm\Entity\Entity */
+			/** @var $line \Gcs\Framework\Core\Orm\Entity\Entity */
 			/*foreach($collection as $line){
-				$currentEntity = $field->foreign->entity();
+				$currentEntity = $field->foreign->Entity();
 				$currentField  = $field->foreign->field();
 				$referenceEntity = $field->foreign->referenceEntity();
 
@@ -537,11 +536,11 @@
 		}
 
 		/**
-		 * If the entity has at least many to many relation, we had a collection to the right field
+		 * If the Entity has at least many to many relation, we had a collection to the right field
 		 * @access public
-		 * @param $field      \System\Orm\Entity\Field
-		 * @param $collection \System\Collection\Collection
-		 * @return \System\Collection\Collection
+		 * @param $field \Gcs\Framework\Core\Orm\Entity\Field
+		 * @param $collection \Gcs\Framework\Core\Collection\Collection
+		 * @return \Gcs\Framework\Core\Collection\Collection
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -571,7 +570,7 @@
 			sort($table, SORT_STRING);
 			$table = ucfirst($table[0] . $table[1]);
 
-			/** @var $line \System\Orm\Entity\Entity */
+			/** @var $line \Gcs\Framework\Core\Orm\Entity\Entity */
 			foreach ($collection as $key => $line) {
 				$in .= ' :join' . $key . ',';
 				$inVars['join' . $key] = $line->get($currentField);
@@ -579,7 +578,7 @@
 
 			$in = trim($in, ',');
 
-			/** @var $datasJoin \System\Collection\Collection */
+			/** @var $datasJoin \Gcs\Framework\Core\Collection\Collection */
 			$datasJoin = self::Entity()->$table()->find()
 				->where($fieldFormName . ' IN(' . $in . ')')
 				->orderBy($fieldFormName . ' ASC')
@@ -588,15 +587,15 @@
 
 			$data = null;
 
-			/** @var $line \System\Orm\Entity\Entity */
+			/** @var $line \Gcs\Framework\Core\Orm\Entity\Entity */
 			foreach ($collection as $line) {
 				$count = $line->get($field->name);
 				$data = new Collection();
 
-				/** @var $dataJoin \System\Orm\Entity\Entity */
+				/** @var $dataJoin \Gcs\Framework\Core\Orm\Entity\Entity */
 				foreach ($datasJoin as $key2 => $dataJoin) {
 					/**
-					 * The lines are ordered by reference entity ID, so when we find the first line, we have just to
+					 * The lines are ordered by reference Entity ID, so when we find the first line, we have just to
 					 * get the following lines thanks to $count
 					 */
 
@@ -752,17 +751,17 @@
 		}
 
 		/**
-		 * return an entity from his name
+		 * return an Entity from his name
 		 * @access protected
 		 * @param $entity string
 		 * @throws MissingEntityException
-		 * @return \System\Orm\Entity\Entity
+		 * @return \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		protected function _getTableEntity($entity = '') {
-			/** @var $class \System\Orm\Entity\Entity */
+			/** @var $class \Gcs\Framework\Core\Orm\Entity\Entity */
 
 			$entity = ucfirst(preg_replace_callback("/(?:^|_)([a-z])/", function ($matches) {
 				return strtoupper($matches[1]);
@@ -774,12 +773,12 @@
 				return self::Entity()->$entity();
 			}
 			else {
-				throw new MissingEntityException('The entity ' . $entity . ' does not exist');
+				throw new MissingEntityException('The Entity ' . $entity . ' does not exist');
 			}
 		}
 
 		/**
-		 * return an entity name
+		 * return an Entity name
 		 * @access protected
 		 * @param $entity string
 		 * @throws MissingEntityException
@@ -789,7 +788,7 @@
 		 */
 
 		protected function _getEntityName($entity = '') {
-			/** @var $class \System\Orm\Entity\Entity */
+			/** @var $class \Gcs\Framework\Core\Orm\Entity\Entity */
 
 			$entity = ucfirst(preg_replace_callback("/(?:^|_)([a-z])/", function ($matches) {
 				return strtoupper($matches[1]);
@@ -801,7 +800,7 @@
 				return $entity;
 			}
 			else {
-				throw new MissingEntityException('The entity ' . $entity . ' does not exist');
+				throw new MissingEntityException('The Entity ' . $entity . ' does not exist');
 			}
 		}
 

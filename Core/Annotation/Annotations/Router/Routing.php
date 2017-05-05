@@ -10,11 +10,11 @@
 
 	namespace Gcs\Framework\Core\Annotation\Annotations\Router;
 
-	use Gcs\Framework\Core\Annotation\Annotations\Annotation;
+	use Gcs\Framework\Core\Annotation\Annotation;
 
 	/**
 	 * Class Routing
-	 * @package Gcs\Framework\Core\Annotation\Annotations\Router
+	 * @package Gcs\Framework\Core\Annotation\Router
 	 */
 
 	class Routing extends Annotation {

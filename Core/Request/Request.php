@@ -25,8 +25,8 @@
 	 * @property string access
 	 * @property string method
 	 * @property string lang
-	 * @property \System\Request\Auth auth
-	 * @property \System\Request\Data data
+	 * @property \Gcs\Framework\Core\Request\Auth auth
+	 * @property \Gcs\Framework\Core\Request\Data data
 	 * @package Gcs\Framework\Core\Request
 	 */
 
@@ -84,7 +84,7 @@
 		 * @access public
 		 * @param $name string : name of the attribute
 		 * @return mixed
-		 * @throws \System\Exception\AttributeNotAllowedException
+		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Request
 		 */
@@ -104,7 +104,7 @@
 		 * @param $name  string : name of the attribute
 		 * @param $value string : new value
 		 * @return void
-		 * @throws \System\Exception\AttributeNotAllowedException
+		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Request
 		 */

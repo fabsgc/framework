@@ -32,17 +32,17 @@
 		 */
 
 		public static $_annotations = [
-			'Routing'    =>           '\System\Annotation\Annotations\Router\Routing',
-			'Before'     =>            '\System\Annotation\Annotations\Common\Before',
-			'After'      =>             '\System\Annotation\Annotations\Common\After',
-			'Cron'       =>                '\System\Annotation\Annotations\Cron\Cron',
-			'Form'       =>                 '\System\Annotation\Annotations\Orm\Form',
-			'Table'      =>                '\System\Annotation\Annotations\Orm\Table',
-			'Column'     =>               '\System\Annotation\Annotations\Orm\Column',
-			'OneToOne'   =>   '\System\Annotation\Annotations\Orm\Relations\OneToOne',
-			'OneToMany'  =>  '\System\Annotation\Annotations\Orm\Relations\OneToMany',
-			'ManyToOne'  =>  '\System\Annotation\Annotations\Orm\Relations\ManyToOne',
-			'ManyToMany' =>  '\System\Annotation\Annotations\Orm\Relations\ManyToMany'
+			'Routing'    =>           '\Gcs\Framework\Core\Annotation\Annotations\Router\Routing',
+			'Before'     =>            '\Gcs\Framework\Core\Annotation\Annotations\Common\Before',
+			'After'      =>             '\Gcs\Framework\Core\Annotation\Annotations\Common\After',
+			'Cron'       =>                '\Gcs\Framework\Core\Annotation\Annotations\Cron\Cron',
+			'Form'       =>                 '\Gcs\Framework\Core\Annotation\Annotations\Orm\Form',
+			'Table'      =>                '\Gcs\Framework\Core\Annotation\Annotations\Orm\Table',
+			'Column'     =>               '\Gcs\Framework\Core\Annotation\Annotations\Orm\Column',
+			'OneToOne'   =>   '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\OneToOne',
+			'OneToMany'  =>  '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\OneToMany',
+			'ManyToOne'  =>  '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\ManyToOne',
+			'ManyToMany' =>  '\Gcs\Framework\Core\Annotation\Annotations\Orm\Relations\ManyToMany'
 
 		];
 

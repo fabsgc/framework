@@ -2,7 +2,7 @@
 	namespace Gcs\Framework\Core\Url;
 
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\resolve;
+	use Gcs\Framework\Core\General\Resolver;
 
 	/**
 	 * Class Url
@@ -10,7 +10,7 @@
 	 */
 
 	class Url {
-		use resolve;
+		use Resolver;
 
 		/**
 		 * get an url

@@ -19,10 +19,10 @@
 		/**
 		 * constructor
 		 * @access public
-		 * @param $entity \System\Orm\Entity\Entity
+		 * @param $entity \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @param $field  string
 		 * @param $label  string
-		 * @return \System\Orm\Validation\Element\Select
+		 * @return \Gcs\Framework\Core\Orm\Validation\Element\Select
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm\Validation\Element
 		 */

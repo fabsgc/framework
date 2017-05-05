@@ -125,7 +125,7 @@
 		}
 
 		/**
-		 * set or get entity
+		 * set or get Entity
 		 * @access public
 		 * @param $entity string
 		 * @return mixed
@@ -162,7 +162,7 @@
 		}
 
 		/**
-		 * set or get reference entity
+		 * set or get reference Entity
 		 * @access public
 		 * @param $entity string
 		 * @return mixed void,string
@@ -180,7 +180,7 @@
 		}
 
 		/**
-		 * set or get reference entity
+		 * set or get reference Entity
 		 * @access public
 		 * @param $field string
 		 * @return mixed void,string

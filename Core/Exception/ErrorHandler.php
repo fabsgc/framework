@@ -10,7 +10,7 @@
 
 	namespace Gcs\Framework\Core\Exception;
 
-	use Gcs\Framework\Core\General\error;
+	use Gcs\Framework\Core\General\Errors;
 
 	/**
 	 * Class ErrorHandler
@@ -18,7 +18,7 @@
 	 */
 
 	class ErrorHandler {
-		use error;
+		use Errors;
 
 		/**
 		 * constructor

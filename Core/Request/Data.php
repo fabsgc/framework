@@ -60,7 +60,7 @@
 		/**
 		 * singleton
 		 * @access public
-		 * @return \System\Request\Data
+		 * @return \Gcs\Framework\Core\Request\Data
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Request
 		 */
@@ -78,7 +78,7 @@
 		 * @access public
 		 * @param $name string : name of the attribute
 		 * @return mixed
-		 * @throws \System\Exception\AttributeNotAllowedException
+		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Request
 		 */
@@ -98,7 +98,7 @@
 		 * @param $name  string : name of the attribute
 		 * @param $value string : new value
 		 * @return void
-		 * @throws \System\Exception\AttributeNotAllowedException
+		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Request
 		 */

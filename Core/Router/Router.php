@@ -11,7 +11,7 @@
 	namespace Gcs\Framework\Core\Router;
 
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\facades;
+	use Gcs\Framework\Core\General\Facades;
 	use Gcs\Framework\Core\Request\Request;
 
 	/**
@@ -20,11 +20,11 @@
 	 */
 
 	class Router {
-		use facades;
+		use Facades;
 
 		/**
 		 * contain all the routes
-		 * @var \System\Router\Route[]
+		 * @var \Gcs\Framework\Core\Router\Route[]
 		 */
 
 		protected $routes = [];
@@ -49,7 +49,7 @@
 		 * @access public
 		 * @param $url string
 		 * @param $config
-		 * @return \system\Router\Route
+		 * @return \Gcs\Framework\Core\Router\Route
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Router
 		 */

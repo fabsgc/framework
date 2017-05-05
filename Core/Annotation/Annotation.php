@@ -12,7 +12,6 @@
 
 	use Gcs\Framework\Core\Cache\Cache;
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\Sql\Sql;
 
 	/**
 	 * Class Annotation

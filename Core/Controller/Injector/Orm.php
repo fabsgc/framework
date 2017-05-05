@@ -50,7 +50,7 @@
 		 * Return a fully completed Request Object
 		 * @access public
 		 * @param \ReflectionClass $object
-		 * @return \System\Orm\Entity\Entity
+		 * @return \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
@@ -58,7 +58,7 @@
 		public static function get($object) {
 			$class = $object->name;
 
-			/** @var \System\Orm\Entity\Entity $class */
+			/** @var \Gcs\Framework\Core\Orm\Entity\Entity $class */
 			$class = new $class();
 
 			$request = Request::instance();

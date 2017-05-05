@@ -38,7 +38,7 @@
 		/**
 		 * Get iterator
 		 * @access public
-		 * @return \System\Collection\Iterator
+		 * @return \Gcs\Framework\Core\Collection\Iterator
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -50,7 +50,7 @@
 		/**
 		 * First value
 		 * @access public
-		 * @return \System\Orm\Entity\Entity
+		 * @return \Gcs\Framework\Core\Orm\Entity\Entity
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Orm
 		 */
@@ -186,7 +186,7 @@
 				$this->_datas = array_merge($this->_datas, $data);
 			}
 			else {
-				if (get_class($data) != 'System\Collection\Collection') {
+				if (get_class($data) != 'Gcs\Framework\Core\Collection\Collection') {
 					array_push($this->_datas, $data);
 				}
 				else {

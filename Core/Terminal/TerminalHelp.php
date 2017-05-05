@@ -19,7 +19,7 @@
 		public function help() {
 			echo " - create module\n";
 			echo " - create controller\n";
-			echo " - create entity\n";
+			echo " - create Entity\n";
 			echo " - delete module\n";
 			echo " - delete controller\n";
 			echo " - clear cache\n";

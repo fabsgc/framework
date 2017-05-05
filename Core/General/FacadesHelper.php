@@ -15,7 +15,7 @@
 	trait FacadesHelper {
 		/**
 		 * Helper facade instance
-		 * @var Gcs\Framework\Core\Facade\FacadeHelper
+		 * @var \Gcs\Framework\Core\Facade\FacadeHelper
 		 */
 		protected $entity;
 	}

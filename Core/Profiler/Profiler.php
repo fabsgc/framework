@@ -12,7 +12,7 @@
 
 	use Gcs\Framework\Core\Cache\Cache;
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\error;
+	use Gcs\Framework\Core\General\Errors;
 	use Gcs\Framework\Core\General\Singleton;
 	use Gcs\Framework\Core\Request\Data;
 
@@ -22,7 +22,7 @@
 	 */
 
 	class Profiler {
-		use error, singleton;
+		use Errors, Singleton;
 
 		/**
 		 * sql queries

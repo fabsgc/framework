@@ -46,7 +46,7 @@
 		 * @param $dsn           string
 		 * @param $username      string
 		 * @param $password      string
-		 * @param $driverOptions string
+		 * @param $driverOptions []
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Pdo
 		 */

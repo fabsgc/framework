@@ -50,13 +50,13 @@
 		 * Return a fully completed Request Object
 		 * @access public
 		 * @param \ReflectionClass $object
-		 * @return \System\Request\Form
+		 * @return \Gcs\Framework\Core\Request\Form
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
 
 		public static function get($object) {
-			/** @var \System\Request\Form $class */
+			/** @var \Gcs\Framework\Core\Request\Form $class */
 			$class = $object->name;
 			$class = new $class();
 			$class->init();

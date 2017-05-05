@@ -34,7 +34,7 @@
 
 		/**
 		 * cache instance
-		 * @var \System\Cache\Cache
+		 * @var \Gcs\Framework\Core\Cache\Cache
 		 * @access private
 		 */
 
@@ -214,7 +214,7 @@
 
 						foreach ($controllers as $controller){
 							if(strlen($controller) > 2){
-								$annotation = Annotation::getClass(lcfirst($entrySrc) . '\\' . basename($controller, '.php'));
+								$annotation = Annotation::getClass('Src\\' . ucfirst($entrySrc) . '\\Controller\\' . basename($controller, '.php'));
 								$this->_parseAnnotationRoute($entrySrc, $controller, $annotation);
 								$this->_parseAnnotationCron($entrySrc, $controller, $annotation);
 							}
@@ -225,7 +225,7 @@
 
 						foreach ($entities as $entity){
 							if(strlen($entity) > 2 && strstr($entity, '.')){
-								Annotation::getClass('Orm\\Entity\\' . basename($entity, '.php'));
+								Annotation::getClass('\\Gcs\\App\Resource\\Entity\\' . basename($entity, '.php'));
 							}
 						}
 					}
@@ -259,7 +259,7 @@
 
 				foreach ($annotationMethods as $annotationMethod){
 					if($annotationMethod['annotation'] == 'Routing'){
-						/** @var \System\Annotation\Annotations\Router\Routing $annotation */
+						/** @var \Gcs\Framework\Core\Annotation\Annotations\Router\Routing $annotation */
 						$annotation = $annotationMethod['instance'];
 
 						$data['name'] = $annotation->name;
@@ -272,7 +272,7 @@
 						$data['action'] = lcfirst(basename($controller, '.php')) . '.' . lcfirst(str_replace('action', '', $action));
 					}
 
-					$this->config['route'][$src][$data['name']] = $data;
+					$this->config['route'][lcfirst($src)][$data['name']] = $data;
 				}
 			}
 		}
@@ -291,7 +291,7 @@
 			foreach ($annotation['methods'] as $action => $annotationMethods){
 				foreach ($annotationMethods as $annotationMethod){
 					if($annotationMethod['annotation'] == 'Cron'){
-						/** @var \System\Annotation\Annotations\Cron\Cron $annotation */
+						/** @var \Gcs\Framework\Core\Annotation\Annotations\Cron\Cron $annotation */
 						$annotation = $annotationMethod['instance'];
 
 						$key = '.' . $src . '.' . lcfirst(basename($controller, '.php')) . '.' . lcfirst(str_replace('action', '', $action));
@@ -307,7 +307,7 @@
 		 * @param $src string
 		 * @return array
 		 * @since 3.0
-		 * @throws \System\Exception\MissingConfigException if route config file doesn't exist
+		 * @throws \Gcs\Framework\Core\Exception\MissingConfigException if route config file doesn't exist
 		 * @package Gcs\Framework\Core\Config
 		 */
 
@@ -346,7 +346,7 @@
 						$data['method'] = '*';
 					}
 
-					$this->config['route']['' . $src . '']['' . $data['name'] . ''] = $data;
+					$this->config['route']['' . lcfirst($src) . '']['' . $data['name'] . ''] = $data;
 				}
 			}
 			else {
@@ -361,7 +361,7 @@
 		 * @param $lang string
 		 * @return array
 		 * @since 3.0
-		 * @throws \System\Exception\MissingConfigException if lang config file doesn't exist
+		 * @throws \Gcs\Framework\Core\Exception\MissingConfigException if lang config file doesn't exist
 		 * @package Gcs\Framework\Core\Config
 		 */
 
@@ -400,8 +400,8 @@
 
 						$data = $this->_parseParent($value, $data, $this->_langAttribute);
 
-						$this->config['lang']['' . $src . '']['' . $lang . '']['' . $data['name'] . ''] = $data;
-						$this->config['lang']['' . $src . '']['' . $lang . '']['' . $data['name'] . ''] = $this->config['lang']['' . $src . '']['' . $lang . '']['' . $data['name'] . '']['content'];
+						$this->config['lang']['' . lcfirst($src) . '']['' . $lang . '']['' . $data['name'] . ''] = $data;
+						$this->config['lang']['' . lcfirst($src) . '']['' . $lang . '']['' . $data['name'] . ''] = $this->config['lang']['' . lcfirst($src) . '']['' . $lang . '']['' . $data['name'] . '']['content'];
 					}
 				}
 				else {
@@ -419,7 +419,7 @@
 		 * @param $src string
 		 * @return array
 		 * @since 3.0
-		 * @throws \System\Exception\MissingConfigException if firewall config file doesn't exist
+		 * @throws \Gcs\Framework\Core\Exception\MissingConfigException if firewall config file doesn't exist
 		 * @package Gcs\Framework\Core\Config
 		 */
 
@@ -438,38 +438,38 @@
 					$csrfVariable = $xml->xpath('//csrf/variable');
 					$logged = $xml->xpath('//logged');
 
-					$this->config['firewall']['' . $src . '']['roles'] = [];
-					$this->config['firewall']['' . $src . '']['forbidden']['variable'] = [];
-					$this->config['firewall']['' . $src . '']['csrf']['variable'] = [];
+					$this->config['firewall']['' . lcfirst($src) . '']['roles'] = [];
+					$this->config['firewall']['' . lcfirst($src) . '']['forbidden']['variable'] = [];
+					$this->config['firewall']['' . lcfirst($src) . '']['csrf']['variable'] = [];
 
 					/** @var SimpleXMLElement[] $value */
 
 					foreach ($roles as $value) {
-						$this->config['firewall']['' . $src . '']['roles']['name'] = $value['name']->__toString();
+						$this->config['firewall']['' . lcfirst($src) . '']['roles']['name'] = $value['name']->__toString();
 					}
 
 					foreach ($role as $value) {
-						$this->config['firewall']['' . $src . '']['roles']['role']['' . $value['name']->__toString() . ''] = $value['name']->__toString();
+						$this->config['firewall']['' . lcfirst($src) . '']['roles']['role']['' . $value['name']->__toString() . ''] = $value['name']->__toString();
 					}
 
 					foreach ($login as $value) {
-						$this->config['firewall']['' . $src . '']['login']['name'] = $value['name']->__toString();
-						$this->config['firewall']['' . $src . '']['login']['vars'] = explode(',', $value['vars']->__toString());
+						$this->config['firewall']['' . lcfirst($src) . '']['login']['name'] = $value['name']->__toString();
+						$this->config['firewall']['' . lcfirst($src) . '']['login']['vars'] = explode(',', $value['vars']->__toString());
 					}
 
 					foreach ($default as $value) {
-						$this->config['firewall']['' . $src . '']['default']['name'] = $value['name']->__toString();
-						$this->config['firewall']['' . $src . '']['default']['vars'] = explode(',', $value['vars']->__toString());
+						$this->config['firewall']['' . lcfirst($src) . '']['default']['name'] = $value['name']->__toString();
+						$this->config['firewall']['' . lcfirst($src) . '']['default']['vars'] = explode(',', $value['vars']->__toString());
 					}
 
 					foreach ($forbidden as $value) {
-						$this->config['firewall']['' . $src . '']['forbidden']['template'] = $value['template']->__toString();
+						$this->config['firewall']['' . lcfirst($src) . '']['forbidden']['template'] = $value['template']->__toString();
 					}
 
 					foreach ($csrf as $value) {
-						$this->config['firewall']['' . $src . '']['csrf']['name'] = $value['name']->__toString();
-						$this->config['firewall']['' . $src . '']['csrf']['template'] = $value['template']->__toString();
-						$this->config['firewall']['' . $src . '']['csrf']['enabled'] = $value['enabled']->__toString();
+						$this->config['firewall']['' . lcfirst($src) . '']['csrf']['name'] = $value['name']->__toString();
+						$this->config['firewall']['' . lcfirst($src) . '']['csrf']['template'] = $value['template']->__toString();
+						$this->config['firewall']['' . lcfirst($src) . '']['csrf']['enabled'] = $value['enabled']->__toString();
 					}
 
 					foreach ($forbiddenVariable as $value) {
@@ -479,7 +479,7 @@
 						$data['name'] = $value['name']->__toString();
 						$data['value'] = $value['value']->__toString();
 
-						array_push($this->config['firewall']['' . $src . '']['forbidden']['variable'], $data);
+						array_push($this->config['firewall']['' . lcfirst($src) . '']['forbidden']['variable'], $data);
 					}
 
 					foreach ($csrfVariable as $value) {
@@ -489,11 +489,11 @@
 						$data['name'] = $value['name']->__toString();
 						$data['value'] = $value['value']->__toString();
 
-						array_push($this->config['firewall']['' . $src . '']['csrf']['variable'], $data);
+						array_push($this->config['firewall']['' . lcfirst($src) . '']['csrf']['variable'], $data);
 					}
 
 					foreach ($logged as $value) {
-						$this->config['firewall']['' . $src . '']['logged']['name'] = $value['name']->__toString();
+						$this->config['firewall']['' . lcfirst($src) . '']['logged']['name'] = $value['name']->__toString();
 					}
 				}
 				else {
@@ -509,7 +509,7 @@
 		 * parse parent node
 		 * @access protected
 		 * @param $child      \SimpleXMLElement
-		 * @param $data       string
+		 * @param $data       []
 		 * @param $attributes array
 		 * @return array
 		 * @since 3.0

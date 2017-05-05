@@ -12,22 +12,22 @@
 
 	trait Di {
 		/**
-		 * @var \System\Request\Request $request
+		 * @var \Gcs\Framework\Core\Request\Request $request
 		 */
 		private $request = null;
 
 		/**
-		 * @var \System\Response\Response $response
+		 * @var \Gcs\Framework\Core\Response\Response $response
 		 */
 		private $response = null;
 
 		/**
-		 * @var \System\Profiler\Profiler $profiler
+		 * @var \Gcs\Framework\Core\Profiler\Profiler $profiler
 		 */
 		private $profiler = null;
 
 		/**
-		 * @var \System\Config\Config $config
+		 * @var \Gcs\Framework\Core\Config\Config $config
 		 */
 		private $config = null;
 	}

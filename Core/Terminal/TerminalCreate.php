@@ -201,8 +201,8 @@
 				}
 				else {
 					$sql = new Sql(Database::instance()->db());
-					$sql->query('add-entity', 'SHOW TABLES FROM ' . Database::instance()->db()->getDatabase());
-					$data = $sql->fetch('add-entity', Sql::PARAM_FETCH);
+					$sql->query('add-Entity', 'SHOW TABLES FROM ' . Database::instance()->db()->getDatabase());
+					$data = $sql->fetch('add-Entity', Sql::PARAM_FETCH);
 
 					foreach ($data as $value) {
 						$this->addEntity($value[0]);
@@ -224,7 +224,7 @@
 		 */
 
 		private function addEntity($table) {
-			//the entity must have a primary key
+			//the Entity must have a primary key
 			$primary = false;
 			$collection = false;
 
@@ -237,13 +237,13 @@
 			}
 
 			$sql = new Sql(Database::instance()->db());
-			$sql->query('add-entity', 'SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table');
+			$sql->query('add-Entity', 'SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table');
 			$sql->vars(['db' => Database::instance()->db()->getDatabase()]);
 			$sql->vars(['table' => $table]);
 
 			$fields = [];
 
-			foreach ($sql->fetch('add-entity', Sql::PARAM_FETCH) as $value) {
+			foreach ($sql->fetch('add-Entity', Sql::PARAM_FETCH) as $value) {
 				/** @var $fieldUnique boolean : we want to know if a field is unique to add the correct relation "one to one" OR "many_to_one" */
 				$fieldUnique = false;
 
@@ -369,20 +369,20 @@
 					$fieldData['defaultValue'] = $value['COLUMN_DEFAULT'];
 				}
 
-				$sql->query('add-entity-unique-key', 'SELECT COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table AND COLUMN_NAME = :field AND CONSTRAINT_NAME = :primary');
+				$sql->query('add-Entity-unique-key', 'SELECT COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table AND COLUMN_NAME = :field AND CONSTRAINT_NAME = :primary');
 				$sql->vars('field', $value['COLUMN_NAME']);
 				$sql->vars('primary', 'my_unique_key');
-				$data = $sql->fetch('add-entity-unique-key');
+				$data = $sql->fetch('add-Entity-unique-key');
 
 				if (count($data) == 1 && $fieldUnique == false) {
 					$fieldData['unique'] = true;
 					$fieldUnique = true;
 				}
 
-				$sql->query('add-entity-foreign-key', 'SELECT COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table AND COLUMN_NAME = :field AND REFERENCED_TABLE_NAME != \'\' AND REFERENCED_COLUMN_NAME != \'\'');
+				$sql->query('add-Entity-foreign-key', 'SELECT COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table AND COLUMN_NAME = :field AND REFERENCED_TABLE_NAME != \'\' AND REFERENCED_COLUMN_NAME != \'\'');
 				$sql->vars('field', $value['COLUMN_NAME']);
 				$sql->vars('primary', 'PRIMARY');
-				$data = $sql->fetch('add-entity-foreign-key');
+				$data = $sql->fetch('add-Entity-foreign-key');
 
 				if (count($data) == 1) {
 					switch ($fieldUnique) {
@@ -416,14 +416,14 @@
 			}
 
 			if ($primary == true) {
-				$t = new Template('.app/system/module/orm/entity', 'gcsEntity_' . $table, '0');
+				$t = new Template('.app/system/module/orm/Entity', 'gcsEntity_' . $table, '0');
 				$t->assign(['php' => '<?php', 'class' => $class, 'collection' => $collection, 'table' => $table, 'form' => 'form-'.$table, 'fields' => $fields]);
 				file_put_contents(APP_RESOURCE_ENTITY_PATH . ucfirst($class) . '.php', $t->show());
 
-				echo ' - the entity "' . $class . '" has been successfully created';
+				echo ' - the Entity "' . $class . '" has been successfully created';
 			}
 			else {
-				echo ' - the entity "' . $class . '" must have a primary key';
+				echo ' - the Entity "' . $class . '" must have a primary key';
 			}
 		}
 
@@ -437,7 +437,7 @@
 
 			if (Config::config()['user']['database']['enabled']) {
 				while (1 == 1) {
-					echo ' - choose an entity : ';
+					echo ' - choose an Entity : ';
 					$table = ArgvInput::get();
 
 					if ($table != '') {
@@ -451,7 +451,7 @@
 				$class = '\Orm\Entity\\' . str_replace('_', '', ucfirst(strtolower($table)));
 
 				if (class_exists($class)) {
-					/** @var $entity \System\Orm\Entity\Entity */
+					/** @var $entity \Gcs\Framework\Core\Orm\Entity\Entity */
 					$entity = new $class();
 
 					foreach ($entity->fields() as $field) {
@@ -459,7 +459,7 @@
 							$class = '\Orm\Entity\\' . $field->foreign->referenceEntity();
 
 							if (class_exists($class)) {
-								/** @var $referencedEntity \System\Orm\Entity\Entity */
+								/** @var $referencedEntity \Gcs\Framework\Core\Orm\Entity\Entity */
 								$referencedEntity = new $class();
 
 								/** We generate the linking table name */
@@ -489,13 +489,13 @@
 								$this->addEntity($tableName);
 							}
 							else {
-								echo ' - this entity "' . $field->foreign->referenceEntity() . '" does not exist';
+								echo ' - this Entity "' . $field->foreign->referenceEntity() . '" does not exist';
 							}
 						}
 					}
 				}
 				else {
-					echo ' - this entity "' . $table . '" does not exist';
+					echo ' - this Entity "' . $table . '" does not exist';
 				}
 			}
 			else {

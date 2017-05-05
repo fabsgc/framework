@@ -3,7 +3,7 @@
 	 | ------------------------------------------------------
 	 | @file : FacadesEntity.php
 	 | @author : Fabien Beaujean
-	 | @description : Trait facade entity
+	 | @description : Trait facade Entity
 	 | @version : 3.0
 	 | ------------------------------------------------------
 	\*/
@@ -14,8 +14,8 @@
 
 	trait FacadesEntity {
 		/**
-		 * Helper entity instance
-		 * @var Gcs\Framework\Core\Facade\FacadeEntity
+		 * Helper Entity instance
+		 * @var \Gcs\Framework\Core\Facade\FacadeEntity
 		 */
 		protected $helper;
 	}

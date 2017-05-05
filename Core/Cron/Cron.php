@@ -14,9 +14,9 @@
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Engine\Engine;
 	use Gcs\Framework\Core\Exception\MissingConfigException;
-	use Gcs\Framework\Core\General\di;
-	use Gcs\Framework\Core\General\error;
-	use Gcs\Framework\Core\General\facades;
+	use Gcs\Framework\Core\General\Di;
+	use Gcs\Framework\Core\General\Errors;
+	use Gcs\Framework\Core\General\Facades;
 	use Gcs\Framework\Core\Profiler\Profiler;
 	use Gcs\Framework\Core\Request\Request;
 	use Gcs\Framework\Core\Response\Response;
@@ -27,7 +27,7 @@
 	 */
 
 	class Cron {
-		use error, facades, di;
+		use Errors, Facades, Di;
 
 		/**
 		 * @var boolean
@@ -47,7 +47,7 @@
 		/**
 		 * constructor
 		 * @access public
-		 * @throws \System\Exception\MissingConfigException
+		 * @throws \Gcs\Framework\Core\Exception\MissingConfigException
 		 * @since 3.0
 		 * @package Gcs\Framework\Core\Cron
 		 */

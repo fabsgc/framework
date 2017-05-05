@@ -12,13 +12,13 @@
 
 	use Gcs\Framework\Core\Database\Database;
 	use Gcs\Framework\Core\Event\EventManager;
-	use Gcs\Framework\Core\General\error;
-	use Gcs\Framework\Core\General\facades;
-	use Gcs\Framework\Core\General\facadesEntity;
-	use Gcs\Framework\Core\General\facadesHelper;
-	use Gcs\Framework\Core\General\langs;
-	use Gcs\Framework\Core\General\ormFunctions;
-	use Gcs\Framework\Core\General\resolve;
+	use Gcs\Framework\Core\General\Errors;
+	use Gcs\Framework\Core\General\Facades;
+	use Gcs\Framework\Core\General\FacadesEntity;
+	use Gcs\Framework\Core\General\FacadesHelper;
+	use Gcs\Framework\Core\General\Langs;
+	use Gcs\Framework\Core\General\OrmFunctions;
+	use Gcs\Framework\Core\General\Resolver;
 	use Gcs\Framework\Core\Orm\Entity\Entity;
 	use Gcs\Framework\Core\Request\Request;
 	use Gcs\Framework\Core\Security\Firewall;
@@ -28,21 +28,21 @@
 
 	/**
 	 * Class Controller
-	 * @method Entity entity
+	 * @method Entity Entity
 	 * @package Gcs\Framework\Core\Controller
 	 */
 
 	abstract class Controller {
-		use error, langs, resolve, ormFunctions, facades, facadesEntity, facadesHelper;
+		use Errors, Langs, Resolver, OrmFunctions, Facades, FacadesEntity, FacadesHelper;
 
 		/**
-		 * @var \System\Pdo\Pdo
+		 * @var \Gcs\Framework\Core\Pdo\Pdo
 		 */
 
 		public $db;
 
 		/**
-		 * @var \System\Event\EventManager
+		 * @var \Gcs\Framework\Core\Event\EventManager
 		 */
 
 		public $event;
