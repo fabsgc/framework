@@ -14,7 +14,7 @@
 
 	/**
 	 * Class FacadeHelper
-	 * @package System\Facade
+	 * @package Gcs\Framework\Core\Facade
 	 */
 
 	class FacadeHelper {
@@ -33,7 +33,7 @@
 		 * Constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Facade
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		final public function __construct() {
@@ -47,7 +47,7 @@
 		 * @return object
 		 * @throws \System\Exception\MissingHelperException when the helper doesn't exist
 		 * @since 3.0
-		 * @package System\Facade
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		public function __call($name, $arguments) {
@@ -83,7 +83,7 @@
 		 * @param $string
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Facade
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		public function getStackTraceFacade($string) {
@@ -95,7 +95,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Facade
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		public function __destruct() {

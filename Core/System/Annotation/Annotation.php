@@ -16,7 +16,7 @@
 
 	/**
 	 * Class Annotation
-	 * @package System\Annotation
+	 * @package Gcs\Framework\Core\Annotation
 	 */
 
 	class Annotation {

@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Before
-	 * @package System\Annotation\Annotations\Common
+	 * @package Gcs\Framework\Core\Annotation\Annotations\Common
 	 */
 
 	class Before extends Annotation {

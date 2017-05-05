@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Facade
-	 * @package System\Facade
+	 * @package Gcs\Framework\Core\Facade
 	 */
 
 	class Facade {
@@ -60,7 +60,7 @@
 		 * @param $stack  array : execution pile
 		 * @throws Exception if the method is unrecognized
 		 * @return mixed
-		 * @package System\Facade
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		public static function load($name, $params, $stack) {

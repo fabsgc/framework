@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Collection
-	 * @package System\Collection
+	 * @package Gcs\Framework\Core\Collection
 	 */
 
 	class Collection implements \IteratorAggregate {
@@ -28,7 +28,7 @@
 		 * @access public
 		 * @param $data array
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function __construct($data = []) {
@@ -40,7 +40,7 @@
 		 * @access public
 		 * @return \System\Collection\Iterator
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function getIterator() {
@@ -52,7 +52,7 @@
 		 * @access public
 		 * @return \System\Orm\Entity\Entity
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function first() {
@@ -69,7 +69,7 @@
 		 * @access public
 		 * @return integer
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function count() {
@@ -81,7 +81,7 @@
 		 * @access public
 		 * @return array[]
 		 * @since 3.0
-		 * @package System\Collecion
+		 * @package Gcs\Framework\Core\Collecion
 		 */
 
 		public function data() {
@@ -94,7 +94,7 @@
 		 * @param $key mixed
 		 * @return void
 		 * @since 3.0
-		 * @package System\Collecion
+		 * @package Gcs\Framework\Core\Collecion
 		 */
 
 		public function delete($key) {
@@ -109,7 +109,7 @@
 		 * @param $length int
 		 * @return void
 		 * @since 3.0
-		 * @package System\Collecion
+		 * @package Gcs\Framework\Core\Collecion
 		 */
 
 		public function deleteRange($key, $length) {
@@ -130,7 +130,7 @@
 		 * @param $length int
 		 * @return array
 		 * @since 3.0
-		 * @package System\Collecion
+		 * @package Gcs\Framework\Core\Collecion
 		 */
 
 		public function getRange($key, $length) {
@@ -153,7 +153,7 @@
 		 * @param $closure callable
 		 * @return Collection
 		 * @since 3.0
-		 * @package System\Collecion
+		 * @package Gcs\Framework\Core\Collecion
 		 */
 
 		public function filter($closure) {
@@ -174,7 +174,7 @@
 		 * @param $data mixed array[], Collection
 		 * @return void
 		 * @since 3.0
-		 * @package System\Collecion
+		 * @package Gcs\Framework\Core\Collecion
 		 */
 
 		public function add($data) {
@@ -199,7 +199,7 @@
 		 * Destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Collecion
+		 * @package Gcs\Framework\Core\Collecion
 		 */
 
 		public function __destruct() {

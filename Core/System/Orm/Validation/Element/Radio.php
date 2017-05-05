@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Radio
-	 * @package System\Orm\Validation\Element
+	 * @package Gcs\Framework\Core\Orm\Validation\Element
 	 */
 
 	class Radio extends Element {
@@ -24,7 +24,7 @@
 		 * @param $label  string
 		 * @return \System\Orm\Validation\Element\Radio
 		 * @since 3.0
-		 * @package System\Orm\Validation\Element
+		 * @package Gcs\Framework\Core\Orm\Validation\Element
 		 */
 
 		public function __construct($entity, $field, $label) {
@@ -37,7 +37,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Form\Validation\Element
+		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
 
 		public function check() {
@@ -48,7 +48,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Form\Validation\Element
+		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
 
 		public function __destruct() {

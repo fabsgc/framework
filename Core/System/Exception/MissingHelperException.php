@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingHelperException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingHelperException extends Exception {

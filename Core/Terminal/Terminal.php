@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Terminal
-	 * @package System\Terminal
+	 * @package Gcs\Framework\Core\Terminal
 	 */
 
 	class Terminal {
@@ -29,7 +29,7 @@
 		 * init terminal
 		 * @access public
 		 * @since 3.0
-		 * @package System\Terminal
+		 * @package Gcs\Framework\Core\Terminal
 		 */
 
 		public function __construct() {
@@ -46,7 +46,7 @@
 		 * @param $argv string
 		 * @return void
 		 * @since 3.0
-		 * @package System\Terminal
+		 * @package Gcs\Framework\Core\Terminal
 		 */
 
 		protected function _parseArg($argv) {
@@ -116,7 +116,7 @@
 		 * @param $except    : files you don't want to delete
 		 * @return void
 		 * @since 3.0
-		 * @package System\Terminal
+		 * @package Gcs\Framework\Core\Terminal
 		 */
 
 		public static function rrmdir($dir, $removeDir = false, $except = []) {
@@ -146,7 +146,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Terminal
+		 * @package Gcs\Framework\Core\Terminal
 		 */
 
 		public function __destruct() {
@@ -166,7 +166,7 @@
 		 * @access public
 		 * @param $argv
 		 * @since 3.0
-		 * @package System\Terminal
+		 * @package Gcs\Framework\Core\Terminal
 		 */
 
 		public function __construct($argv) {

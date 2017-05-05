@@ -12,17 +12,17 @@
 
 	use Gcs\Framework\Core\General\error;
 	use Gcs\Framework\Core\General\resolve;
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 	use Gcs\Framework\Core\Request\Request;
 	use Gcs\Framework\Core\Template\Template;
 
 	/**
 	 * Class Lang
-	 * @package System\Lang
+	 * @package Gcs\Framework\Core\Lang
 	 */
 
 	class Lang {
-		use error, resolve, singleton;
+		use Errors, Resolver, Singleton;
 		
 		const USE_NOT_TPL = 0;
 		const USE_TPL     = 1;
@@ -31,7 +31,7 @@
 		 * init Lang class
 		 * @access public
 		 * @since 3.0
-		 * @package System\Lang
+		 * @package Gcs\Framework\Core\Lang
 		 */
 
 		public function __construct() {
@@ -41,7 +41,7 @@
 		 * singleton
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public static function instance() {
@@ -60,7 +60,7 @@
 		 * @param $template bool|int : use template syntax or not
 		 * @return string
 		 * @since 3.0
-		 * @package System\Lang
+		 * @package Gcs\Framework\Core\Lang
 		 */
 
 		public function lang($name, $vars = [], $template = self::USE_NOT_TPL) {
@@ -100,7 +100,7 @@
 		 * Destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Lang
+		 * @package Gcs\Framework\Core\Lang
 		 */
 
 		public function __destruct() {

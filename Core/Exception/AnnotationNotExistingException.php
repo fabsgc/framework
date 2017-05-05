@@ -12,7 +12,7 @@
 
 	/**
 	 * Class AnnotationNotExistingException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class AnnotationNotExistingException extends Exception {

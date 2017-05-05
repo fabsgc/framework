@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Text
-	 * @package System\Form\Validation\Element
+	 * @package Gcs\Framework\Core\Form\Validation\Element
 	 */
 
 	class Text extends Element {
@@ -25,7 +25,7 @@
 		 * @param $label string
 		 * @return \System\Form\Validation\Element\Text
 		 * @since 3.0
-		 * @package System\Form\Validation\Element
+		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
 
 		public function __construct($field, $label) {
@@ -49,7 +49,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Form\Validation\Element
+		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
 
 		public function check() {
@@ -62,7 +62,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Form\Validation\Element
+		 * @package Gcs\Framework\Core\Form\Validation\Element
 		 */
 
 		public function __destruct() {

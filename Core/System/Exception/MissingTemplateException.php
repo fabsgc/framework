@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingTemplateException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingTemplateException extends Exception {

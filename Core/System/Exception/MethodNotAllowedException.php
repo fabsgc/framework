@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MethodNotAllowedException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MethodNotAllowedException extends Exception {

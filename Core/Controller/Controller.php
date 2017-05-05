@@ -29,7 +29,7 @@
 	/**
 	 * Class Controller
 	 * @method Entity entity
-	 * @package System\Controller
+	 * @package Gcs\Framework\Core\Controller
 	 */
 
 	abstract class Controller {
@@ -51,7 +51,7 @@
 		 * Initialization of the application
 		 * @access public
 		 * @since 3.0
-		 * @package System\Controller
+		 * @package Gcs\Framework\Core\Controller
 		 */
 
 		final public function __construct() {
@@ -68,7 +68,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Controller
+		 * @package Gcs\Framework\Core\Controller
 		 */
 
 		public function init() {
@@ -79,7 +79,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Controller
+		 * @package Gcs\Framework\Core\Controller
 		 */
 
 		public function end() {
@@ -90,7 +90,7 @@
 		 * @access public
 		 * @return bool
 		 * @since 3.0
-		 * @package System\Controller
+		 * @package Gcs\Framework\Core\Controller
 		 */
 
 		final public function setFirewall() {
@@ -109,7 +109,7 @@
 		 * @access public
 		 * @return bool
 		 * @since 3.0
-		 * @package System\Controller
+		 * @package Gcs\Framework\Core\Controller
 		 */
 
 		final public function setSpam() {
@@ -128,7 +128,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Controller
+		 * @package Gcs\Framework\Core\Controller
 		 */
 
 		final public function showDefault() {
@@ -142,7 +142,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Controller
+		 * @package Gcs\Framework\Core\Controller
 		 */
 
 		public function __desctuct() {

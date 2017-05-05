@@ -12,7 +12,7 @@
 	
 	/**
 	 * Class Processor
-	 * @package System\Annotation
+	 * @package Gcs\Framework\Core\Annotation
 	 */
 	
 	class Processor {
@@ -28,7 +28,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Annotation
+		 * @package Gcs\Framework\Core\Annotation
 		 * @param array $annotation
 		 */
 	

@@ -11,15 +11,15 @@
 	namespace Gcs\Framework\Core\Controller\Injector;
 
 	use Gcs\Framework\Core\General\facades;
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 
 	/**
 	 * Class Injector
-	 * @package System\Controller\Injector
+	 * @package Gcs\Framework\Core\Controller\Injector
 	 */
 
 	class Injector {
-		use facades, singleton;
+		use Facades, Singleton;
 
 		/**
 		 * all class you can inject
@@ -56,7 +56,7 @@
 		 * Constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Controller\Injector
+		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
 
 		private function __construct() {
@@ -66,7 +66,7 @@
 		 * singleton
 		 * @access public
 		 * @since 3.0
-		 * @package System\Controller\Injector
+		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
 
 		public static function instance() {
@@ -84,7 +84,7 @@
 		 * @param $method string
 		 * @return array mixed
 		 * @since 3.0
-		 * @package System\Controller\Injector
+		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
 
 		public function getArgsMethod(&$class, $method) {
@@ -133,7 +133,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Controller\Injector
+		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
 
 		public function __desctuct() {

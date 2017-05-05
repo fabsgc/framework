@@ -12,16 +12,16 @@
 
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Exception\MissingDatabaseException;
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 	use Gcs\Framework\Core\Pdo\Pdo;
 
 	/**
 	 * Class Database
-	 * @package System\Database
+	 * @package Gcs\Framework\Core\Database
 	 */
 
 	class Database {
-		use singleton;
+		use Singleton;
 
 		/**
 		 * @var \System\Pdo\Pdo
@@ -33,7 +33,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Response
+		 * @package Gcs\Framework\Core\Response
 		 */
 
 		private function __construct() {
@@ -46,7 +46,7 @@
 		 * @param $db []
 		 * @return \System\Database\Database
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public static function instance() {
@@ -69,7 +69,7 @@
 		 * @throws MissingDatabaseException
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Database
+		 * @package Gcs\Framework\Core\Database
 		 */
 
 		protected function connect($db = []) {

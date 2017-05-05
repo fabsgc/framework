@@ -23,7 +23,7 @@
 
 	/**
 	 * Class Cron
-	 * @package System\Cron
+	 * @package Gcs\Framework\Core\Cron
 	 */
 
 	class Cron {
@@ -49,7 +49,7 @@
 		 * @access public
 		 * @throws \System\Exception\MissingConfigException
 		 * @since 3.0
-		 * @package System\Cron
+		 * @package Gcs\Framework\Core\Cron
 		 */
 
 		public function __construct() {
@@ -111,7 +111,7 @@
 		 * @access protected
 		 * @return  boolean
 		 * @since 3.0
-		 * @package System\Cron
+		 * @package Gcs\Framework\Core\Cron
 		 */
 
 		protected function _exception() {
@@ -131,7 +131,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Cron
+		 * @package Gcs\Framework\Core\Cron
 		 */
 
 		public function __destruct() {

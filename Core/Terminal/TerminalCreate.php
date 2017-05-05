@@ -18,7 +18,7 @@
 
 	/**
 	 * Class TerminalCreate
-	 * @package System\Terminal
+	 * @package Gcs\Framework\Core\Terminal
 	 */
 
 	class TerminalCreate extends TerminalCommand {
@@ -220,7 +220,7 @@
 		 * @param $table string
 		 * @return string
 		 * @since 3.0
-		 * @package System\Terminal
+		 * @package Gcs\Framework\Core\Terminal
 		 */
 
 		private function addEntity($table) {

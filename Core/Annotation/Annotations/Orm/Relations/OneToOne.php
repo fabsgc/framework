@@ -12,7 +12,7 @@
 
 	/**
 	 * Class OneToOne
-	 * @package System\Annotation\Annotations\Orm\Relations
+	 * @package Gcs\Framework\Core\Annotation\Annotations\Orm\Relations
 	 */
 
 	class OneToOne extends Relation  {

@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Mime
-	 * @package System\Mime
+	 * @package Gcs\Framework\Core\Mime
 	 */
 
 	class Mime {

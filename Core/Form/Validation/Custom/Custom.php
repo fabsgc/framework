@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Custom
-	 * @package System\Form\Validation\Custom
+	 * @package Gcs\Framework\Core\Form\Validation\Custom
 	 */
 
 	abstract class Custom {
@@ -44,7 +44,7 @@
 		 * @param $label string
 		 * @param $value mixed
 		 * @since 3.0
-		 * @package System\Form\Validation\Custom
+		 * @package Gcs\Framework\Core\Form\Validation\Custom
 		 */
 
 		final public function __construct($field, $label, $value) {
@@ -58,7 +58,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Form\Validation\Custom
+		 * @package Gcs\Framework\Core\Form\Validation\Custom
 		 */
 
 		public function filter() {
@@ -70,7 +70,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Form\Validation\Custom
+		 * @package Gcs\Framework\Core\Form\Validation\Custom
 		 */
 
 		public function error() {

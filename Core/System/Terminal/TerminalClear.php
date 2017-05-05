@@ -12,7 +12,7 @@
 
 	/**
 	 * Class TerminalClear
-	 * @package System\Terminal
+	 * @package Gcs\Framework\Core\Terminal
 	 */
 
 	class TerminalClear extends TerminalCommand {

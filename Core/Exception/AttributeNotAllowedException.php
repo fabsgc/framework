@@ -12,7 +12,7 @@
 
 	/**
 	 * Class AttributeNotAllowedException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class AttributeNotAllowedException extends Exception {

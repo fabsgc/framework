@@ -6,7 +6,7 @@
 
 	/**
 	 * Class Url
-	 * @package System\Url
+	 * @package Gcs\Framework\Core\Url
 	 */
 
 	class Url {

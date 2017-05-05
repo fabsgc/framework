@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Pdo
-	 * @package System\Pdo
+	 * @package Gcs\Framework\Core\Pdo
 	 */
 
 	class Pdo extends \PDO {
@@ -48,7 +48,7 @@
 		 * @param $password      string
 		 * @param $driverOptions string
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		public function __construct($dsn, $username, $password, $driverOptions) {
@@ -64,7 +64,7 @@
 		 * get SQL host
 		 * @return string
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		public function getHost() {
@@ -75,7 +75,7 @@
 		 * get SQL username
 		 * @return string
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		public function getUsername() {
@@ -86,7 +86,7 @@
 		 * get SQL password
 		 * @return string
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		public function getPassword() {
@@ -97,7 +97,7 @@
 		 * get SQL database name
 		 * @return string
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		public function getDatabase() {

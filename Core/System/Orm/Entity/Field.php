@@ -15,7 +15,7 @@
 
 	/**
 	 * Class Field
-	 * @package System\Orm\Entity
+	 * @package Gcs\Framework\Core\Orm\Entity
 	 */
 
 	class Field {
@@ -114,7 +114,7 @@
 		 * @param string $name
 		 * @param string $entity
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function __construct($name, $entity) {
@@ -129,7 +129,7 @@
 		 * @param integer $type
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function type($type = self::BOOL) {
@@ -143,7 +143,7 @@
 		 * @param string $name
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function name($name = '') {
@@ -157,7 +157,7 @@
 		 * @param boolean $primary
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function primary($primary = false) {
@@ -171,7 +171,7 @@
 		 * @param $size integer
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function size($size = 255) {
@@ -186,7 +186,7 @@
 		 * @throws MissingEntityException
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function foreign($datas = []) {
@@ -225,7 +225,7 @@
 		 * @param boolean $unique
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function unique($unique = false) {
@@ -239,7 +239,7 @@
 		 * @param $precision string
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function precision($precision) {
@@ -253,7 +253,7 @@
 		 * @param $enum string[]
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function enum($enum = []) {
@@ -267,7 +267,7 @@
 		 * @param $beNull boolean
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function beNull($beNull) {
@@ -281,7 +281,7 @@
 		 * @param $default String
 		 * @since 3.0
 		 * @return \System\Orm\Entity\Field
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function defaultValue($default) {
@@ -293,7 +293,7 @@
 		 * Destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function __destruct() {

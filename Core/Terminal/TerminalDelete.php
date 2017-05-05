@@ -12,7 +12,7 @@
 
 	/**
 	 * Class TerminalDelete
-	 * @package System\Terminal
+	 * @package Gcs\Framework\Core\Terminal
 	 */
 
 	class TerminalDelete extends TerminalCommand {

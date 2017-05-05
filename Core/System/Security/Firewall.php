@@ -22,7 +22,7 @@
 
 	/**
 	 * Class Firewall
-	 * @package System\Security
+	 * @package Gcs\Framework\Core\Security
 	 */
 
 	class Firewall {
@@ -60,7 +60,7 @@
 		 * init lang class
 		 * @access public
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		public function __construct() {
@@ -77,7 +77,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		protected function _setFirewall() {
@@ -99,7 +99,7 @@
 		 * @param $array array : "path" to the value in $in
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		protected function _setFirewallConfigArray($in, $array) {
@@ -128,7 +128,7 @@
 		 * @access public
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		public function check() {
@@ -221,7 +221,7 @@
 		 * @access protected
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		protected function _checkCsrf() {
@@ -248,7 +248,7 @@
 		 * @access protected
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		protected function _checkLogged() {
@@ -260,7 +260,7 @@
 		 * @access protected
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		protected function _checkRole() {
@@ -276,7 +276,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		public function __destruct() {

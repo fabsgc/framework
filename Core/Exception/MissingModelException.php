@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingModelException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingModelException extends Exception {

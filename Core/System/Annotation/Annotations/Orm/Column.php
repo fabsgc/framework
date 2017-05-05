@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Column
-	 * @package System\Annotation\Annotations\Orm
+	 * @package Gcs\Framework\Core\Annotation\Annotations\Orm
 	 */
 
 	class Column extends Annotation {

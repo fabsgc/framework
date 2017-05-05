@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingLibraryException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingLibraryException extends Exception {

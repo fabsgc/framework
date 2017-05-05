@@ -10,22 +10,22 @@
 
 	namespace Gcs\Framework\Core\Controller\Injector;
 
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 	use Gcs\Framework\Core\Request\Request;
 
 	/**
 	 * Class Orm
-	 * @package System\Controller\Injector
+	 * @package Gcs\Framework\Core\Controller\Injector
 	 */
 
 	class Orm {
-		use singleton;
+		use Singleton;
 
 		/**
 		 * Constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Controller\Injector
+		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
 
 		private function __construct() {
@@ -35,7 +35,7 @@
 		 * singleton
 		 * @access public
 		 * @since 3.0
-		 * @package System\Controller\Injector
+		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
 
 		public static function instance() {
@@ -52,7 +52,7 @@
 		 * @param \ReflectionClass $object
 		 * @return \System\Orm\Entity\Entity
 		 * @since 3.0
-		 * @package System\Controller\Injector
+		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
 
 		public static function get($object) {
@@ -101,7 +101,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Controller\Injector
+		 * @package Gcs\Framework\Core\Controller\Injector
 		 */
 
 		public function __desctuct() {

@@ -17,7 +17,7 @@
 
 	/**
 	 * Class Auth
-	 * @package System\Request
+	 * @package Gcs\Framework\Core\Request
 	 */
 
 	class Auth {
@@ -62,7 +62,7 @@
 		 * @access public
 		 * @param string $src
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __construct($src) {
@@ -87,7 +87,7 @@
 		 * @return mixed
 		 * @throws \System\Exception\AttributeNotAllowedException
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __get($name) {
@@ -107,7 +107,7 @@
 		 * @throws \System\Exception\AttributeNotAllowedException
 		 * @return void
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __set($name, $value) {
@@ -128,7 +128,7 @@
 		 * @throws \System\Exception\MissingConfigException
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function role($src, $value = '') {
@@ -157,7 +157,7 @@
 		 * @throws \System\Exception\MissingConfigException
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function logged($src, $value = '') {
@@ -192,7 +192,7 @@
 		 * @param $array array : "path" to the value in $in
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		protected function _getSession($array = []) {
@@ -223,7 +223,7 @@
 		 * @param $value string : new value
 		 * @return void
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		protected function _setSession($array, $value = '') {
@@ -249,7 +249,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __destruct() {

@@ -10,11 +10,11 @@
 
 	namespace Gcs\Framework\Core\Session;
 
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 
 	/**
 	 * Class Session
-	 * @package System\Request
+	 * @package Gcs\Framework\Core\Request
 	 */
 
 	class Session {
@@ -24,7 +24,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		private function __construct() {
@@ -35,7 +35,7 @@
 		 * @access public
 		 * @return \System\Session\Session
 		 * @since 3.0
-		 * @package System\Session
+		 * @package Gcs\Framework\Core\Session
 		 */
 
 		public static function instance() {
@@ -50,7 +50,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Session
+		 * @package Gcs\Framework\Core\Session
 		 */
 
 		public function __destruct() {

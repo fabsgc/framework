@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingActionException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingActionException extends Exception {

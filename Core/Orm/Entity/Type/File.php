@@ -12,7 +12,7 @@
 
 	/**
 	 * Class File
-	 * @package System\Orm\Entity\Type
+	 * @package Gcs\Framework\Core\Orm\Entity\Type
 	 */
 
 	class File extends Type {
@@ -54,7 +54,7 @@
 		 * @param string $content
 		 * @param string $contentType
 		 * @since 3.0
-		 * @package System\Orm\Entity\Type
+		 * @package Gcs\Framework\Core\Orm\Entity\Type
 		 */
 
 		public function __construct($file, $content, $contentType) {
@@ -71,7 +71,7 @@
 		 * @param $field string
 		 * @return void
 		 * @since 3.0
-		 * @package System\Orm\Entity\Type
+		 * @package Gcs\Framework\Core\Orm\Entity\Type
 		 */
 
 		public function hydrate($field) {
@@ -110,7 +110,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Orm\Entity\Type
+		 * @package Gcs\Framework\Core\Orm\Entity\Type
 		 */
 
 		public function save() {
@@ -126,7 +126,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Orm\Entity\Type
+		 * @package Gcs\Framework\Core\Orm\Entity\Type
 		 */
 
 		public function delete() {
@@ -152,7 +152,7 @@
 		 * Destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Orm\Entity\Type
+		 * @package Gcs\Framework\Core\Orm\Entity\Type
 		 */
 
 		public function __destruct() {

@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingFieldException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingFieldException extends Exception {

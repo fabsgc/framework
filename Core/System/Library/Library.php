@@ -17,7 +17,7 @@
 
 	/**
 	 * Class Library
-	 * @package System\Library
+	 * @package Gcs\Framework\Core\Library
 	 */
 
 	class Library {
@@ -28,7 +28,7 @@
 		 * @access public
 		 * @since 3.0
 		 * @throws \System\Exception\MissingLibraryException
-		 * @package System\Library
+		 * @package Gcs\Framework\Core\Library
 		 */
 
 		public function __construct() {
@@ -55,7 +55,7 @@
 		 * @param $include string
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Library
+		 * @package Gcs\Framework\Core\Library
 		 */
 
 		protected function _checkInclude($include) {
@@ -97,7 +97,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Library
+		 * @package Gcs\Framework\Core\Library
 		 */
 
 		public function __destruct() {

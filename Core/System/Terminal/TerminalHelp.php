@@ -12,7 +12,7 @@
 
 	/**
 	 * Class TerminalHelp
-	 * @package System\Terminal
+	 * @package Gcs\Framework\Core\Terminal
 	 */
 
 	class TerminalHelp extends TerminalCommand {

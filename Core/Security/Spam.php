@@ -22,7 +22,7 @@
 
 	/**
 	 * Class Spam
-	 * @package System\Security
+	 * @package Gcs\Framework\Core\Security
 	 */
 
 	class Spam {
@@ -57,7 +57,7 @@
 		 * @access public
 		 * @throws \System\Exception\MissingConfigException
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		public function __construct() {
@@ -82,7 +82,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		public function check() {
@@ -127,7 +127,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		protected function _exception() {
@@ -145,7 +145,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		protected function _ips() {
@@ -169,7 +169,7 @@
 		 * @param int $number
 		 * @return array
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		protected function _updateIp($time = 0, $number = 1) {
@@ -186,7 +186,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Security
+		 * @package Gcs\Framework\Core\Security
 		 */
 
 		public function __destruct() {

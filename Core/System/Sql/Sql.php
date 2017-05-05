@@ -26,7 +26,7 @@
 
 	/**
 	 * Class Sql
-	 * @package System\Sql
+	 * @package Gcs\Framework\Core\Sql
 	 */
 	class Sql {
 		use error, facades, facadesEntity;
@@ -92,7 +92,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		public function __construct() {
@@ -112,7 +112,7 @@
 		 * @param $stack string
 		 * @return string
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		private function getStackTraceToString($stack) {
@@ -132,7 +132,7 @@
 		 * @param $time  int : time cache
 		 * @return void
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		public function query($name, $query, $time = 0) {
@@ -151,7 +151,7 @@
 		 *              second syntax : ('id', 'value', Sql::PARAM_INT)
 		 * @return void
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		public function vars($var) {
@@ -179,7 +179,7 @@
 		 * @throws \System\Exception\MissingSqlException
 		 * @return \System\Pdo\PdoStatement
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		public function execute($name) {
@@ -245,7 +245,7 @@
 		 * @throws MissingSqlException
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		public function fetch($name, $fetch = self::PARAM_FETCH) {
@@ -385,7 +385,7 @@
 		 * @param $entity string
 		 * @return \System\Collection\Collection
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		public function data($entity = '') {
@@ -472,7 +472,7 @@
 		 * @param $parent  string
 		 * @return \System\Orm\Entity\Entity
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		protected function _getDataRelation($line, $foreign, $parent) {
@@ -518,7 +518,7 @@
 		 * @access public
 		 * @return array
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		public function toArray() {
@@ -529,7 +529,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Sql
+		 * @package Gcs\Framework\Core\Sql
 		 */
 
 		public function __destruct() {

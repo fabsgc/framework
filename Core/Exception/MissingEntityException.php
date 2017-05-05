@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingEntityException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingEntityException extends Exception {

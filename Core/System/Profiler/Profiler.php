@@ -13,16 +13,16 @@
 	use Gcs\Framework\Core\Cache\Cache;
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\General\error;
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 	use Gcs\Framework\Core\Request\Data;
 
 	/**
 	 * Class Profiler
-	 * @package System\Profiler
+	 * @package Gcs\Framework\Core\Profiler
 	 */
 
 	class Profiler {
-		use error, singleton;
+		use Errors, Singleton;
 
 		/**
 		 * sql queries
@@ -85,7 +85,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Profiler
+		 * @package Gcs\Framework\Core\Profiler
 		 */
 
 		public function __construct() {
@@ -97,7 +97,7 @@
 		 * singleton
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public static function instance() {
@@ -115,7 +115,7 @@
 		 * @param $response
 		 * @return void
 		 * @since 3.0
-		 * @package System\Profiler
+		 * @package Gcs\Framework\Core\Profiler
 		 */
 
 		public function profiler($request, $response) {
@@ -160,7 +160,7 @@
 		 * @param $error string
 		 * @return void
 		 * @since 3.0
-		 * @package System\Profiler
+		 * @package Gcs\Framework\Core\Profiler
 		 */
 
 		public function addError($error) {
@@ -175,7 +175,7 @@
 		 * @param $file
 		 * @return void
 		 * @since 3.0
-		 * @package System\Profiler
+		 * @package Gcs\Framework\Core\Profiler
 		 */
 
 		public function addTemplate($name, $type = self::TEMPLATE_START, $file) {
@@ -202,7 +202,7 @@
 		 * @param $value
 		 * @return void
 		 * @since 3.0
-		 * @package System\Profiler
+		 * @package Gcs\Framework\Core\Profiler
 		 */
 
 		public function addSql($name, $type = self::SQL_START, $value = '') {
@@ -235,7 +235,7 @@
 		 * @param $type
 		 * @return void
 		 * @since 3.0
-		 * @package System\Profiler
+		 * @package Gcs\Framework\Core\Profiler
 		 */
 
 		public function addTime($name, $type = self::USER_START) {
@@ -259,7 +259,7 @@
 		 * @param $enabled boolean
 		 * @return void
 		 * @since 3.0
-		 * @package System\Profiler
+		 * @package Gcs\Framework\Core\Profiler
 		 */
 
 		public function enable($enabled = true) {
@@ -271,7 +271,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Profiler
+		 * @package Gcs\Framework\Core\Profiler
 		 */
 
 		protected function _stopTime() {
@@ -283,7 +283,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Profiler
+		 * @package Gcs\Framework\Core\Profiler
 		 */
 
 		public function __destruct() {

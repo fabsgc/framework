@@ -19,7 +19,7 @@
 	 * @property array  post
 	 * @property array  put
 	 * @property array  patch
-	 * @package System\Request
+	 * @package Gcs\Framework\Core\Request
 	 */
 
 	abstract class Form {
@@ -55,7 +55,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __construct() {
@@ -68,7 +68,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function init() {
@@ -79,7 +79,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function getForm() {
@@ -91,7 +91,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function get() {
@@ -102,7 +102,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function post() {
@@ -113,7 +113,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function put() {
@@ -124,7 +124,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function patch() {
@@ -135,7 +135,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function delete() {
@@ -146,7 +146,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function check() {
@@ -159,7 +159,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function valid() {
@@ -171,7 +171,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function sent() {
@@ -183,7 +183,7 @@
 		 * @access public
 		 * @return string[]
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function errors() {
@@ -194,7 +194,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __destruct() {

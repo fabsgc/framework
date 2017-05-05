@@ -14,7 +14,7 @@
 
 	/**
 	 * Class After
-	 * @package System\Annotation\Annotations
+	 * @package Gcs\Framework\Core\Annotation\Annotations
 	 */
 
 	class After extends Annotation {

@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Custom
-	 * @package System\Orm\Validation\Custom
+	 * @package Gcs\Framework\Core\Orm\Validation\Custom
 	 */
 
 	abstract class Custom {
@@ -52,7 +52,7 @@
 		 * @param \System\Orm\Entity\Entity $entity
 		 * @param mixed                     $value
 		 * @since 3.0
-		 * @package System\Orm\Validation\Custom
+		 * @package Gcs\Framework\Core\Orm\Validation\Custom
 		 */
 
 		final public function __construct($field, $label, $entity, $value) {
@@ -67,7 +67,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Orm\Validation\Custom
+		 * @package Gcs\Framework\Core\Orm\Validation\Custom
 		 */
 
 		public function filter() {
@@ -79,7 +79,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Orm\Validation\Custom
+		 * @package Gcs\Framework\Core\Orm\Validation\Custom
 		 */
 
 		public function error() {

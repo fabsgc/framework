@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Cache
-	 * @package System\Cache
+	 * @package Gcs\Framework\Core\Cache
 	 */
 
 	class Cache {
@@ -57,7 +57,7 @@
 		 * @param $name string : name of the cache file
 		 * @param $time int : cache time, default value is 0
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		public function __construct($name, $time = 0) {
@@ -88,7 +88,7 @@
 		 * @param mixed $content
 		 * @return void
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		public function setContent($content) {
@@ -100,7 +100,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		public function destroy() {
@@ -122,7 +122,7 @@
 		 * @access public
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		public function getCache() {
@@ -139,7 +139,7 @@
 		 * @param string $val
 		 * @return string
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		private function _uncompress($val) {
@@ -151,7 +151,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		public function setCache() {
@@ -172,7 +172,7 @@
 		 * @param string $content
 		 * @return string
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		private function _compress($content) {
@@ -184,7 +184,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		public function isDie() {
@@ -212,7 +212,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		public function isExist() {
@@ -228,7 +228,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Cache
+		 * @package Gcs\Framework\Core\Cache
 		 */
 
 		public function __destruct() {

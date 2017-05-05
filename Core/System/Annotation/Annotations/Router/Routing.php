@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Routing
-	 * @package System\Annotation\Annotations\Router
+	 * @package Gcs\Framework\Core\Annotation\Annotations\Router
 	 */
 
 	class Routing extends Annotation {

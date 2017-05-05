@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Multiple
-	 * @package System\Orm\Entity
+	 * @package Gcs\Framework\Core\Orm\Entity
 	 */
 
 	class Multiple {
@@ -27,7 +27,7 @@
 		 * @access public
 		 * @param $data array
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function __construct($data) {
@@ -40,7 +40,7 @@
 		 * @param $key string
 		 * @return string
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function __get($key) {
@@ -58,7 +58,7 @@
 		 * @param array  $value
 		 * @return void
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function __set($key, $value) {
@@ -73,7 +73,7 @@
 		 * @param $data array
 		 * @return array,null
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function data($data = []) {
@@ -91,7 +91,7 @@
 		 * Destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function __destruct() {

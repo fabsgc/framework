@@ -16,7 +16,7 @@
 
 	/**
 	 * Class Router
-	 * @package System\Router
+	 * @package Gcs\Framework\Core\Router
 	 */
 
 	class Router {
@@ -35,7 +35,7 @@
 		 * @param $route route : route instance
 		 * @return void
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function addRoute(route $route) {
@@ -51,7 +51,7 @@
 		 * @param $config
 		 * @return \system\Router\Route
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function getRoute($url, $config) {
@@ -123,7 +123,7 @@
 		 * @param $array array : "path" to the value in $in
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		protected function _setFirewallConfigArray($in, $array) {

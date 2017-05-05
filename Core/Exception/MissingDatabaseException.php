@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingDatabaseException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingDatabaseException extends Exception {

@@ -16,14 +16,14 @@
 	use Gcs\Framework\Core\Cache\Cache;
 	use Gcs\Framework\Core\Exception\Exception;
 	use Gcs\Framework\Core\Exception\MissingConfigException;
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 
 	/**
 	 * Class Config
-	 * @package System\Config
+	 * @package Gcs\Framework\Core\Config
 	 */
 	class Config {
-		use singleton;
+		use Singleton;
 
 		/**
 		 * contain all the config, lang and path data (path, or content file)
@@ -77,7 +77,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Config
+		 * @package Gcs\Framework\Core\Config
 		 * @param array $data
 		 * @throws Exception
 		 */
@@ -105,7 +105,7 @@
 		 * singleton
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 * @param array $data
 		 * @return object|Config
 		 */
@@ -122,7 +122,7 @@
 		 * provide direct access to the attribute $config
 		 * @access public
 		 * @since 3.0
-		 * @package System\Config\Config
+		 * @package Gcs\Framework\Core\Config\Config
 		 */
 
 		public static function config() {
@@ -135,7 +135,7 @@
 		 * @throws Exception
 		 * @return void
 		 * @since 3.0
-		 * @package System\Config
+		 * @package Gcs\Framework\Core\Config
 		 */
 
 		protected function _init() {
@@ -250,7 +250,7 @@
 		 * @param $controller string
 		 * @param $annotation array
 		 * @since 3.0
-		 * @package System\Config
+		 * @package Gcs\Framework\Core\Config
 		 */
 
 		protected function _parseAnnotationRoute($src, $controller, $annotation){
@@ -284,7 +284,7 @@
 		 * @param $controller string
 		 * @param $annotation array
 		 * @since 3.0
-		 * @package System\Config
+		 * @package Gcs\Framework\Core\Config
 		 */
 
 		protected function _parseAnnotationCron($src, $controller, $annotation){
@@ -308,7 +308,7 @@
 		 * @return array
 		 * @since 3.0
 		 * @throws \System\Exception\MissingConfigException if route config file doesn't exist
-		 * @package System\Config
+		 * @package Gcs\Framework\Core\Config
 		 */
 
 		protected function _parseRoute($src) {
@@ -362,7 +362,7 @@
 		 * @return array
 		 * @since 3.0
 		 * @throws \System\Exception\MissingConfigException if lang config file doesn't exist
-		 * @package System\Config
+		 * @package Gcs\Framework\Core\Config
 		 */
 
 		protected function _parseLang($src = null, $lang) {
@@ -420,7 +420,7 @@
 		 * @return array
 		 * @since 3.0
 		 * @throws \System\Exception\MissingConfigException if firewall config file doesn't exist
-		 * @package System\Config
+		 * @package Gcs\Framework\Core\Config
 		 */
 
 		protected function _parseFirewall($src = null) {
@@ -513,7 +513,7 @@
 		 * @param $attributes array
 		 * @return array
 		 * @since 3.0
-		 * @package System\Config
+		 * @package Gcs\Framework\Core\Config
 		 */
 
 		protected function _parseParent($child, $data, $attributes) {
@@ -554,7 +554,7 @@
 		 * @access protected
 		 * @return string
 		 * @since 3.0
-		 * @package System\Config
+		 * @package Gcs\Framework\Core\Config
 		 */
 
 		public function __destruct() {

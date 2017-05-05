@@ -12,7 +12,7 @@
 
 	/**
 	 * Class PdoStatement
-	 * @package System\Pdo
+	 * @package Gcs\Framework\Core\Pdo
 	 */
 
 	class PdoStatement extends \PDOStatement {
@@ -27,7 +27,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		protected function __construct() {
@@ -41,7 +41,7 @@
 		 * @param $data_type int
 		 * @return bool|void
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		public function bindValue($parameter, $value, $data_type = \PDO::PARAM_STR) {
@@ -54,7 +54,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		public function getQuery() {
@@ -66,7 +66,7 @@
 		 * @access public
 		 * @return array
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		public function getBindValue() {
@@ -79,7 +79,7 @@
 		 * @param $replaced boolean
 		 * @return string
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		public function debugQuery($replaced = true) {
@@ -104,7 +104,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Pdo
+		 * @package Gcs\Framework\Core\Pdo
 		 */
 
 		protected function _debugReplaceBindValue($m) {

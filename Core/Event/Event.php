@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Event
-	 * @package System\Event
+	 * @package Gcs\Framework\Core\Event
 	 */
 
 	class Event {
@@ -60,7 +60,7 @@
 		 * @param $name string : name of the event
 		 * @param $data array : data given
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function __construct($name = 'event', $data = null) {
@@ -73,7 +73,7 @@
 		 * @access public
 		 * @return array
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 		
 		public function implementedEvents() {
@@ -85,7 +85,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function getName() {
@@ -98,7 +98,7 @@
 		 * @param $name string
 		 * @return array
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function setName($name = 'event') {
@@ -110,7 +110,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function getStatus() {
@@ -123,7 +123,7 @@
 		 * @param $status
 		 * @return void
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function setStatus($status = self::START) {
@@ -135,7 +135,7 @@
 		 * @access public
 		 * @return array
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function getResult() {
@@ -151,7 +151,7 @@
 		 * @param $function string : name of the method called
 		 * @return void
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function setResult($result = '', $index, $class, $function) {
@@ -164,7 +164,7 @@
 		 * @param $parent \System\Controller\Controller
 		 * @return array
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function setParent($parent) {
@@ -176,7 +176,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function __destruct() {

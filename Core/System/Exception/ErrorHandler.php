@@ -14,7 +14,7 @@
 
 	/**
 	 * Class ErrorHandler
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class ErrorHandler {
@@ -24,7 +24,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Exception
+		 * @package Gcs\Framework\Core\Exception
 		 */
 
 		public function __construct() {
@@ -41,7 +41,7 @@
 		 * @param $errline integer
 		 * @return void
 		 * @since 3.0
-		 * @package System\Exception
+		 * @package Gcs\Framework\Core\Exception
 		 */
 
 		public function errorHandler($errno, $errstr, $errfile, $errline) {
@@ -76,7 +76,7 @@
 		 * @param $e \Exception
 		 * @return void
 		 * @since 3.0
-		 * @package System\Exception
+		 * @package Gcs\Framework\Core\Exception
 		 */
 
 		public function exceptionHandler($e) {
@@ -92,7 +92,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Exception
+		 * @package Gcs\Framework\Core\Exception
 		 */
 
 		public function __destruct() {

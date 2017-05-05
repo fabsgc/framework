@@ -12,7 +12,7 @@
 
 	/**
 	 * Class ManyToMany
-	 * @package System\Annotation\Annotations\Orm\Relations
+	 * @package Gcs\Framework\Core\Annotation\Annotations\Orm\Relations
 	 */
 
 	class ManyToMany extends Relation  {

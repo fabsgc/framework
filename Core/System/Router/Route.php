@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Route
-	 * @package System\Router
+	 * @package Gcs\Framework\Core\Router
 	 */
 
 	class Route {
@@ -96,7 +96,7 @@
 		 * @param $access
 		 * @param $method
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function __construct($url, $controller, $action, $name, $cache, $varsNames = [], $src, $logged, $access, $method) {
@@ -115,7 +115,7 @@
 		/**
 		 * @param $url
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setUrl($url) {
@@ -127,7 +127,7 @@
 		/**
 		 * @param $controller
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setController($controller) {
@@ -139,7 +139,7 @@
 		/**
 		 * @param $action
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setAction($action) {
@@ -151,7 +151,7 @@
 		/**
 		 * @param $name
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setName($name) {
@@ -163,7 +163,7 @@
 		/**
 		 * @param $cache
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setCache($cache) {
@@ -173,7 +173,7 @@
 		/**
 		 * @param array $varsNames
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setVarsNames(array $varsNames) {
@@ -183,7 +183,7 @@
 		/**
 		 * @param $src
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setSrc($src) {
@@ -193,7 +193,7 @@
 		/**
 		 * @param $logged
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setLogged($logged) {
@@ -203,7 +203,7 @@
 		/**
 		 * @param $access
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setAccess($access) {
@@ -213,7 +213,7 @@
 		/**
 		 * @param $method
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setMethod($method) {
@@ -223,7 +223,7 @@
 		/**
 		 * @return bool
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function hasVars() {
@@ -234,7 +234,7 @@
 		 * @param $url
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function match($url) {
@@ -249,7 +249,7 @@
 		/**
 		 * @param array $vars
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function setVars(array $vars) {
@@ -259,7 +259,7 @@
 		/**
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function action() {
@@ -269,7 +269,7 @@
 		/**
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function name() {
@@ -279,7 +279,7 @@
 		/**
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function cache() {
@@ -289,7 +289,7 @@
 		/**
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function url() {
@@ -299,7 +299,7 @@
 		/**
 		 * @return string
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function controller() {
@@ -309,7 +309,7 @@
 		/**
 		 * @return array
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function vars() {
@@ -319,7 +319,7 @@
 		/**
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function varsNames() {
@@ -329,7 +329,7 @@
 		/**
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function src() {
@@ -339,7 +339,7 @@
 		/**
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function logged() {
@@ -349,7 +349,7 @@
 		/**
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function access() {
@@ -359,7 +359,7 @@
 		/**
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function method() {
@@ -368,7 +368,7 @@
 
 		/**
 		 * @since 3.0
-		 * @package System\Router
+		 * @package Gcs\Framework\Core\Router
 		 */
 
 		public function __destruct() {

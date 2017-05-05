@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Table
-	 * @package System\Annotation\Annotations\Orm
+	 * @package Gcs\Framework\Core\Annotation\Annotations\Orm
 	 */
 
 	class Table extends Annotation {

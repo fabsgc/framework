@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Annotation
-	 * @package System\Annotation\Annotations
+	 * @package Gcs\Framework\Core\Annotation\Annotations
 	 * @Annotation
 	 */
 

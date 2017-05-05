@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Parser
-	 * @package System\Annotation
+	 * @package Gcs\Framework\Core\Annotation
 	 */
 
 	class Parser {
@@ -50,7 +50,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Annotation
+		 * @package Gcs\Framework\Core\Annotation
 		 * @param $comments string
 		 */
 

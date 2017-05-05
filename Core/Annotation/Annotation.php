@@ -8,7 +8,7 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace System\Annotation;
+	namespace Gcs\Framework\Core\Annotation;
 
 	use Gcs\Framework\Core\Cache\Cache;
 	use Gcs\Framework\Core\Config\Config;
@@ -16,7 +16,7 @@
 
 	/**
 	 * Class Annotation
-	 * @package System\Annotation
+	 * @package Gcs\Framework\Core\Annotation
 	 */
 
 	class Annotation {

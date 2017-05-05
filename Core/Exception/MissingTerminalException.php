@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingTerminalException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingTerminalException extends Exception {

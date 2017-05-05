@@ -14,7 +14,7 @@
 
 	/**
 	 * Class ForeignKey
-	 * @package System\Orm\Entity
+	 * @package Gcs\Framework\Core\Orm\Entity
 	 */
 
 	class ForeignKey {
@@ -85,7 +85,7 @@
 		 * @access public
 		 * @param $datas array
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function __construct($datas = []) {
@@ -130,7 +130,7 @@
 		 * @param $entity string
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function entity($entity = '') {
@@ -149,7 +149,7 @@
 		 * @param $field string
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function field($field = '') {
@@ -167,7 +167,7 @@
 		 * @param $entity string
 		 * @return mixed void,string
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function referenceEntity($entity = '') {
@@ -185,7 +185,7 @@
 		 * @param $field string
 		 * @return mixed void,string
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function referenceField($field = '') {
@@ -203,7 +203,7 @@
 		 * @param $type string
 		 * @return mixed void,integer
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function type($type = '') {
@@ -221,7 +221,7 @@
 		 * @param $belong string
 		 * @return mixed void,integer
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function belong($belong = '') {
@@ -239,7 +239,7 @@
 		 * @param $join string
 		 * @return mixed integer
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function join($join = '') {
@@ -257,7 +257,7 @@
 		 * @param $value string
 		 * @return string
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function value($value = '') {
@@ -273,7 +273,7 @@
 		 * Destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Orm\Entity
+		 * @package Gcs\Framework\Core\Orm\Entity
 		 */
 
 		public function __destruct() {

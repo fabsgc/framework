@@ -19,7 +19,7 @@
 
 	/**
 	 * Class Builder
-	 * @package System\Orm
+	 * @package Gcs\Framework\Core\Orm
 	 */
 
 	class Builder {
@@ -91,7 +91,7 @@
 		 * @param $entity \System\Orm\Entity\Entity
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function __construct($entity) {
@@ -112,7 +112,7 @@
 		 *              second syntax : ('id', 'value', Sql::PARAM_INT)
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function vars($var) {
@@ -139,7 +139,7 @@
 		 * @access public
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function find() {
@@ -155,7 +155,7 @@
 		 * @param $distinct string
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function findDistinct($distinct) {
@@ -173,7 +173,7 @@
 		 * @param $query string
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function findRaw($query) {
@@ -188,7 +188,7 @@
 		 * @access public
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function findCount() {
@@ -204,7 +204,7 @@
 		 * @param $where string
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function where($where) {
@@ -220,7 +220,7 @@
 		 * @param $where string
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function andWhere($where) {
@@ -236,7 +236,7 @@
 		 * @param $where string
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function orWhere($where) {
@@ -256,7 +256,7 @@
 		 * @throws MissingEntityException
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function join($type = self::JOIN_INNER, $table, $on, $reference = '') {
@@ -281,7 +281,7 @@
 		 * @param $orderBy string
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function orderBy($orderBy) {
@@ -297,7 +297,7 @@
 		 * @param $groupBy string
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function groupBy($groupBy) {
@@ -313,7 +313,7 @@
 		 * @param $having string
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function having($having) {
@@ -330,7 +330,7 @@
 		 * @param $number integer
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function limit($offset, $number) {
@@ -349,7 +349,7 @@
 		 * @param $raw string
 		 * @return \System\Orm\Builder
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function raw($raw) {
@@ -363,7 +363,7 @@
 		 * @param $query string
 		 * @return void
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		protected function _detectEntity($query) {
@@ -376,7 +376,7 @@
 		 * @param $m string[]
 		 * @return void
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		protected function _detectEntityCallback($m) {
@@ -391,7 +391,7 @@
 		 * @param $return integer
 		 * @return \System\Collection\Collection
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function fetch($return = self::RETURN_COLLECTION) {
@@ -467,7 +467,7 @@
 		 * @param $collection \System\Collection\Collection
 		 * @return \System\Collection\Collection
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		protected function _dataOneToMany($field, $collection) {
@@ -543,7 +543,7 @@
 		 * @param $collection \System\Collection\Collection
 		 * @return \System\Collection\Collection
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		protected function _dataManyToMany($field, $collection) {
@@ -617,7 +617,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		protected function _getSelect() {
@@ -758,7 +758,7 @@
 		 * @throws MissingEntityException
 		 * @return \System\Orm\Entity\Entity
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		protected function _getTableEntity($entity = '') {
@@ -785,7 +785,7 @@
 		 * @throws MissingEntityException
 		 * @return string
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		protected function _getEntityName($entity = '') {
@@ -809,7 +809,7 @@
 		 * Destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Orm
+		 * @package Gcs\Framework\Core\Orm
 		 */
 
 		public function __destruct() {

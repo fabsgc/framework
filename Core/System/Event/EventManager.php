@@ -14,7 +14,7 @@
 
 	/**
 	 * Class EventManager
-	 * @package System\Event
+	 * @package Gcs\Framework\Core\Event
 	 */
 
 	class EventManager {
@@ -45,7 +45,7 @@
 		 * @access public
 		 * @param $parent mixed
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function __construct($parent) {
@@ -59,7 +59,7 @@
 		 * @param \System\Event\Event $event
 		 * @return void
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function add($event) {
@@ -73,7 +73,7 @@
 		 * @param string $name
 		 * @return bool
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function destroy($name) {
@@ -88,7 +88,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function dispatch() {
@@ -117,7 +117,7 @@
 		 * @param string $name : name of the event. If it's empty, get results of all events
 		 * @return array
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function getResult($name = '') {
@@ -147,7 +147,7 @@
 		 * @param        $status int
 		 * @return bool
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function setStatus($name = '', $status = self::START) {
@@ -172,7 +172,7 @@
 		 * @param $name string : name of the event
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function getStatus($name = '') {
@@ -194,7 +194,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Event
+		 * @package Gcs\Framework\Core\Event
 		 */
 
 		public function __destruct() {

@@ -12,7 +12,7 @@
 
 	use Gcs\Framework\Core\Config\Config;
 	use Gcs\Framework\Core\Exception\AttributeNotAllowedException;
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 
 	/**
 	 * Class Request
@@ -27,11 +27,11 @@
 	 * @property string lang
 	 * @property \System\Request\Auth auth
 	 * @property \System\Request\Data data
-	 * @package System\Request
+	 * @package Gcs\Framework\Core\Request
 	 */
 
 	class Request {
-		use singleton;
+		use Singleton;
 
 		/**
 		 * parameters of each action
@@ -56,7 +56,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		private function __construct() {
@@ -68,7 +68,7 @@
 		 * singleton
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public static function instance() {
@@ -86,7 +86,7 @@
 		 * @return mixed
 		 * @throws \System\Exception\AttributeNotAllowedException
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __get($name) {
@@ -106,7 +106,7 @@
 		 * @return void
 		 * @throws \System\Exception\AttributeNotAllowedException
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __set($name, $value) {
@@ -124,7 +124,7 @@
 		 * @param $env
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function env($env) {
@@ -140,7 +140,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __destruct() {

@@ -12,7 +12,7 @@
 
 	/**
 	 * Class NotFoundException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class NotFoundException extends Exception {

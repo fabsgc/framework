@@ -20,7 +20,7 @@
 
 	/**
 	 * Class Parser
-	 * @package System\Template
+	 * @package Gcs\Framework\Core\Template
 	 */
 
 	class Parser {
@@ -123,7 +123,7 @@
 		 * @access public
 		 * @param $tpl \System\Template\template
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function __construct(Template $tpl) {
@@ -136,7 +136,7 @@
 		 * @param $content string
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function parse($content) {
@@ -179,7 +179,7 @@
 		 * @param $content string
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function parseNoTemplate($content) {
@@ -211,7 +211,7 @@
 		 * @param $content string
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function parseLang($content) {
@@ -238,7 +238,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseExtend() {
@@ -258,7 +258,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseInclude() {
@@ -276,7 +276,7 @@
 		 * @param $m
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseIncludeCallback($m) {
@@ -316,7 +316,7 @@
 		 * @param $m
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseIncludeCompileCallback($m) {
@@ -349,7 +349,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseExtends() {
@@ -364,7 +364,7 @@
 		 * @param $m
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseExtendsCallback($m) {
@@ -395,7 +395,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseExtendsMain() {
@@ -408,7 +408,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parsePath() {
@@ -421,7 +421,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseGravatar() {
@@ -435,7 +435,7 @@
 		 * @param $m
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseGravatarCallback($m) {
@@ -477,7 +477,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseUrl() {
@@ -497,7 +497,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseUrlCallbackNormal($m) {
@@ -524,7 +524,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseUrlCallback($m) {
@@ -547,7 +547,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseUrlCallbackNoEcho($m) {
@@ -570,7 +570,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parsePhp() {
@@ -586,7 +586,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseLang() {
@@ -601,7 +601,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseLangCallBack($m) {
@@ -637,7 +637,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseLangCallBackNoEcho($m) {
@@ -673,7 +673,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseForeach() {
@@ -692,7 +692,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseFor() {
@@ -711,7 +711,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseVar() {
@@ -724,7 +724,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseVarFunc() {
@@ -740,7 +740,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseCondition() {
@@ -764,7 +764,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseFunction() {
@@ -776,7 +776,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseBlock() {
@@ -789,7 +789,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseBlockCallback($m) {
@@ -810,7 +810,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseTemplate() {
@@ -823,7 +823,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseTemplateCallback($m) {
@@ -872,7 +872,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseCall() {
@@ -886,7 +886,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseCallBlockCallback($m) {
@@ -899,7 +899,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseCallTemplateCallback($m) {
@@ -935,7 +935,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseAsset() {
@@ -952,7 +952,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseAssetCallback($m) {
@@ -999,7 +999,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseMinify() {
@@ -1012,7 +1012,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseMinifyCallback($m) {
@@ -1029,7 +1029,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseDebugStart() {
@@ -1041,7 +1041,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseDebugEnd() {
@@ -1053,7 +1053,7 @@
 		 * @access protected
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _parseException() {
@@ -1085,7 +1085,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function __destruct() {

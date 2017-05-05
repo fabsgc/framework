@@ -14,7 +14,7 @@
 
 	/**
 	 * Class FacadeEntity
-	 * @package System\Facade
+	 * @package Gcs\Framework\Core\Facade
 	 */
 
 	class FacadeEntity {
@@ -22,7 +22,7 @@
 		 * Constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Facade
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		final public function __construct() {
@@ -36,7 +36,7 @@
 		 * @throws \System\Exception\MissingEntityException
 		 * @return \System\Orm\Entity\Entity
 		 * @since 3.0
-		 * @package System\Facade
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		public function __call($name, $arguments) {
@@ -79,7 +79,7 @@
 		 * @param $string
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Facade
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		public function getStackTraceFacade($string) {
@@ -91,7 +91,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Facade
+		 * @package Gcs\Framework\Core\Facade
 		 */
 
 		public function __destruct() {

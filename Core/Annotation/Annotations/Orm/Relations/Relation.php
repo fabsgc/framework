@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Relation
-	 * @package System\Annotation\Annotations\Orm\Relations
+	 * @package Gcs\Framework\Core\Annotation\Annotations\Orm\Relations
 	 */
 
 	abstract class Relation extends Annotation {

@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingClassException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingClassException extends Exception {

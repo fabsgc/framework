@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingLangException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingConfigException extends Exception {

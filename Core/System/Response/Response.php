@@ -11,17 +11,17 @@
 	namespace Gcs\Framework\Core\Response;
 
 	use Gcs\Framework\Core\Config\Config;
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 	use Gcs\Framework\Core\Request\Request;
 	use Gcs\Framework\Core\Template\Template;
 
 	/**
 	 * Class Response
-	 * @package System\Response
+	 * @package Gcs\Framework\Core\Response
 	 */
 
 	class Response {
-		use singleton;
+		use Singleton;
 
 		/**
 		 * Array of http errors
@@ -137,7 +137,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Response
+		 * @package Gcs\Framework\Core\Response
 		 */
 
 		private function __construct() {
@@ -169,7 +169,7 @@
 		 * singleton
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public static function instance() {
@@ -187,7 +187,7 @@
 		 * @param $header string
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Response
+		 * @package Gcs\Framework\Core\Response
 		 */
 
 		public function header($header = null) {
@@ -206,7 +206,7 @@
 		 * @param $status string
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Response
+		 * @package Gcs\Framework\Core\Response
 		 */
 
 		public function status($status = null) {
@@ -227,7 +227,7 @@
 		 * @param $contentType string
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Response
+		 * @package Gcs\Framework\Core\Response
 		 */
 
 		public function contentType($contentType = null) {
@@ -244,7 +244,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Response
+		 * @package Gcs\Framework\Core\Response
 		 */
 
 		public function run() {
@@ -277,7 +277,7 @@
 		 * @param $page string
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Response
+		 * @package Gcs\Framework\Core\Response
 		 */
 
 		public function page($page = null) {
@@ -294,7 +294,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Response
+		 * @package Gcs\Framework\Core\Response
 		 */
 
 		public function __destruct() {

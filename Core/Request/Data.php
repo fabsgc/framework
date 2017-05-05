@@ -11,7 +11,7 @@
 	namespace Gcs\Framework\Core\Request;
 
 	use Gcs\Framework\Core\Exception\AttributeNotAllowedException;
-	use Gcs\Framework\Core\General\singleton;
+	use Gcs\Framework\Core\General\Singleton;
 
 	/**
 	 * Class Data
@@ -23,11 +23,11 @@
 	 * @property array  patch
 	 * @property array  delete
 	 * @property array  file
-	 * @package System\Request
+	 * @package Gcs\Framework\Core\Request
 	 */
 
 	class Data {
-		use singleton;
+		use Singleton;
 
 		/**
 		 * parameters of each action
@@ -51,7 +51,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		private function __construct() {
@@ -62,7 +62,7 @@
 		 * @access public
 		 * @return \System\Request\Data
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public static function instance() {
@@ -80,7 +80,7 @@
 		 * @return mixed
 		 * @throws \System\Exception\AttributeNotAllowedException
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __get($name) {
@@ -100,7 +100,7 @@
 		 * @return void
 		 * @throws \System\Exception\AttributeNotAllowedException
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __set($name, $value) {
@@ -118,7 +118,7 @@
 		 * @param $env
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function env($env) {
@@ -134,7 +134,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Request
+		 * @package Gcs\Framework\Core\Request
 		 */
 
 		public function __destruct() {

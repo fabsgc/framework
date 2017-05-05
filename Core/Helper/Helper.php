@@ -14,7 +14,7 @@
 
 	/**
 	 * Class Helper
-	 * @package System\Helper
+	 * @package Gcs\Framework\Core\Helper
 	 */
 
 	class Helper {

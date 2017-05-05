@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Exception
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class Exception extends \Exception {
@@ -23,7 +23,7 @@
 		 * @param $code     int
 		 * @param $previous Exception
 		 * @since 3.0
-		 * @package System\Exception
+		 * @package Gcs\Framework\Core\Exception
 		 */
 
 		public function __construct($message, $code = 0, Exception $previous = null) {
@@ -34,7 +34,7 @@
 		 * toString
 		 * @access public
 		 * @since 3.0
-		 * @package System\Exception
+		 * @package Gcs\Framework\Core\Exception
 		 */
 
 		public function __toString() {
@@ -43,7 +43,7 @@
 
 		/**
 		 * @return string
-		 * @package System\Exception
+		 * @package Gcs\Framework\Core\Exception
 		 */
 
 		public function getType() {

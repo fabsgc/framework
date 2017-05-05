@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingSqlException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingSqlException extends Exception {

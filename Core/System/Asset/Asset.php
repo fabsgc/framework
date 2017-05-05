@@ -16,7 +16,7 @@
 
 	/**
 	 * Class Asset
-	 * @package System\Asset
+	 * @package Gcs\Framework\Core\Asset
 	 */
 
 	class Asset {
@@ -84,7 +84,7 @@
 		 *              cache int
 		 *              type string
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		public function __construct($data = []) {
@@ -110,7 +110,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		public function getId() {
@@ -122,7 +122,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		public function getType() {
@@ -135,7 +135,7 @@
 		 * @param $data array
 		 * @return void
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		protected function _setFiles($data = []) {
@@ -168,7 +168,7 @@
 		 * @param $path string
 		 * @return void
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		protected function _setFile($path) {
@@ -188,7 +188,7 @@
 		 * @param $path string
 		 * @return void
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		protected function _setDir($path) {
@@ -212,7 +212,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		protected function _parseRelativePathCssUrl($m) {
@@ -225,7 +225,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		protected function _parseRelativePathCssSrc($m) {
@@ -238,7 +238,7 @@
 		 * @param $m array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		protected function _parseRelativePathCss($m) {
@@ -301,7 +301,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		protected function _compress() {
@@ -325,7 +325,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		protected function _save() {
@@ -337,7 +337,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Asset
+		 * @package Gcs\Framework\Core\Asset
 		 */
 
 		public function __destruct() {

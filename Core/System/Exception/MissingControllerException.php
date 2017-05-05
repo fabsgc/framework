@@ -12,7 +12,7 @@
 
 	/**
 	 * Class MissingControllerException
-	 * @package System\Exception
+	 * @package Gcs\Framework\Core\Exception
 	 */
 
 	class MissingControllerException extends Exception {

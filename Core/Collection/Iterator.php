@@ -12,7 +12,7 @@
 
 	/**
 	 * Class Iterator
-	 * @package System\Collection
+	 * @package Gcs\Framework\Core\Collection
 	 */
 
 	class Iterator implements \Iterator {
@@ -34,7 +34,7 @@
 		 * @param string $data
 		 * @access public
 		 * @since 3.0
-		 * @package System\Iterator
+		 * @package Gcs\Framework\Core\Iterator
 		 * @param        $data
 		 */
 
@@ -48,7 +48,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package System\Collecion
+		 * @package Gcs\Framework\Core\Collecion
 		 */
 
 		function rewind() {
@@ -60,7 +60,7 @@
 		 * @access public
 		 * @return object[]
 		 * @since 3.0
-		 * @package System\Iterator
+		 * @package Gcs\Framework\Core\Iterator
 		 */
 
 		function current() {
@@ -72,7 +72,7 @@
 		 * @access public
 		 * @return integer
 		 * @since 3.0
-		 * @package System\Iterator
+		 * @package Gcs\Framework\Core\Iterator
 		 */
 
 		function key() {
@@ -84,7 +84,7 @@
 		 * @access public
 		 * @return integer
 		 * @since 3.0
-		 * @package System\Iterator
+		 * @package Gcs\Framework\Core\Iterator
 		 */
 
 		function next() {
@@ -96,7 +96,7 @@
 		 * @access public
 		 * @return boolean
 		 * @since 3.0
-		 * @package System\Iterator
+		 * @package Gcs\Framework\Core\Iterator
 		 */
 
 		function valid() {
@@ -107,7 +107,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package System\Controller
+		 * @package Gcs\Framework\Core\Controller
 		 */
 
 		public function __desctuct() {

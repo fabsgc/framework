@@ -40,7 +40,7 @@
 
 	/**
 	 * Trait resolve
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	trait resolve {
@@ -54,7 +54,7 @@
 		 * @throws MissingConfigException
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\General
+		 * @package Gcs\Framework\Core\General
 		 */
 
 		protected function resolve($type, $data) {
@@ -70,7 +70,7 @@
 		 * @throws MissingConfigException
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\General
+		 * @package Gcs\Framework\Core\General
 		 */
 
 		protected static function resolveStatic($type, $data) {
@@ -124,7 +124,7 @@
 		 * @param $php  boolean : because method return path, the framework wants to know if you want the html path or the php path
 		 * @return string
 		 * @since 3.0
-		 * @package System\General
+		 * @package Gcs\Framework\Core\General
 		 */
 
 		protected function path($type, $data = '', $php = false) {
@@ -165,7 +165,7 @@
 	 * @method Data RequestData
 	 * @method Response Response
 	 * @method Profiler Profiler
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	trait facades {
@@ -177,7 +177,7 @@
 		 * @param $arguments array
 		 * @return object
 		 * @since 3.0
-		 * @package System\General
+		 * @package Gcs\Framework\Core\General
 		 */
 
 		public function __call($name, $arguments = []) {
@@ -198,7 +198,7 @@
 
 	/**
 	 * Trait facadesEntity
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	trait facadesEntity {
@@ -207,7 +207,7 @@
 
 	/**
 	 * Trait facadesHelper
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	trait facadesHelper {
@@ -216,7 +216,7 @@
 	
 	/**
 	 * Trait error
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	trait error {
@@ -278,7 +278,7 @@
 
 	/**
 	 * Trait ormFunctions
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	trait ormFunctions {
@@ -316,7 +316,7 @@
 
 	/**
 	 * Trait langs
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	trait langs {
@@ -386,7 +386,7 @@
 
 	/**
 	 * Trait singleton
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	trait singleton {
@@ -400,7 +400,7 @@
 
 	/**
 	 * Interface EventListener
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	interface EventListener {
@@ -409,7 +409,7 @@
 
 	/***
 	 * trait di
-	 * @package System\General
+	 * @package Gcs\Framework\Core\General
 	 */
 
 	trait di{

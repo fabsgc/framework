@@ -20,7 +20,7 @@
 
 	/**
 	 * Class Template
-	 * @package System\Template
+	 * @package Gcs\Framework\Core\Template
 	 */
 
 	class Template {
@@ -132,7 +132,7 @@
 		 * @throws \System\Exception\MissingTemplateException if the tpl file can't be read
 		 * @return \System\Template\Template
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function __construct($file = '', $name = 'template', $cache = 0, $stream = self::TPL_FILE) {
@@ -191,7 +191,7 @@
 		 * @throws MissingTemplateException
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public static function extend($method) {
@@ -221,7 +221,7 @@
 		 * @param $stack array
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		private function getStackTraceToString($stack) {
@@ -241,7 +241,7 @@
 		 * initialize the parser instance reference
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _setParser() {
@@ -254,7 +254,7 @@
 		 * @param $vars
 		 * @return \System\Template\Template
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function assign($name, $vars = '') {
@@ -274,7 +274,7 @@
 		 * @param $type    int
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _compile($content, $type = self::TPL_COMPILE_ALL) {
@@ -300,7 +300,7 @@
 		 * @param $content
 		 * @return void
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		protected function _save($content) {
@@ -312,7 +312,7 @@
 		 * @param int $type
 		 * @return mixed
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function show($returnType = self::TPL_COMPILE_TO_STRING, $type = self::TPL_COMPILE_ALL) {
@@ -372,7 +372,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function getFile() {
@@ -384,7 +384,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function getFileCache() {
@@ -396,7 +396,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function getName() {
@@ -408,7 +408,7 @@
 		 * @access public
 		 * @return string
 		 * @since 3.0
-		 * @package System\Template
+		 * @package Gcs\Framework\Core\Template
 		 */
 
 		public function __destruct() {
