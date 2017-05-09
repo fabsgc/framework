@@ -23,7 +23,7 @@ use Gcs\Framework\Core\Orm\Entity\ForeignKey;
 use Gcs\Framework\Core\Orm\Entity\Multiple;
 use Gcs\Framework\Core\Orm\Entity\Type\File;
 use Gcs\Framework\Core\Profiler\Profiler;
-use Gcs\Framework\Core\Request\Request;
+use Gcs\Framework\Core\Http\Request\Request;
 
 /**
  * Class Sql

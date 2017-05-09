@@ -8,7 +8,7 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace Gcs\Framework\Core\Request;
+	namespace Gcs\Framework\Core\Http\Request;
 
 	use Gcs\Framework\Core\Exception\AttributeNotAllowedException;
     use Gcs\Framework\Core\General\Singleton;
@@ -23,7 +23,7 @@
 	 * @property array  patch
 	 * @property array  delete
 	 * @property array  file
-	 * @package Gcs\Framework\Core\Request
+	 * @package Gcs\Framework\Core\Http\Request
 	 */
 
 	class Data {
@@ -51,7 +51,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Core\Http\Request
 		 */
 
 		private function __construct() {
@@ -60,9 +60,9 @@
 		/**
 		 * singleton
 		 * @access public
-		 * @return \Gcs\Framework\Core\Request\Data
+		 * @return \Gcs\Framework\Core\Http\Request\Data
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Core\Http\Request
 		 */
 
 		public static function instance() {
@@ -80,7 +80,7 @@
 		 * @return mixed
 		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Core\Http\Request
 		 */
 
 		public function __get($name) {
@@ -100,7 +100,7 @@
 		 * @return void
 		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Core\Http\Request
 		 */
 
 		public function __set($name, $value) {
@@ -118,7 +118,7 @@
 		 * @param $env
 		 * @return boolean
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Core\Http\Request
 		 */
 
 		public function env($env) {
@@ -134,7 +134,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Core\Http\Request
 		 */
 
 		public function __destruct() {

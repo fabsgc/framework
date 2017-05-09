@@ -15,8 +15,8 @@ use Gcs\Framework\Core\General\Di;
 use Gcs\Framework\Core\General\Errors;
 use Gcs\Framework\Core\General\Resolver;
 use Gcs\Framework\Core\Lang\Langs;
-use Gcs\Framework\Core\Request\Request;
-use Gcs\Framework\Core\Response\Response;
+use Gcs\Framework\Core\Http\Request\Request;
+use Gcs\Framework\Core\Http\Response\Response;
 use Gcs\Framework\Core\Template\Template;
 use Gcs\Framework\Core\Url\Url;
 

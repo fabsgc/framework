@@ -12,12 +12,12 @@ namespace Gcs\Framework\Core\General;
 
 trait Di {
     /**
-     * @var \Gcs\Framework\Core\Request\Request $request
+     * @var \Gcs\Framework\Core\Http\Request\Request $request
      */
     private $request = null;
 
     /**
-     * @var \Gcs\Framework\Core\Response\Response $response
+     * @var \Gcs\Framework\Core\Http\Response\Response $response
      */
     private $response = null;
 

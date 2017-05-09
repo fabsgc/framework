@@ -11,7 +11,7 @@
 namespace Gcs\Framework\Core\Form\Validation\Element;
 
 use Gcs\Framework\Core\Exception\MissingClassException;
-use Gcs\Framework\Core\Request\Data;
+use Gcs\Framework\Core\Http\Request\Data;
 use Gcs\Framework\Core\Sql\Sql;
 
 /**

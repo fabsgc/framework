@@ -17,7 +17,7 @@ use Gcs\Framework\Core\General\di;
 use Gcs\Framework\Core\General\Errors;
 use Gcs\Framework\Core\General\Resolver;
 use Gcs\Framework\Core\Lang\Langs;
-use Gcs\Framework\Core\Request\Request;
+use Gcs\Framework\Core\Http\Request\Request;
 use Gcs\Framework\Core\Template\Template;
 
 /**

@@ -8,7 +8,7 @@
  | ------------------------------------------------------
 \*/
 
-namespace Gcs\Framework\Core\Request;
+namespace Gcs\Framework\Core\Http\Request;
 
 use Gcs\Framework\Core\Config\Config;
 use Gcs\Framework\Core\Exception\AttributeNotAllowedException;
@@ -17,7 +17,7 @@ use Gcs\Framework\Core\General\Errors;
 
 /**
  * Class Auth
- * @package Gcs\Framework\Core\Request
+ * @package Gcs\Framework\Core\Http\Request
  */
 class Auth {
     use Errors;
@@ -55,7 +55,7 @@ class Auth {
      * @access public
      * @param string $src
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function __construct($src) {
@@ -80,7 +80,7 @@ class Auth {
      * @return mixed
      * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function __get($name) {
@@ -100,7 +100,7 @@ class Auth {
      * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
      * @return void
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function __set($name, $value) {
@@ -121,7 +121,7 @@ class Auth {
      * @return mixed
      * @throws \Gcs\Framework\Core\Exception\MissingConfigException
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function role($src, $value = '') {
@@ -151,7 +151,7 @@ class Auth {
      * @throws \Gcs\Framework\Core\Exception\MissingConfigException
      * @return mixed
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function logged($src, $value = '') {
@@ -186,7 +186,7 @@ class Auth {
      * @param $array array : "path" to the value in $in
      * @return mixed
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     protected function _getSession($array = []) {
@@ -217,7 +217,7 @@ class Auth {
      * @param $value string : new value
      * @return void
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     protected function _setSession($array, $value = '') {
@@ -243,7 +243,7 @@ class Auth {
      * destructor
      * @access public
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function __destruct() {

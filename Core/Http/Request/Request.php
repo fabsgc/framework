@@ -8,7 +8,7 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace Gcs\Framework\Core\Request;
+	namespace Gcs\Framework\Core\Http\Request;
 
 	use Gcs\Framework\Core\Config\Config;
     use Gcs\Framework\Core\Exception\AttributeNotAllowedException;
@@ -25,9 +25,9 @@
 	 * @property string access
 	 * @property string method
 	 * @property string lang
-	 * @property \Gcs\Framework\Core\Request\Auth auth
-	 * @property \Gcs\Framework\Core\Request\Data data
-	 * @package Gcs\Framework\Core\Request
+	 * @property \Gcs\Framework\Core\Http\Request\Auth auth
+	 * @property \Gcs\Framework\Core\Http\Request\Data data
+	 * @package Gcs\Framework\Http\Core\Request
 	 */
 
 	class Request {
@@ -56,7 +56,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Http\Core\Request
 		 */
 
 		private function __construct() {
@@ -68,7 +68,7 @@
 		 * singleton
 		 * @access public
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Http\Core\Request
 		 */
 
 		public static function instance() {
@@ -86,7 +86,7 @@
 		 * @return mixed
 		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Http\Core\Request
 		 */
 
 		public function __get($name) {
@@ -106,7 +106,7 @@
 		 * @return void
 		 * @throws \Gcs\Framework\Core\Exception\AttributeNotAllowedException
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Http\Core\Request
 		 */
 
 		public function __set($name, $value) {
@@ -124,7 +124,7 @@
 		 * @param $env
 		 * @return boolean
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Http\Core\Request
 		 */
 
 		public function env($env) {
@@ -140,7 +140,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Http\Core\Request
 		 */
 
 		public function __destruct() {

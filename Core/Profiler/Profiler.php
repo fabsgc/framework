@@ -14,7 +14,7 @@ use Gcs\Framework\Core\Cache\Cache;
 use Gcs\Framework\Core\Config\Config;
 use Gcs\Framework\Core\General\Errors;
 use Gcs\Framework\Core\General\Singleton;
-use Gcs\Framework\Core\Request\Data;
+use Gcs\Framework\Core\Http\Request\Data;
 
 /**
  * Class Profiler

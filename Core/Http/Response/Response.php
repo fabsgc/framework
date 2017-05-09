@@ -8,16 +8,16 @@
 	 | ------------------------------------------------------
 	\*/
 
-	namespace Gcs\Framework\Core\Response;
+	namespace Gcs\Framework\Core\Http\Response;
 
 	use Gcs\Framework\Core\Config\Config;
     use Gcs\Framework\Core\General\Singleton;
-    use Gcs\Framework\Core\Request\Request;
+    use Gcs\Framework\Core\Http\Request\Request;
     use Gcs\Framework\Core\Template\Template;
 
     /**
 	 * Class Response
-	 * @package Gcs\Framework\Core\Response
+	 * @package Gcs\Framework\Core\Http\Response
 	 */
 
 	class Response {
@@ -137,7 +137,7 @@
 		 * constructor
 		 * @access public
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Response
+		 * @package Gcs\Framework\Http\Core\Response
 		 */
 
 		private function __construct() {
@@ -169,7 +169,7 @@
 		 * singleton
 		 * @access public
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Request
+		 * @package Gcs\Framework\Http\Core\Request
 		 */
 
 		public static function instance() {
@@ -187,7 +187,7 @@
 		 * @param $header string
 		 * @return mixed
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Response
+		 * @package Gcs\Framework\Http\Core\Response
 		 */
 
 		public function header($header = null) {
@@ -207,7 +207,7 @@
 		 * @param $status string
 		 * @return mixed
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Response
+		 * @package Gcs\Framework\Http\Core\Response
 		 */
 
 		public function status($status = null) {
@@ -230,7 +230,7 @@
 		 * @param $contentType string
 		 * @return mixed
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Response
+		 * @package Gcs\Framework\Http\Core\Response
 		 */
 
 		public function contentType($contentType = null) {
@@ -248,7 +248,7 @@
 		 * @access public
 		 * @return void
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Response
+		 * @package Gcs\Framework\Http\Core\Response
 		 */
 
 		public function run() {
@@ -281,7 +281,7 @@
 		 * @param $page string
 		 * @return mixed
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Response
+		 * @package Gcs\Framework\Http\Core\Response
 		 */
 
 		public function page($page = null) {
@@ -298,7 +298,7 @@
 		 * destructor
 		 * @access public
 		 * @since 3.0
-		 * @package Gcs\Framework\Core\Response
+		 * @package Gcs\Framework\Http\Core\Response
 		 */
 
 		public function __destruct() {

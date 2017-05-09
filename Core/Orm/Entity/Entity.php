@@ -18,7 +18,7 @@ use Gcs\Framework\Core\Exception\MissingFieldException;
 use Gcs\Framework\Core\Orm\Builder;
 use Gcs\Framework\Core\Orm\Entity\Type\File;
 use Gcs\Framework\Core\Orm\Validation\Validation;
-use Gcs\Framework\Core\Request\Data;
+use Gcs\Framework\Core\Http\Request\Data;
 use Gcs\Framework\Core\Sql\Sql;
 
 /**

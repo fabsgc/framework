@@ -11,7 +11,7 @@
 namespace Gcs\Framework\Core\Controller\Injector;
 
 use Gcs\Framework\Core\General\Singleton;
-use Gcs\Framework\Core\Request\Request;
+use Gcs\Framework\Core\Http\Request\Request;
 
 /**
  * Class Form
@@ -49,13 +49,13 @@ class Form {
      * Return a fully completed Request Object
      * @access public
      * @param \ReflectionClass $object
-     * @return \Gcs\Framework\Core\Request\Form
+     * @return \Gcs\Framework\Core\Http\Request\Form
      * @since 3.0
      * @package Gcs\Framework\Core\Controller\Injector
      */
 
     public static function get($object) {
-        /** @var \Gcs\Framework\Core\Request\Form $class */
+        /** @var \Gcs\Framework\Core\Http\Request\Form $class */
         $class = $object->name;
         $class = new $class();
         $class->init();

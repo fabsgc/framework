@@ -13,7 +13,7 @@ namespace Gcs\Framework\Core\Library;
 use Gcs\Framework\Core\Config\Config;
 use Gcs\Framework\Core\Exception\MissingLibraryException;
 use Gcs\Framework\Core\General\Errors;
-use Gcs\Framework\Core\Request\Request;
+use Gcs\Framework\Core\Http\Request\Request;
 
 /**
  * Class Library

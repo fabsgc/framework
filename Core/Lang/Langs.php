@@ -11,7 +11,7 @@
 namespace Gcs\Framework\Core\Lang;
 
 use Gcs\Framework\Core\Config\Config;
-use Gcs\Framework\Core\Request\Request;
+use Gcs\Framework\Core\Http\Request\Request;
 
 /**
  * Langs trait

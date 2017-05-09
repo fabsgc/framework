@@ -8,7 +8,7 @@
  | ------------------------------------------------------
 \*/
 
-namespace Gcs\Framework\Core\Request;
+namespace Gcs\Framework\Core\Http\Request;
 
 use Gcs\Framework\Core\Form\Validation\Validation;
 
@@ -24,7 +24,7 @@ use Gcs\Framework\Core\Form\Validation\Validation;
 abstract class Form {
     /**
      * parameters of each action
-     * @var \Gcs\Framework\Core\Request\Data
+     * @var \Gcs\Framework\Core\Http\Request\Data
      */
 
     public $data = null;
@@ -54,7 +54,7 @@ abstract class Form {
      * constructor
      * @access public
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function __construct() {
@@ -67,7 +67,7 @@ abstract class Form {
      * @access public
      * @return void
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function init() {
@@ -78,7 +78,7 @@ abstract class Form {
      * @access public
      * @return string
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function getForm() {
@@ -90,7 +90,7 @@ abstract class Form {
      * @access public
      * @return void
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function get() {
@@ -101,7 +101,7 @@ abstract class Form {
      * @access public
      * @return void
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function post() {
@@ -112,7 +112,7 @@ abstract class Form {
      * @access public
      * @return void
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function put() {
@@ -123,7 +123,7 @@ abstract class Form {
      * @access public
      * @return void
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function patch() {
@@ -134,7 +134,7 @@ abstract class Form {
      * @access public
      * @return void
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function delete() {
@@ -145,7 +145,7 @@ abstract class Form {
      * @access public
      * @return void
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function check() {
@@ -158,7 +158,7 @@ abstract class Form {
      * @access public
      * @return boolean
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function valid() {
@@ -170,7 +170,7 @@ abstract class Form {
      * @access public
      * @return boolean
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function sent() {
@@ -182,7 +182,7 @@ abstract class Form {
      * @access public
      * @return string[]
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function errors() {
@@ -193,7 +193,7 @@ abstract class Form {
      * destructor
      * @access public
      * @since 3.0
-     * @package Gcs\Framework\Core\Request
+     * @package Gcs\Framework\Core\Http\Request
      */
 
     public function __destruct() {

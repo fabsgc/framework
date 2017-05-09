@@ -11,7 +11,7 @@
 namespace Gcs\Framework\Core\Form\Validation\Element;
 
 use Gcs\Framework\Core\Lang\Lang;
-use Gcs\Framework\Core\Request\Data;
+use Gcs\Framework\Core\Http\Request\Data;
 
 /**
  * Class File

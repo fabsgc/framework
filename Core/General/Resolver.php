@@ -12,7 +12,7 @@ namespace Gcs\Framework\Core\General;
 
 use Gcs\Framework\Core\Config\Config;
 use Gcs\Framework\Core\Exception\MissingConfigException;
-use Gcs\Framework\Core\Request\Request;
+use Gcs\Framework\Core\Http\Request\Request;
 
 trait Resolver {
 

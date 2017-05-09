@@ -13,7 +13,7 @@ namespace Gcs\Framework\Core\Lang;
 use Gcs\Framework\Core\General\Errors;
 use Gcs\Framework\Core\General\Resolver;
 use Gcs\Framework\Core\General\Singleton;
-use Gcs\Framework\Core\Request\Request;
+use Gcs\Framework\Core\Http\Request\Request;
 use Gcs\Framework\Core\Template\Template;
 
 /**

@@ -11,7 +11,7 @@
 namespace Gcs\Framework\Core\Controller\Injector;
 
 use Gcs\Framework\Core\General\Singleton;
-use Gcs\Framework\Core\Request\Request;
+use Gcs\Framework\Core\Http\Request\Request;
 
 /**
  * Class Orm

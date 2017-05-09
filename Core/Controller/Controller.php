@@ -20,7 +20,7 @@ use Gcs\Framework\Core\General\OrmFunctions;
 use Gcs\Framework\Core\General\Resolver;
 use Gcs\Framework\Core\Lang\Langs;
 use Gcs\Framework\Core\Orm\Entity\Entity;
-use Gcs\Framework\Core\Request\Request;
+use Gcs\Framework\Core\Http\Request\Request;
 use Gcs\Framework\Core\Security\Firewall;
 use Gcs\Framework\Core\Security\Spam;
 use Gcs\Framework\Core\Template\Template;
