@@ -25,7 +25,31 @@ class Injector {
      * @var array
      */
 
-    private $_alias = ['Gcs\Framework\Core\Sql\Sql' => 'Sql', 'Gcs\Framework\Core\Security\Spam' => 'Spam', 'Gcs\Framework\Core\Cron\Cron' => 'Cron', 'Gcs\Framework\Core\Asset\Asset' => 'Asset', 'Gcs\Framework\Core\Cache\Cache' => 'Cache', 'Gcs\Framework\Core\Facade\FacadeHelper' => 'Helper', 'Gcs\Framework\Core\Facade\FacadeEntity' => 'Entity', 'Gcs\Framework\Core\Library\Library' => 'Library', 'Gcs\Framework\Core\Security\Firewall' => 'Firewall', 'Gcs\Framework\Core\Template\Template' => 'Template', 'Gcs\Framework\Core\Terminal\Terminal' => 'Terminal', 'Gcs\Framework\Core\Collection\Collection' => 'Collection', 'Gcs\Framework\Core\Request\Data' => 'RequestData', 'Gcs\Framework\Core\Orm\Entity\Multiple' => 'EntityMultiple', 'Gcs\Framework\Core\Template\Parser' => 'TemplateParser', 'Gcs\Framework\Core\Form\Validation\Validation' => 'FormValidation', 'Gcs\Framework\Core\Lang\Lang' => 'Lang', 'Gcs\Framework\Core\Config\Config' => 'Config', 'Gcs\Framework\Core\Request\Request' => 'Request', 'Gcs\Framework\Core\Database\Database' => 'Database', 'Gcs\Framework\Core\Response\Response' => 'Response', 'Gcs\Framework\Core\Profiler\Profiler' => 'Profiler', 'Gcs\Framework\Core\Session\Session' => 'Session',];
+    private $_alias = [
+        'Gcs\Framework\Core\Sql\Sql'                    => 'Sql',
+        'Gcs\Framework\Core\Cron\Cron'                  => 'Cron',
+        'Gcs\Framework\Core\Lang\Lang'                  => 'Lang',
+        'Gcs\Framework\Core\Asset\Asset'                => 'Asset',
+        'Gcs\Framework\Core\Cache\Cache'                => 'Cache',
+        'Gcs\Framework\Core\Request\Data'               => 'RequestData',
+        'Gcs\Framework\Core\Config\Config'              => 'Config',
+        'Gcs\Framework\Core\Security\Spam'              => 'Spam',
+        'Gcs\Framework\Core\Session\Session'            => 'Session',
+        'Gcs\Framework\Core\Template\Parser'            => 'TemplateParser',
+        'Gcs\Framework\Core\Library\Library'            => 'Library',
+        'Gcs\Framework\Core\Request\Request'            => 'Request',
+        'Gcs\Framework\Core\Response\Response'          => 'Response',
+        'Gcs\Framework\Core\Database\Database'          => 'Database',
+        'Gcs\Framework\Core\Profiler\Profiler'          => 'Profiler',
+        'Gcs\Framework\Core\Security\Firewall'          => 'Firewall',
+        'Gcs\Framework\Core\Template\Template'          => 'Template',
+        'Gcs\Framework\Core\Terminal\Terminal'          => 'Terminal',
+        'Gcs\Framework\Core\Orm\Entity\Multiple'        => 'EntityMultiple',
+        'Gcs\Framework\Core\Facade\FacadeHelper'        => 'Helper',
+        'Gcs\Framework\Core\Facade\FacadeEntity'        => 'Entity',
+        'Gcs\Framework\Core\Collection\Collection'      => 'Collection',
+        'Gcs\Framework\Core\Form\Validation\Validation' => 'FormValidation',
+    ];
 
     /**
      * Constructor
