@@ -3,7 +3,7 @@
 
 * Open-Source
 * Version : 3.1 Bêta
-* Author : Fabien Beaujean
+* Author : Fabsgc
 * Contributors : Lucas5190, t1307
 * Description : GCsystem framework core
 
